@@ -1,4 +1,5 @@
-# BUXA-AI 1.0
+# BUXA OS V1.0
+
 BUXA Operating System
 # BUXA Operating System (BOS)
 
