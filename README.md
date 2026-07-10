@@ -1,6 +1,6 @@
 # BUXA-AI 1.0
-BUXA AI Operating System
-# BUXA AI Operating System (BAOS)
+BUXA Operating System
+# BUXA Operating System (BOS)
 
 > The official AI knowledge base for the BUXA brand.
 >
