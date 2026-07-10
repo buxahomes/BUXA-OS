@@ -1,3 +1,5 @@
+BOS is the Single Source of Truth for the BUXA organisation.
+
 # BUXA Operating System (BOS)
 
 > **The Digital Brain Behind the BUXA Brand**
