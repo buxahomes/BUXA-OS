@@ -11,7 +11,7 @@ BUXA Operating System
 
 # Vision
 
-BUXA AI Operating System (BAOS) is the central knowledge base that powers every AI workflow across the BUXA ecosystem.
+BUXA Operating System (BOS) is the central knowledge base that powers every AI workflow across the BUXA ecosystem.
 
 It ensures that every piece of content, every webpage, every advertisement, every product description, and every design decision follows the same brand philosophy, language, and standards.
 
