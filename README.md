@@ -1,4 +1,4 @@
-# BUXA-AI
+# BUXA-AI 1.0
 BUXA AI Operating System
 # BUXA AI Operating System (BAOS)
 
