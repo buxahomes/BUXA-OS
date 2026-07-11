@@ -97,6 +97,24 @@ Designed to remain timeless rather than trend-driven, Alpine Mist provides a cal
 
 # 4. Design Profile
 
+## Design Character
+
+- Bright
+- Clean
+- Refined
+- Calm
+- Contemporary
+
+---
+
+## Design Inspiration
+
+- Scandinavian Living
+- Minimal Architecture
+- Natural Daylight
+
+---
+
 ## Primary Interior Styles
 
 - Scandinavian
@@ -109,17 +127,6 @@ Designed to remain timeless rather than trend-driven, Alpine Mist provides a cal
 
 - Contemporary Oak
 - Organic Modern
-
----
-
-## Design Keywords
-
-- Bright
-- Calm
-- Clean
-- Refined
-- Natural
-- Timeless
 
 ---
 
