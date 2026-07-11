@@ -96,6 +96,24 @@ Its warm character works equally well in modern architectural spaces and classic
 
 # 4. Design Profile
 
+## Design Character
+
+- Warm
+- Elegant
+- Rich
+- Sophisticated
+- Timeless
+
+---
+
+## Design Inspiration
+
+- Luxury Residences
+- Architectural Interiors
+- Natural Stone Palette
+
+---
+
 ## Primary Interior Styles
 
 - Architectural Luxury
@@ -108,17 +126,6 @@ Its warm character works equally well in modern architectural spaces and classic
 
 - Australian Retreat
 - Modern Farmhouse
-
----
-
-## Design Keywords
-
-- Warm
-- Elegant
-- Rich
-- Sophisticated
-- Natural
-- Timeless
 
 ---
 
