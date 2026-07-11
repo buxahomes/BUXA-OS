@@ -138,11 +138,13 @@ Future Values
 Approved Values
 
 - Matte
+- Wax oiled
 
 Future Values
 
 - Ultra Matte
 - Natural Oil
+- Lacquer
 
 ---
 
@@ -176,6 +178,7 @@ Approved Values
 - Minimal Knots
 - Natural Knots
 - Natural Knots with Black Filler
+- Natural Knots with Wooden Filer
 
 ---
 
