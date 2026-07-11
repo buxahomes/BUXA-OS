@@ -45,6 +45,8 @@ Official Product Name:
 
 Display Name:
 
+Product Family:
+
 Category:
 
 Collection:
