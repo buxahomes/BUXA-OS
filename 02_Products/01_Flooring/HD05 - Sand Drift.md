@@ -96,6 +96,26 @@ Its understated character makes it a timeless flooring choice for both contempor
 
 # 4. Design Profile
 
+# 4. Design Profile
+
+## Design Character
+
+- Relaxed
+- Bright
+- Natural
+- Soft
+- Timeless
+
+---
+
+## Design Inspiration
+
+- Coastal Living
+- Australian Beach Houses
+- Natural Sand Dunes
+
+---
+
 ## Primary Interior Styles
 
 - Modern Coastal
@@ -108,7 +128,6 @@ Its understated character makes it a timeless flooring choice for both contempor
 
 - Organic Modern
 - Contemporary Oak
-
 ---
 
 ## Design Keywords
