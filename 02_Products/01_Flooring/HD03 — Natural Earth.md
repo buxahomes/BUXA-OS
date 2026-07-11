@@ -96,6 +96,24 @@ Its timeless appearance makes it suitable for homes designed to age gracefully o
 
 # 4. Design Profile
 
+## Design Character
+
+- Warm
+- Authentic
+- Grounded
+- Relaxed
+- Timeless
+
+---
+
+## Design Inspiration
+
+- Australian Landscape
+- Nature-Inspired Living
+- Organic Interiors
+
+---
+
 ## Primary Interior Styles
 
 - Contemporary Oak
@@ -108,18 +126,6 @@ Its timeless appearance makes it suitable for homes designed to age gracefully o
 
 - Modern Farmhouse
 - Modern Coastal
-
----
-
-## Design Keywords
-
-- Warm
-- Natural
-- Balanced
-- Authentic
-- Relaxed
-- Timeless
-
 ---
 
 # 5. Visual Characteristics
