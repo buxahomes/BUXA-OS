@@ -96,36 +96,38 @@ Its timeless appearance makes it suitable for homes designed to age gracefully o
 
 # 4. Design Profile
 
+# 4. Design Profile
+
 ## Design Character
 
 - Warm
-- Authentic
-- Grounded
-- Relaxed
+- Elegant
+- Rich
+- Sophisticated
 - Timeless
 
 ---
 
 ## Design Inspiration
 
-- Australian Landscape
-- Nature-Inspired Living
-- Organic Interiors
+- Luxury Residences
+- Architectural Interiors
+- Natural Stone Palette
 
 ---
 
 ## Primary Interior Styles
 
+- Architectural Luxury
 - Contemporary Oak
 - Organic Modern
-- Australian Retreat
 
 ---
 
 ## Secondary Interior Styles
 
+- Australian Retreat
 - Modern Farmhouse
-- Modern Coastal
 ---
 
 # 5. Visual Characteristics
