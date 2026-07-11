@@ -117,6 +117,12 @@ Its balanced warm undertone, natural European oak grain and refined hand-brushed
 
 Pure Mist is one of the most versatile colours within the BUXA collection, making it suitable for a wide range of architectural styles from Modern Coastal to Scandinavian interiors.
 
+
+
+## Product Design Statement
+
+Light that feels timeless.
+
 ---
 
 # 3. Product Story
