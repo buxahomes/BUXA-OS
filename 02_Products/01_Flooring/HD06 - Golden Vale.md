@@ -82,6 +82,10 @@ Its balanced colour, authentic oak grain and refined hand-brushed matte finish c
 
 Golden Vale is designed for homeowners and designers seeking a timeless timber floor with warmth, character and everyday versatility.
 
+## Product Design Statement
+
+Warm natural light captured in European Oak.
+
 ---
 
 # 3. Product Story
