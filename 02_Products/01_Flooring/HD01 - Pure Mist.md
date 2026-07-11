@@ -131,30 +131,19 @@ Its subtle variation in grain and texture allows furniture, lighting and archite
 
 # 4. Design Profile
 
-## Primary Interior Styles
+Design Character:
 
-- Modern Coastal
-- Scandinavian
-- Contemporary Oak
+Bright
+Calm
+Natural
+Timeless
+Versatile
 
----
+Design Inspiration:
 
-## Secondary Interior Styles
-
-- Organic Modern
-- Minimalist
-- Australian Retreat
-
----
-
-## Design Keywords
-
-- Bright
-- Calm
-- Timeless
-- Natural
-- Warm
-- Relaxed
+Coastal Living
+Contemporary Family Home
+Open Living Space
 
 ---
 
