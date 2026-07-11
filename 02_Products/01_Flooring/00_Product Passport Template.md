@@ -120,17 +120,39 @@ Include:
 
 # 4. Design Profile
 
-Describe the overall design language.
+## Design Character
 
-Examples:
+- Warm
+- Elegant
+- Quiet
+- Refined
+- Timeless
+- Relaxed
 
-- Modern Coastal
-- Scandinavian
+---
+
+## Design Inspiration
+
+- Boutique Hospitality
+- Luxury Residence
+- Contemporary Living
+- Organic Modern
+
+---
+
+## Primary Interior Styles
+
 - Organic Modern
 - Contemporary Oak
 - Architectural Luxury
 
-Multiple design styles may apply.
+---
+
+## Secondary Interior Styles
+
+- Scandinavian
+- Australian Retreat
+
 
 ---
 
@@ -212,11 +234,11 @@ Identify suitable project types.
 Examples:
 
 - Luxury Homes
-- Coastal Homes
+- Family Homes
 - Apartments
 - Display Homes
-- Renovations
-- Designer Projects
+- Designer Residences
+- Boutique Hospitality
 
 ---
 
