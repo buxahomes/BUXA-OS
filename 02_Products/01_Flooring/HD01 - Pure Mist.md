@@ -129,21 +129,21 @@ Its subtle variation in grain and texture allows furniture, lighting and archite
 
 ---
 
-# 4. Design Profile
+# 4. Design Profile 
 
-Design Character:
+Dsign Character:
 
-Bright
-Calm
-Natural
-Timeless
-Versatile
+-Bright
+-Calm
+-Natural
+-Timeless
+-Versatile
 
 Design Inspiration:
 
-Coastal Living
-Contemporary Family Home
-Open Living Space
+-Coastal Living
+-Contemporary Family Home
+-Open Living Space
 
 ---
 
