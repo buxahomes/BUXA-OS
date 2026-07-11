@@ -82,6 +82,7 @@ Its clean appearance, subtle grain movement and soft neutral tone create an eleg
 
 Alpine Mist is ideal for projects seeking a fresh, open and timeless interior atmosphere.
 
+
 ---
 
 # 3. Product Story
@@ -119,6 +120,14 @@ Designed to remain timeless rather than trend-driven, Alpine Mist provides a cal
 - Refined
 - Natural
 - Timeless
+
+---
+
+HD02 – Alpine Mist is positioned as one of the light contemporary flooring options within the BUXA HD Collection.
+
+Compared with Pure Mist, Alpine Mist delivers a cleaner and brighter visual character while maintaining the warmth of natural European Oak.
+
+It is recommended for projects prioritising Scandinavian, minimalist and contemporary interior styles.
 
 ---
 
