@@ -82,19 +82,14 @@ Approval Status:
 
 ---
 
+
 # 1. Product Identity
 
-Define the official identity of the product.
+This section references the Metadata Header.
 
-Include:
+No duplicated information should be maintained.
 
-- Product Code
-- Official Product Name
-- Category
-- Collection
-- Product Status
-
-This information must always match the Metadata Header.
+Only additional product identity information should be recorded here when required.
 
 ---
 
@@ -163,6 +158,7 @@ This section should enable AI to accurately understand the product visually.
 
 # 6. Technical Specifications
 
+
 Record all approved technical specifications.
 
 Include:
@@ -178,6 +174,11 @@ Include:
 - Installation Method
 - Underfloor Heating Compatibility
 - Warranty
+
+Whenever possible, technical specifications should reference Product Data Standards.
+
+Avoid introducing product-specific terminology unless officially approved.
+
 
 ---
 
@@ -196,6 +197,11 @@ Future Markets
 Only specification differences should be recorded.
 
 The product identity always remains the same.
+
+
+Regional Specifications record only approved technical differences.
+
+Marketing strategy, sales model and communication should not be documented here.
 
 ---
 
@@ -251,11 +257,20 @@ Recommended categories:
 
 Images should follow the official image naming convention.
 
+Every image should have:
+
+- Image ID
+- File Name
+- Resolution
+- Usage
+- Approval Status
+
 ---
 
 # 11. Marketing Reference
 
 Define approved marketing language.
+Approved Brand Messages
 
 Include:
 
@@ -286,6 +301,8 @@ Include:
 
 Provide structured information specifically for AI systems.
 
+Prompt Keywords
+
 Include:
 
 - Recommended Product Description
@@ -310,6 +327,10 @@ Include:
 - Preventive Care
 - Repair Recommendations
 - Long-term Maintenance
+  
+Refer to the official Care & Maintenance Guide.
+
+Do not duplicate maintenance instructions.
 
 ---
 
@@ -335,6 +356,10 @@ Updated
 
 Discontinued
 
+↓
+
+Retired
+
 ---
 
 # 16. Revision History
@@ -358,6 +383,12 @@ Every Product Passport must have:
 - One AI Reference
 
 No public-facing content should be created before the Product Passport is completed.
+
+Every update to a Product Passport must maintain consistency with:
+
+- Product Catalog
+- Product Data Standards
+- Naming Convention
 
 ---
 
