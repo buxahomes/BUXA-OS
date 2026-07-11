@@ -81,7 +81,7 @@ Approval Status:
 ```
 
 ---
-## Signature Statement Standard
+# Signature Statement Standard
 
 Every Product Passport must include one Signature Statement immediately following the Product Overview.
 
@@ -89,7 +89,7 @@ The Signature Statement represents the permanent design identity of the product.
 
 It is not a marketing slogan, advertising headline or campaign message. Instead, it captures the product's design essence in one concise and memorable sentence.
 
-### Requirements
+## Requirements
 
 - Maximum 8 words
 - Design-oriented, not marketing-oriented
@@ -98,13 +98,13 @@ It is not a marketing slogan, advertising headline or campaign message. Instead,
 - No promotional claims
 - Unique to each product
 
-### Placement
+## Placement
 
 The Signature Statement must appear immediately after **Product Overview** and before **Product Story**.
 
 Example:
 
-## Signature Statement
+# Signature Statement
 
 Light that feels timeless.
 
@@ -129,6 +129,14 @@ Recommended length:
 80–150 words.
 
 This serves as the master product description.
+
+---
+
+## Signature Statement
+
+Provide one permanent design statement for the product.
+
+The Signature Statement should follow the Signature Statement Standard defined in this template.
 
 ---
 
