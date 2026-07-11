@@ -82,6 +82,11 @@ Its balanced brown tone, visible oak grain and refined hand-brushed finish creat
 
 Natural Earth is designed for projects that value warmth, authenticity and enduring natural character.
 
+
+## Product Design Statement
+
+Authentic warmth for everyday living.
+
 ---
 
 # 3. Product Story
