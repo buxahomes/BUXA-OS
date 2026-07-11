@@ -82,6 +82,10 @@ Its light sandy beige tone, authentic European oak grain and refined hand-brushe
 
 Sand Drift is particularly suited to contemporary coastal homes, designer residences and modern interiors seeking warmth without excessive colour contrast.
 
+## Product Design Statement
+
+Relaxed coastal living, naturally expressed.
+
 ---
 
 # 3. Product Story
