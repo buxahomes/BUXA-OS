@@ -82,6 +82,11 @@ Its balanced colour depth, refined hand-brushed texture and authentic oak grain 
 
 Amber Haven is designed for homes seeking warmth, elegance and a stronger visual presence without overwhelming the overall interior design.
 
+
+## Product Design Statement
+
+Rich warmth with architectural elegance.
+
 ---
 
 # 3. Product Story
