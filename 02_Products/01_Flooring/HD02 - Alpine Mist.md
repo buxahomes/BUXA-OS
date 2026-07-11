@@ -66,51 +66,17 @@ Approval Status: Approved
 
 # 1. Product Identity
 
-## Product Code
+The Metadata Header defines the official identity of this product.
 
-HD02
+All systems, including the Product Catalog, Website, Shopify, AI, Marketing and Sales documentation, must reference the Metadata Header.
 
----
-
-## Official Product Name
-
-Alpine Mist
-
----
-
-## Display Name
-
-HD02 - Alpine Mist
-
----
-
-## Category
-
-Engineered Timber Flooring
-
----
-
-## Product Family
-
-HD Flooring Collection
-
----
-
-## Collection
-
-Core Collection
-
----
-
-## Product Status
-
-Active
+No duplicated product identity information should be maintained elsewhere in this document.
 
 ---
 
 # 2. Product Overview
 
-HD02 – Alpine Mist is a refined light European Oak flooring designed for bright, contemporary interiors.
+Alpine Mist is a refined light European Oak engineered timber flooring designed for bright, contemporary interiors.
 
 Its clean appearance, subtle grain movement and soft neutral tone create an elegant foundation that complements minimalist architecture while maintaining the warmth of natural timber.
 
@@ -123,6 +89,8 @@ Alpine Mist is ideal for projects seeking a fresh, open and timeless interior at
 Inspired by the quiet beauty of alpine landscapes, Alpine Mist captures the feeling of soft morning light across natural timber.
 
 The colour was developed to create bright interiors without appearing cold, allowing designers to achieve a clean architectural aesthetic while preserving the natural character of European Oak.
+
+Designed to remain timeless rather than trend-driven, Alpine Mist provides a calm foundation that complements both contemporary architecture and relaxed living environments.
 
 ---
 
@@ -146,11 +114,11 @@ The colour was developed to create bright interiors without appearing cold, allo
 ## Design Keywords
 
 - Bright
-- Clean
 - Calm
+- Clean
 - Refined
-- Contemporary
 - Natural
+- Timeless
 
 ---
 
@@ -192,9 +160,9 @@ Natural Knots with Black Filler
 
 ---
 
-## Visual Character
+## Overall Appearance
 
-A clean, light European Oak floor with subtle grain variation and a balanced natural appearance designed for modern architectural interiors.
+A refined light European Oak floor featuring soft grain movement, balanced colour variation and a subtle hand-brushed texture, creating bright, timeless and naturally elegant interiors.
 
 ---
 
@@ -220,7 +188,7 @@ Ply Eucalyptus Core
 
 ## Surface Layer
 
-3 mm European Oak
+European Oak Veneer
 
 ---
 
@@ -248,12 +216,6 @@ Full Glue Down
 
 ---
 
-## Surface Finish
-
-Matte
-
----
-
 ## Underfloor Heating
 
 Compatible
@@ -262,7 +224,7 @@ Compatible
 
 ## Warranty
 
-Refer to the official Warranty document.
+Refer to the official Warranty documentation.
 
 ---
 
@@ -278,13 +240,13 @@ Official website specification.
 
 Current marketing follows the same product identity.
 
-Final showroom specification may differ according to future regional planning.
+Regional product specifications may evolve according to future showroom planning while maintaining the same official product identity.
 
 ---
 
 # 8. Recommended Applications
 
-Ideal for:
+Recommended for:
 
 - Luxury Homes
 - Contemporary Residences
@@ -309,8 +271,8 @@ Ideal for:
 
 - Crisp White
 - Soft White
-- Light Grey
-- Warm Greige
+- Light Greige
+- Warm Linen
 
 ---
 
@@ -325,10 +287,10 @@ Ideal for:
 
 ## Stone Pairings
 
-- White Marble
-- Limestone
-- Light Quartz
 - Travertine
+- Limestone
+- White Quartz
+- Light Marble
 
 ---
 
@@ -344,12 +306,15 @@ Approved image categories:
 
 - Hero Image
 - Lifestyle Scene
+- Room Scene
 - Close-up
 - Texture Detail
 - Installation
 - Sample Board
-- Video Thumbnail
 - Social Media
+- Video Cover
+
+Every approved image should maintain consistent naming according to the official Image Naming Standard.
 
 ---
 
@@ -362,6 +327,14 @@ Approved image categories:
 - Hand Brushed Finish
 - Matte Surface
 - Designed for Australian Homes
+
+---
+
+## Approved Brand Messages
+
+- Factory Direct
+- Designed for Australian Homes
+- Cut Out the Middleman
 
 ---
 
@@ -379,11 +352,22 @@ A refined European Oak floor designed to bring brightness, simplicity and timele
 
 ---
 
-## Avoid
+## Preferred Vocabulary
 
-Do not describe the product as overly white or artificial.
+- Natural
+- Timeless
+- European Oak
+- Refined
+- Contemporary
 
-Emphasise natural oak character and long-term versatility.
+---
+
+## Avoided Vocabulary
+
+- Cheap
+- Luxury Flooring
+- Best Price
+- Trendy
 
 ---
 
@@ -405,9 +389,15 @@ Emphasise natural oak character and long-term versatility.
 
 ---
 
+## Meta Description
+
+Premium European Oak engineered timber flooring with a refined hand-brushed matte finish, designed for contemporary Australian homes.
+
+---
+
 ## Search Intent
 
-Homeowners and designers seeking light European Oak flooring for contemporary residential interiors.
+Homeowners and designers researching premium light European Oak flooring for residential projects.
 
 ---
 
@@ -419,6 +409,17 @@ Homeowners and designers seeking light European Oak flooring for contemporary re
 - Premium
 - Educational
 - Calm
+
+---
+
+## Prompt Keywords
+
+- European Oak
+- Light Oak
+- Scandinavian
+- Modern Coastal
+- Bright Interior
+- Natural Timber
 
 ---
 
@@ -437,11 +438,17 @@ Objective, informative and design-focused.
 
 ---
 
+## Matching Accessories
+
+Refer to the official Skirting & Trim library.
+
+---
+
 ## Content Restrictions
 
 Avoid exaggerated colour descriptions.
 
-Always present the flooring as natural European Oak.
+Always present the flooring as genuine European Oak engineered timber flooring.
 
 ---
 
@@ -467,6 +474,14 @@ Released
 
 Active
 
+↓
+
+Discontinued
+
+↓
+
+Retired
+
 ---
 
 # 16. Revision History
@@ -485,6 +500,7 @@ Active
 - Product Data Standards
 - Product Catalog
 - Naming Convention
+- Brand Positioning
 - Brand Communication Standards
 - Glossary
 
