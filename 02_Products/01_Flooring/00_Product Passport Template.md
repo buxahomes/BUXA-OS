@@ -14,11 +14,11 @@ Template Type: Product Passport
 
 # Purpose
 
-This template defines the standard documentation structure for every flooring product within the BUXA ecosystem.
+This template defines the official documentation standard for every flooring product within the BUXA ecosystem.
 
 Each flooring product must have one official Product Passport.
 
-The Product Passport is the single source of truth for all product-related information across:
+The Product Passport serves as the single source of truth for all product-related information across:
 
 - Website
 - Product Catalogue
@@ -34,63 +34,73 @@ Every flooring product must follow this structure.
 
 ---
 
+# Metadata Header
+
+Every Product Passport begins with the following metadata.
+
+```yaml
+Product Code:
+
+Official Product Name:
+
+Category:
+
+Collection:
+
+Status:
+
+Primary Markets:
+
+Primary Species:
+
+Primary Design Styles:
+
+Primary Colour Tone:
+
+Surface Finish:
+
+Texture:
+
+Core Construction:
+
+Product Version:
+
+Created:
+
+Last Updated:
+
+Document Owner:
+
+Approval Status:
+```
+
+---
+
 # 1. Product Identity
 
-## Product Code
+Define the official identity of the product.
 
-HDXX
+Include:
 
----
+- Product Code
+- Official Product Name
+- Category
+- Collection
+- Product Status
 
-## Official Product Name
-
-Example:
-
-Morning Vale Oak
-
----
-
-## Product Category
-
-Engineered Timber Flooring
-
----
-
-## Product Status
-
-Planning
-
-Development
-
-Active
-
-Discontinued
-
-Archived
-
----
-
-## Collection
-
-Example
-
-Classic Collection
-
-Designer Collection
-
-Future Collection
+This information must always match the Metadata Header.
 
 ---
 
 # 2. Product Overview
 
-Provide a concise overview of the product.
+Provide a concise product overview.
 
 Recommended length:
 
 80–150 words.
 
-This section serves as the master product description.
+This serves as the master product description.
 
 ---
 
@@ -109,69 +119,39 @@ Include:
 
 # 4. Design Profile
 
-Define the design language.
+Describe the overall design language.
 
 Examples:
 
 - Modern Coastal
 - Scandinavian
 - Organic Modern
-- Architectural Luxury
 - Contemporary Oak
+- Architectural Luxury
 
-Multiple styles may apply.
+Multiple design styles may apply.
 
 ---
 
 # 5. Visual Characteristics
 
-Describe the product visually.
+Describe the visual appearance.
 
 Include:
 
 ## Colour Tone
 
-Example:
-
-Light Warm
-
----
-
 ## Grain Pattern
-
-Example:
-
-Natural European Oak
-
----
 
 ## Surface Texture
 
-Example:
-
-Hand Brushed
-
----
-
-## Finish
-
-Example:
-
-Matte
-
----
+## Surface Finish
 
 ## Knot Characteristics
 
-Example:
-
-Natural knots with black filler
-
----
-
 ## Overall Appearance
 
-Provide a short visual summary.
+This section should enable AI to accurately understand the product visually.
 
 ---
 
@@ -179,7 +159,7 @@ Provide a short visual summary.
 
 Record all approved technical specifications.
 
-Examples include:
+Include:
 
 - Dimensions
 - Thickness
@@ -190,16 +170,16 @@ Examples include:
 - Edge Profile
 - Joint System
 - Installation Method
-- Compatible Underfloor Heating
+- Underfloor Heating Compatibility
 - Warranty
 
 ---
 
 # 7. Regional Specifications
 
-Record approved regional specification differences.
+Record approved specification differences between regions.
 
-Example
+Examples:
 
 Australia
 
@@ -207,9 +187,9 @@ China
 
 Future Markets
 
-Only genuine specification differences should be recorded.
+Only specification differences should be recorded.
 
-Do not create duplicate product identities.
+The product identity always remains the same.
 
 ---
 
@@ -230,31 +210,21 @@ Examples:
 
 # 9. Design Compatibility
 
-Recommend matching design elements.
+Recommend suitable combinations.
 
-Examples:
+Include:
 
-Interior Styles
-
-Wall Colours
-
-Cabinet Colours
-
-Kitchen Styles
-
-Stone Materials
-
-Furniture Styles
-
-Lighting
-
-Curtains
-
-Skirting Boards
-
-Trim
-
-Stair Systems
+- Interior Styles
+- Wall Colours
+- Cabinet Colours
+- Kitchen Styles
+- Stone Materials
+- Furniture Styles
+- Lighting
+- Curtains
+- Skirting Boards
+- Trim
+- Stair Systems
 
 ---
 
@@ -264,23 +234,16 @@ Maintain approved product images.
 
 Recommended categories:
 
-Lifestyle
+- Lifestyle
+- Close-up
+- Texture
+- Room Scene
+- Installation
+- Sample
+- Detail
+- Video Cover
 
-Close-up
-
-Texture
-
-Room Scene
-
-Installation
-
-Sample
-
-Detail
-
-Video Cover
-
-Every image should follow the official image naming convention.
+Images should follow the official image naming convention.
 
 ---
 
@@ -290,17 +253,12 @@ Define approved marketing language.
 
 Include:
 
-Core Selling Points
-
-Key Messages
-
-Product Highlights
-
-Approved Call To Action
-
-Preferred Vocabulary
-
-Avoided Vocabulary
+- Core Selling Points
+- Key Messages
+- Product Highlights
+- Approved Calls to Action
+- Preferred Vocabulary
+- Avoided Vocabulary
 
 ---
 
@@ -310,39 +268,28 @@ Define search optimisation.
 
 Include:
 
-Primary Keywords
-
-Secondary Keywords
-
-Meta Description
-
-Search Intent
-
-Related Keywords
+- Primary Keywords
+- Secondary Keywords
+- Meta Description
+- Search Intent
+- Related Keywords
 
 ---
 
 # 13. AI Knowledge
 
-Provide structured information for AI.
+Provide structured information specifically for AI systems.
 
 Include:
 
-Recommended Product Description
-
-Recommended Tone
-
-Recommended Length
-
-Typical Customer Questions
-
-Recommended Answers
-
-Related Products
-
-Matching Accessories
-
-Content Restrictions
+- Recommended Product Description
+- Recommended Tone of Voice
+- Recommended Content Length
+- Typical Customer Questions
+- Recommended Answers
+- Related Products
+- Matching Accessories
+- Content Restrictions
 
 ---
 
@@ -350,23 +297,19 @@ Content Restrictions
 
 Provide maintenance guidance.
 
-Examples:
+Include:
 
-Daily Cleaning
-
-Recommended Products
-
-Preventive Care
-
-Repair Recommendations
-
-Long-term Maintenance
+- Daily Cleaning
+- Recommended Products
+- Preventive Care
+- Repair Recommendations
+- Long-term Maintenance
 
 ---
 
 # 15. Product Lifecycle
 
-Record lifecycle history.
+Record important lifecycle milestones.
 
 Planning
 
@@ -416,27 +359,35 @@ No public-facing content should be created before the Product Passport is comple
 
 ## Single Source of Truth
 
-The Product Passport is the only official product document.
+Every product has one official Product Passport.
 
 ---
 
 ## One Product One Passport
 
-Every product has one Product Passport.
+Each product has one dedicated Product Passport.
 
 ---
 
 ## Products Are Global
 
-A product identity remains consistent across all markets.
+A product identity is shared across all markets.
 
-Regional specification differences are recorded without creating duplicate products.
+Regional specification differences do not create new product identities.
+
+---
+
+## Sales Models Are Local
+
+Sales strategies may differ between markets.
+
+Product identity remains consistent.
 
 ---
 
 ## Content Before Marketing
 
-Marketing content is generated from the Product Passport.
+Marketing content is always generated from the Product Passport.
 
 Marketing should never become the source of product information.
 
@@ -447,7 +398,8 @@ Marketing should never become the source of product information.
 Products must be fully documented before:
 
 - Website publishing
-- Social media content
+- Product catalogue
+- Social media
 - Advertising
 - Sales materials
 - AI-generated content
