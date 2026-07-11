@@ -67,6 +67,8 @@ Texture:
 
 Core Construction:
 
+Launch Date:
+
 Product Version:
 
 Created:
