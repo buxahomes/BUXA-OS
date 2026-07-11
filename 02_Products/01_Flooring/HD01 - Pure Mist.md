@@ -131,20 +131,36 @@ Its subtle variation in grain and texture allows furniture, lighting and archite
 
 # 4. Design Profile 
 
-Dsign Character:
+## Design Character
 
--Bright
--Calm
--Natural
--Timeless
--Versatile
+- Bright
+- Calm
+- Natural
+- Timeless
+- Versatile
 
-Design Inspiration:
+---
 
--Coastal Living
--Contemporary Family Home
--Open Living Space
+## Design Inspiration
 
+- Coastal Living
+- Contemporary Residence
+- Open Living Spaces
+
+---
+
+## Primary Interior Styles
+
+- Modern Coastal
+- Scandinavian
+- Contemporary Oak
+
+---
+
+## Secondary Interior Styles
+
+- Organic Modern
+- Minimalist
 ---
 
 # 5. Visual Characteristics
