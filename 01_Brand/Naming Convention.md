@@ -16,23 +16,40 @@ This document defines the official naming standards across the entire BUXA ecosy
 
 Consistent naming improves:
 
-• Brand recognition
+- Brand consistency
+- Internal communication
+- Documentation
+- AI understanding
+- Searchability
+- Automation
+- Long-term scalability
 
-• Internal communication
+Every employee, AI system, website, marketing campaign, automation workflow, and future business initiative must follow these standards.
 
-• Documentation
+This document defines naming rules only.
 
-• AI accuracy
-
-• Searchability
-
-• Long-term scalability
-
-All employees, AI systems, automation workflows, websites and marketing materials must follow these standards.
+It does not define product catalogues, market configurations or technical specifications.
 
 ---
 
-# Brand Names
+# Naming Principles
+
+Every name should be:
+
+- Clear
+- Consistent
+- Scalable
+- Professional
+- Searchable
+- Easy for AI to understand
+
+Names should describe systems rather than temporary business conditions.
+
+Do not rename official assets without approval.
+
+---
+
+# Brand Naming
 
 ## Master Brand
 
@@ -44,9 +61,9 @@ Never
 
 Buxa
 
-BUXA®
-
 BUXA Brand
+
+BUXA Flooring Brand
 
 ---
 
@@ -55,6 +72,10 @@ BUXA Brand
 Official
 
 BUXA HOMES
+
+Purpose
+
+Official brand for the Australian market.
 
 Never
 
@@ -72,7 +93,7 @@ Official
 
 BUXA Flooring
 
-Purpose:
+Purpose
 
 Official product communication across social media.
 
@@ -92,15 +113,11 @@ Official
 
 BUXA PDMS™
 
-Always include the ™ symbol whenever technically possible.
-
 Full Name
 
 BUXA Project Delivery Management System™
 
-Short Name
-
-BUXA PDMS™
+Always include ™ whenever technically possible.
 
 Never
 
@@ -118,7 +135,7 @@ Official
 
 Joseph｜步暇 BUXA PDMS™
 
-Purpose:
+Purpose
 
 Founder Personal Brand
 
@@ -142,7 +159,11 @@ Recommended External Usage
 
 步暇 BUXA
 
-Never
+Purpose
+
+Official Chinese brand identity.
+
+Avoid
 
 BUXA 步暇
 
@@ -152,31 +173,129 @@ BUXA 步暇
 
 # Product Naming
 
-Flooring Products
+## Flooring Products
+
+Format
+
+HD + Sequential Number
+
+Examples
 
 HD01
 
-HD02
-
-HD03
-
-...
+HD08
 
 HD16
 
-Never
+HD17
 
-HD-01
+HD25
 
-HD 01
+Rules
 
-HD_01
+- HD is the official flooring product prefix.
+- Product numbers are sequential.
+- Existing product numbers must never be reused.
+- Retired numbers remain reserved.
+- No spaces, hyphens or underscores.
+
+Correct
+
+HD08
+
+Incorrect
+
+HD-08
+
+HD 08
+
+HD_08
 
 ---
 
-Sample Boxes
+## Market Codes
 
-Official
+Approved Codes
+
+AU = Australia
+
+CN = China
+
+Future market codes should follow ISO-style two-letter country codes whenever practical.
+
+Examples
+
+JP = Japan
+
+SG = Singapore
+
+US = United States
+
+Market codes are intended for internal documentation, filenames and automation.
+
+They should not become customer-facing product names.
+
+Correct Examples
+
+HD08_AU_Lifestyle_01.jpg
+
+HD08_CN_Lifestyle_01.jpg
+
+Incorrect Examples
+
+HD08 Australia
+
+HD08 China
+
+---
+
+## Market-Specific Products
+
+A market-specific product code may only be introduced when a product has no global equivalent.
+
+Recommended Format
+
+Market Code + Product Prefix + Sequential Number
+
+Examples
+
+CN-HD01
+
+AU-HD01
+
+This format should only be used when:
+
+- Product construction is fundamentally different.
+- Product colour or finish is exclusive.
+- Product lifecycle is independent.
+- Separate inventory is required.
+- Founder approval has been granted.
+
+Pricing, packaging, language, or warranty differences alone do not justify creating market-specific product codes.
+
+---
+
+## Accessories
+
+Accessories use dedicated category prefixes.
+
+Examples
+
+SKB01
+
+TR01
+
+Future accessory categories should introduce new approved prefixes.
+
+Product numbering follows the same sequential principles.
+
+---
+
+## Sample Collections
+
+Collections use descriptive names instead of sequential codes.
+
+Examples
 
 Coastal Light
 
@@ -186,29 +305,12 @@ Designer Selection
 
 Architectural Depth
 
-Never rename official sample collections.
+Rules
 
----
-
-Accessories
-
-SKB01
-
-SKB02
-
-SKB03
-
-TR01
-
-TR02
-
-TR03
-
-Never
-
-Skirting 01
-
-Trim 01
+- Collection names are approved names.
+- Product combinations inside a collection may change.
+- Collection names should remain stable.
+- Retired collection names are not reused.
 
 ---
 
@@ -218,15 +320,7 @@ Official Website
 
 buxahomes.com
 
-Never
-
-BUXA Flooring Website
-
-BUXA Official Website
-
----
-
-Page Names
+Official Page Titles
 
 Home
 
@@ -248,21 +342,25 @@ FAQs
 
 Contact
 
-Always use the official page titles.
+Always use official page names.
 
 ---
 
-# Social Media Accounts
+# Social Media Naming
 
-Founder
+Founder Brand
 
 Joseph｜步暇 BUXA PDMS™
 
-Product Brand
+Official Product Brand
 
 步暇 BUXA Flooring
 
 Facebook
+
+BUXA HOMES
+
+Instagram
 
 BUXA HOMES
 
@@ -280,7 +378,7 @@ Future platforms should follow the same naming hierarchy unless officially appro
 
 # File Naming
 
-Use:
+Use
 
 Title Case
 
@@ -294,6 +392,8 @@ Brand Architecture.md
 
 Mission Vision Values.md
 
+Naming Convention.md
+
 Never
 
 brand_positioning.md
@@ -306,7 +406,7 @@ brandpositioning.md
 
 # Folder Naming
 
-Use:
+Use
 
 Number Prefix
 
@@ -320,23 +420,27 @@ Examples
 
 03_PDMS
 
+04_Website
+
+05_Social
+
 11_AI
 
-Never rename existing top-level folders without approval.
+Do not rename top-level folders without approval.
 
 ---
 
 # Image Naming
 
-Use
+Format
 
-Category_Product_Description
+ProductCode_Market_Description_Number
 
 Examples
 
-HD08_Lifestyle_01.jpg
+HD08_AU_Lifestyle_01.jpg
 
-HD08_Closeup_01.jpg
+HD08_CN_Closeup_01.jpg
 
 HD08_Texture_01.jpg
 
@@ -346,7 +450,7 @@ SKB03_Product_01.jpg
 
 # Prompt Naming
 
-Use
+Format
 
 Action + Object
 
@@ -354,7 +458,7 @@ Examples
 
 Generate Product Page.md
 
-Generate Xiaohongshu.md
+Generate Xiaohongshu Post.md
 
 Generate Facebook Post.md
 
@@ -362,11 +466,9 @@ Generate Hero Banner.md
 
 ---
 
-# AI Agent Naming
+# AI Naming
 
-Use
-
-Role + AI
+AI systems should be named by responsibility.
 
 Examples
 
@@ -380,7 +482,7 @@ Product AI
 
 Marketing AI
 
-Never
+Avoid
 
 Bot1
 
@@ -392,13 +494,13 @@ GPT Agent
 
 # Version Naming
 
-Major Releases
+Major Release
 
 v1.0
 
 v2.0
 
-Minor Releases
+Minor Release
 
 v1.1
 
@@ -412,68 +514,44 @@ v1.0.2
 
 ---
 
-# Naming Principles
-
-Names should be:
-
-Clear
-
-Consistent
-
-Scalable
-
-Professional
-
-Easy to search
-
-Easy for AI to understand
-
----
-
 # Governance
-
-Owner
-
-Founder
-
-Approval Required
-
-Yes
-
-Review Cycle
-
-Every 12 Months
 
 Status
 
 Approved
 
+Owner
+
+Founder
+
+Review Cycle
+
+Every 12 Months
+
+Approval Required
+
+Yes
+
 ---
 
 # Related Documents
 
-Depends On
+## Depends On
 
-README.md
+- README.md
+- Brand Positioning.md
+- Brand Architecture.md
+- Mission Vision Values.md
+- Brand Communication Standards.md
 
-Brand Positioning.md
+## Supports
 
-Brand Architecture.md
-
-Mission Vision Values.md
-
-Brand Communication Standards.md
-
-Supports
-
-Products
-
-Website
-
-Social Media
-
-Marketing
-
-Automation
-
-AI
+- Product Catalog
+- Product Documentation
+- Market Profiles
+- Website
+- Social Media
+- Marketing
+- SEO
+- Automation
+- AI
