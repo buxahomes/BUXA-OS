@@ -43,6 +43,8 @@ Product Code:
 
 Official Product Name:
 
+Display Name:
+
 Category:
 
 Collection:
