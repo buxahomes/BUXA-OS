@@ -83,6 +83,10 @@ Its clean appearance, subtle grain movement and soft neutral tone create an eleg
 Alpine Mist is ideal for projects seeking a fresh, open and timeless interior atmosphere.
 
 
+## Product Design Statement
+
+Clean simplicity inspired by nature.
+
 ---
 
 # 3. Product Story
