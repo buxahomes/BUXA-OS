@@ -81,7 +81,18 @@ Approval Status:
 ```
 
 ---
+## Signature Statement Standard
 
+Every Product Passport includes one Signature Statement.
+
+Requirements:
+
+- Maximum 8 words
+- Design-oriented, not marketing-oriented
+- Describes the product's essence
+- Timeless language
+- No promotional claims
+- Unique to each product
 
 # 1. Product Identity
 
