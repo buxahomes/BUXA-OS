@@ -1,4 +1,4 @@
-# Inspection Record Structure
+# Inspection Record Data Model
 
 Version: 1.0
 
@@ -14,11 +14,11 @@ Document Type: Data Standard
 
 # Purpose
 
-This document defines the official data structure used for all Inspection Records within the BUXA PDMS™ Project Delivery Management System.
+This document defines the official data model for all Inspection Records within the BUXA PDMS™ Project Delivery Management System.
 
 Every inspection performed through BUXA PDMS™ shall generate one structured Inspection Record.
 
-Inspection Records form the foundation of project reporting, quality management, AI analysis and knowledge accumulation.
+Inspection Records form the foundation of project quality management, AI-assisted inspection, project reporting and continuous knowledge development.
 
 ---
 
@@ -28,19 +28,97 @@ One Inspection.
 
 One Record.
 
-Every inspection represents one verified project fact.
+Every inspection captures one verified project fact.
 
 Inspection Records capture facts.
 
-The system generates reports.
+The system structures information.
 
-Artificial Intelligence generates recommendations.
+Artificial Intelligence provides recommendations.
 
-The Flooring Project Engineer remains accountable for project decisions.
+The Flooring Project Engineer remains accountable for every inspection decision.
 
 ---
 
-# Record Lifecycle
+# Core Principles
+
+## Capture Reality
+
+The purpose of an inspection is to record the actual condition of the project.
+
+Inspection Records shall always represent real project conditions.
+
+---
+
+## Digital First
+
+Inspection Records are designed for digital collection.
+
+The mobile application is the primary inspection interface.
+
+Reports are automatically generated from structured records.
+
+Manual report preparation should not be required.
+
+---
+
+## Minimum Manual Input
+
+The Flooring Project Engineer should focus on inspecting the project, not completing forms.
+
+The system automatically associates:
+
+- Project
+- Stage
+- Quality Gate
+- Control Point
+- Inspection Standard
+- Acceptance Criteria
+- Inspector
+- Date
+- Time
+
+The Flooring Project Engineer only records project facts.
+
+---
+
+## Evidence First
+
+Evidence is the foundation of every inspection.
+
+Inspection Records should be supported by objective evidence whenever applicable.
+
+Evidence may include:
+
+- Photographs
+- Videos
+- Voice Notes
+- Measurements
+- Drawings
+- Documents
+
+---
+
+## AI Assisted
+
+Artificial Intelligence assists inspections.
+
+Artificial Intelligence never owns inspection decisions.
+
+AI may:
+
+- Analyse photographs
+- Read instrument values
+- Identify potential defects
+- Suggest inspection outcomes
+- Recommend rectification actions
+- Generate inspection summaries
+
+Final decisions always belong to the Flooring Project Engineer.
+
+---
+
+# Inspection Record Lifecycle
 
 Project
 
@@ -78,7 +156,11 @@ FPE Decision
 
 ↓
 
-Rectification
+Rectification (if required)
+
+↓
+
+Quality Gate Approval
 
 ↓
 
@@ -90,171 +172,158 @@ Knowledge Base
 
 ---
 
-# Record Categories
+# Data Model
 
 Every Inspection Record consists of five information groups.
 
-1.
-
-Project Information
-
-↓
-
-2.
-
-Inspection Information
-
-↓
-
-3.
-
-Evidence
-
-↓
-
-4.
-
-Decision
-
-↓
-
-5.
-
-System Information
-
----
-
-# 01 Project Information
+## 01 Project Information
 
 Automatically assigned by the system.
 
 Fields
 
-• Project ID
-
-• Project Name
-
-• Client
-
-• Project Address
-
-• Stage
-
-• Quality Gate
-
-• Control Point ID
-
-• Inspection Standard ID
-
-• Inspection Area
-
-• Inspection Location
+- Project ID
+- Project Name
+- Client
+- Project Address
+- Stage
+- Quality Gate
+- Control Point ID
+- Inspection Standard ID
+- Inspection Area
+- Inspection Location
 
 ---
 
-# 02 Inspection Information
+## 02 Inspection Information
 
 Captured by the Flooring Project Engineer.
 
 Fields
 
-• Inspection Time
-
-• Inspection Method
-
-• Measured Value
-
-• Unit
-
-• Observation
-
-• Voice Notes (Optional)
+- Inspection Time
+- Inspection Method
+- Observation
+- Measurements
+- Voice Notes (Optional)
 
 ---
 
-# 03 Evidence
+## 03 Evidence
 
-Captured during inspection.
+Collected during inspection.
 
 Supported Evidence
 
-• Photo
-
-• Video
-
-• Audio
-
-• Measurement
-
-• Drawing Markup
-
-• File Attachment
+- Photo
+- Video
+- Audio
+- Measurement
+- Drawing Markup
+- File Attachment
 
 Optional Metadata
 
-• GPS
-
-• Device
-
-• Camera Information
+- GPS
+- Device
+- Camera Information
 
 ---
 
-# 04 Decision
+## 04 Decision
 
 Generated jointly by the system and the Flooring Project Engineer.
 
 Fields
 
-AI Recommendation
-
-AI Confidence
-
-↓
-
-FPE Decision
-
-↓
-
-Decision Reason
-
-↓
-
-Rectification Required
-
-↓
-
-Rectification Status
-
-↓
-
-Re-inspection Required
-
-↓
-
-Quality Gate Status
+- AI Recommendation
+- AI Confidence
+- FPE Decision
+- Decision Reason
+- Rectification Required
+- Rectification Status
+- Re-inspection Required
+- Quality Gate Status
 
 ---
 
-# 05 System Information
+## 05 System Information
 
 Automatically maintained.
 
 Fields
 
-Inspection Record ID
+- Inspection Record ID
+- Created At
+- Updated At
+- Created By
+- Modified By
+- Version
+- Audit History
 
-Created At
+---
 
-Updated At
+# Flexible Measurement Collection
 
-Created By
+BUXA PDMS™ does not prescribe a fixed number of measurements for any inspection.
 
-Modified By
+The number and location of measurements shall be determined by the Flooring Project Engineer based on:
 
-Version
+- Actual site conditions
+- Project complexity
+- Professional judgement
+- Project risk
 
-Audit History
+An Inspection Record may contain:
+
+- One measurement
+- Multiple measurements
+- No measurement where numerical data is not applicable
+
+The system shall support unlimited measurements while maintaining a single Inspection Record.
+
+---
+
+# Measurement Structure
+
+Measurements are part of an Inspection Record.
+
+One Inspection Record may contain one or many Measurements.
+
+Each Measurement may include:
+
+- Value
+- Unit
+- Location
+- Time
+- Evidence
+- Comments (Optional)
+
+The system automatically calculates:
+
+- Measurement Count
+- Average Value
+- Maximum Value
+- Minimum Value
+
+where numerical analysis is applicable.
+
+---
+
+# Exception-Based Workflow
+
+The system minimises manual work for the Flooring Project Engineer.
+
+Additional information shall only be requested when required.
+
+Examples include:
+
+- Measurement exceeds acceptance criteria
+- Required evidence is missing
+- AI identifies a potential issue
+- Rectification is required
+
+Normal inspections should require only the minimum amount of user interaction.
 
 ---
 
@@ -262,61 +331,12 @@ Audit History
 
 Every Inspection Record shall:
 
-Represent one inspection only.
-
-Remain immutable after submission.
-
-Maintain complete traceability.
-
-Support AI analysis.
-
-Support future auditing.
-
-Be permanently linked to project history.
-
----
-
-# Required Data
-
-The following information shall always exist.
-
-Project
-
-Stage
-
-Control Point
-
-Inspection Standard
-
-Inspection Time
-
-Responsible Flooring Project Engineer
-
-Inspection Result
-
----
-
-# Optional Data
-
-The following information may be included where applicable.
-
-GPS
-
-Voice Notes
-
-Video
-
-AI Analysis
-
-Customer Comments
-
-Drawing Annotation
-
-Temperature
-
-Humidity
-
-Instrument Reading
+- Represent one inspection only
+- Remain immutable after submission
+- Maintain complete traceability
+- Support AI analysis
+- Support future auditing
+- Be permanently linked to project history
 
 ---
 
@@ -324,17 +344,14 @@ Instrument Reading
 
 Artificial Intelligence may:
 
-Read inspection records.
+- Read Inspection Records
+- Analyse Evidence
+- Detect Risks
+- Generate Recommendations
+- Suggest Additional Measurements
+- Produce Inspection Summaries
 
-Analyse evidence.
-
-Identify risks.
-
-Generate recommendations.
-
-Summarise findings.
-
-Artificial Intelligence shall never modify the original inspection record.
+Artificial Intelligence shall never modify the original Inspection Record.
 
 ---
 
@@ -346,13 +363,13 @@ Inspection Facts
 
 Owned by the Flooring Project Engineer
 
-AI Recommendation
+AI Recommendations
 
 ↓
 
 Generated by Artificial Intelligence
 
-Project Decision
+Project Decisions
 
 ↓
 
@@ -368,25 +385,25 @@ Owned by BUXA PDMS™
 
 # Record Relationships
 
-Inspection Records connect all PDMS modules.
+Inspection Records connect every module within the BUXA PDMS™ system.
 
 Project Workflow
 
 ↓
 
-Quality Gate
+Quality Gates
 
 ↓
 
-Control Point
+Control Points
 
 ↓
 
-Inspection Standard
+Inspection Standards
 
 ↓
 
-Inspection Record
+Inspection Records
 
 ↓
 
@@ -394,7 +411,7 @@ Rectification
 
 ↓
 
-Project Report
+Project Reports
 
 ↓
 
@@ -408,33 +425,27 @@ AI Learning
 
 # Future Expansion
 
-The Inspection Record structure has been designed for future digital development.
+The Inspection Record Data Model has been designed for long-term digital development.
 
-Future versions may include:
+Future versions may support:
 
-Automatic Instrument Integration
+- Automatic Instrument Integration
+- Image Recognition
+- Voice Recognition
+- AI Risk Prediction
+- Offline Inspection
+- Digital Signatures
+- BIM Integration
+- IoT Sensors
+- Predictive Quality Analytics
 
-Image Recognition
-
-Voice Recognition
-
-AI Risk Prediction
-
-Offline Inspection
-
-Digital Signatures
-
-BIM Integration
-
-IoT Sensors
-
-without changing the underlying record structure.
+without changing the underlying data model.
 
 ---
 
 # Single Source of Truth
 
-The Inspection Record is the official digital record of project quality.
+The Inspection Record is the official digital quality record of every BUXA PDMS™ project.
 
 Every project decision shall be traceable to one or more Inspection Records.
 
@@ -446,4 +457,4 @@ Knowledge represents accumulated experience.
 
 Artificial Intelligence enhances inspection.
 
-The Flooring Project Engineer remains accountable for every inspection performed.
+The Flooring Project Engineer remains accountable for every inspection decision.
