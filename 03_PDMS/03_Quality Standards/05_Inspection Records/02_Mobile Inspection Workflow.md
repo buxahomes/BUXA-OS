@@ -20,7 +20,7 @@ The workflow is designed to minimise manual data entry while ensuring complete, 
 
 The Flooring Project Engineer focuses on inspecting the project.
 
-The system manages the inspection process.
+The system manages the inspection workflow.
 
 ---
 
@@ -49,6 +49,23 @@ The workflow captures actual site conditions.
 The system never creates inspection facts.
 
 Only the Flooring Project Engineer records project conditions.
+
+---
+
+## Task-Based Workflow
+
+The Flooring Project Engineer does not navigate through system structures.
+
+The system automatically presents the next inspection task based on the current project stage.
+
+The Flooring Project Engineer simply completes one task at a time.
+
+The system manages:
+
+- Project Progress
+- Stage Progress
+- Quality Gate Progress
+- Inspection Sequence
 
 ---
 
@@ -94,7 +111,7 @@ Examples include:
 
 - Failed inspection
 - Missing evidence
-- AI risk warning
+- AI identifies potential risks
 - Rectification required
 
 ---
@@ -105,11 +122,11 @@ Project
 
 ↓
 
-Select Stage
+Today's Tasks
 
 ↓
 
-Select Inspection Item
+Select Task
 
 ↓
 
@@ -121,15 +138,19 @@ Capture Evidence
 
 ↓
 
-System Analysis
+AI Analysis
 
 ↓
 
-FPE Review
+FPE Decision
 
 ↓
 
-Submit Inspection Record
+Inspection Record Created
+
+↓
+
+Next Task
 
 ↓
 
@@ -147,32 +168,45 @@ The system automatically loads:
 
 - Project Information
 - Current Stage
-- Pending Inspections
+- Today's Inspection Tasks
 - Outstanding Rectifications
 
 ---
 
 # Step 02
 
-## Select Inspection Item
+## Today's Tasks
 
-The system displays:
+Instead of displaying project structures, the system displays today's inspection tasks.
 
-Current Stage
+Example
 
-↓
+Today's Tasks (8)
 
-Control Point
+✓ Site Readiness Verification
 
-↓
+○ Subfloor Moisture Verification
 
-Inspection Standard
+○ Subfloor Flatness Verification
 
-↓
+○ Material Delivery Verification
 
-Inspection Item
+○ Storage Verification
 
-The Flooring Project Engineer selects the required inspection.
+○ Installation Equipment Verification
+
+○ Installation Plan Confirmation
+
+○ Quality Gate Review
+
+Each task displays:
+
+- Inspection Item
+- Inspection Area
+- Priority
+- Current Status
+
+The Flooring Project Engineer simply selects the next task.
 
 ---
 
@@ -182,29 +216,56 @@ The Flooring Project Engineer selects the required inspection.
 
 Depending on the inspection type, the Flooring Project Engineer may:
 
-Enter a measurement
+- Enter one or more measurements
+- Select Pass / Fail / N/A
+- Record observations
+- Record voice notes
+- Capture photographs
+- Capture videos
 
-or
-
-Select Pass / Fail
-
-or
-
-Record an observation
-
-or
-
-Record a voice note
-
-or
-
-Capture a photograph
-
-No unnecessary fields are displayed.
+Only relevant input fields are displayed.
 
 ---
 
 # Step 04
+
+## Flexible Measurement Collection
+
+The number of measurements is determined by the Flooring Project Engineer.
+
+The system never enforces a fixed number of measurements.
+
+Examples:
+
+One measurement
+
+↓
+
+Moisture
+
+10.2%
+
+or
+
+Multiple measurements
+
+↓
+
+Living Room
+
+10.1%
+
+10.3%
+
+10.0%
+
+9.9%
+
+The system supports unlimited measurements within a single Inspection Record.
+
+---
+
+# Step 05
 
 ## Capture Evidence
 
@@ -218,9 +279,11 @@ Evidence may include:
 
 Evidence is automatically linked to the Inspection Record.
 
+Time and project information are automatically recorded.
+
 ---
 
-# Step 05
+# Step 06
 
 ## AI Analysis
 
@@ -233,15 +296,16 @@ Where applicable, the system analyses:
 AI may provide:
 
 - Suggested Result
+- Confidence Score
 - Risk Warning
-- Additional Measurement Recommendation
+- Suggested Additional Measurements
 - Possible Defect Identification
 
-AI recommendations never replace the Flooring Project Engineer's judgement.
+AI recommendations are advisory only.
 
 ---
 
-# Step 06
+# Step 07
 
 ## FPE Decision
 
@@ -259,53 +323,83 @@ AI Recommendation
 
 ↓
 
+Professional Judgement
+
+↓
+
 Final Decision
 
-The Flooring Project Engineer remains responsible for the inspection outcome.
-
----
-
-# Step 07
-
-## Inspection Record Created
-
-After submission, the system automatically creates:
-
-Inspection Record
-
-↓
-
-Evidence Link
-
-↓
-
-Audit Trail
-
-↓
-
-Quality Gate Progress
-
-↓
-
-Project History
-
-No manual report writing is required.
+The Flooring Project Engineer remains responsible for every inspection decision.
 
 ---
 
 # Step 08
 
+## Inspection Record Created
+
+After submission, the system automatically creates:
+
+- Inspection Record
+- Evidence Links
+- Audit Trail
+- Quality Gate Progress
+- Project History
+
+Manual report writing is not required.
+
+---
+
+# Step 09
+
 ## Exception Workflow
 
 If the inspection passes:
 
-Project continues.
+The task is completed.
+
+The next inspection task becomes available.
 
 If the inspection fails:
 
-The system automatically creates a Rectification Item.
+The system automatically:
 
-The Flooring Project Engineer confirms the required corrective action.
+- Creates a Rectification Item
+- Assigns the responsible party
+- Links supporting evidence
+- Schedules re-inspection
+- Updates project status
+
+The Flooring Project Engineer confirms the corrective action.
+
+---
+
+# Quality Gate Progress
+
+The system continuously monitors inspection completion.
+
+Example
+
+Stage 04
+
+Inspection Tasks
+
+Completed
+
+8 / 10
+
+Quality Gate Progress
+
+80%
+
+Outstanding Issues
+
+2
+
+Critical Issues
+
+0
+
+Quality Gate approval is only available when all required conditions have been satisfied.
 
 ---
 
@@ -314,10 +408,11 @@ The Flooring Project Engineer confirms the required corrective action.
 Artificial Intelligence may:
 
 - Read photographs
-- Detect visible defects
 - Read instrument values
-- Identify potential risks
-- Suggest additional inspections
+- Analyse measurements
+- Detect potential defects
+- Recommend additional inspections
+- Suggest rectification actions
 - Generate inspection summaries
 
 Artificial Intelligence shall never:
@@ -326,6 +421,8 @@ Artificial Intelligence shall never:
 - Approve inspections
 - Close rectifications
 - Approve Quality Gates
+
+Final decisions always belong to the Flooring Project Engineer.
 
 ---
 
@@ -345,20 +442,25 @@ Support AI learning.
 
 Support automatic report generation.
 
+The Flooring Project Engineer always focuses on the next task.
+
+The system manages the workflow.
+
 ---
 
 # Future Expansion
 
 Future versions may support:
 
-- Offline inspection mode
-- QR Code project identification
-- Bluetooth instrument integration
-- Automatic measurement import
-- BIM location mapping
-- Voice-first inspection
-- Wearable device support
-- Real-time collaboration
+- Offline Inspection
+- QR Code Project Identification
+- Bluetooth Instrument Integration
+- Automatic Measurement Import
+- BIM Location Mapping
+- Voice-First Inspection
+- Wearable Device Support
+- AI Task Prioritisation
+- Real-Time Collaboration
 
 without changing the inspection workflow.
 
@@ -366,11 +468,13 @@ without changing the inspection workflow.
 
 # Single Source of Truth
 
-The Mobile Inspection Workflow defines the standard inspection process for every BUXA PDMS™ project.
+The Mobile Inspection Workflow defines the official inspection workflow for every BUXA PDMS™ project.
 
-The workflow ensures that project quality is captured through structured digital inspection.
+The Flooring Project Engineer completes inspection tasks.
 
-Inspection Records are created automatically.
+The system manages project workflow.
+
+Inspection Records are generated automatically.
 
 Reports are generated automatically.
 
