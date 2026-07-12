@@ -293,6 +293,61 @@ Using "步暇" independently where international brand consistency is required.
 
 ---
 
+# Business Architecture
+
+BUXA Business Operating System consists of two complementary business systems.
+
+## BUXA
+
+Business Type:
+Premium Engineered Timber Flooring Brand
+
+Primary Market:
+Australia
+
+Primary Customers:
+
+- Homeowners
+- Builders
+- Interior Designers
+- Developers
+
+Primary Responsibilities:
+
+- Product Development
+- Website
+- E-commerce
+- Product Marketing
+- Global Brand Building
+
+---
+
+## BUXA PDMS™
+
+Business Type:
+High-End Residential Project Delivery System
+
+Current Market:
+China (Beijing)
+
+Primary Customers:
+
+- Interior Designers
+- Homeowners
+
+Primary Responsibilities:
+
+- Project Delivery
+- Quality Assurance
+- Designer Collaboration
+- Showroom Experience
+- Customer Experience
+- Aftercare
+
+---
+
+Both systems share the same Brand Vision and Brand Values while serving different markets and business objectives.
+
 # Brand Communication Rules
 
 Every communication must clearly identify which brand is speaking.
