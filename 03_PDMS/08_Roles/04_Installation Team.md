@@ -1,6 +1,6 @@
 # Installation Team
 
-Version: 1.0
+Version: 2.0
 
 Status: Approved
 
@@ -16,19 +16,23 @@ Document Type: Role Standard
 
 This document defines the official role of the Installation Team within the BUXA PDMS™ Project Delivery Management System.
 
-The Installation Team is responsible for executing the flooring installation in accordance with the approved design, technical requirements and BUXA PDMS™ Quality Standards.
+The Installation Team is responsible for executing flooring installation in accordance with the approved design, technical requirements and BUXA PDMS™ Quality Standards.
 
-The Installation Team works within the delivery environment established by the Flooring Project Engineer (FPE).
+The Installation Team operates within the delivery system established by BUXA PDMS™ and coordinated by the Flooring Project Engineer (FPE).
+
+The organisational relationship between the Installation Team and BUXA may vary by project or region.
+
+Regardless of organisational affiliation, every Installation Team shall operate in accordance with the BUXA PDMS™ methodology.
 
 ---
 
 # Vision
 
-Excellent installation is achieved through professional craftsmanship supported by a structured delivery system.
+Outstanding installation is achieved through professional craftsmanship supported by a structured project delivery system.
 
-The purpose of the Installation Team is not to make project decisions.
+The Installation Team focuses on delivering high-quality workmanship.
 
-The purpose is to execute approved work accurately, consistently and professionally.
+Project planning, technical coordination, quality management and customer communication remain under the responsibility of the Flooring Project Engineer.
 
 ---
 
@@ -36,19 +40,17 @@ The purpose is to execute approved work accurately, consistently and professiona
 
 The Installation Team is responsible for carrying out the physical installation of the flooring system.
 
-Responsibilities include:
+The Installation Team may consist of:
 
-- Site preparation (within the approved scope)
-- Flooring installation
-- Installation quality
-- Daily workmanship
-- Protection of completed work
-- Self-inspection
-- Rectification (when required)
+- BUXA-employed installation teams
+- Approved installation partners
+- Qualified local installation teams
 
-The Installation Team executes the work.
+Regardless of team structure, all installation work shall comply with the BUXA PDMS™ standards and be coordinated by the Flooring Project Engineer.
 
-The Flooring Project Engineer manages the delivery process.
+The Installation Team executes the installation.
+
+The Flooring Project Engineer manages the project delivery.
 
 ---
 
@@ -61,7 +63,7 @@ Deliver professional workmanship in accordance with the approved project require
 # Position within BUXA PDMS™
 
 ```
-Interior Designer
+BUXA
         │
         ▼
 Flooring Project Engineer (FPE)
@@ -73,7 +75,7 @@ Installation Team
 Installed Flooring System
 ```
 
-The Installation Team performs installation under the coordination of the Flooring Project Engineer.
+The Installation Team performs installation within the delivery environment established by the Flooring Project Engineer.
 
 ---
 
@@ -88,7 +90,7 @@ Responsibilities include:
 - Reviewing installation requirements
 - Preparing tools and equipment
 - Confirming material availability
-- Confirming site readiness with the FPE
+- Confirming site readiness with the Flooring Project Engineer
 
 ---
 
@@ -98,44 +100,47 @@ Carry out flooring installation according to:
 
 - Approved drawings
 - Technical specifications
+- Product requirements
 - Installation Standards
-- PDMS Quality Standards
+- BUXA PDMS™ Quality Standards
 
-Installation should always follow the approved methodology.
+Installation shall always follow the approved methodology.
 
 ---
 
-## 3. Workmanship
+## 3. Professional Workmanship
 
-Maintain a consistently high standard of workmanship.
+Maintain consistently high installation quality.
 
-Including:
+Responsibilities include:
 
 - Accurate installation
-- Clean workmanship
-- Protection of finished surfaces
 - Attention to detail
+- Clean workmanship
+- Protection of completed work
+- Compliance with approved installation procedures
 
 ---
 
-## 4. Daily Coordination
+## 4. Daily Project Coordination
 
-Maintain communication with the Flooring Project Engineer throughout installation.
+Maintain continuous communication with the Flooring Project Engineer.
 
-Including:
+Responsibilities include:
 
-- Daily progress updates
+- Reporting daily progress
 - Reporting technical issues
-- Requesting clarification when required
+- Requesting clarification where required
 - Confirming completed work
+- Supporting project coordination
 
-The Installation Team should not independently modify the approved design or technical requirements.
+The Installation Team should not independently modify the approved design, product specification or installation methodology.
 
 ---
 
 ## 5. Self-Inspection
 
-Conduct routine self-checks during installation.
+Perform routine self-checks throughout installation.
 
 Including:
 
@@ -144,19 +149,19 @@ Including:
 - Immediate correction of identified issues
 - Protection of completed work
 
-Self-inspection supports, but does not replace, formal inspection by the Flooring Project Engineer.
+Self-inspection supports—but does not replace—the formal inspection conducted by the Flooring Project Engineer.
 
 ---
 
 ## 6. Rectification
 
-Correct identified issues promptly.
+Correct identified issues in accordance with the instructions of the Flooring Project Engineer.
 
 Responsibilities include:
 
-- Addressing non-conformities
 - Completing corrective work
-- Supporting re-inspection by the FPE
+- Supporting re-inspection
+- Confirming completed rectification
 
 ---
 
@@ -166,27 +171,28 @@ Responsibilities include:
 |--------|----------------------------------|
 | Stage 01 | Not involved |
 | Stage 02 | Not involved |
-| Stage 03 | Review installation requirements if required |
+| Stage 03 | Review installation requirements where required |
 | Stage 04 | Prepare for installation |
-| Stage 05 | Perform flooring installation |
+| Stage 05 | Execute flooring installation |
 | Stage 06 | Support inspection and rectification |
-| Stage 07 | Complete outstanding installation items if required |
-| Stage 08 | Support warranty work when required |
+| Stage 07 | Complete outstanding installation items where required |
+| Stage 08 | Support warranty work where required |
 
 ---
 
 # Relationship with Flooring Project Engineer
 
-The Flooring Project Engineer coordinates the project.
+The Flooring Project Engineer is responsible for project delivery.
 
-The Installation Team executes the approved installation.
+The Installation Team is responsible for installation execution.
 
 The Flooring Project Engineer provides:
 
 - Technical guidance
+- Project coordination
 - Installation requirements
 - Quality verification
-- Project coordination
+- Delivery management
 
 The Installation Team provides:
 
@@ -199,11 +205,11 @@ The Installation Team provides:
 
 # Relationship with Interior Designer
 
-The Installation Team does not interpret design intent independently.
+The Installation Team does not independently interpret design intent.
 
-Where clarification is required, communication should be coordinated through the Flooring Project Engineer.
+Where clarification is required, communication shall be coordinated through the Flooring Project Engineer.
 
-This ensures consistency between design intent and installation execution.
+This ensures that installation remains consistent with the approved design.
 
 ---
 
@@ -211,7 +217,7 @@ This ensures consistency between design intent and installation execution.
 
 The Installation Team should maintain a professional and respectful presence on site.
 
-Project communication regarding design changes, technical decisions or project approval should be coordinated by the Flooring Project Engineer.
+Project communication regarding design changes, technical decisions, project approval or quality acceptance shall be coordinated by the Flooring Project Engineer.
 
 ---
 
@@ -221,14 +227,16 @@ The Installation Team has the authority to:
 
 - Recommend improvements to installation methods.
 - Report technical concerns.
-- Stop work where safety issues exist.
+- Stop work where safety risks exist.
+- Request clarification before proceeding.
 
 The Installation Team does not have the authority to:
 
 - Modify approved design intent.
 - Change product specifications.
 - Approve Quality Gates.
-- Accept project variations without approval from the Flooring Project Engineer.
+- Accept project variations.
+- Deliver the project to the homeowner.
 
 ---
 
@@ -248,9 +256,16 @@ Every Installation Team member should demonstrate:
 
 # Relationship with BUXA PDMS™
 
-The Installation Team is responsible for executing the flooring installation within the BUXA PDMS™ delivery system.
+The Installation Team is an essential execution participant within the BUXA PDMS™ Project Delivery Management System.
 
-Professional installation, supported by structured project management, ensures that every completed project reflects the standards established by BUXA.
+Project quality is achieved through the combination of:
+
+- Professional installation
+- Structured delivery management
+- Technical coordination
+- Quality verification
+
+The Installation Team performs installation within the delivery system established by BUXA PDMS™.
 
 ---
 
@@ -258,8 +273,12 @@ Professional installation, supported by structured project management, ensures t
 
 This document defines the official role of the Installation Team within the BUXA PDMS™ Project Delivery Management System.
 
+Installation Teams may differ between projects and regions.
+
+The delivery methodology shall remain consistent.
+
 The Installation Team delivers the workmanship.
 
 The Flooring Project Engineer manages the delivery.
 
-Together they transform approved designs into completed flooring projects that meet the BUXA PDMS™ standards.
+Together they ensure that every flooring project is completed in accordance with the BUXA PDMS™ standards.
