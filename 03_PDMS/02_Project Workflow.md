@@ -1,4 +1,4 @@
-# BUXA PDMS™ Project Workflow
+# BUXA PDMS™ Project Lifecycle
 
 Version: 1.0
 
