@@ -38,7 +38,7 @@ The Flooring Project Engineer should spend time inspecting the project.
 
 Not completing forms.
 
-The mobile application should be simple, intuitive and task-oriented.
+The mobile application should be simple, intuitive and mission-oriented.
 
 ---
 
@@ -55,11 +55,11 @@ Instead of navigating through:
 - Control Points
 - Inspection Standards
 
-the system presents only the inspection tasks that require attention.
+the system presents only the inspection tasks that currently require attention.
 
-Each completed task automatically unlocks the next appropriate inspection activity.
+Each completed task automatically updates project progress.
 
-The system manages the workflow.
+The system manages workflow.
 
 The Flooring Project Engineer manages the project.
 
@@ -73,23 +73,39 @@ Inspection captures actual project conditions.
 
 The system never creates inspection facts.
 
-Only the Flooring Project Engineer records the project condition.
+Only the Flooring Project Engineer records project conditions.
 
 ---
 
 ## Task-Based Workflow
 
-The Flooring Project Engineer completes one task at a time.
+The Flooring Project Engineer works by completing inspection tasks.
 
 The system automatically manages:
 
 - Project Progress
 - Stage Progress
-- Inspection Sequence
+- Task Dependencies
 - Quality Gate Progress
 - Rectification Status
 
-The user never needs to manually navigate through project structures.
+The user never manually navigates project structures.
+
+---
+
+## Flexible Task Management
+
+The system organises inspections into project missions.
+
+Within each mission, all inspection tasks that are ready to be performed are presented to the Flooring Project Engineer.
+
+The Flooring Project Engineer may complete any available task according to actual site conditions and professional judgement.
+
+The system automatically manages task dependencies.
+
+Tasks that rely on unfinished work remain locked until prerequisite tasks have been completed.
+
+This provides maximum flexibility while maintaining workflow integrity.
 
 ---
 
@@ -129,13 +145,13 @@ Evidence always has higher priority than written descriptions.
 
 Normal inspections remain simple.
 
-Additional information is only requested when necessary.
+Additional information is only requested when required.
 
 Examples include:
 
 - Failed inspections
 - Missing evidence
-- AI risk warnings
+- AI identifies potential risks
 - Rectification required
 
 The system requests additional information only when project conditions require it.
@@ -146,19 +162,17 @@ The system requests additional information only when project conditions require 
 
 BUXA PDMS™ is designed as a multilingual platform.
 
-The user interface supports localisation without changing the underlying project data.
-
-Inspection terminology is standardised across all languages.
+The interface supports localisation without changing the underlying project data.
 
 Supported interface modes include:
 
 - Chinese
 - English
-- Bilingual
+- Bilingual (Chinese + English)
+
+Inspection terminology is standardised across all languages.
 
 Project data remains language-independent.
-
-Inspection terminology is stored internally using standard identifiers rather than translated text.
 
 ---
 
@@ -169,6 +183,10 @@ Project
 ↓
 
 Today's Mission
+
+↓
+
+Ready Tasks
 
 ↓
 
@@ -196,7 +214,7 @@ Inspection Record Created
 
 ↓
 
-Next Task
+Task Completed
 
 ↓
 
@@ -215,6 +233,7 @@ The system automatically loads:
 - Project Information
 - Current Stage
 - Today's Mission
+- Ready Tasks
 - Outstanding Rectifications
 
 ---
@@ -223,11 +242,9 @@ The system automatically loads:
 
 ## Today's Mission
 
-Instead of displaying complicated project structures, the system displays only today's inspection tasks.
+The home screen displays the current project mission rather than complex project structures.
 
 Example
-
-Today's Mission
 
 Project
 
@@ -237,32 +254,83 @@ Stage 04
 
 Installation Preparation
 
-Today's Tasks
+Today's Mission
 
-✓ Site Readiness Verification
+Ready Tasks (5)
 
-○ Subfloor Moisture Verification
+━━━━━━━━━━━━━━━━
 
-○ Subfloor Flatness Verification
+① Subfloor Moisture Verification
 
-○ Material Delivery Verification
+基层含水率检查
 
-○ Material Storage Verification
+Living Room
 
-○ Installation Equipment Verification
+Estimated Time
 
-○ Installation Plan Confirmation
+3 min
 
-○ Quality Gate Review
+Start →
+
+━━━━━━━━━━━━━━━━
+
+② Subfloor Flatness Verification
+
+基层平整度检查
+
+Living Room
+
+Estimated Time
+
+4 min
+
+Start →
+
+━━━━━━━━━━━━━━━━
+
+③ Material Delivery Verification
+
+材料到场检查
+
+Estimated Time
+
+2 min
+
+Start →
+
+━━━━━━━━━━━━━━━━
+
+④ Material Storage Verification
+
+材料存放检查
+
+Estimated Time
+
+2 min
+
+Start →
+
+━━━━━━━━━━━━━━━━
+
+⑤ Installation Equipment Verification
+
+施工工具设备检查
+
+Estimated Time
+
+2 min
+
+Start →
 
 Each task displays:
 
 - Inspection Item
 - Inspection Area
+- Estimated Time
 - Priority
 - Current Status
 
-The Flooring Project Engineer simply completes one task before moving to the next.
+The Flooring Project Engineer may complete any Ready Task.
 
 The system automatically manages task sequencing.
 
@@ -297,7 +365,11 @@ The Flooring Project Engineer determines:
 - Measurement locations
 - Measurement strategy
 
-based on actual site conditions and professional judgement.
+based on:
+
+- Actual site conditions
+- Project complexity
+- Professional judgement
 
 Examples
 
@@ -339,7 +411,7 @@ Evidence may include:
 
 Evidence is automatically linked to the Inspection Record.
 
-Time, project and inspector information are automatically recorded.
+Project, time and inspector information are automatically recorded.
 
 ---
 
@@ -359,6 +431,7 @@ AI may provide:
 - Confidence Score
 - Risk Warning
 - Suggested Additional Measurements
+- Suggested Priority Adjustment
 - Possible Defect Identification
 
 AI recommendations are advisory only.
@@ -402,10 +475,10 @@ After submission, the system automatically creates:
 - Inspection Record
 - Evidence Links
 - Audit Trail
-- Quality Gate Progress
 - Project History
+- Quality Gate Progress
 
-Manual report writing is not required.
+Manual report writing is never required.
 
 ---
 
@@ -415,9 +488,9 @@ Manual report writing is not required.
 
 If the inspection passes:
 
-The task is completed.
+The task is marked Complete.
 
-The next task becomes available.
+Remaining Ready Tasks continue to be available.
 
 If the inspection fails:
 
@@ -443,25 +516,35 @@ Stage 04
 
 Installation Preparation
 
-Inspection Tasks
+Ready Tasks
+
+5
 
 Completed
 
-8 / 10
+4
+
+Remaining
+
+1
 
 Quality Gate Progress
 
-80%
+90%
 
 Outstanding Issues
 
-2
+1
 
 Critical Issues
 
 0
 
-Quality Gate approval becomes available only after all mandatory requirements have been satisfied.
+The Quality Gate becomes available only after:
+
+- All mandatory tasks are completed
+- All critical issues are closed
+- Required evidence has been submitted
 
 ---
 
@@ -474,6 +557,7 @@ Artificial Intelligence may:
 - Analyse measurements
 - Detect potential defects
 - Recommend additional inspections
+- Suggest task priorities
 - Suggest rectification actions
 - Generate inspection summaries
 
@@ -484,7 +568,7 @@ Artificial Intelligence shall never:
 - Close rectifications
 - Approve Quality Gates
 
-The AI learns from every completed project.
+Artificial Intelligence continuously learns from completed projects.
 
 The Flooring Project Engineer remains accountable for every inspection decision.
 
@@ -506,7 +590,7 @@ Support AI learning.
 
 Support automatic report generation.
 
-The Flooring Project Engineer always focuses on today's mission.
+The Flooring Project Engineer focuses on today's mission.
 
 The system manages the workflow.
 
@@ -524,8 +608,8 @@ Future versions may support:
 - Voice-First Inspection
 - Wearable Device Support
 - AI Task Prioritisation
-- Real-Time Collaboration
 - Multi-language Expansion
+- Real-Time Collaboration
 
 without changing the workflow.
 
@@ -535,9 +619,9 @@ without changing the workflow.
 
 The Mobile Inspection Workflow defines the official inspection workflow for every BUXA PDMS™ project.
 
-The Flooring Project Engineer completes today's mission.
+The Flooring Project Engineer completes project missions.
 
-The system manages project workflow.
+The system manages workflow.
 
 Inspection Records are generated automatically.
 
