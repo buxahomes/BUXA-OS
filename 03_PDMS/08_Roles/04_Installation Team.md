@@ -52,6 +52,8 @@ The Installation Team executes the installation.
 
 The Flooring Project Engineer manages the project delivery.
 
+BUXA PDMS™ standardises project delivery—not employment relationships.
+
 ---
 
 # Core Mission
