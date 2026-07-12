@@ -10,17 +10,19 @@ Owner: Founder
 
 Last Updated: July 2026
 
+Document Type: System Overview
+
 ---
 
 # Vision
 
-BUXA PDMS™ (Project Delivery Management System) is the operating system behind every BUXA project.
+BUXA PDMS™ (Project Delivery Management System) is the proprietary project delivery operating system developed by BUXA for the China market.
 
-It transforms flooring supply into a structured, transparent and repeatable project delivery process.
+It transforms traditional flooring supply into a structured, transparent and repeatable project delivery process.
 
-Rather than focusing solely on products or installation, BUXA PDMS™ integrates planning, communication, quality assurance and long-term support into one unified operating system.
+Rather than focusing solely on products or installation, BUXA PDMS™ integrates project planning, quality assurance, designer collaboration and long-term customer support into one unified operating system.
 
-Every successful project begins with great products.
+Every successful project begins with quality materials.
 
 Every exceptional project is delivered through BUXA PDMS™.
 
@@ -28,20 +30,22 @@ Every exceptional project is delivered through BUXA PDMS™.
 
 # What is BUXA PDMS™
 
-BUXA PDMS™ is BUXA's proprietary project delivery methodology.
+BUXA PDMS™ is BUXA's proprietary methodology for managing high-end residential flooring projects.
 
 It defines how projects are planned, coordinated, delivered and supported throughout their entire lifecycle.
 
-It provides one consistent framework that connects:
+Rather than relying on individual experience, every project follows documented standards, measurable quality requirements and structured communication.
+
+BUXA PDMS™ connects:
 
 - Products
 - Interior Designers
 - Homeowners
-- Installation Teams
 - Project Engineers
+- Installation Teams
 - Quality Inspection
-- Customer Support
-- AI Systems
+- Customer Service
+- Future AI Systems
 
 The objective is simple:
 
@@ -63,19 +67,46 @@ Rather than reacting to problems after installation, BUXA PDMS™ focuses on pre
 
 ---
 
+# Market Scope
+
+## Current Market
+
+China
+
+(Current implementation: Beijing)
+
+---
+
+## Primary Users
+
+- Interior Designers
+- Homeowners
+- Project Engineers
+- Installation Teams
+
+---
+
+## Future Expansion
+
+BUXA PDMS™ has been designed as a scalable operating system.
+
+While the current implementation focuses on Beijing, the framework is intended to expand alongside the growth of the BUXA designer network into additional cities and regions throughout China.
+
+---
+
 # Core Philosophy
 
-BUXA believes that outstanding projects are created through systems rather than individual experience alone.
+Outstanding projects are created through systems rather than individual experience alone.
 
 Products are only one part of successful project delivery.
 
 Planning, communication, quality assurance and aftercare are equally important.
 
-BUXA PDMS™ integrates these elements into one complete delivery methodology.
+BUXA PDMS™ integrates these elements into one complete operating system.
 
 Every decision within PDMS™ follows one principle:
 
-Consistency creates quality.
+**Consistency creates quality.**
 
 ---
 
@@ -85,25 +116,25 @@ Every project delivered through BUXA PDMS™ is built upon seven interconnected 
 
 ## 1. Project Planning
 
-Establishing clear project objectives, technical reviews and implementation planning before installation begins.
+Preparing every project before installation begins through technical review, implementation planning and risk assessment.
 
 ---
 
 ## 2. Project Workflow
 
-Managing every project stage through documented processes and defined responsibilities.
+Managing every delivery stage through documented procedures and clearly defined responsibilities.
 
 ---
 
 ## 3. Quality Assurance
 
-Applying consistent inspection standards and measurable quality control throughout the project lifecycle.
+Applying measurable inspection standards throughout the project lifecycle.
 
 ---
 
 ## 4. Designer Collaboration
 
-Supporting interior designers through structured coordination, technical consultation and implementation guidance.
+Supporting interior designers through structured communication, technical consultation and implementation guidance.
 
 ---
 
@@ -115,13 +146,13 @@ Providing transparent communication and predictable project outcomes from quotat
 
 ## 6. Aftercare Program
 
-Supporting every completed project through long-term maintenance guidance and continuous customer care.
+Supporting completed projects through long-term maintenance guidance and ongoing customer care.
 
 ---
 
 ## 7. AI Integration
 
-Using AI to standardise documentation, automate knowledge management and improve project efficiency while maintaining human decision-making.
+Using AI to standardise documentation, improve knowledge management and enhance operational efficiency.
 
 ---
 
@@ -167,48 +198,43 @@ Every completed project contributes to improving the next one.
 
 ## Long-Term Responsibility
 
-Project delivery continues beyond practical completion.
+Project delivery continues beyond project completion.
 
 ---
 
 # Relationship with BUXA BOS
 
-BUXA PDMS™ is one core module within the BUXA Business Operating System (BOS).
-
-Brand defines who we are.
-
-Products define what we deliver.
-
-BUXA PDMS™ defines how we deliver.
-
-Together they create one unified operating system.
+BUXA PDMS™ is one of the core operational systems within the BUXA Business Operating System (BOS).
 
 ```
-Brand
+BUXA BOS
         │
-        ▼
-Products
-        │
-        ▼
-BUXA PDMS™
-        │
-        ▼
-Website
-        │
-        ▼
-Marketing
-        │
-        ▼
-Sales
-        │
-        ▼
-Customer Experience
-        │
-        ▼
-AI
+        ├───────────────┐
+        │               │
+        ▼               ▼
+
+BUXA            BUXA PDMS™
+
+Australia       China
+
+Products        Project Delivery
+
+Website         Designer Network
+
+Marketing       Showroom
+
+Google Ads      Xiaohongshu
+
+Social Media    Customer Experience
+
+AI              AI
 ```
 
-BUXA PDMS™ serves as the operational bridge between products and customer experience.
+BUXA delivers premium engineered timber flooring.
+
+BUXA PDMS™ delivers premium project outcomes.
+
+Together they create a complete solution for high-end residential projects.
 
 ---
 
@@ -274,29 +300,31 @@ Defines the customer journey and service standards.
 
 ## 06_Aftercare Program
 
-Defines post-completion support and maintenance philosophy.
+Defines post-completion support and long-term maintenance.
 
 ---
 
 ## 07_AI Integration
 
-Defines how AI supports project delivery, documentation and operational efficiency.
+Defines how AI supports documentation, project delivery and knowledge management.
 
 ---
 
 # Scope
 
-BUXA PDMS™ applies to:
+BUXA PDMS™ currently applies to:
 
-- Residential Projects
-- Premium Homes
+- High-End Residential Projects
 - Interior Designers
-- Flooring Supply
+- Homeowners
+- Flooring Project Delivery
 - Flooring Installation
 - Quality Assurance
-- Project Delivery
-- Customer Service
-- AI-Assisted Operations
+- Customer Experience
+- Showroom Operations
+- AI-Assisted Project Management
+
+Current implementation focuses on the Beijing market.
 
 ---
 
