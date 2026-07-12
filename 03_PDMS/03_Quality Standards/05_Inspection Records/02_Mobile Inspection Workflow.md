@@ -14,13 +14,13 @@ Document Type: Workflow Standard
 
 # Purpose
 
-This document defines the standard mobile inspection workflow used by the BUXA PDMS™ Project Delivery Management System.
+This document defines the official mobile inspection workflow used by the BUXA PDMS™ Project Delivery Management System.
 
-The workflow is designed to minimise manual data entry while ensuring complete, traceable and high-quality inspection records.
+The workflow is designed to minimise manual input while ensuring complete, traceable and high-quality inspection records.
 
 The Flooring Project Engineer focuses on inspecting the project.
 
-The system manages the inspection workflow.
+The system manages the workflow.
 
 ---
 
@@ -34,9 +34,34 @@ Confirm.
 
 Move Forward.
 
-The mobile inspection workflow should be simple, fast and intuitive.
+The Flooring Project Engineer should spend time inspecting the project.
 
-The Flooring Project Engineer should spend time observing the project rather than completing forms.
+Not completing forms.
+
+The mobile application should be simple, intuitive and task-oriented.
+
+---
+
+# Mission-Based Experience
+
+BUXA PDMS™ is designed around project missions rather than software menus.
+
+The Flooring Project Engineer should never need to understand the internal system structure.
+
+Instead of navigating through:
+
+- Stages
+- Quality Gates
+- Control Points
+- Inspection Standards
+
+the system presents only the inspection tasks that require attention.
+
+Each completed task automatically unlocks the next appropriate inspection activity.
+
+The system manages the workflow.
+
+The Flooring Project Engineer manages the project.
 
 ---
 
@@ -44,34 +69,33 @@ The Flooring Project Engineer should spend time observing the project rather tha
 
 ## Reality First
 
-The workflow captures actual site conditions.
+Inspection captures actual project conditions.
 
 The system never creates inspection facts.
 
-Only the Flooring Project Engineer records project conditions.
+Only the Flooring Project Engineer records the project condition.
 
 ---
 
 ## Task-Based Workflow
 
-The Flooring Project Engineer does not navigate through system structures.
+The Flooring Project Engineer completes one task at a time.
 
-The system automatically presents the next inspection task based on the current project stage.
-
-The Flooring Project Engineer simply completes one task at a time.
-
-The system manages:
+The system automatically manages:
 
 - Project Progress
 - Stage Progress
-- Quality Gate Progress
 - Inspection Sequence
+- Quality Gate Progress
+- Rectification Status
+
+The user never needs to manually navigate through project structures.
 
 ---
 
 ## Minimum Manual Input
 
-The system automatically provides:
+The system automatically associates:
 
 - Project
 - Stage
@@ -93,11 +117,11 @@ The Flooring Project Engineer only records:
 
 ## Evidence Before Documentation
 
-Inspection evidence is collected first.
+Evidence is captured first.
 
-Reports are generated afterwards.
+Documentation is generated automatically.
 
-Evidence always takes priority over written descriptions.
+Evidence always has higher priority than written descriptions.
 
 ---
 
@@ -105,14 +129,36 @@ Evidence always takes priority over written descriptions.
 
 Normal inspections remain simple.
 
-Additional information is only requested when required.
+Additional information is only requested when necessary.
 
 Examples include:
 
-- Failed inspection
+- Failed inspections
 - Missing evidence
-- AI identifies potential risks
+- AI risk warnings
 - Rectification required
+
+The system requests additional information only when project conditions require it.
+
+---
+
+# Localisation
+
+BUXA PDMS™ is designed as a multilingual platform.
+
+The user interface supports localisation without changing the underlying project data.
+
+Inspection terminology is standardised across all languages.
+
+Supported interface modes include:
+
+- Chinese
+- English
+- Bilingual
+
+Project data remains language-independent.
+
+Inspection terminology is stored internally using standard identifiers rather than translated text.
 
 ---
 
@@ -122,7 +168,7 @@ Project
 
 ↓
 
-Today's Tasks
+Today's Mission
 
 ↓
 
@@ -168,20 +214,30 @@ The system automatically loads:
 
 - Project Information
 - Current Stage
-- Today's Inspection Tasks
+- Today's Mission
 - Outstanding Rectifications
 
 ---
 
 # Step 02
 
-## Today's Tasks
+## Today's Mission
 
-Instead of displaying project structures, the system displays today's inspection tasks.
+Instead of displaying complicated project structures, the system displays only today's inspection tasks.
 
 Example
 
-Today's Tasks (8)
+Today's Mission
+
+Project
+
+Beijing Villa A
+
+Stage 04
+
+Installation Preparation
+
+Today's Tasks
 
 ✓ Site Readiness Verification
 
@@ -191,7 +247,7 @@ Today's Tasks (8)
 
 ○ Material Delivery Verification
 
-○ Storage Verification
+○ Material Storage Verification
 
 ○ Installation Equipment Verification
 
@@ -206,7 +262,9 @@ Each task displays:
 - Priority
 - Current Status
 
-The Flooring Project Engineer simply selects the next task.
+The Flooring Project Engineer simply completes one task before moving to the next.
+
+The system automatically manages task sequencing.
 
 ---
 
@@ -223,7 +281,7 @@ Depending on the inspection type, the Flooring Project Engineer may:
 - Capture photographs
 - Capture videos
 
-Only relevant input fields are displayed.
+Only the required fields are displayed.
 
 ---
 
@@ -231,25 +289,27 @@ Only relevant input fields are displayed.
 
 ## Flexible Measurement Collection
 
-The number of measurements is determined by the Flooring Project Engineer.
-
 The system never enforces a fixed number of measurements.
 
-Examples:
+The Flooring Project Engineer determines:
 
-One measurement
+- Number of measurements
+- Measurement locations
+- Measurement strategy
 
-↓
+based on actual site conditions and professional judgement.
 
-Moisture
+Examples
+
+One Measurement
+
+Living Room
 
 10.2%
 
 or
 
-Multiple measurements
-
-↓
+Multiple Measurements
 
 Living Room
 
@@ -261,7 +321,7 @@ Living Room
 
 9.9%
 
-The system supports unlimited measurements within a single Inspection Record.
+The system supports unlimited measurements within one Inspection Record.
 
 ---
 
@@ -279,7 +339,7 @@ Evidence may include:
 
 Evidence is automatically linked to the Inspection Record.
 
-Time and project information are automatically recorded.
+Time, project and inspector information are automatically recorded.
 
 ---
 
@@ -287,7 +347,7 @@ Time and project information are automatically recorded.
 
 ## AI Analysis
 
-Where applicable, the system analyses:
+Where applicable, Artificial Intelligence analyses:
 
 - Images
 - Measurements
@@ -329,7 +389,7 @@ Professional Judgement
 
 Final Decision
 
-The Flooring Project Engineer remains responsible for every inspection decision.
+Final inspection responsibility always belongs to the Flooring Project Engineer.
 
 ---
 
@@ -357,7 +417,7 @@ If the inspection passes:
 
 The task is completed.
 
-The next inspection task becomes available.
+The next task becomes available.
 
 If the inspection fails:
 
@@ -367,7 +427,7 @@ The system automatically:
 - Assigns the responsible party
 - Links supporting evidence
 - Schedules re-inspection
-- Updates project status
+- Updates project progress
 
 The Flooring Project Engineer confirms the corrective action.
 
@@ -375,11 +435,13 @@ The Flooring Project Engineer confirms the corrective action.
 
 # Quality Gate Progress
 
-The system continuously monitors inspection completion.
+The system continuously monitors project progress.
 
 Example
 
 Stage 04
+
+Installation Preparation
 
 Inspection Tasks
 
@@ -399,7 +461,7 @@ Critical Issues
 
 0
 
-Quality Gate approval is only available when all required conditions have been satisfied.
+Quality Gate approval becomes available only after all mandatory requirements have been satisfied.
 
 ---
 
@@ -407,7 +469,7 @@ Quality Gate approval is only available when all required conditions have been s
 
 Artificial Intelligence may:
 
-- Read photographs
+- Analyse photographs
 - Read instrument values
 - Analyse measurements
 - Detect potential defects
@@ -422,7 +484,9 @@ Artificial Intelligence shall never:
 - Close rectifications
 - Approve Quality Gates
 
-Final decisions always belong to the Flooring Project Engineer.
+The AI learns from every completed project.
+
+The Flooring Project Engineer remains accountable for every inspection decision.
 
 ---
 
@@ -442,7 +506,7 @@ Support AI learning.
 
 Support automatic report generation.
 
-The Flooring Project Engineer always focuses on the next task.
+The Flooring Project Engineer always focuses on today's mission.
 
 The system manages the workflow.
 
@@ -461,8 +525,9 @@ Future versions may support:
 - Wearable Device Support
 - AI Task Prioritisation
 - Real-Time Collaboration
+- Multi-language Expansion
 
-without changing the inspection workflow.
+without changing the workflow.
 
 ---
 
@@ -470,7 +535,7 @@ without changing the inspection workflow.
 
 The Mobile Inspection Workflow defines the official inspection workflow for every BUXA PDMS™ project.
 
-The Flooring Project Engineer completes inspection tasks.
+The Flooring Project Engineer completes today's mission.
 
 The system manages project workflow.
 
