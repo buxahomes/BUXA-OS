@@ -452,3 +452,16 @@ Yes
 - SEO
 - AI
 - Automation
+
+# Relationship with BUXA PDMS™
+
+The product documentation within this directory defines the official product knowledge for BUXA.
+
+These products are used:
+
+- Directly within the Australian market through the BUXA product business.
+- As the approved material library for projects delivered through BUXA PDMS™ in China.
+
+Product identity remains globally consistent.
+
+Project delivery methodology is defined separately within BUXA PDMS™.
