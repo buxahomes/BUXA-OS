@@ -91,6 +91,25 @@ The Marketing System currently supports six primary channel categories.
 
 ---
 
+# Channel Roles
+
+Different channels perform different roles throughout the customer confidence journey.
+
+| Channel | Primary Role | Confidence Contribution |
+|----------|--------------|-------------------------|
+| Website | Knowledge Platform | Build Understanding |
+| Search | Discovery | Introduce Knowledge |
+| Social Media | Engagement | Generate Interest |
+| Video | Demonstration | Increase Confidence |
+| Direct Communication | Consultation | Support Decisions |
+| AI | Personal Guidance | Reduce Uncertainty |
+
+No single channel should attempt to perform every role.
+
+Channels work together to create one continuous customer experience.
+
+---
+
 ## Website
 
 Primary Purpose
