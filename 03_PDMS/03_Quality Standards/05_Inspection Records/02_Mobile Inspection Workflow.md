@@ -186,7 +186,7 @@ Today's Mission
 
 ↓
 
-Ready Tasks
+Mission Board
 
 ↓
 
@@ -233,32 +233,40 @@ The system automatically loads:
 - Project Information
 - Current Stage
 - Today's Mission
-- Ready Tasks
+- Mission Board
 - Outstanding Rectifications
 
 ---
 
 # Step 02
 
-## Today's Mission
+## Mission Board
 
-The home screen displays the current project mission rather than complex project structures.
+The Mission Board is the primary workspace for the Flooring Project Engineer.
+
+Rather than displaying project structures or navigation menus, the Mission Board presents all inspection tasks that are currently relevant to the project.
+
+Tasks are organised by status to provide clear visibility while maintaining maximum flexibility on site.
+
+The Flooring Project Engineer determines the execution order of all available Ready tasks.
+
+The system automatically manages task dependencies.
+
+### Mission Board Structure
+
+The Mission Board consists of four task groups.
+
+---
+
+### Ready
+
+Inspection tasks that can be performed immediately.
+
+The Flooring Project Engineer may complete any Ready task.
 
 Example
 
-Project
-
-Beijing Villa A
-
-Stage 04
-
-Installation Preparation
-
-Today's Mission
-
-Ready Tasks (5)
-
-━━━━━━━━━━━━━━━━
+Ready (5)
 
 ① Subfloor Moisture Verification
 
@@ -272,7 +280,7 @@ Estimated Time
 
 Start →
 
-━━━━━━━━━━━━━━━━
+---
 
 ② Subfloor Flatness Verification
 
@@ -286,53 +294,65 @@ Estimated Time
 
 Start →
 
-━━━━━━━━━━━━━━━━
+---
 
 ③ Material Delivery Verification
 
 材料到场检查
 
-Estimated Time
-
-2 min
-
 Start →
 
-━━━━━━━━━━━━━━━━
+---
 
-④ Material Storage Verification
+### Waiting
 
-材料存放检查
+Tasks that cannot yet be performed because prerequisite conditions have not been satisfied.
 
-Estimated Time
+Examples include:
 
-2 min
+- Previous inspection not completed
+- Materials not delivered
+- Rectification not completed
+- Quality Gate not approved
 
-Start →
+Waiting tasks automatically become Ready once conditions have been satisfied.
 
-━━━━━━━━━━━━━━━━
+---
 
-⑤ Installation Equipment Verification
+### Attention Required
 
-施工工具设备检查
+Tasks requiring immediate attention.
 
-Estimated Time
+Examples include:
 
-2 min
+- Failed inspections
+- Outstanding rectifications
+- Critical AI recommendations
+- Customer-reported issues
 
-Start →
+These tasks should normally be prioritised before routine inspections.
 
-Each task displays:
+---
 
-- Inspection Item
-- Inspection Area
-- Estimated Time
-- Priority
-- Current Status
+### Completed
 
-The Flooring Project Engineer may complete any Ready Task.
+Tasks successfully completed during the current mission.
 
-The system automatically manages task sequencing.
+Completed tasks remain available for project tracking and audit purposes.
+
+---
+
+## Mission Board Principles
+
+The Mission Board provides project visibility without increasing operational complexity.
+
+The Flooring Project Engineer focuses on project execution.
+
+The system manages workflow logic.
+
+Artificial Intelligence provides recommendations.
+
+Project decisions remain the responsibility of the Flooring Project Engineer.
 
 ---
 
@@ -431,7 +451,7 @@ AI may provide:
 - Confidence Score
 - Risk Warning
 - Suggested Additional Measurements
-- Suggested Priority Adjustment
+- Suggested Task Priority
 - Possible Defect Identification
 
 AI recommendations are advisory only.
@@ -462,7 +482,7 @@ Professional Judgement
 
 Final Decision
 
-Final inspection responsibility always belongs to the Flooring Project Engineer.
+The Flooring Project Engineer remains accountable for every inspection decision.
 
 ---
 
@@ -488,9 +508,9 @@ Manual report writing is never required.
 
 If the inspection passes:
 
-The task is marked Complete.
+- Task Status = Completed
 
-Remaining Ready Tasks continue to be available.
+The remaining Ready tasks continue to be available.
 
 If the inspection fails:
 
@@ -499,7 +519,7 @@ The system automatically:
 - Creates a Rectification Item
 - Assigns the responsible party
 - Links supporting evidence
-- Schedules re-inspection
+- Schedules re-insspection
 - Updates project progress
 
 The Flooring Project Engineer confirms the corrective action.
@@ -516,17 +536,23 @@ Stage 04
 
 Installation Preparation
 
-Ready Tasks
+Mission Progress
+
+Ready
 
 5
 
-Completed
+Waiting
 
-4
+2
 
-Remaining
+Attention Required
 
 1
+
+Completed
+
+8
 
 Quality Gate Progress
 
@@ -540,7 +566,7 @@ Critical Issues
 
 0
 
-The Quality Gate becomes available only after:
+Quality Gate approval becomes available only after:
 
 - All mandatory tasks are completed
 - All critical issues are closed
