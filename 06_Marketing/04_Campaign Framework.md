@@ -251,7 +251,7 @@ Evidence should strengthen future marketing.
 
 ---
 
-# Campaign Success Pyramid
+# Campaign Value Framework
 
 Campaign success should be evaluated progressively.
 
