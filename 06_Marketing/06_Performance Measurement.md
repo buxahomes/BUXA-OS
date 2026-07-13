@@ -215,6 +215,31 @@ Confidence should become a measurable business outcome.
 
 ---
 
+# Confidence Index
+
+Customer confidence should become one of the primary indicators of marketing performance.
+
+Confidence should be evaluated through multiple evidence sources rather than a single metric.
+
+Examples include:
+
+- Consultation Quality
+- Product Comparison Behaviour
+- Sample Requests
+- Repeat Website Visits
+- Educational Content Engagement
+- Customer Questions
+- Sales Readiness
+- Referral Behaviour
+
+No single indicator defines customer confidence.
+
+Confidence emerges from the combination of multiple customer behaviours.
+
+Artificial Intelligence may continuously estimate customer confidence and recommend actions that strengthen it.
+
+---
+
 # Business Learning
 
 Every performance review should answer:
