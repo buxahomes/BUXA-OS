@@ -174,6 +174,232 @@ The structure should remain logical.
 
 ---
 
+# Page Types
+
+Different pages have different purposes.
+
+Every page should follow one predefined page type.
+
+Standardising page types improves consistency, simplifies future expansion and enables Artificial Intelligence to generate pages using the same design language.
+
+---
+
+## Product Page
+
+**Objective**
+
+Help customers evaluate a specific product.
+
+**Typical Structure**
+
+Hero
+
+↓
+
+Product Overview
+
+↓
+
+Specifications
+
+↓
+
+Key Features
+
+↓
+
+Installation & Compatibility
+
+↓
+
+Related Products
+
+↓
+
+FAQ
+
+↓
+
+Call to Action
+
+---
+
+## Collection Page
+
+**Objective**
+
+Help customers compare products within a collection.
+
+**Typical Structure**
+
+Hero
+
+↓
+
+Collection Introduction
+
+↓
+
+Product Grid
+
+↓
+
+Buying Guide
+
+↓
+
+Comparison
+
+↓
+
+FAQ
+
+↓
+
+Call to Action
+
+---
+
+## Educational Page
+
+**Objective**
+
+Teach customers a specific topic.
+
+**Typical Structure**
+
+Hero
+
+↓
+
+Overview
+
+↓
+
+Explanation
+
+↓
+
+Supporting Evidence
+
+↓
+
+Related Resources
+
+↓
+
+FAQ
+
+↓
+
+Call to Action
+
+---
+
+## Resource Page
+
+**Objective**
+
+Provide structured reference materials.
+
+**Typical Structure**
+
+Hero
+
+↓
+
+Resource Overview
+
+↓
+
+Downloadable Resources
+
+↓
+
+Related Guides
+
+↓
+
+FAQ
+
+↓
+
+Call to Action
+
+---
+
+## Landing Page
+
+**Objective**
+
+Generate enquiries, consultations or sample requests.
+
+**Typical Structure**
+
+Hero
+
+↓
+
+Problem
+
+↓
+
+Solution
+
+↓
+
+Benefits
+
+↓
+
+Trust Signals
+
+↓
+
+FAQ
+
+↓
+
+Primary Call to Action
+
+---
+
+## Inspiration Page
+
+**Objective**
+
+Help customers visualise possibilities and explore design ideas.
+
+**Typical Structure**
+
+Hero
+
+↓
+
+Style Introduction
+
+↓
+
+Image Gallery
+
+↓
+
+Recommended Products
+
+↓
+
+Design Tips
+
+↓
+
+Related Resources
+
+↓
+
+Call to Action
+
+---
+
 # Hero Section
 
 Purpose
@@ -314,6 +540,8 @@ Artificial Intelligence may assist with:
 - Suggest missing sections
 - Maintain content consistency
 
+Future AI-generated pages shall follow the page standards and page types defined in this document.
+
 Final page structure remains defined by the Website Standards.
 
 ---
@@ -344,3 +572,5 @@ Every page should build trust.
 Every page should guide the next decision.
 
 Consistent pages create a consistent brand experience.
+
+Every page is part of one connected digital experience.
