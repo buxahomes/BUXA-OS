@@ -118,7 +118,7 @@ Primary colours support:
 
 - Navigation
 - Actions
-- Information hierarchy
+- Information Hierarchy
 
 Accent colours should be used sparingly.
 
@@ -133,9 +133,9 @@ Typography should prioritise readability.
 Use a consistent hierarchy for:
 
 - Headings
-- Body text
-- Supporting text
-- Technical information
+- Body Text
+- Supporting Text
+- Technical Information
 
 Typography should reinforce information structure.
 
@@ -246,17 +246,57 @@ Content should adapt without changing its meaning.
 
 Every interaction should be:
 
-Predictable
-
-Responsive
-
-Accessible
-
-Consistent
-
-Helpful
+- Predictable
+- Responsive
+- Accessible
+- Consistent
+- Helpful
 
 The interface should always communicate what happens next.
+
+---
+
+# Experience Principles
+
+Every digital experience should follow the same experience principles.
+
+## Explain Before Asking
+
+Help users understand before requesting action.
+
+Knowledge always comes before conversion.
+
+---
+
+## Show Before Claiming
+
+Use evidence, examples and real project information before making marketing claims.
+
+Evidence builds trust.
+
+---
+
+## Guide Rather Than Push
+
+Interfaces should guide users naturally.
+
+Avoid aggressive sales tactics or unnecessary interruptions.
+
+---
+
+## One Next Step
+
+Every page should clearly communicate the most appropriate next action.
+
+Users should never feel lost.
+
+---
+
+## Confidence Over Conversion
+
+The purpose of every interaction is to increase customer confidence.
+
+Confident customers make better decisions and build stronger long-term relationships.
 
 ---
 
