@@ -40,6 +40,20 @@ Knowledge should build confidence.
 
 Confidence should support better decisions.
 
+Search technologies will continue to evolve.
+
+From Search Engine Optimisation (SEO),
+
+to Answer Engine Optimisation (AEO),
+
+to Generative Engine Optimisation (GEO),
+
+and future AI-native discovery systems.
+
+The Business Operating System is not designed around individual search technologies.
+
+It is designed around the discoverability of structured business knowledge.
+
 ---
 
 # SEO Philosophy
