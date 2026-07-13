@@ -54,6 +54,31 @@ Optimising discoverability is more valuable than optimising rankings.
 
 ---
 
+# Knowledge Discoverability
+
+Knowledge discoverability is the ability of business knowledge to be accurately found, understood and trusted by both people and Artificial Intelligence.
+
+Discoverability depends upon:
+
+- Structured Knowledge
+- Clear Information Architecture
+- Consistent Terminology
+- Semantic Relationships
+- Entity Authority
+- Accessible Content
+
+Search engines may change.
+
+Artificial Intelligence may evolve.
+
+Knowledge discoverability remains constant.
+
+The objective of the Search System is not to optimise algorithms.
+
+The objective is to optimise the discoverability of business knowledge.
+
+---
+
 # Search Architecture
 
 The BUXA Search System follows one continuous process.
