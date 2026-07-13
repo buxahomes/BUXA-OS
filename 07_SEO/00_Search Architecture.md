@@ -78,11 +78,27 @@ Generative Engine Optimisation (GEO)
 
 Future AI Knowledge Discovery
 
+↓
+
+AI-Native Knowledge Discovery
+
 Although search technologies evolve, the objective remains unchanged.
 
 Business knowledge should always be discoverable, understandable and trustworthy.
 
 The BUXA Business Operating System is designed around knowledge discoverability rather than any individual search technology.
+
+Search technologies will continue to evolve.
+
+The names may change.
+
+The algorithms will change.
+
+The platforms will change.
+
+The Business Operating System should remain focused on one enduring capability:
+
+**Making structured business knowledge discoverable, understandable and trustworthy.**
 
 ---
 
