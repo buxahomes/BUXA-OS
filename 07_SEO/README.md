@@ -1,3 +1,7 @@
+The SEO module defines how structured business knowledge is discovered through search technologies.
+
+This includes traditional search engines, answer engines, generative AI platforms and future knowledge discovery systems.
+
 # SEO
 
 Version: 1.0
