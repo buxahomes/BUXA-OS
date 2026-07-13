@@ -187,6 +187,32 @@ Build long-term trust through exceptional project delivery.
 
 Every module within the BOS follows the same design principles.
 
+## Knowledge Created Once, Transformed Many Times
+
+Business knowledge should be created only once within the Business Operating System.
+
+That knowledge may then be transformed into many different forms without changing its meaning.
+
+Examples include:
+
+- Website Pages
+- Product Pages
+- Landing Pages
+- Blog Articles
+- SEO Content
+- Social Media Content
+- Sales Materials
+- Project Documentation
+- AI Responses
+- Customer Support
+- Training Materials
+
+Knowledge remains the single source of truth.
+
+Only the presentation changes.
+
+This principle ensures consistency, scalability and long-term maintainability across every business function.
+
 ## Single Source of Truth
 
 Information should exist in only one official location.
