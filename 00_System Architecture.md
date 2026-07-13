@@ -493,6 +493,34 @@ Artificial Intelligence accelerates this cycle by improving knowledge accessibil
 
 The Business Operating System becomes more valuable with every completed project.
 
+# Business Learning Loop
+
+The Business Operating System continuously improves through a structured learning cycle.
+
+```text
+Business Knowledge
+        │
+        ▼
+Knowledge Transformation
+        │
+        ▼
+Confidence Management
+        │
+        ▼
+Confidence Journey
+        │
+        ▼
+Business Execution
+        │
+        ▼
+Business Evidence
+        │
+        ▼
+Knowledge Improvement
+        │
+        ▼
+Business Knowledge
+
 # Relationship Between BUXA and BUXA PDMS™
 
 BUXA and BUXA PDMS™ perform different but complementary roles within the Business Operating System.
