@@ -251,6 +251,32 @@ Evidence should strengthen future marketing.
 
 ---
 
+# Campaign Success Pyramid
+
+Campaign success should be evaluated progressively.
+
+```text
+Business Learning
+        ▲
+Customer Confidence
+        ▲
+Meaningful Engagement
+        ▲
+Reach
+```
+
+Reach creates visibility.
+
+Meaningful engagement indicates relevance.
+
+Customer confidence creates business value.
+
+Business learning improves future campaigns.
+
+The highest value of a campaign is not exposure.
+
+It is organisational learning.
+
 # Artificial Intelligence
 
 Artificial Intelligence supports campaigns by:
