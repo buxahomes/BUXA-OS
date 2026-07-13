@@ -20,11 +20,17 @@ Keywords are not the objective of search.
 
 They are one representation of customer intent.
 
+Customer questions are the true starting point of knowledge discovery.
+
 Customers search using words.
 
 Business knowledge provides answers.
 
+Keyword strategy therefore begins with understanding customer questions rather than selecting keywords.
+
 The purpose of keyword strategy is to ensure that every important customer question can be answered through structured business knowledge.
+
+By connecting customer questions with structured business knowledge, the Search System strengthens customer understanding, builds confidence and supports better business decisions.
 
 ---
 
