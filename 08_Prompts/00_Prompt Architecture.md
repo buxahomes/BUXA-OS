@@ -212,6 +212,31 @@ Prompts should improve consistency rather than replace professional judgement.
 
 ---
 
+# Context Assembly
+
+Artificial Intelligence should not receive isolated instructions.
+
+It should receive structured business context assembled from the Business Operating System.
+
+Context may include:
+
+- Business objectives
+- Brand standards
+- Product knowledge
+- PDMS procedures
+- Website standards
+- Marketing principles
+- SEO principles
+- Relevant terminology
+
+The quality of AI outputs depends largely upon the quality of the assembled context.
+
+Context assembly should therefore become a core capability of the Prompt System.
+
+Artificial Intelligence should receive the right knowledge rather than more instructions.
+
+---
+
 # Prompt Principles
 
 Every prompt should:
