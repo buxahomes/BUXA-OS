@@ -274,6 +274,10 @@ Future versions may include:
 
 without changing the underlying AI philosophy.
 
+Future AI capabilities will operate as coordinated AI team members within the BUXA Business Operating System.
+
+Their architecture, governance and collaboration model are defined within the AI module.
+
 ---
 
 # Single Source of Truth
