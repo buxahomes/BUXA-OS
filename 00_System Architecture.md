@@ -515,3 +515,22 @@ Build once.
 Improve continuously.
 
 Operate as one system.
+
+
+# Long-Term Vision
+
+The long-term objective of the BUXA Business Operating System is to build an AI-native enterprise.
+
+Every workflow, standard, knowledge asset and business process is designed so that it can be continuously executed, supported and improved by Artificial Intelligence.
+
+People create knowledge.
+
+The Business Operating System preserves knowledge.
+
+Artificial Intelligence applies knowledge.
+
+The organisation continuously learns and improves.
+
+Technology does not replace people.
+
+It amplifies the capability of every professional within BUXA.
