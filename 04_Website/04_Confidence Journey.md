@@ -1,4 +1,4 @@
-# User Journey
+# Confidence Journey
 
 Version: 1.0
 
