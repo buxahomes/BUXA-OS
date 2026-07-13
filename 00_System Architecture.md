@@ -2,7 +2,7 @@
 
 BUXA Business Operating System
 
-Version: 1.0
+Version: 2.0
 
 Status: Approved
 
@@ -18,11 +18,11 @@ Document Type: System Architecture
 
 This document defines the overall architecture of the BUXA Business Operating System (BOS).
 
-It establishes how every business function, knowledge base and operational system is organised into one unified framework.
+It establishes how every business function, knowledge base, operational workflow and digital system is organised into one unified framework.
 
-Rather than managing isolated documents, the BOS creates a connected operating system that supports every aspect of the business.
+Rather than managing isolated documents, the BOS creates an integrated operating system that supports every aspect of the business.
 
-All modules within the BOS must align with the architecture defined in this document.
+All modules within the BOS shall align with the architecture defined in this document.
 
 ---
 
@@ -32,13 +32,42 @@ The BUXA Business Operating System exists to create a single source of truth for
 
 Every product, workflow, project, website, marketing campaign, AI system and customer interaction should originate from one connected knowledge ecosystem.
 
-The objective is simple:
+The objective is simple.
 
 One Brand.
 
 One Knowledge Base.
 
 One Operating System.
+
+---
+
+# Core Philosophy
+
+BUXA is built on systems rather than individuals.
+
+Knowledge rather than memory.
+
+Evidence rather than assumptions.
+
+Professional judgement rather than automation.
+
+Technology exists to strengthen professional capability.
+
+Never to replace it.
+
+Every business decision should be supported by:
+
+- Structured Knowledge
+- Standardised Workflow
+- Objective Evidence
+- Professional Responsibility
+
+Artificial Intelligence accelerates execution.
+
+Professionals remain accountable.
+
+This philosophy applies across every module within the Business Operating System.
 
 ---
 
@@ -136,6 +165,10 @@ Business Model
 
 Designer-led project delivery supported by BUXA PDMS™.
 
+Current Implementation
+
+Beijing
+
 Primary Channels
 
 - Xiaohongshu
@@ -146,13 +179,13 @@ Primary Channels
 
 Core Objective
 
-Build long-term trust through project delivery excellence.
+Build long-term trust through exceptional project delivery.
 
 ---
 
-# Operating Principles
+# System Design Principles
 
-Every module within the BOS follows the same principles.
+Every module within the BOS follows the same design principles.
 
 ## Single Source of Truth
 
@@ -162,7 +195,7 @@ Information should exist in only one official location.
 
 ## Documentation Before Execution
 
-Processes should be documented before implementation.
+Business processes should be documented before implementation.
 
 ---
 
@@ -178,6 +211,24 @@ Operational success should depend upon systems rather than individual experience
 
 ---
 
+## Human-Centred Systems
+
+Every workflow is designed around the people performing the work.
+
+Technology should reduce operational complexity rather than increase it.
+
+---
+
+## Evidence Before Documentation
+
+Evidence represents reality.
+
+Documentation is generated from evidence.
+
+Evidence always has higher priority than written descriptions.
+
+---
+
 ## Continuous Improvement
 
 Every completed project contributes to improving the system.
@@ -186,7 +237,90 @@ Every completed project contributes to improving the system.
 
 ## AI-Ready Knowledge
 
-Every document should be structured so that it can be understood by both people and AI systems.
+Every document should be structured so that it can be understood by both people and Artificial Intelligence.
+
+---
+
+## AI Assists
+
+Artificial Intelligence supports professionals.
+
+Artificial Intelligence never replaces professional judgement.
+
+Final decisions always belong to qualified professionals.
+
+---
+
+## Workflow Before Software
+
+Business workflows are designed before software is developed.
+
+Software exists to support workflows.
+
+It should never define workflows.
+
+---
+
+# System Intelligence
+
+The Business Operating System consists of four interconnected layers.
+
+People
+
+↓
+
+Workflow
+
+↓
+
+Knowledge
+
+↓
+
+Artificial Intelligence
+
+Each layer performs a different role.
+
+---
+
+## People
+
+People create value.
+
+Professional judgement remains the foundation of the business.
+
+---
+
+## Workflow
+
+Workflow standardises execution.
+
+Every project follows clearly defined operational processes.
+
+---
+
+## Knowledge
+
+Knowledge captures organisational experience.
+
+Every completed project strengthens the knowledge base.
+
+---
+
+## Artificial Intelligence
+
+Artificial Intelligence improves efficiency by:
+
+- Organising information
+- Generating documentation
+- Retrieving knowledge
+- Identifying potential risks
+- Supporting decision making
+- Accelerating project delivery
+
+Artificial Intelligence never owns business decisions.
+
+Professional accountability always remains with people.
 
 ---
 
@@ -194,7 +328,7 @@ Every document should be structured so that it can be understood by both people 
 
 The Business Operating System consists of the following core modules.
 
-```
+```text
 BUXA BOS
 
 ├── 01_Brand
@@ -210,61 +344,47 @@ BUXA BOS
 └── 11_AI
 ```
 
-Each module has a clearly defined responsibility.
+Each module has a clearly defined responsibility while remaining connected through one unified knowledge architecture.
 
 ---
 
 # Information Flow
 
-The BOS follows a structured information flow.
+The BOS follows a continuous knowledge loop.
 
-```
-Brand
-        │
-        ▼
-Products
-        │
-        ▼
-Website
-        │
-        ▼
-SEO
-        │
-        ▼
-Marketing
-        │
-        ▼
-Social
-        │
-        ▼
-Automation
-        │
-        ▼
-AI
-```
-
-Project delivery follows a parallel operational flow.
-
-```
-Products
-        │
-        ▼
-BUXA PDMS™
-        │
-        ▼
-Project Delivery
-        │
-        ▼
-Customer Experience
+```text
+                  Knowledge Base
+                         │
+      ┌──────────────────┼──────────────────┐
+      │                  │                  │
+ Products            Website          Marketing
+      │                  │                  │
+      └──────────────────┼──────────────────┘
+                         │
+                    Customer
+                         │
+                         ▼
+                  BUXA PDMS™
+                         │
+                         ▼
+                 Project Delivery
+                         │
+                         ▼
+                 Project Evidence
+                         │
+                         ▼
+                  Knowledge Base
 ```
 
-This architecture ensures that information is created once and reused consistently across every business function.
+Knowledge is created once.
+
+Used many times.
+
+Continuously improved.
 
 ---
 
 # Relationship Between BUXA and BUXA PDMS™
-
-BUXA and BUXA PDMS™ perform different roles within the Business Operating System.
 
 BUXA defines the products.
 
@@ -272,28 +392,49 @@ BUXA PDMS™ defines how projects are delivered.
 
 Together they create one integrated customer experience.
 
-```
+```text
 BUXA
-        │
-        ▼
+
+↓
+
 Premium Products
 
 +
 
 BUXA PDMS™
 
-        │
-        ▼
-Premium Project Delivery
+↓
 
-=
+Professional Project Delivery
 
-High-End Residential Experience
+↓
+
+Project Evidence
+
+↓
+
+Customer Trust
+
+↓
+
+Brand Reputation
+
+↓
+
+Knowledge Growth
+
+↓
+
+Continuous Improvement
 ```
 
-Products provide value.
+Products create value.
 
 Project delivery creates trust.
+
+Evidence builds confidence.
+
+Knowledge drives continuous improvement.
 
 Together they establish the long-term reputation of the BUXA brand.
 
@@ -303,15 +444,21 @@ Together they establish the long-term reputation of the BUXA brand.
 
 The Business Operating System has been designed for long-term expansion.
 
-Future growth may include:
+Future development may include:
 
 - Additional international markets
-- New product categories
 - Expanded PDMS implementation
-- AI-driven operations
-- Designer certification
-- Training systems
-- Digital platforms
+- AI Knowledge Assistant
+- Digital Project Passport
+- Project Evidence Packages
+- Designer Certification Platform
+- Training Systems
+- Mobile Project Management
+- Supplier Collaboration
+- BIM Integration
+- Digital Platforms
+- Predictive Quality Intelligence
+- Data Analytics
 
 The architecture should evolve without changing its fundamental principles.
 
@@ -319,19 +466,39 @@ The architecture should evolve without changing its fundamental principles.
 
 # Governance
 
-Every document within the BOS must support this architecture.
+Every document within the BOS shall support this architecture.
 
 No module should duplicate information already defined elsewhere.
 
-Every module must have:
+Every module shall have:
 
-- A clearly defined purpose
-- A documented owner
+- Clearly defined purpose
+- Document owner
 - Version control
 - Review cycle
-- Relationships with other modules
+- Defined relationships with other modules
 
-The Business Operating System should remain structured, scalable and maintainable.
+The Business Operating System shall remain structured, scalable and maintainable.
+
+---
+
+# System Philosophy
+
+The BUXA Business Operating System exists to preserve professional knowledge, standardise business execution and continuously improve organisational capability.
+
+Business systems create consistency.
+
+Knowledge creates scalability.
+
+Evidence creates trust.
+
+Artificial Intelligence creates efficiency.
+
+People create value.
+
+Technology empowers professionals.
+
+It never replaces them.
 
 ---
 
@@ -339,7 +506,7 @@ The Business Operating System should remain structured, scalable and maintainabl
 
 This document defines the highest-level architecture of the BUXA Business Operating System.
 
-All business modules, operational systems and future developments should align with the principles defined here.
+All business modules, operational systems and future developments shall align with the principles defined in this document.
 
 As markets expand and technologies evolve, the architecture remains constant.
 
