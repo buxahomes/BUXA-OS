@@ -54,6 +54,38 @@ Optimising discoverability is more valuable than optimising rankings.
 
 ---
 
+# Evolution of Search
+
+Search technologies continue to evolve.
+
+Examples include:
+
+Traditional Search
+
+↓
+
+Search Engine Optimisation (SEO)
+
+↓
+
+Answer Engine Optimisation (AEO)
+
+↓
+
+Generative Engine Optimisation (GEO)
+
+↓
+
+Future AI Knowledge Discovery
+
+Although search technologies evolve, the objective remains unchanged.
+
+Business knowledge should always be discoverable, understandable and trustworthy.
+
+The BUXA Business Operating System is designed around knowledge discoverability rather than any individual search technology.
+
+---
+
 # Knowledge Discoverability
 
 Knowledge discoverability is the ability of business knowledge to be accurately found, understood and trusted by both people and Artificial Intelligence.
