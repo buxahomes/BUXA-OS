@@ -58,6 +58,49 @@ Understanding customer intent is more valuable than targeting individual keyword
 
 ---
 
+# Question-Driven Search
+
+The BUXA Search System is built around customer questions rather than individual keywords.
+
+Traditional SEO focuses on keywords.
+
+BUXA focuses on customer uncertainty.
+
+Every search query represents a customer attempting to answer a question or reduce uncertainty.
+
+Business knowledge provides the answer.
+
+Search therefore becomes a process of connecting customer questions with structured business knowledge.
+
+```text
+Customer Question
+        │
+        ▼
+Business Knowledge
+        │
+        ▼
+Customer Understanding
+        │
+        ▼
+Customer Confidence
+```
+
+Questions may be expressed through:
+
+- Keywords
+- Natural Language
+- Voice Search
+- AI Conversations
+- Future Search Technologies
+
+The format of the question may change.
+
+The underlying business knowledge remains the same.
+
+Question-driven search ensures that business knowledge remains discoverable regardless of future search technologies.
+
+---
+
 # Query Architecture
 
 Every customer query follows one consistent framework.
