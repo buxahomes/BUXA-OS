@@ -301,43 +301,55 @@ Marketing should always communicate the most relevant knowledge.
 
 ---
 
+
 # Confidence Mapping
 
 Every audience experiences different uncertainties.
 
-Marketing should identify those uncertainties and reduce them through structured knowledge.
+Marketing should identify those uncertainties and reduce them through structured business knowledge.
 
 Examples include:
 
-Homeowners
-
-↓
-
-Product Confidence
-
-Designers
-
-↓
-
-Project Confidence
-
-Builders
-
-↓
-
-Execution Confidence
-
-Developers
-
-↓
-
-Business Confidence
+| Audience | Confidence Type |
+|----------|-----------------|
+| Homeowners | Product Confidence |
+| Interior Designers | Project Confidence |
+| Builders | Execution Confidence |
+| Developers | Business Confidence |
 
 Confidence is audience-specific.
 
-Marketing should strengthen the confidence that matters most.
+Marketing should strengthen the confidence that matters most to each audience.
 
 ---
+
+# Audience Confidence Matrix
+
+Different audiences require different types of confidence.
+
+Marketing should identify the confidence each audience needs and provide the appropriate business knowledge to strengthen it.
+
+| Audience | Primary Goal | Primary Concern | Required Confidence |
+|----------|--------------|-----------------|---------------------|
+| Homeowners | Create a beautiful home | Making the wrong product decision | Product Confidence |
+| Interior Designers | Deliver outstanding design | Design not being executed correctly | Project Confidence |
+| Builders | Deliver projects efficiently | Installation delays or quality issues | Execution Confidence |
+| Developers | Deliver projects at scale | Supply consistency and long-term reliability | Business Confidence |
+
+Marketing should not communicate the same message to every audience.
+
+Instead, it should strengthen the confidence that matters most to each audience.
+
+Confidence requirements may evolve throughout the customer journey, but the objective remains the same:
+
+Reduce uncertainty.
+
+Increase confidence.
+
+Support better decisions.
+
+---
+
 
 # Artificial Intelligence
 
