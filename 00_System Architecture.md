@@ -2,7 +2,7 @@
 
 BUXA Business Operating System
 
-Version: 2.0
+Version: 3.0
 
 Status: Approved
 
@@ -39,6 +39,78 @@ One Brand.
 One Knowledge Base.
 
 One Operating System.
+
+---
+
+# Foundational Principles
+
+The BUXA Business Operating System is built upon three foundational principles.
+
+These principles guide every module, workflow, standard and future development within the Business Operating System.
+
+---
+
+## Principle 01
+
+### One Brand.
+### One Knowledge Base.
+### One Operating System.
+
+Every business activity should originate from one unified system.
+
+Brand, products, marketing, sales, project delivery and customer experience should all reference the same business knowledge.
+
+Consistency is achieved through one connected operating system.
+
+---
+
+## Principle 02
+
+### Knowledge Is Created Once.
+### Transformed Many Times.
+
+Business knowledge should be created only once.
+
+That knowledge can then be transformed into multiple outputs without changing its meaning.
+
+Examples include:
+
+- Website Pages
+- Product Pages
+- Landing Pages
+- Blog Articles
+- SEO Content
+- Social Media Content
+- Sales Materials
+- Project Documentation
+- AI Responses
+- Customer Support
+- Training Materials
+
+Knowledge remains the single source of truth.
+
+Only the presentation changes.
+
+This principle enables consistency, scalability and long-term maintainability across every business function.
+
+---
+
+## Principle 03
+
+### Artificial Intelligence Learns From Business Knowledge.
+### People Remain Responsible.
+
+Artificial Intelligence should learn from structured business knowledge.
+
+Artificial Intelligence should never independently define business strategy or professional judgement.
+
+People create knowledge.
+
+The Business Operating System preserves knowledge.
+
+Artificial Intelligence applies knowledge.
+
+People remain accountable for every important business decision.
 
 ---
 
@@ -134,8 +206,6 @@ Primary Responsibilities
 
 Although these two business systems serve different markets and business objectives, they operate under one unified brand philosophy and share the same Business Operating System.
 
----
-
 # Market Architecture
 
 ## Australia
@@ -185,37 +255,19 @@ Build long-term trust through exceptional project delivery.
 
 # System Design Principles
 
-Every module within the BOS follows the same design principles.
+Every module within the Business Operating System follows the same design principles.
 
-## Knowledge Created Once, Transformed Many Times
+These principles ensure that every workflow, document, system and future technology evolves in a consistent manner.
 
-Business knowledge should be created only once within the Business Operating System.
-
-That knowledge may then be transformed into many different forms without changing its meaning.
-
-Examples include:
-
-- Website Pages
-- Product Pages
-- Landing Pages
-- Blog Articles
-- SEO Content
-- Social Media Content
-- Sales Materials
-- Project Documentation
-- AI Responses
-- Customer Support
-- Training Materials
-
-Knowledge remains the single source of truth.
-
-Only the presentation changes.
-
-This principle ensures consistency, scalability and long-term maintainability across every business function.
+---
 
 ## Single Source of Truth
 
 Information should exist in only one official location.
+
+Duplicate information creates inconsistency.
+
+Structured knowledge creates reliability.
 
 ---
 
@@ -223,11 +275,19 @@ Information should exist in only one official location.
 
 Business processes should be documented before implementation.
 
+Standardisation begins with documentation.
+
+Execution follows standards.
+
 ---
 
 ## Standardisation Before Scale
 
 Business growth should always be supported by standardised systems.
+
+Scale without standards creates complexity.
+
+Standards enable sustainable growth.
 
 ---
 
@@ -235,13 +295,17 @@ Business growth should always be supported by standardised systems.
 
 Operational success should depend upon systems rather than individual experience.
 
+The Business Operating System preserves organisational knowledge so that it continues to improve regardless of organisational change.
+
 ---
 
 ## Human-Centred Systems
 
-Every workflow is designed around the people performing the work.
+Every workflow should be designed around the people performing the work.
 
-Technology should reduce operational complexity rather than increase it.
+Technology should simplify work.
+
+Never complicate it.
 
 ---
 
@@ -249,7 +313,7 @@ Technology should reduce operational complexity rather than increase it.
 
 Evidence represents reality.
 
-Documentation is generated from evidence.
+Documentation should be generated from evidence.
 
 Evidence always has higher priority than written descriptions.
 
@@ -257,13 +321,22 @@ Evidence always has higher priority than written descriptions.
 
 ## Continuous Improvement
 
-Every completed project contributes to improving the system.
+Every completed project contributes to improving the Business Operating System.
+
+Knowledge should continuously evolve through experience.
 
 ---
 
 ## AI-Ready Knowledge
 
 Every document should be structured so that it can be understood by both people and Artificial Intelligence.
+
+Knowledge should remain:
+
+- Structured
+- Searchable
+- Reusable
+- Explainable
 
 ---
 
@@ -279,11 +352,11 @@ Final decisions always belong to qualified professionals.
 
 ## Workflow Before Software
 
-Business workflows are designed before software is developed.
+Business workflows should be designed before software is developed.
 
-Software exists to support workflows.
+Software supports workflows.
 
-It should never define workflows.
+Software never defines workflows.
 
 ---
 
@@ -305,7 +378,7 @@ Knowledge
 
 Artificial Intelligence
 
-Each layer performs a different role.
+Each layer performs a different role while continuously strengthening the others.
 
 ---
 
@@ -315,6 +388,10 @@ People create value.
 
 Professional judgement remains the foundation of the business.
 
+Experience creates knowledge.
+
+Knowledge improves future decisions.
+
 ---
 
 ## Workflow
@@ -323,19 +400,23 @@ Workflow standardises execution.
 
 Every project follows clearly defined operational processes.
 
+Consistency creates predictable quality.
+
 ---
 
 ## Knowledge
 
 Knowledge captures organisational experience.
 
-Every completed project strengthens the knowledge base.
+Every completed project strengthens the Business Operating System.
+
+Knowledge should remain structured, reusable and continuously improving.
 
 ---
 
 ## Artificial Intelligence
 
-Artificial Intelligence improves efficiency by:
+Artificial Intelligence improves operational efficiency by:
 
 - Organising information
 - Generating documentation
@@ -343,6 +424,7 @@ Artificial Intelligence improves efficiency by:
 - Identifying potential risks
 - Supporting decision making
 - Accelerating project delivery
+- Assisting business operations
 
 Artificial Intelligence never owns business decisions.
 
@@ -370,47 +452,50 @@ BUXA BOS
 └── 11_AI
 ```
 
-Each module has a clearly defined responsibility while remaining connected through one unified knowledge architecture.
+Each module has a clearly defined responsibility.
+
+Every module contributes structured knowledge back into the Business Operating System.
+
+Knowledge remains connected across the entire organisation.
 
 ---
 
 # Information Flow
 
-The BOS follows a continuous knowledge loop.
+The Business Operating System follows a continuous knowledge cycle.
 
 ```text
-                  Knowledge Base
-                         │
-      ┌──────────────────┼──────────────────┐
-      │                  │                  │
- Products            Website          Marketing
-      │                  │                  │
-      └──────────────────┼──────────────────┘
-                         │
-                    Customer
-                         │
-                         ▼
-                  BUXA PDMS™
-                         │
-                         ▼
-                 Project Delivery
-                         │
-                         ▼
-                 Project Evidence
-                         │
-                         ▼
-                  Knowledge Base
+                    Business Knowledge
+                           │
+                           ▼
+                   Business Workflow
+                           │
+                           ▼
+                 Business Execution
+                           │
+                           ▼
+                   Project Evidence
+                           │
+                           ▼
+                   Knowledge Improvement
+                           │
+                           ▼
+                    Business Knowledge
 ```
 
 Knowledge is created once.
 
-Used many times.
+Applied many times.
 
 Continuously improved.
 
----
+Artificial Intelligence accelerates this cycle by improving knowledge accessibility, execution efficiency and organisational learning.
+
+The Business Operating System becomes more valuable with every completed project.
 
 # Relationship Between BUXA and BUXA PDMS™
+
+BUXA and BUXA PDMS™ perform different but complementary roles within the Business Operating System.
 
 BUXA defines the products.
 
@@ -420,49 +505,31 @@ Together they create one integrated customer experience.
 
 ```text
 BUXA
-
-↓
-
+        │
+        ▼
 Premium Products
 
 +
 
 BUXA PDMS™
+        │
+        ▼
+Premium Project Delivery
 
-↓
+=
 
-Professional Project Delivery
-
-↓
-
-Project Evidence
-
-↓
-
-Customer Trust
-
-↓
-
-Brand Reputation
-
-↓
-
-Knowledge Growth
-
-↓
-
-Continuous Improvement
+High-End Residential Experience
 ```
 
 Products create value.
 
-Project delivery creates trust.
+Project delivery builds trust.
 
-Evidence builds confidence.
+Customer experience creates long-term relationships.
 
-Knowledge drives continuous improvement.
+Together they strengthen the BUXA brand.
 
-Together they establish the long-term reputation of the BUXA brand.
+Both systems continuously contribute knowledge back into the Business Operating System.
 
 ---
 
@@ -470,47 +537,53 @@ Together they establish the long-term reputation of the BUXA brand.
 
 The Business Operating System has been designed for long-term expansion.
 
-Future development may include:
+Future growth may include:
 
 - Additional international markets
+- New product categories
 - Expanded PDMS implementation
-- AI Knowledge Assistant
-- Digital Project Passport
-- Project Evidence Packages
-- Designer Certification Platform
+- Artificial Intelligence integration
+- AI Agents
+- Designer Certification
 - Training Systems
-- Mobile Project Management
-- Supplier Collaboration
-- BIM Integration
+- Customer Portal
+- Designer Portal
+- Mobile Applications
 - Digital Platforms
-- Predictive Quality Intelligence
-- Data Analytics
+- Business Intelligence
+- Enterprise Automation
 
-The architecture should evolve without changing its fundamental principles.
+New capabilities should extend the existing architecture rather than replace it.
+
+Growth should increase organisational capability while preserving consistency.
 
 ---
 
 # Governance
 
-Every document within the BOS shall support this architecture.
+Every document within the Business Operating System shall support this architecture.
 
-No module should duplicate information already defined elsewhere.
+Information should exist only once.
 
-Every module shall have:
+Every module should reference shared business knowledge rather than duplicate it.
 
-- Clearly defined purpose
-- Document owner
+Every document should have:
+
+- A clearly defined purpose
+- A documented owner
 - Version control
-- Review cycle
-- Defined relationships with other modules
+- Review schedule
+- Relationships with other modules
 
-The Business Operating System shall remain structured, scalable and maintainable.
+Changes should improve the system without compromising consistency.
+
+The Business Operating System should remain structured, scalable and maintainable.
 
 ---
 
 # System Philosophy
 
-The BUXA Business Operating System exists to preserve professional knowledge, standardise business execution and continuously improve organisational capability.
+The Business Operating System exists to preserve professional knowledge, standardise business execution and continuously improve organisational capability.
 
 Business systems create consistency.
 
@@ -524,30 +597,21 @@ People create value.
 
 Technology empowers professionals.
 
-It never replaces them.
+Knowledge is created once.
+
+Transformed many times.
+
+Artificial Intelligence learns from business knowledge.
+
+Professional responsibility always remains with people.
 
 ---
-
-# Single Source of Truth
-
-This document defines the highest-level architecture of the BUXA Business Operating System.
-
-All business modules, operational systems and future developments shall align with the principles defined in this document.
-
-As markets expand and technologies evolve, the architecture remains constant.
-
-Build once.
-
-Improve continuously.
-
-Operate as one system.
-
 
 # Long-Term Vision
 
 The long-term objective of the BUXA Business Operating System is to build an AI-native enterprise.
 
-Every workflow, standard, knowledge asset and business process is designed so that it can be continuously executed, supported and improved by Artificial Intelligence.
+Every workflow, standard, knowledge asset and business process should be designed so that it can be continuously supported, executed and improved by Artificial Intelligence.
 
 People create knowledge.
 
@@ -560,3 +624,45 @@ The organisation continuously learns and improves.
 Technology does not replace people.
 
 It amplifies the capability of every professional within BUXA.
+
+The long-term vision is not simply to build better software.
+
+The long-term vision is to build an enterprise where structured business knowledge continuously empowers people and enables Artificial Intelligence to execute, learn and improve alongside them.
+
+Business knowledge becomes the foundation of every future technology.
+
+Every completed project strengthens the Business Operating System.
+
+Every improvement strengthens the organisation.
+
+---
+
+# Single Source of Truth
+
+This document defines the highest-level architecture of the BUXA Business Operating System.
+
+All business modules, operational systems, digital platforms and future Artificial Intelligence capabilities shall align with the principles defined in this document.
+
+The Business Operating System remains the foundation of the organisation.
+
+As markets expand, technologies evolve and Artificial Intelligence continues to advance, the architecture remains constant.
+
+One Brand.
+
+One Knowledge Base.
+
+One Operating System.
+
+Knowledge is created once.
+
+Transformed many times.
+
+Artificial Intelligence learns from business knowledge.
+
+People remain responsible.
+
+Build once.
+
+Improve continuously.
+
+Operate as one system.
