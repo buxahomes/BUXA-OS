@@ -105,8 +105,7 @@ Knowledge is the first.
                          Collaboration
                               │
                               ▼
-                           Learning
----                           
+                           Learning                     
 
 # Runtime Architecture
 
