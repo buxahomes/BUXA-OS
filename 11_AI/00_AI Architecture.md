@@ -78,9 +78,9 @@ Knowledge is the first.
  Business Modules        AI Runtime           Operational Assets
         │                      │                      │
         ▼                      ▼                      ▼
- Brand / Products      Governance
- PDMS / Website              │
- Content / SEO               ▼
+ Brand / Products        Governance
+ PDMS / Website                │
+ Content / SEO                 ▼
                        Knowledge Loading
                               │
                               ▼
