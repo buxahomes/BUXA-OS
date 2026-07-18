@@ -1,6 +1,6 @@
 # Content Governance
 
-Version: 1.0
+Version: 2.0
 
 Status: Approved
 
@@ -8,317 +8,413 @@ Owner: Founder
 
 Last Updated: July 2026
 
-Document Type: Content Standard
+Document Type: Governance Policy
+
+Module: 05_Content Operations
 
 ---
 
 # Purpose
 
-This document defines how business knowledge is governed throughout Content Operations within the BUXA Business Operating System.
+This document defines the governance framework for the BUXA Content Operating System.
 
-Content Governance is not the approval of individual content assets.
+Governance ensures that Business Knowledge remains authoritative, communication remains consistent, and Artificial Intelligence operates within clearly defined boundaries.
 
-It is the governance of how official business knowledge is communicated consistently, accurately and responsibly.
+The purpose of governance is not to control creativity.
 
-The purpose of Content Governance is to protect business knowledge, brand integrity and customer confidence across every communication channel.
+The purpose is to protect organisational knowledge.
 
 ---
 
 # Vision
 
-BUXA aims to establish one unified communication system where every published content asset represents the same business knowledge, terminology and brand standards.
+BUXA aims to build a trustworthy and scalable knowledge organisation.
 
-Governance should preserve knowledge integrity while enabling efficient communication.
+Governance should ensure that:
 
-Consistency builds trust.
+- Business Knowledge remains authoritative.
+- Communication remains consistent.
+- Knowledge is reusable.
+- Artificial Intelligence remains aligned.
+- Organisational learning remains traceable.
 
-Trust builds long-term business value.
+Governance creates confidence.
+
+Confidence creates scalability.
 
 ---
 
 # Governance Philosophy
 
-Business knowledge defines truth.
+Governance protects knowledge.
 
-Business standards define communication.
+Knowledge enables communication.
 
-Content communicates knowledge.
+Communication generates learning.
 
-Governance protects integrity.
+Learning strengthens knowledge.
 
-Customer trust creates business value.
+Governance therefore protects the entire operating system.
 
-Business learning strengthens governance.
-
-Governance exists to preserve business knowledge rather than restrict communication.
+Governance should reduce uncertainty rather than increase bureaucracy.
 
 ---
 
 # Governance Architecture
 
-Every content asset follows one consistent governance architecture.
+The governance framework follows four layers.
 
 ```text
-Business Knowledge
+Business Governance
         │
         ▼
-Business Standards
+Knowledge Governance
         │
         ▼
 Content Governance
         │
         ▼
-Content Integrity
-        │
-        ▼
-Customer Trust
-        │
-        ▼
-Business Learning
+Platform Governance
 ```
 
-Governance protects knowledge consistency.
-
-Learning improves governance.
+Each layer has clearly defined authority.
 
 ---
 
 # Governance Principles
 
-Every content asset should:
+Governance follows the following principles.
 
-- Originate from official business knowledge.
-- Follow official terminology.
-- Reflect approved brand positioning.
-- Support one business objective.
-- Strengthen customer confidence.
-- Respect AI Governance.
-- Remain traceable to its knowledge source.
+## Business Knowledge First
 
-Governance protects business consistency rather than limiting creativity.
+Business Knowledge always has the highest authority.
+
+Communication may evolve.
+
+Business Knowledge may only change through governance.
 
 ---
 
-# Governance Responsibilities
+## Human Accountability
 
-Business knowledge ownership should remain clear.
+People remain responsible for:
 
-| Responsibility | Owner |
-|---------------|-------|
-| Business Knowledge | Business Owner |
-| Brand Standards | Brand Module |
-| Product Accuracy | Product Module |
-| PDMS Standards | PDMS Module |
-| Content Strategy | Content Operations |
-| AI Coordination | AI Workforce |
-| Final Accountability | People |
+- Business Knowledge
+- Strategy
+- Governance
+- Final Approval
 
-Every responsibility should have one clear owner.
+Artificial Intelligence supports execution.
+
+Responsibility cannot be delegated.
 
 ---
 
-# Governance Validation
+## One Source of Truth
 
-Before publishing any content, confirm:
+Every communication asset should originate from one approved Business Knowledge source.
 
-- Is the knowledge officially approved?
-- Is terminology consistent?
-- Is the communication aligned with brand standards?
-- Does the content support the intended audience?
-- Has Business QA been completed?
-- Does the content strengthen customer confidence?
-
-Governance should protect business integrity.
+Competing versions should never exist.
 
 ---
 
-# Governance Levels
+## Traceability
 
-## Level 1
+Every decision should remain traceable.
 
-Knowledge Governance
+Governance should record:
 
-Protect official business knowledge.
+- ownership
+- approval
+- version
+- review history
+- related knowledge
 
----
-
-## Level 2
-
-Communication Governance
-
-Protect communication consistency.
+Traceability protects long-term organisational memory.
 
 ---
 
-## Level 3
+## Continuous Improvement
 
-Channel Governance
+Governance should evolve through learning.
 
-Ensure appropriate communication for each channel.
+Processes may improve.
 
----
+Business Knowledge may improve.
 
-## Level 4
-
-AI Governance
-
-Ensure AI follows official business knowledge and approved communication standards.
-
-Every governance level contributes to one consistent Business Operating System.
+Governance should remain stable while continuously becoming more effective.
 
 ---
 
-# Content Integrity
+# Governance Roles
 
-Content integrity should always be preserved.
-
-Examples include:
-
-- Official terminology
-- Product specifications
-- Brand positioning
-- PDMS processes
-- Customer promises
-- Technical accuracy
-
-Integrity should never be compromised for engagement.
+Governance defines responsibilities rather than job titles.
 
 ---
 
-# Governance Workflow
+## Founder
 
-Every governed content asset follows one workflow.
+Responsible for:
+
+- Business Knowledge
+- Brand Positioning
+- Product Direction
+- PDMS
+- Strategy
+- Final Approval
+
+The Founder remains the highest governance authority.
+
+---
+
+## Knowledge Owner
+
+Responsible for:
+
+- maintaining official knowledge
+- reviewing updates
+- approving terminology
+- protecting documentation quality
+
+Knowledge Owners maintain authoritative knowledge.
+
+---
+
+## Content Owner
+
+Responsible for:
+
+- communication planning
+- workflow execution
+- metadata quality
+- platform adaptation
+
+Content Owners transform approved knowledge.
+
+---
+
+## Platform Owner
+
+Responsible for:
+
+- publishing
+- scheduling
+- platform optimisation
+- performance monitoring
+
+Platform Owners do not change Business Knowledge.
+
+---
+
+## Artificial Intelligence
+
+Responsible for:
+
+- retrieval
+- drafting
+- metadata
+- relationship mapping
+- consistency checking
+- recommendations
+
+Artificial Intelligence never owns Business Knowledge.
+
+---
+
+# Approval Matrix
+
+The following approval rules apply.
+
+| Change | Approval Required |
+|---------|-------------------|
+| Business Knowledge | Founder |
+| Brand Positioning | Founder |
+| Product Passport | Founder |
+| PDMS Standard | Founder |
+| Core Content | Founder |
+| Metadata Update | Content Owner |
+| Platform Adaptation | Content Owner |
+| Grammar / Formatting | AI or Content Owner |
+
+Authority should always match business impact.
+
+---
+
+# Version Control
+
+Every significant change should create a new version.
+
+Version history should include:
+
+- version number
+- change summary
+- approval
+- approval date
+
+Minor editorial corrections may update the current version.
+
+Major Business Knowledge changes require a new version.
+
+---
+
+# Review Schedule
+
+Every governance-controlled asset should define a review schedule.
+
+Typical review intervals include:
+
+- Brand: Annual
+- Product Documentation: Quarterly
+- PDMS: Quarterly
+- Website Guides: Semi-Annual
+- FAQs: Monthly
+- Platform Content: Performance Driven
+
+Review frequency should reflect business importance.
+
+---
+
+# Change Management
+
+Every proposed change should follow one workflow.
 
 ```text
-Business Knowledge
+Suggestion
         │
         ▼
-Content Planning
+Business Review
         │
         ▼
-AI Assistance
+Knowledge Validation
         │
         ▼
-Business QA
+Approval
         │
         ▼
-Human Approval (when required)
+Documentation Update
         │
         ▼
-Publication
-        │
-        ▼
-Business Learning
+Communication Update
 ```
 
-Governance supports efficient communication while protecting business quality.
+Changes should always begin with Business Knowledge.
+
+Communication follows knowledge.
 
 ---
 
-# Knowledge Lineage
+# Governance Rules for Artificial Intelligence
 
-Every published content asset should be traceable back to its original business knowledge.
+Artificial Intelligence must never:
 
-The lineage should include:
+- invent Business Knowledge
+- redefine terminology
+- approve official documentation
+- publish independently
+- modify Brand Positioning
+- change Product Standards
+- change PDMS Standards
 
-Business Knowledge
+Artificial Intelligence supports governance.
 
-↓
-
-Knowledge Topic
-
-↓
-
-Core Content
-
-↓
-
-Repurposed Content
-
-↓
-
-Distribution Channels
-
-↓
-
-Customer Interaction
-
-↓
-
-Knowledge Evolution
-
-Traceability protects knowledge integrity and enables continuous improvement.
-
-Business knowledge should always remain the authoritative source.
+People perform governance.
 
 ---
 
-# Relationship with Other BOS Modules
+# Governance Checklist
 
-Content Governance protects every communication generated within the Business Operating System.
+Before approving any content, confirm:
 
-```text
-Business Knowledge
-        │
-        ▼
-Content Operations
-        │
-        ▼
-Content Governance
-        │
-        ▼
-Customer Communication
-        │
-        ▼
-Customer Trust
-```
+✓ Business Knowledge Verified
 
-Business knowledge defines communication.
+✓ Approved Terminology Used
 
-Governance protects consistency.
+✓ Metadata Complete
 
----
+✓ Relationships Recorded
 
-# Artificial Intelligence
+✓ Version Updated
 
-Artificial Intelligence should support Content Governance by:
+✓ Owner Assigned
 
-- Verifying terminology consistency.
-- Detecting knowledge conflicts.
-- Checking brand alignment.
-- Recommending governance improvements.
-- Supporting Business QA.
-- Identifying outdated communication.
+✓ Review Date Assigned
 
-Artificial Intelligence should protect business integrity rather than approve business knowledge.
+✓ Approval Recorded
+
+✓ Related Assets Updated
+
+✓ Communication Consistent
 
 ---
 
-# Future Development
+# Governance Metrics
 
-Future versions may include:
+Governance health may be evaluated through:
 
-- AI Governance Monitoring
-- Automated Brand Compliance
-- Cross-language Governance
-- Knowledge Lineage Tracking
-- Enterprise Content Auditing
-- Governance Intelligence
+- Documentation Completeness
+- Metadata Completeness
+- Approval Compliance
+- Review Completion Rate
+- Knowledge Freshness
+- Version Consistency
+- Terminology Consistency
+- AI Alignment
 
-without changing the underlying governance philosophy.
+Governance quality contributes to long-term organisational capability.
+
+---
+
+# Exception Management
+
+Occasionally, urgent communication may require expedited review.
+
+Exceptions should:
+
+- remain documented
+- receive retrospective review
+- preserve Business Knowledge
+- never bypass governance permanently
+
+Temporary exceptions must not become permanent practice.
+
+---
+
+# Relationship with Other Documents
+
+This document governs:
+
+- Content Principles
+- Content Workflow
+- Content Standards
+- Metadata Standard
+- Lifecycle
+- Performance Framework
+- AI Content Operations
+
+Governance protects the integrity of every document within the BUXA Content Operating System.
 
 ---
 
 # Single Source of Truth
 
-Content Governance defines how business knowledge is protected throughout Content Operations within the BUXA Business Operating System.
+Content Governance defines how authority, responsibility and accountability are managed within the BUXA Content Operating System.
 
-Business knowledge remains the foundation.
+Business Knowledge remains authoritative.
 
-Governance protects integrity.
+Governance protects Business Knowledge.
 
-Customer trust creates business value.
+People govern Business Knowledge.
 
-Business learning continuously strengthens future communication.
+Artificial Intelligence supports Business Knowledge.
 
-People remain responsible for business knowledge.
+Every approved communication strengthens organisational trust.
+
+Governance therefore protects the long-term integrity of the operating system.
+
+One Brand.
+
+One Knowledge Base.
+
+One Operating System.
+
+Infinite Content.
