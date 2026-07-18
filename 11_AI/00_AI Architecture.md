@@ -1,361 +1,774 @@
-# AI Architecture
+# AI Runtime Architecture
 
-Version: 1.0
+**The intelligent execution architecture of the BUXA Business Operating System.**
 
-Status: Approved
+Version: 2.0
+
+Status: Active
 
 Owner: Founder
 
 Last Updated: July 2026
 
-Document Type: System Architecture
+Document Type: Architecture
+
+Module: 11_AI
 
 ---
 
 # Purpose
 
-This document defines how Artificial Intelligence operates within the BUXA Business Operating System.
+This document defines the architecture of the BUXA AI Runtime.
 
-Artificial Intelligence is not treated as an isolated technology.
+The AI Runtime specifies how Artificial Intelligence operates within the BUXA Business Operating System.
 
-It is designed as the execution layer that applies structured business knowledge through standardised business capabilities.
+It defines:
 
-The purpose of this architecture is to ensure that Artificial Intelligence consistently supports business execution while remaining governed by official business knowledge, business standards and human responsibility.
+- runtime layers
+- execution flow
+- knowledge access
+- retrieval architecture
+- reasoning boundaries
+- organisational memory
+- human governance
+- continuous learning
+
+The AI Runtime provides a consistent execution environment regardless of which AI platform is used.
 
 ---
 
 # Vision
 
-BUXA aims to build an AI-native business where every business capability can be supported by Artificial Intelligence.
+Artificial Intelligence should operate as a governed execution system rather than an autonomous knowledge source.
 
-Rather than creating isolated AI tools, the Business Operating System creates one coordinated AI Workforce operating from one structured knowledge base.
+The BUXA AI Runtime enables AI to:
 
-Business knowledge remains central.
+- understand tasks
+- retrieve authoritative Business Knowledge
+- reason from evidence
+- preserve organisational context
+- transform knowledge into execution
+- support people
+- continuously improve
 
-Artificial Intelligence applies knowledge.
+AI does not replace Business Knowledge.
 
-Automation scales execution.
-
-Business learning continuously improves the system.
-
----
-
-# AI Philosophy
-
-Business knowledge remains the foundation.
-
-Knowledge interfaces provide structured access.
-
-Business capabilities define responsibilities.
-
-Artificial Intelligence performs execution.
-
-Automation performs repetition.
-
-People provide judgement, accountability and strategic direction.
-
-Artificial Intelligence exists to amplify business capability rather than replace professional expertise.
+AI activates Business Knowledge.
 
 ---
 
-# AI Architecture
+# Core Philosophy
 
-Every AI capability follows one consistent operating architecture.
+The runtime follows one principle:
+
+Artificial Intelligence should never begin with generation.
+
+Artificial Intelligence should begin with governance.
+
+Generation is the final stage.
+
+Knowledge is the first.
+
+---
+
+# Runtime Architecture
+
+The AI Runtime contains six layers.
+
+```text
+Layer 1
+Governance
+
+↓
+
+Layer 2
+Knowledge Access
+
+↓
+
+Layer 3
+Context & Intelligence
+
+↓
+
+Layer 4
+Execution
+
+↓
+
+Layer 5
+Quality & Collaboration
+
+↓
+
+Layer 6
+Learning
+```
+
+Each layer has one responsibility.
+
+---
+
+# Layer 1 — Governance
+
+Purpose
+
+Defines the operating rules.
+
+Questions answered
+
+- What may AI do?
+- What must AI never do?
+- Who approves?
+- Which knowledge is authoritative?
+
+Includes
+
+- AI Constitution
+- AGENTS.md
+- AI Governance
+- Agent Standards
+
+Output
+
+Operating boundaries.
+
+---
+
+# Layer 2 — Knowledge Access
+
+Purpose
+
+Loads the knowledge required for the task.
+
+This layer contains two different processes.
+
+## Knowledge Loading
+
+Creates the runtime environment.
+
+Includes:
+
+- governance
+- architecture
+- module context
+- terminology
+- operating standards
+
+Knowledge Loading establishes context.
+
+It is not task retrieval.
+
+---
+
+## AI Retrieval
+
+Retrieves evidence required for one task.
+
+Includes:
+
+- task interpretation
+- task classification
+- authority mapping
+- semantic retrieval
+- keyword retrieval
+- relationship retrieval
+- metadata retrieval
+- Retrieval Package
+
+Retrieval is dynamic.
+
+Knowledge Loading is persistent.
+
+---
+
+# Layer 3 — Context & Intelligence
+
+Purpose
+
+Allows AI to understand meaning rather than isolated documents.
+
+This layer contains two major systems.
+
+---
+
+## Knowledge Graph
+
+Defines
+
+- nodes
+- relationships
+- authority
+- versions
+- business context
+
+The Knowledge Graph answers:
+
+"What is connected?"
+
+---
+
+## AI Memory
+
+Defines
+
+- persistent context
+- organisational learning
+- reusable knowledge
+- memory lifecycle
+- memory governance
+
+Memory answers:
+
+"What should persist?"
+
+---
+
+The Knowledge Graph provides structure.
+
+Memory provides continuity.
+
+---
+
+# Layer 4 — Execution
+
+Purpose
+
+Transforms retrieved knowledge into useful work.
+
+Execution may include:
+
+- reasoning
+- planning
+- writing
+- translation
+- communication
+- code generation
+- media generation
+- repository modification
+
+Execution never replaces Business Knowledge.
+
+Execution operates from Business Knowledge.
+
+---
+
+# Layer 5 — Quality & Collaboration
+
+Purpose
+
+Ensures reliable execution.
+
+Includes:
+
+- QA
+- validation
+- traceability
+- review
+- human approval
+- agent collaboration
+- Retrieval Package exchange
+- escalation
+
+Reliable execution requires validation.
+
+Not confidence.
+
+---
+
+# Layer 6 — Learning
+
+Purpose
+
+Improves future execution.
+
+Learning uses:
+
+- customer evidence
+- operational evidence
+- retrieval failures
+- QA findings
+- business feedback
+- repeated patterns
+
+Learning may recommend:
+
+- memory updates
+- graph updates
+- knowledge updates
+- workflow improvements
+
+Learning never bypasses governance.
+
+---
+
+# Runtime Flow
+
+The standard runtime sequence is:
+
+```text
+Task
+
+↓
+
+Governance
+
+↓
+
+Knowledge Loading
+
+↓
+
+Task Interpretation
+
+↓
+
+Task Classification
+
+↓
+
+Authority Mapping
+
+↓
+
+AI Retrieval
+
+↓
+
+Knowledge Graph
+
+↓
+
+Memory
+
+↓
+
+Reasoning
+
+↓
+
+Execution
+
+↓
+
+Validation
+
+↓
+
+Human Review
+
+↓
+
+Approved Output
+
+↓
+
+Evidence
+
+↓
+
+Learning
+```
+
+Every AI task should follow this logic.
+
+---
+
+# Runtime Components
+
+The runtime consists of the following components.
+
+## Governance Engine
+
+Controls permissions.
+
+## Knowledge Loader
+
+Loads runtime context.
+
+## Retrieval Engine
+
+Finds evidence.
+
+## Knowledge Graph
+
+Provides relationships.
+
+## Memory Manager
+
+Provides persistent context.
+
+## Reasoning Engine
+
+Produces structured thinking.
+
+## Execution Engine
+
+Creates outputs.
+
+## Validation Engine
+
+Checks quality.
+
+## Collaboration Layer
+
+Coordinates people and agents.
+
+## Learning Engine
+
+Improves future performance.
+
+---
+
+# Runtime Boundaries
+
+The runtime does not contain Business Knowledge.
+
+Business Knowledge belongs to the BOS modules.
+
+Example
+
+```text
+01_Brand
+
+↓
+
+Brand Knowledge
+
+↓
+
+AI Runtime retrieves
+
+↓
+
+AI Runtime reasons
+
+↓
+
+AI Runtime communicates
+```
+
+The runtime is an execution layer.
+
+---
+
+# Knowledge Flow
+
+Business Knowledge flows through the runtime.
 
 ```text
 Business Knowledge
-        │
-        ▼
-Knowledge Interfaces
-        │
-        ▼
-Business Capabilities
-        │
-        ▼
-AI Workforce
-        │
-        ▼
-Automation
-        │
-        ▼
-Business Execution
-        │
-        ▼
-Business Learning
+
+↓
+
+Knowledge Loading
+
+↓
+
+Retrieval
+
+↓
+
+Knowledge Graph
+
+↓
+
+Memory
+
+↓
+
+Reasoning
+
+↓
+
+Transformation
+
+↓
+
+Validation
+
+↓
+
+Execution
 ```
 
-Each layer has one clearly defined responsibility.
-
-Together they form one integrated Business Operating System.
+Knowledge remains authoritative throughout the process.
 
 ---
 
-# Architectural Layers
+# Authority Flow
 
-## Layer 01
+Authority flows downward.
 
-### Business Knowledge
+```text
+Founder
 
-Business knowledge defines what the organisation knows.
+↓
 
-Examples include:
+AI Constitution
+
+↓
+
+Repository Governance
+
+↓
+
+AI Governance
+
+↓
+
+Business Modules
+
+↓
+
+Business Knowledge
+
+↓
+
+Operational Assets
+
+↓
+
+Execution
+```
+
+AI must never reverse this hierarchy.
+
+---
+
+# Retrieval Architecture
+
+Retrieval consists of five stages.
+
+```text
+Task
+
+↓
+
+Authority
+
+↓
+
+Evidence
+
+↓
+
+Relationships
+
+↓
+
+Retrieval Package
+```
+
+The Retrieval Package becomes the working evidence for reasoning.
+
+---
+
+# Knowledge Graph Architecture
+
+The graph represents:
+
+```text
+Business Modules
+
+↓
+
+Knowledge Topics
+
+↓
+
+Products
+
+↓
+
+Content
+
+↓
+
+Evidence
+
+↓
+
+Agents
+```
+
+Everything is connected through relationships.
+
+---
+
+# Memory Architecture
+
+Memory consists of:
+
+```text
+Business Memory
+
+↓
+
+Organisational Memory
+
+↓
+
+Operational Memory
+
+↓
+
+Customer Memory
+
+↓
+
+Working Memory
+```
+
+Only validated learning enters persistent memory.
+
+---
+
+# Agent Runtime
+
+Each AI Agent operates inside the same runtime.
+
+Every agent should define:
+
+- role
+- authority
+- retrieval scope
+- graph access
+- memory access
+- approval requirements
+
+Agents differ by responsibility.
+
+They share governance.
+
+---
+
+# Human Governance
+
+Humans remain responsible for:
 
 - Brand
 - Products
 - PDMS
-- Website
-- Marketing
-- SEO
+- Business Policy
+- Repository Architecture
+- AI Governance
+- Memory Approval
 
-Business knowledge remains the single source of truth.
+AI recommends.
 
----
-
-## Layer 02
-
-### Knowledge Interfaces
-
-Knowledge interfaces provide structured access to business knowledge.
-
-Examples include:
-
-- System Prompts
-- Brand Prompts
-- Product Prompts
-- PDMS Prompts
-- Website Prompts
-- Marketing Prompts
-- SEO Prompts
-- Sales Prompts
-
-Knowledge interfaces retrieve business knowledge without changing it.
+People approve.
 
 ---
 
-## Layer 03
+# Runtime Principles
 
-### Business Capabilities
+The runtime follows these principles.
 
-Business capabilities define what work should be performed.
+Governance First
 
-Examples include:
+Knowledge Before Generation
 
-- Brand Management
-- Product Management
-- Project Delivery
-- Website Management
-- Marketing
-- Search
-- Sales
+Retrieval Before Reasoning
 
-Business capabilities organise business execution.
+Relationships Before Conclusions
 
----
+Memory Is Selective
 
-## Layer 04
+Evidence Before Confidence
 
-### AI Workforce
+Validation Before Delivery
 
-Artificial Intelligence applies business capabilities.
+Learning Through Evidence
 
-Examples include:
+Human Approval For Authority
 
-- AI Executive Assistant
-- AI Marketing Manager
-- AI Website Manager
-- AI Search Specialist
-- AI Sales Advisor
-- AI Project Delivery Assistant
-- AI Knowledge Manager
-
-Each AI role performs one clearly defined business capability.
+Continuous Improvement
 
 ---
 
-## Layer 05
+# Runtime Quality
 
-### Automation
+A high-quality runtime should be:
 
-Automation executes repeatable workflows.
-
-Examples include:
-
-- Scheduled content publishing
-- Knowledge synchronisation
-- Performance reporting
-- Project notifications
-- Workflow automation
-
-Automation improves operational scalability.
+- governed
+- traceable
+- modular
+- explainable
+- graph-ready
+- reusable
+- scalable
+- platform-independent
+- human-controlled
 
 ---
 
-## Layer 06
+# Relationship with Other Documents
 
-### Business Execution
+This document provides the architectural foundation for:
 
-Business execution creates value for customers.
+- AI Governance
+- Knowledge Loading
+- Agent Standards
+- Knowledge Transformation
+- Media Standards
+- QA
+- Collaboration
+- Platforms
+- Retrieval
+- Knowledge Graph
+- Memory
 
-Examples include:
-
-- Customer communication
-- Project delivery
-- Website updates
-- Marketing campaigns
-- Sales support
-
-Execution applies knowledge consistently.
-
----
-
-## Layer 07
-
-### Business Learning
-
-Every completed activity generates evidence.
-
-Evidence improves:
-
-- Business knowledge
-- Business standards
-- AI capabilities
-- Customer understanding
-- Future execution
-
-Business learning continuously strengthens the Business Operating System.
-
----
-
-# Capability Execution Model
-
-Every business capability should follow the same execution model.
-
-```text
-Business Objective
-        │
-        ▼
-Retrieve Business Knowledge
-        │
-        ▼
-Assemble Business Context
-        │
-        ▼
-Apply Business Capability
-        │
-        ▼
-Generate Business Output
-        │
-        ▼
-Capture Business Learning
-```
-
-Business capabilities should remain independent.
-
-Artificial Intelligence coordinates execution.
-
-Business knowledge remains the source.
-
-Business learning continuously improves future execution.
-
----
-
-# AI Responsibilities
-
-Artificial Intelligence should:
-
-- Retrieve business knowledge.
-- Apply business standards.
-- Perform business capabilities.
-- Maintain terminology consistency.
-- Support customer confidence.
-- Generate business learning.
-
-Artificial Intelligence should never:
-
-- Replace business ownership.
-- Invent business knowledge.
-- Ignore official standards.
-- Override human judgement.
-
----
-
-# Human Responsibilities
-
-People remain responsible for:
-
-- Business strategy
-- Product decisions
-- Customer relationships
-- Final approval
-- Governance
-- Continuous improvement
-
-Artificial Intelligence supports execution.
-
-People remain accountable.
-
----
-
-# Relationship with Other BOS Modules
-
-The AI Workforce connects every completed BOS module.
-
-```text
-Brand
-Products
-PDMS
-Website
-Marketing
-SEO
-        │
-        ▼
-Knowledge Interfaces
-        │
-        ▼
-AI Workforce
-        │
-        ▼
-Automation
-        │
-        ▼
-Business Execution
-```
-
-Artificial Intelligence depends upon every other BOS module.
-
-The quality of AI execution depends upon the quality of the Business Operating System.
+Every AI document implements part of this architecture.
 
 ---
 
 # Future Development
 
-Future versions may include:
+Future runtime capabilities may include:
 
-- Autonomous business capabilities
-- Predictive business intelligence
-- AI workforce scheduling
-- Cross-agent collaboration
-- Self-improving knowledge systems
-- Enterprise-wide AI orchestration
+- Agent Registry
+- Context Compression
+- Runtime Monitoring
+- Autonomous Retrieval Optimisation
+- Shared Agent Memory
+- Knowledge Gap Detection
+- Runtime Analytics
+- AI Observability
+- Workflow Orchestration
 
-without changing the underlying architecture.
+Future capabilities should extend—not replace—the architectural principles defined here.
 
 ---
 
 # Single Source of Truth
 
-AI Architecture defines how Artificial Intelligence operates within the BUXA Business Operating System.
+The BUXA AI Runtime defines how Artificial Intelligence operates inside the BUXA Business Operating System.
 
-Business knowledge remains the foundation.
+Governance establishes authority.
 
-Knowledge interfaces provide structured access.
+Knowledge Loading establishes context.
 
-Business capabilities define execution.
+Retrieval provides evidence.
 
-Artificial Intelligence applies business capabilities.
+The Knowledge Graph provides relationships.
 
-Automation scales execution.
+Memory preserves validated organisational context.
 
-Business learning continuously improves the Business Operating System.
+Reasoning transforms evidence into understanding.
 
-People remain responsible.
+Execution creates useful outcomes.
+
+Validation protects quality.
+
+Learning improves future execution.
+
+People govern Business Knowledge.
+
+Artificial Intelligence executes from Business Knowledge.
+
+One Brand.
+
+One Knowledge Base.
+
+One Operating System.
