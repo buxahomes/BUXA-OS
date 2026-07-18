@@ -158,6 +158,25 @@ Layer 5 — Quality and Collaboration
 Layer 6 — Learning and Improvement
 ```
 
+```mermaid
+flowchart TD
+
+    BOS["BUXA Business Operating System"]
+
+    BOS --> BM["Business Modules"]
+    BOS --> AIR["AI Runtime"]
+    BOS --> OA["Operational Assets"]
+
+    AIR --> G["Governance"]
+    G --> KL["Knowledge Loading"]
+    KL --> R["AI Retrieval"]
+    R --> KG["Knowledge Graph"]
+    KG --> M["Memory"]
+    M --> EX["Execution"]
+    EX --> QA["Quality Assurance"]
+    QA --> LE["Learning"]
+```
+
 ---
 
 # Layer 1 — Governance
