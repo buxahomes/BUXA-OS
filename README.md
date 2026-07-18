@@ -129,6 +129,100 @@ Updated Business Knowledge improves future execution.
 
 ---
 
+# Business Operating System Architecture
+
+BUXA BOS is organised into three primary layers.
+
+Each layer has a distinct responsibility.
+
+```mermaid
+flowchart TB
+
+    BOS["BUXA Business Operating System"]
+
+    BOS --> BM["Business Modules"]
+    BOS --> AIR["AI Runtime"]
+    BOS --> OA["Operational Assets"]
+```
+
+## Business Modules
+
+Business Modules contain the authoritative knowledge of the organisation.
+
+They define:
+
+- Brand
+- Products
+- PDMS
+- Website
+- Content Operations
+- Marketing
+- SEO
+- Automation
+- other future business domains
+
+Business Modules answer:
+
+**What does the business know?**
+
+---
+
+## AI Runtime
+
+The AI Runtime is the governed intelligence layer of BUXA BOS.
+
+It enables Artificial Intelligence to:
+
+- load operating context
+- retrieve authoritative Business Knowledge
+- understand knowledge relationships
+- preserve organisational memory
+- execute governed AI workflows
+- collaborate with people
+- improve through validated learning
+
+The AI Runtime answers:
+
+**How should Artificial Intelligence operate?**
+
+The internal architecture of the AI Runtime is defined within the `11_AI` module.
+
+---
+
+## Operational Assets
+
+Operational Assets are reusable outputs derived from Business Knowledge.
+
+Examples include:
+
+- templates
+- reports
+- presentations
+- media
+- downloadable resources
+- checklists
+- guides
+- reusable content
+- automation assets
+
+Operational Assets answer:
+
+**What can the business reuse to improve execution?**
+
+---
+
+These three layers operate together.
+
+Business Modules provide authoritative knowledge.
+
+The AI Runtime transforms knowledge into governed execution.
+
+Operational Assets preserve reusable business outputs.
+
+Together they form the Business Operating System.
+
+---
+
 # Repository Architecture
 
 The repository is organised into three levels.
