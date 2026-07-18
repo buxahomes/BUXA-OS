@@ -1,6 +1,6 @@
 # AI Content Operations
 
-Version: 1.0
+Version: 2.0
 
 Status: Approved
 
@@ -8,314 +8,364 @@ Owner: Founder
 
 Last Updated: July 2026
 
-Document Type: Content Standard
+Document Type: AI Operating Standard
+
+Module: 05_Content Operations
 
 ---
 
 # Purpose
 
-This document defines how Artificial Intelligence supports Content Operations within the BUXA Business Operating System.
+This document defines the operational role of Artificial Intelligence within the BUXA Content Operating System.
 
-AI Content Operations is not the automated generation of content.
+Artificial Intelligence is an execution participant rather than an owner of Business Knowledge.
 
-It is the intelligent coordination of business knowledge transformation, communication and continuous improvement.
+Its purpose is to accelerate knowledge transformation while preserving governance, consistency and traceability.
 
-The purpose of AI Content Operations is to ensure that business knowledge is consistently communicated across all audiences, channels and customer journey stages while remaining aligned with official business knowledge and governance.
+AI supports people.
+
+AI does not replace organisational accountability.
 
 ---
 
 # Vision
 
-BUXA aims to build an AI-assisted content operation where Artificial Intelligence coordinates knowledge communication rather than replacing human expertise.
+BUXA aims to build an AI-native Content Operating System.
 
-AI should improve consistency.
+Artificial Intelligence should:
 
-AI should improve scalability.
+- reduce repetitive work
+- increase knowledge reuse
+- improve consistency
+- accelerate communication
+- strengthen organisational learning
 
-AI should improve organisational learning.
-
-People remain responsible for business knowledge and strategic communication.
-
----
-
-# AI Content Philosophy
-
-Business knowledge defines truth.
-
-Content communicates knowledge.
-
-Artificial Intelligence coordinates communication.
-
-People define business priorities.
-
-Customer interaction generates learning.
-
-Knowledge continuously evolves.
-
-AI exists to improve knowledge communication rather than increase content volume.
+AI should never become an independent source of business knowledge.
 
 ---
 
-# AI Content Architecture
+# AI Philosophy
 
-Every AI-assisted content workflow follows one consistent architecture.
+Artificial Intelligence transforms knowledge.
 
-```text
-Business Knowledge
-        │
-        ▼
-Knowledge Planning
-        │
-        ▼
-Content Transformation
-        │
-        ▼
-AI Coordination
-        │
-        ▼
-Multi-Channel Communication
-        │
-        ▼
-Business Learning
-        │
-        ▼
-Knowledge Evolution
-```
+People create knowledge.
 
-AI coordinates communication.
+Artificial Intelligence retrieves.
 
-Business knowledge remains the foundation.
+People approve.
+
+Artificial Intelligence accelerates.
+
+People govern.
+
+Business Knowledge always remains authoritative.
 
 ---
 
 # AI Responsibilities
 
-Artificial Intelligence should support Content Operations by:
+Artificial Intelligence may participate throughout the Content Operating System.
 
-- Identifying reusable business knowledge.
-- Recommending content opportunities.
-- Matching customer journey stages.
-- Selecting appropriate communication formats.
-- Coordinating multi-channel distribution.
-- Monitoring communication effectiveness.
-- Detecting knowledge gaps.
-- Recommending improvements.
+Typical responsibilities include:
 
-AI should support people rather than replace business ownership.
+- retrieving approved Business Knowledge
+- analysing related documentation
+- identifying reusable knowledge
+- recommending Knowledge Topics
+- generating Content Briefs
+- creating Outlines
+- drafting communication
+- adapting content to platforms
+- generating metadata
+- identifying duplicated assets
+- checking terminology consistency
+- recommending internal links
+- monitoring performance
+- recommending improvements
+
+Artificial Intelligence supports execution.
+
+People remain responsible for governance.
 
 ---
 
-# AI Content Workflow
+# AI Operating Principles
 
-Every AI-assisted content workflow should follow one standard process.
+Artificial Intelligence should always:
+
+- retrieve before generating
+- use approved terminology
+- preserve Business Knowledge
+- maintain traceability
+- prefer reuse over recreation
+- produce structured output
+- record metadata
+- identify related assets
+
+AI should improve organisational consistency.
+
+---
+
+# AI Content Pipeline
+
+Artificial Intelligence follows one standard operating sequence.
 
 ```text
 Business Knowledge
         │
         ▼
-Business Objective
+Retrieve
         │
         ▼
-Audience Selection
+Analyse
+        │
+        ▼
+Knowledge Mapping
         │
         ▼
 Content Planning
         │
         ▼
-Content Transformation
+Outline
         │
         ▼
-Distribution Planning
+Draft
         │
         ▼
-Performance Monitoring
+Metadata
         │
         ▼
-Business Learning
+Relationship Mapping
+        │
+        ▼
+Human Review
+        │
+        ▼
+Publishing
 ```
 
-The workflow should always begin with business knowledge rather than content ideas.
+Every AI-generated asset should remain traceable to approved Business Knowledge.
 
 ---
 
-# AI Coordination
+# AI Retrieval Rules
 
-Artificial Intelligence should coordinate:
+Before creating any communication, Artificial Intelligence should retrieve:
 
-## Knowledge
+1. Relevant Business Knowledge
+2. Related Knowledge Topics
+3. Existing Core Content
+4. Previous Platform Assets
+5. Product Documentation
+6. PDMS Documentation
+7. Brand Standards
+8. Metadata Relationships
 
-- Business knowledge retrieval
-- Knowledge validation
-- Knowledge reuse
-
----
-
-## Content
-
-- Core content creation
-- Repurposing opportunities
-- Format recommendations
+Retrieval always precedes generation.
 
 ---
 
-## Distribution
+# AI Knowledge Transformation
 
-- Channel selection
-- Timing recommendations
-- Audience matching
+Artificial Intelligence transforms approved knowledge into communication.
 
----
+Transformation may include:
 
-## Learning
+- Website Articles
+- Buying Guides
+- Xiaohongshu Posts
+- Facebook Posts
+- LinkedIn Articles
+- YouTube Scripts
+- FAQs
+- Sales Materials
+- Email Campaigns
+- Training Resources
 
-- Performance monitoring
-- Knowledge gap detection
-- Improvement recommendations
+Transformation changes communication.
 
-Coordination should improve the Business Operating System rather than isolated content assets.
-
----
-
-# AI Content Principles
-
-Every AI-assisted content activity should:
-
-- Begin with official business knowledge.
-- Support one business objective.
-- Match one audience.
-- Preserve terminology consistency.
-- Strengthen customer confidence.
-- Generate business learning.
-
-AI should optimise knowledge communication rather than content production.
+Transformation never changes Business Knowledge.
 
 ---
 
-# AI Workforce
+# AI Validation
 
-Content Operations may involve multiple specialised AI Agents.
+Before submitting any draft, Artificial Intelligence should validate:
+
+- terminology consistency
+- metadata completeness
+- knowledge traceability
+- relationship integrity
+- structural consistency
+- duplicate detection
+- platform suitability
+
+Validation protects communication quality.
+
+---
+
+# AI Limitations
+
+Artificial Intelligence must never:
+
+- invent official Business Knowledge
+- redefine approved terminology
+- change Brand Positioning
+- modify Product Passports
+- alter PDMS Standards
+- approve official communication
+- publish independently
+- remove governance requirements
+
+Business decisions always belong to people.
+
+---
+
+# Human Collaboration
+
+Artificial Intelligence and people collaborate throughout the workflow.
+
+Typical responsibilities include:
+
+## Artificial Intelligence
+
+- Retrieval
+- Analysis
+- Drafting
+- Metadata
+- Relationship Mapping
+- Consistency Checking
+- Reuse Identification
+
+## Founder
+
+- Business Knowledge
+- Strategy
+- Governance
+- Positioning
+- Final Approval
+
+The operating system clearly separates execution from accountability.
+
+---
+
+# Agent Collaboration
+
+Future versions of the operating system may contain specialised AI agents.
 
 Examples include:
 
-| Business Capability | AI Workforce |
-|---------------------|-------------|
-| Knowledge Retrieval | Knowledge Manager |
-| Brand Consistency | Brand AI |
-| Product Accuracy | Product AI |
-| Content Planning | Marketing AI |
-| Website Publishing | Website AI |
-| Search Optimisation | SEO AI |
-| Quality Assurance | QA AI |
+- Brand Agent
+- Product Agent
+- PDMS Agent
+- Content Agent
+- SEO Agent
+- Website Agent
+- Analytics Agent
 
-Each AI Agent contributes one business capability.
+Each agent should specialise within one knowledge domain.
 
-The workflow coordinates their collaboration.
+No agent should become the owner of Business Knowledge.
 
 ---
 
-# AI Content Orchestrator
+# AI Quality Checklist
 
-AI Content Operations should be coordinated by one Content Orchestrator.
+Every AI-generated asset should satisfy the following checklist.
 
-The Content Orchestrator is responsible for:
+✓ Business Knowledge Retrieved
 
-- Understanding the business objective.
-- Selecting the required business knowledge.
-- Assigning specialised AI Workforce members.
-- Coordinating content transformation.
-- Initiating Business QA.
-- Monitoring communication performance.
-- Capturing organisational learning.
+✓ Metadata Complete
 
-The Content Orchestrator coordinates the workflow.
+✓ Terminology Verified
 
-Specialised AI Agents perform business capabilities.
+✓ Related Assets Linked
 
-People remain responsible for strategy and governance.
+✓ No Duplicate Communication
 
----
+✓ Platform Adapted
 
-# Workflow Validation
+✓ Human Review Required
 
-Before publishing AI-assisted content, confirm:
-
-- Has official business knowledge been used?
-- Is the business objective clear?
-- Does the content match the intended audience?
-- Is terminology consistent?
-- Has Business QA been completed?
-- Will customer understanding improve?
-
-AI-assisted communication should always strengthen business trust.
+✓ Traceability Preserved
 
 ---
 
-# Relationship with Other BOS Modules
+# AI Performance
 
-AI Content Operations connects AI Workforce with Content Operations.
+Artificial Intelligence should continuously improve:
 
-```text
-Business Knowledge
-        │
-        ▼
-AI Workforce
-        │
-        ▼
-AI Content Operations
-        │
-        ▼
-Content Distribution
-        │
-        ▼
-Customer Understanding
-```
+- retrieval accuracy
+- drafting quality
+- terminology consistency
+- metadata quality
+- reuse rate
+- workflow efficiency
 
-Business knowledge remains central.
-
-AI coordinates communication.
-
----
-
-# Artificial Intelligence
-
-Artificial Intelligence should:
-
-- Coordinate business knowledge.
-- Assist content planning.
-- Support communication consistency.
-- Improve customer understanding.
-- Recommend content improvements.
-- Strengthen organisational learning.
-
-Artificial Intelligence should communicate business knowledge rather than create independent business opinions.
+Performance should strengthen the operating system rather than maximise content volume.
 
 ---
 
 # Future Development
 
-Future versions may include:
+Future AI capabilities may include:
 
-- Personalised knowledge delivery
-- Autonomous content orchestration
-- Dynamic audience adaptation
-- AI content coaching
-- Cross-language communication
-- Enterprise knowledge intelligence
+- Autonomous Topic Discovery
+- Knowledge Graph Retrieval
+- Dynamic Content Assembly
+- Personalised Communication
+- Intelligent Asset Reuse
+- Predictive Knowledge Refresh
+- Enterprise AI Collaboration
+- Autonomous Workflow Coordination
 
-without changing the underlying content philosophy.
+Future capabilities should extend the operating system without changing Business Knowledge.
+
+---
+
+# Relationship with Other Documents
+
+This document implements:
+
+- Content System Architecture
+- Content Principles
+- Content Workflow
+- Content Standards
+- Content Metadata Standard
+- Content Lifecycle
+- Content Performance Framework
+
+It supports:
+
+- Future AI Agents
+- Automation
+- Knowledge Graph
+- Enterprise Intelligence
+
+Artificial Intelligence should always operate within the governance framework defined by the BUXA Content Operating System.
 
 ---
 
 # Single Source of Truth
 
-AI Content Operations defines how Artificial Intelligence coordinates business knowledge communication within the BUXA Business Operating System.
+Artificial Intelligence is an operational participant within the BUXA Content Operating System.
 
-Business knowledge remains the foundation.
+Business Knowledge remains authoritative.
 
-Artificial Intelligence coordinates communication.
+Artificial Intelligence retrieves knowledge.
 
-Customer understanding builds customer confidence.
+Artificial Intelligence transforms communication.
 
-Business learning continuously improves future communication.
+People approve communication.
 
-People remain responsible for business knowledge.
+Organisational learning strengthens Business Knowledge.
+
+The operating system continuously improves through collaboration between people and Artificial Intelligence.
+
+One Brand.
+
+One Knowledge Base.
+
+One Operating System.
+
+Infinite Content.
