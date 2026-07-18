@@ -70,21 +70,21 @@ Generation is the final stage.
 Knowledge is the first.
 
 ---
-
+```text
                     BUXA Business Operating System
                                │
         ┌──────────────────────┼──────────────────────┐
         │                      │                      │
- Business Modules        AI Runtime           Operational Assets
+ Business Modules        AI Runtime        Operational Assets
         │                      │                      │
         ▼                      ▼                      ▼
- Brand / Products        Governance
- PDMS / Website                │
- Content / SEO                 ▼
+ Brand / Products      Governance         Templates
+ PDMS / Website             │             Reports
+ Content / SEO              ▼             Media
                        Knowledge Loading
                               │
                               ▼
-                           Retrieval
+                          AI Retrieval
                               │
                               ▼
                       Knowledge Graph
@@ -93,20 +93,20 @@ Knowledge is the first.
                             Memory
                               │
                               ▼
-                          Reasoning
+                           Reasoning
                               │
                               ▼
-                          Execution
+                           Execution
                               │
                               ▼
-                             QA
+                               QA
                               │
                               ▼
-                         Collaboration
+                        Collaboration
                               │
                               ▼
-                           Learning                     
-
+                           Learning
+```
 # Runtime Architecture
 
 The AI Runtime contains six layers.
