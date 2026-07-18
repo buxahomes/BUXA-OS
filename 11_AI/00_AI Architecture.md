@@ -71,6 +71,43 @@ Knowledge is the first.
 
 ---
 
+                    BUXA Business Operating System
+                               │
+        ┌──────────────────────┼──────────────────────┐
+        │                      │                      │
+ Business Modules        AI Runtime           Operational Assets
+        │                      │                      │
+        ▼                      ▼                      ▼
+ Brand / Products      Governance
+ PDMS / Website              │
+ Content / SEO               ▼
+                       Knowledge Loading
+                              │
+                              ▼
+                           Retrieval
+                              │
+                              ▼
+                      Knowledge Graph
+                              │
+                              ▼
+                            Memory
+                              │
+                              ▼
+                          Reasoning
+                              │
+                              ▼
+                          Execution
+                              │
+                              ▼
+                             QA
+                              │
+                              ▼
+                         Collaboration
+                              │
+                              ▼
+                           Learning
+---                           
+
 # Runtime Architecture
 
 The AI Runtime contains six layers.
