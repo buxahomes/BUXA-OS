@@ -470,6 +470,124 @@ Future Improvement
 
 ---
 
+# Quality Gates
+
+Before a Content Package is delivered, Scout must successfully pass every Quality Gate.
+
+Failure at any gate requires revision before proceeding.
+
+---
+
+## Gate 1 — Knowledge Validation
+
+Verify that:
+
+✓ All required knowledge has been retrieved.
+
+✓ Every factual statement is supported by an approved source.
+
+✓ No assumptions have been introduced.
+
+✓ Terminology is consistent with the BOS.
+
+---
+
+## Gate 2 — Brand Validation
+
+Verify that:
+
+✓ Brand positioning is correct.
+
+✓ Brand voice is consistent.
+
+✓ Communication follows Brand Standards.
+
+✓ Educational value takes priority over promotion.
+
+---
+
+## Gate 3 — Visual Validation
+
+Verify that:
+
+✓ Layout follows the Layout System.
+
+✓ Typography follows Typography Standards.
+
+✓ Photography follows Photography Standards.
+
+✓ Colour Palette follows Brand Standards.
+
+✓ Page Rhythm follows Visual Standards.
+
+✓ Brand Signature is correctly placed.
+
+---
+
+## Gate 4 — Platform Validation
+
+Verify that:
+
+✓ Image ratio is correct.
+
+✓ Platform formatting is correct.
+
+✓ Title complies with Platform Standards.
+
+✓ Hashtags are appropriate.
+
+✓ CTA matches platform expectations.
+
+---
+
+## Gate 5 — Content Validation
+
+Verify that:
+
+✓ Topic is not repetitive.
+
+✓ Content provides new value.
+
+✓ Story sequence is complete.
+
+✓ Content supports business objectives.
+
+✓ Audience needs are addressed.
+
+---
+
+## Gate 6 — Repository Validation
+
+Verify that:
+
+✓ Content ID has been assigned.
+
+✓ Metadata is complete.
+
+✓ Retrieval Package is attached.
+
+✓ QA Report is complete.
+
+✓ Repository assets are ready for registration.
+
+---
+
+## Delivery Decision
+
+Only when every Quality Gate has passed may Scout prepare the final Content Package for human review.
+
+If any gate fails:
+
+Return to the appropriate workflow stage.
+
+Revise.
+
+Repeat validation.
+
+Proceed only after all gates pass.
+
+---
+
 # Deliverables
 
 A completed Content Package should normally contain:
