@@ -1388,7 +1388,21 @@ Failed mandatory validation MUST prevent Decision application.
 
 ## 47. Canonical JSON Examples
 
-### 47.1 Business Judgement Decision Payload
+Every fenced JSON example in this document has one explicit conformance category:
+
+| Example | Category | Conformance meaning |
+|---|---|---|
+| Business Judgement Decision | `complete_decision` | Complete material Decision containing every field required by Sections 9 and 36. |
+| Alternative Evaluation | `specialised_payload` | Embedded under `alternative_evaluation` in a complete Decision; not independently valid. |
+| Approval Decision | `complete_decision` | Complete Approval Decision; it is not an Approval Record. |
+| Retry Decision with Recovery Instruction | `complete_decision` | Complete Retry Decision containing a governed recovery instruction. |
+| State Transition Decision | `complete_decision` | Complete Orchestrator-owned transition commit Decision. |
+| Decision Snapshot | `snapshot_or_history_object` | Immutable snapshot of a Decision; not a Decision object. |
+| JSON Validation Certificate | `validation_result` | Syntax-validation result; not a Decision object. |
+
+For example conformance, the universal Decision contract combines the identity and governance fields required by Section 9 with the Engine Contract integration fields required by Section 36. An example classified as `complete_decision` MUST contain all of those fields. A specialised payload inherits the universal fields from its containing Decision and MUST NOT be validated or used as a standalone Decision.
+
+### 47.1 Complete Business Judgement Decision
 
 ```json
 {
@@ -1423,6 +1437,11 @@ Failed mandatory validation MUST prevent Decision application.
     "option_unstructured_guidance"
   ],
   "decision_basis": "The selected option preserves existing Runtime architecture, references mandatory source files, and produces a reviewable shared foundation specification.",
+  "reason_summary": "Select the traceable Runtime specification because it satisfies governance and maintainability requirements.",
+  "review_requirement": {
+    "required": false,
+    "reason": null
+  },
   "evidence_refs": [
     "evidence_engine_contract_decision_contract",
     "evidence_state_model_orchestrator_authority"
@@ -1500,7 +1519,9 @@ Failed mandatory validation MUST prevent Decision application.
 }
 ```
 
-### 47.2 Alternative Evaluation
+### 47.2 Alternative Evaluation Specialised Payload
+
+This specialised payload is contained in the `alternative_evaluation` field of a complete Decision. It inherits `decision_id`, `decision_category`, `decision_type`, `decision_version`, `task_id`, `execution_id`, `created_at`, `created_by`, `status`, `scope`, `owner`, `authority_level`, `related_object_ids`, `current_state`, `decision_basis`, `selected_outcome`, `confidence`, `risk`, `approval`, `validation`, `alternatives_considered`, `evidence_refs`, `policy_refs`, `assumptions`, `reason_summary`, and `review_requirement` from that containing Decision. The repeated `decision_id` is a correlation reference. This payload is not independently valid as a Decision.
 
 ```json
 {
@@ -1588,16 +1609,50 @@ Failed mandatory validation MUST prevent Decision application.
 
 ### 47.3 Approval Decision
 
+This is a complete Approval Decision owned by authorised human authority. It is distinct from, and does not resolve the identity or persistence semantics of, an Approval Record.
+
 ```json
 {
   "decision_id": "decision_550e8400-e29b-41d4-a716-446655440020",
   "decision_category": "approval_decision",
   "decision_type": "approve",
+  "decision_version": 1,
   "approval_id": "approval_550e8400-e29b-41d4-a716-446655440021",
   "task_id": "task_550e8400-e29b-41d4-a716-446655440001",
   "execution_id": "exec_550e8400-e29b-41d4-a716-446655440002",
+  "created_at": "2026-07-28T12:06:00Z",
+  "created_by": {
+    "actor_type": "human",
+    "actor_id": "founder",
+    "display_name": "Founder",
+    "role": "runtime_owner",
+    "version": null
+  },
   "status": "approved",
   "scope": "non_destructive_repository_spec_creation",
+  "owner": "authorised_human_authority",
+  "authority_level": "human_approval",
+  "related_object_ids": [
+    "task_550e8400-e29b-41d4-a716-446655440001",
+    "blueprint_550e8400-e29b-41d4-a716-446655440022"
+  ],
+  "current_state": "approval_pending",
+  "decision_basis": "The authorised request permits the scoped specification change subject to the recorded conditions.",
+  "selected_outcome": "approve",
+  "alternatives_considered": [
+    "approve",
+    "reject",
+    "revision_required"
+  ],
+  "policy_refs": [
+    "policy_governance_before_autonomy"
+  ],
+  "assumptions": [],
+  "reason_summary": "Approve the scoped repository specification change with explicit conditions.",
+  "review_requirement": {
+    "required": false,
+    "reason": null
+  },
   "required_role": "runtime_owner",
   "requested_at": "2026-07-28T12:05:00Z",
   "decided_at": "2026-07-28T12:06:00Z",
@@ -1616,6 +1671,45 @@ Failed mandatory validation MUST prevent Decision application.
   "evidence_refs": [
     "evidence_user_task_instruction"
   ],
+  "confidence": {
+    "level": "high",
+    "score": 0.98,
+    "basis": "The approval was explicitly issued by the required human authority for the identified scope.",
+    "limitations": [
+      "Approval applies only to the stated repository change."
+    ]
+  },
+  "risk": {
+    "level": "low",
+    "summary": "The approved action is limited to a non-destructive specification update.",
+    "risk_categories": [
+      "runtime",
+      "governance"
+    ],
+    "mitigations": [
+      "Enforce the recorded scope and validation conditions."
+    ],
+    "residual_risk_level": "low"
+  },
+  "approval": {
+    "required": true,
+    "status": "approved",
+    "approval_id": "approval_550e8400-e29b-41d4-a716-446655440021",
+    "required_role": "runtime_owner",
+    "decided_by": "founder",
+    "decided_at": "2026-07-28T12:06:00Z",
+    "conditions": [
+      "Do not modify unrelated files.",
+      "Validate all fenced JSON blocks with Python json.loads."
+    ]
+  },
+  "validation": {
+    "status": "valid",
+    "validated_at": "2026-07-28T12:06:00Z",
+    "validator": "approval_engine.governance_validation",
+    "errors": [],
+    "warnings": []
+  },
   "resume_target": {
     "state": "planning_running",
     "context_revalidation_required": true
@@ -1623,15 +1717,50 @@ Failed mandatory validation MUST prevent Decision application.
 }
 ```
 
-### 47.4 Retry and Recovery Decision
+### 47.4 Complete Retry Decision with Recovery Instruction
+
+This is a complete Retry Decision. Its `recovery` field contains the specialised recovery instruction governed by Section 29; the recovery instruction is not a second standalone Decision.
 
 ```json
 {
   "decision_id": "decision_550e8400-e29b-41d4-a716-446655440030",
   "decision_category": "retry_decision",
   "decision_type": "retry",
+  "decision_version": 1,
   "task_id": "task_550e8400-e29b-41d4-a716-446655440001",
   "execution_id": "exec_550e8400-e29b-41d4-a716-446655440002",
+  "created_at": "2026-07-28T12:08:00Z",
+  "created_by": {
+    "actor_type": "engine",
+    "actor_id": "exception_engine",
+    "display_name": "Exception Engine",
+    "role": "exception_handling",
+    "version": "1.0.0"
+  },
+  "status": "completed",
+  "scope": "execution_attempt",
+  "owner": "exception_engine",
+  "authority_level": "engine_recommendation",
+  "related_object_ids": [
+    "exception_550e8400-e29b-41d4-a716-446655440031"
+  ],
+  "current_state": "exception_detected",
+  "decision_basis": "The validation failure is recoverable, bounded retry capacity remains, and the operation is protected by an idempotency key.",
+  "selected_outcome": "retry_with_modified_context",
+  "alternatives_considered": [
+    "retry_with_modified_context",
+    "escalate",
+    "abort"
+  ],
+  "policy_refs": [
+    "policy_bounded_retry"
+  ],
+  "assumptions": [],
+  "reason_summary": "Retry once with corrected Context while preserving execution identity and enforcing the attempt limit.",
+  "review_requirement": {
+    "required": false,
+    "reason": "Human review is required only if the escalation threshold is reached."
+  },
   "exception_id": "exception_550e8400-e29b-41d4-a716-446655440031",
   "failure_category": "validation",
   "current_attempt": 1,
@@ -1653,19 +1782,102 @@ Failed mandatory validation MUST prevent Decision application.
     "maximum_additional_seconds": 300
   },
   "escalation_threshold": "validation_failed_after_maximum_attempts",
-  "selected_recovery_action": "retry_with_modified_context",
-  "next_state": "retrying"
+  "evidence_refs": [
+    "exception_550e8400-e29b-41d4-a716-446655440031"
+  ],
+  "confidence": {
+    "level": "high",
+    "score": 0.9,
+    "basis": "The failure is deterministic, locally correctable, and has not exhausted the retry limit.",
+    "limitations": [
+      "A repeated validation failure requires escalation."
+    ]
+  },
+  "risk": {
+    "level": "low",
+    "summary": "Retry is bounded and does not repeat an unprotected external side effect.",
+    "risk_categories": [
+      "reliability",
+      "runtime"
+    ],
+    "mitigations": [
+      "Use the idempotency key and stop after the configured maximum attempts."
+    ],
+    "residual_risk_level": "low"
+  },
+  "approval": {
+    "required": false,
+    "status": "not_required",
+    "required_role": null,
+    "conditions": []
+  },
+  "validation": {
+    "status": "valid",
+    "validated_at": "2026-07-28T12:08:00Z",
+    "validator": "exception_engine.retry_validation",
+    "errors": [],
+    "warnings": []
+  },
+  "recovery": {
+    "failure_origin": "exception_550e8400-e29b-41d4-a716-446655440031",
+    "recovery_strategy": "retry_with_modified_context",
+    "changed_dependencies": [
+      "corrected_decision_model_source"
+    ],
+    "compatibility_impact": "none",
+    "security_impact": "none",
+    "privacy_impact": "none",
+    "data_integrity_impact": "output_requires_revalidation",
+    "recovery_result": "pending_retry",
+    "next_state": "retrying"
+  }
 }
 ```
 
 ### 47.5 State Transition Decision
+
+This is a complete State Transition Decision owned and committed by the Runtime Orchestrator. The `from_state`, `to_state`, guards, and commit metadata are specialised transition fields within the complete Decision.
 
 ```json
 {
   "decision_id": "decision_550e8400-e29b-41d4-a716-446655440040",
   "decision_category": "state_transition_decision",
   "decision_type": "commit_transition",
+  "decision_version": 1,
+  "task_id": "task_550e8400-e29b-41d4-a716-446655440001",
   "execution_id": "exec_550e8400-e29b-41d4-a716-446655440002",
+  "created_at": "2026-07-28T12:10:00Z",
+  "created_by": {
+    "actor_type": "runtime",
+    "actor_id": "runtime_orchestrator",
+    "display_name": "Runtime Orchestrator",
+    "role": "orchestration",
+    "version": "1.0.0"
+  },
+  "status": "completed",
+  "scope": "execution_state_transition",
+  "owner": "runtime_orchestrator",
+  "authority_level": "orchestrator_commit",
+  "related_object_ids": [
+    "judgement_550e8400-e29b-41d4-a716-446655440041",
+    "policy_decision_550e8400-e29b-41d4-a716-446655440042"
+  ],
+  "current_state": "business_judgement_ready",
+  "decision_basis": "The Business Judgement is present and all policy, approval, and transition guards passed.",
+  "selected_outcome": "commit_transition",
+  "alternatives_considered": [
+    "commit_transition",
+    "reject_transition"
+  ],
+  "policy_refs": [
+    "policy_decision_550e8400-e29b-41d4-a716-446655440042"
+  ],
+  "assumptions": [],
+  "reason_summary": "Commit the registered transition because source state, target state, authority, and guards are valid.",
+  "review_requirement": {
+    "required": false,
+    "reason": null
+  },
   "expected_state_version": 8,
   "from_state": "business_judgement_ready",
   "to_state": "planning_running",
@@ -1684,6 +1896,10 @@ Failed mandatory validation MUST prevent Decision application.
     "version": "1.0.0"
   },
   "reason_code": "judgement_completed",
+  "evidence_refs": [
+    "judgement_550e8400-e29b-41d4-a716-446655440041",
+    "policy_decision_550e8400-e29b-41d4-a716-446655440042"
+  ],
   "guards": [
     {
       "guard_id": "business_judgement_present",
@@ -1701,6 +1917,36 @@ Failed mandatory validation MUST prevent Decision application.
       "evidence_ref": null
     }
   ],
+  "confidence": {
+    "level": "high",
+    "score": 0.97,
+    "basis": "The source state, target state, authority, and mandatory guards were validated.",
+    "limitations": []
+  },
+  "risk": {
+    "level": "low",
+    "summary": "The transition advances to the registered planning state without an external side effect.",
+    "risk_categories": [
+      "state_integrity"
+    ],
+    "mitigations": [
+      "Use optimistic state-version validation before commit."
+    ],
+    "residual_risk_level": "low"
+  },
+  "approval": {
+    "required": false,
+    "status": "not_required",
+    "required_role": null,
+    "conditions": []
+  },
+  "validation": {
+    "status": "valid",
+    "validated_at": "2026-07-28T12:10:00Z",
+    "validator": "runtime_orchestrator.transition_validation",
+    "errors": [],
+    "warnings": []
+  },
   "validation_status": "passed",
   "commit_status": "committed",
   "committed_at": "2026-07-28T12:10:00Z",
@@ -1709,6 +1955,8 @@ Failed mandatory validation MUST prevent Decision application.
 ```
 
 ### 47.6 Decision Snapshot
+
+This is a `snapshot_or_history_object`, not a standalone Decision. Its source Decision supplies the universal Decision fields; the snapshot preserves only the point-in-time fields required by Section 44.
 
 ```json
 {
@@ -1834,6 +2082,9 @@ A production implementation of the Decision Model is acceptable only when:
 - [ ] Semantic validation passes.
 - [ ] Governance validation passes.
 - [ ] Cross-object validation passes.
+- [ ] Every complete Decision example contains all universal required fields.
+- [ ] Every specialised payload names its containing Decision field and inherited universal fields.
+- [ ] No snapshot, history object, validation result, or explanatory fragment is presented as a complete Decision.
 - [ ] JSON examples in this specification parse successfully.
 
 ---
