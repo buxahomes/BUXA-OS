@@ -6,6 +6,7 @@
 **Owner:** `Scout Runtime`  
 **Applies To:** All Runtime Engines  
 **Contract Type:** Mandatory Runtime Standard  
+**Runtime State Dependency:** `state_model.md` version `1.0.0`
 
 ---
 
@@ -764,35 +765,13 @@ Every proposed transition MUST include:
 - approval requirement;
 - rollback state where applicable.
 
-### 14.2 Mandatory State Order
+### 14.2 State Model Authority
 
-The default Runtime progression is:
+`state_model.md` version `1.0.0` is the sole normative authority for Runtime state names, state categories, lifecycle paths, allowed transitions, conditional approval and policy paths, and terminal semantics.
 
-```text
-task_received
-↓
-knowledge_ready
-↓
-business_judgement_ready
-↓
-execution_blueprint_ready
-↓
-approval_ready_or_not_required
-↓
-execution_running
-↓
-skill_output_ready
-↓
-quality_checked
-↓
-execution_completed
-↓
-learning_evaluated
-↓
-memory_updated_or_not_required
-```
+This Engine Contract MUST NOT create or redefine Runtime states.
 
-Exception paths MAY branch from any applicable state.
+Every Engine MUST use the canonical lifecycle and transition registry defined by the State Model. Success, revision, failure, rejection, deferred, cancellation, timeout, exception, approval, and policy paths MUST follow the applicable State Model rules and MUST NOT be collapsed into invented convenience states.
 
 An Engine MUST NOT skip a mandatory state unless:
 
