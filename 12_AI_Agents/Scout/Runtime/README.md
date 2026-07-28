@@ -239,6 +239,24 @@ The Core layer should remain independent of individual business Skills.
 
 `engines/` contains the implementation of Scout's operational engines.
 
+Every Engine invocation returns one Engine Result with a final invocation status: `waiting`, `succeeded`, `partial_success`, `failed`, `blocked`, `cancelled`, or `timeout`.
+
+Engine Invocation Status and Runtime State are separate domains:
+
+```text
+Invocation lifecycle events
+↓
+Engine Result with final invocation status
+↓
+optional State Transition proposal
+↓
+Runtime Orchestrator validation
+↓
+committed Runtime State
+```
+
+`ready` and `running` describe invocation lifecycle phases and are observed through Runtime Events; they are not Engine Result statuses. An Engine Result status never commits Runtime State. Successful invocation does not imply workflow completion, and failed or timed-out invocation does not automatically imply terminal workflow failure.
+
 Expected engines include:
 
 ```text

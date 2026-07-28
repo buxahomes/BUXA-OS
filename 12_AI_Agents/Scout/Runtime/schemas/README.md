@@ -194,6 +194,24 @@ An Engine Result contains:
 
 `engine_result.schema.json` is the machine-readable authority for this envelope. Engine invocation status is not Runtime State.
 
+The mandatory Engine Result `status` field reports one final invocation disposition:
+
+```text
+waiting
+succeeded
+partial_success
+failed
+blocked
+cancelled
+timeout
+```
+
+All seven values are final for the returned `invocation_id`. Workflow resumability is governed separately through recovery information, Decisions, Runtime Events, and State Model-authorised transition proposals.
+
+`ready` and `running` are lifecycle phases, not Engine Result statuses. `success` is an invalid alias for `succeeded`, and Runtime State `timed_out` MUST NOT be used as Engine Result status.
+
+`state_transition` accepts a strict State Transition proposal, a transition reference, or `null`. A proposal records source and target states, triggering Engine and Engine Result, proposer, time, reason, validation outcome, approval requirement, and rollback state. The proposal does not commit Runtime State; only the Runtime Orchestrator may validate and commit it under `../engines/shared/state_model.md`.
+
 Engine Result and Execution Result are distinct. An Engine Result may reference an Execution Result through `primary_output.object_ref` or carry a schema-valid Execution Result through an embedded `primary_output.value`; an Execution Result does not replace the Engine Result envelope.
 
 ---

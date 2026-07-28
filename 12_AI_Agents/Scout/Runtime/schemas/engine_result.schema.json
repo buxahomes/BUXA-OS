@@ -118,10 +118,21 @@
     },
     "events": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "$ref": "#/$defs/event_reference"
       },
-      "default": []
+      "contains": {
+        "type": "object",
+        "required": [
+          "event_type"
+        ],
+        "properties": {
+          "event_type": {
+            "const": "engine_completed"
+          }
+        }
+      }
     },
     "metrics": {
       "$ref": "#/$defs/metrics"
@@ -130,10 +141,13 @@
       "$ref": "#/$defs/timing"
     },
     "state_transition": {
-      "description": "State Transition proposal or reference governed exclusively by state_model.md; null when no transition is proposed.",
-      "anyOf": [
+      "description": "Structured State Transition proposal, transition reference, or null. Engine Invocation Status does not commit Runtime State; only the Runtime Orchestrator validates and commits transitions under state_model.md.",
+      "oneOf": [
         {
-          "$ref": "#/$defs/json_value"
+          "$ref": "#/$defs/state_transition_proposal"
+        },
+        {
+          "$ref": "#/$defs/state_transition_reference"
         },
         {
           "type": "null"
@@ -185,7 +199,7 @@
       "pattern": "^[a-z][a-z0-9_.:-]*$"
     },
     "engine_result_status": {
-      "description": "Terminal or waiting status of one Engine invocation. This is not Runtime State.",
+      "description": "Final return disposition of one Engine invocation. All values are final for invocation_id; workflow resumability is governed separately. This enum is not Runtime State. The rejected values ready, running, success, and timed_out are invalid.",
       "type": "string",
       "enum": [
         "waiting",
@@ -196,6 +210,84 @@
         "cancelled",
         "timeout"
       ]
+    },
+    "state_transition_reference": {
+      "description": "Reference to an existing State Transition proposal or record governed by state_model.md.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transition_id"
+      ],
+      "properties": {
+        "transition_id": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "state_transition_proposal": {
+      "description": "Engine proposal for a State Model-authorised transition. This object never represents a committed Runtime State change.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transition_id",
+        "from_state",
+        "to_state",
+        "triggering_engine_id",
+        "triggering_result_id",
+        "proposed_by",
+        "proposed_at",
+        "reason_code",
+        "validation_outcome",
+        "approval_required",
+        "rollback_state"
+      ],
+      "properties": {
+        "transition_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "from_state": {
+          "$ref": "#/$defs/identifier"
+        },
+        "to_state": {
+          "$ref": "#/$defs/identifier"
+        },
+        "triggering_engine_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "triggering_result_id": {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        "proposed_by": {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+        "proposed_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        "reason_code": {
+          "$ref": "#/$defs/identifier"
+        },
+        "validation_outcome": {
+          "type": "string",
+          "enum": [
+            "passed",
+            "passed_with_warning",
+            "failed"
+          ]
+        },
+        "approval_required": {
+          "type": "boolean"
+        },
+        "rollback_state": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
     },
     "json_value": {
       "description": "Any valid JSON value.",
@@ -610,6 +702,109 @@
       "if": {
         "properties": {
           "status": {
+            "const": "blocked"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "events": {
+            "contains": {
+              "type": "object",
+              "required": [
+                "event_type"
+              ],
+              "properties": {
+                "event_type": {
+                  "const": "engine_blocked"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "cancelled"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "events": {
+            "contains": {
+              "type": "object",
+              "required": [
+                "event_type"
+              ],
+              "properties": {
+                "event_type": {
+                  "const": "engine_cancelled"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "timeout"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "failure": {
+            "allOf": [
+              {
+                "not": {
+                  "type": "null"
+                }
+              },
+              {
+                "properties": {
+                  "category": {
+                    "const": "timeout"
+                  }
+                }
+              }
+            ]
+          },
+          "events": {
+            "contains": {
+              "type": "object",
+              "required": [
+                "event_type"
+              ],
+              "properties": {
+                "event_type": {
+                  "const": "engine_timeout"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
             "const": "partial_success"
           }
         },
@@ -733,7 +928,12 @@
       "events": [
         {
           "event_id": "event_engine_completed_001",
-          "event_type": "engine_execution_completed",
+          "event_type": "engine_completed",
+          "timestamp": "2026-07-28T10:00:01Z"
+        },
+        {
+          "event_id": "event_state_transition_proposed_001",
+          "event_type": "engine_state_transition_proposed",
           "timestamp": "2026-07-28T10:00:01Z"
         }
       ],
@@ -747,7 +947,23 @@
         "duration_ms": 1000
       },
       "state_transition": {
-        "transition_id": "transition_retrieval_ready_001"
+        "transition_id": "transition_retrieval_ready_001",
+        "from_state": "retrieval_running",
+        "to_state": "knowledge_ready",
+        "triggering_engine_id": "retrieval_engine",
+        "triggering_result_id": "engine_result_550e8400-e29b-41d4-a716-446655440000",
+        "proposed_by": {
+          "actor_type": "engine",
+          "actor_id": "retrieval_engine",
+          "display_name": "Retrieval Engine",
+          "role": "retrieval",
+          "version": "1.0.0"
+        },
+        "proposed_at": "2026-07-28T10:00:01Z",
+        "reason_code": "knowledge_package_ready",
+        "validation_outcome": "passed",
+        "approval_required": false,
+        "rollback_state": null
       },
       "side_effects": [],
       "approval": {

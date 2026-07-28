@@ -434,7 +434,12 @@ The Engine Result MUST include:
   "events": [
     {
       "event_id": "event_engine_completed_001",
-      "event_type": "engine_execution_completed",
+      "event_type": "engine_completed",
+      "timestamp": "2026-07-28T10:00:01Z"
+    },
+    {
+      "event_id": "event_state_transition_proposed_001",
+      "event_type": "engine_state_transition_proposed",
       "timestamp": "2026-07-28T10:00:01Z"
     }
   ],
@@ -448,7 +453,23 @@ The Engine Result MUST include:
     "duration_ms": 1000
   },
   "state_transition": {
-    "transition_id": "transition_retrieval_ready_001"
+    "transition_id": "transition_retrieval_ready_001",
+    "from_state": "retrieval_running",
+    "to_state": "knowledge_ready",
+    "triggering_engine_id": "retrieval_engine",
+    "triggering_result_id": "engine_result_550e8400-e29b-41d4-a716-446655440000",
+    "proposed_by": {
+      "actor_type": "engine",
+      "actor_id": "retrieval_engine",
+      "display_name": "Retrieval Engine",
+      "role": "retrieval",
+      "version": "1.0.0"
+    },
+    "proposed_at": "2026-07-28T10:00:01Z",
+    "reason_code": "knowledge_package_ready",
+    "validation_outcome": "passed",
+    "approval_required": false,
+    "rollback_state": null
   },
   "side_effects": [],
   "approval": {
@@ -582,13 +603,15 @@ An Engine MUST NOT report success before:
 
 ## 10. Engine Status Model
 
-Every Engine invocation MUST terminate in one terminal or waiting status.
+Engine Invocation Status is the final return disposition of one Engine invocation. It is reported only through the mandatory Engine Result `status` field and is scoped by `invocation_id`.
+
+Every Engine invocation MUST return exactly one final invocation disposition. Once its Engine Result is returned, that invocation is complete and MUST NOT resume in place. A resumable workflow continues through a new invocation identity and revalidated Engine Context.
+
+Engine Invocation Status is not Runtime State. It MUST NOT be committed as Runtime State, used as a State Transition target, or interpreted as workflow completion or termination.
 
 ### 10.1 Allowed Statuses
 
 ```text
-ready
-running
 waiting
 succeeded
 partial_success
@@ -600,17 +623,9 @@ timeout
 
 ### 10.2 Status Semantics
 
-#### `ready`
-
-The Engine has valid context and may begin execution.
-
-#### `running`
-
-The Engine is actively processing.
-
 #### `waiting`
 
-The Engine cannot continue until an external condition is satisfied, such as:
+The invocation returned because it cannot continue until an external or scheduled condition is satisfied, such as:
 
 - approval;
 - human input;
@@ -621,6 +636,8 @@ The Engine cannot continue until an external condition is satisfied, such as:
 #### `succeeded`
 
 All required outputs were produced and all mandatory local gates passed.
+
+This is local invocation success. It MUST NOT imply `workflow_completed`, `workflow_closed`, or any other Runtime State.
 
 #### `partial_success`
 
@@ -638,6 +655,8 @@ A partial success MUST include:
 
 Execution did not produce a valid required result.
 
+Failure is final for the invocation but MUST NOT automatically imply `failed_terminal` or another terminal Runtime State.
+
 #### `blocked`
 
 Execution was intentionally prevented by:
@@ -652,11 +671,39 @@ Execution was intentionally prevented by:
 
 #### `cancelled`
 
-Execution was stopped by an authorised actor or Runtime control.
+Execution was stopped by an authorised actor or Runtime control. The status may be returned only after required cleanup is complete or cleanup ownership and remaining side effects are explicitly handed off and recorded.
 
 #### `timeout`
 
 Execution exceeded an approved time limit.
+
+`timeout` is the invocation disposition and failure cause. It MUST NOT be silently normalised to `failed` and MUST NOT be substituted for the Runtime State `timed_out`. The Orchestrator may commit `timed_out` only when the State Model permits it and no recovery path remains.
+
+### 10.3 Invocation Finality and Workflow Resumability
+
+All seven canonical statuses are final for the identified invocation.
+
+- `waiting` is normally resumable through a new invocation.
+- `blocked` is resumable only when policy, remediation, approval, or escalation permits it.
+- `partial_success`, `failed`, and `timeout` may lead to follow-up, retry, recovery, rollback, escalation, cancellation, or terminal handling through governed Decisions and State Transitions.
+- `cancelled` ends the invocation after cleanup or cleanup handoff.
+- `succeeded` completes only the local invocation obligation.
+
+Workflow resumability is not encoded by substituting another status value. It is expressed through recovery information, Decisions, Runtime Events, and a State Model-authorised transition proposal.
+
+### 10.4 Lifecycle Phases and Rejected Statuses
+
+`ready` and `running` are lifecycle phases observed through Runtime Events. They are not Engine Result statuses.
+
+The following values are rejected for Engine Result `status`:
+
+- `ready` — lifecycle phase;
+- `running` — lifecycle phase;
+- `success` — invalid alias for `succeeded`;
+- `timed_out` — canonical Runtime State, not invocation status;
+- event names, Decision statuses, Runtime Object statuses, and all Runtime State names.
+
+An implementation MAY maintain an internal invocation phase, but that phase is non-authoritative and MUST NOT be returned as Engine Result `status` or committed as Runtime State.
 
 ---
 
@@ -789,6 +836,24 @@ Every proposed transition MUST include:
 - validation outcome;
 - approval requirement;
 - rollback state where applicable.
+
+The canonical machine structure is defined by `../../schemas/engine_result.schema.json#/$defs/state_transition_proposal`. Every `from_state`, `to_state`, and non-null `rollback_state` MUST exist in the State Model registry.
+
+The interaction protocol is:
+
+```text
+Engine Invocation Status
+↓ reported in
+Engine Result
+↓ optionally carries
+State Transition Proposal
+↓ independently validated by
+Runtime Orchestrator
+↓ commits or rejects
+Runtime State change
+```
+
+An Engine Result status does not commit, select, or guarantee the proposed target State. A `succeeded` invocation does not imply workflow completion, and a `failed`, `blocked`, `cancelled`, or `timeout` invocation does not automatically imply a terminal Runtime State.
 
 ### 14.2 State Model Authority
 
@@ -1110,6 +1175,10 @@ engine_exception_created
 engine_cancelled
 engine_timeout
 ```
+
+`engine_context_received`, `engine_started`, and other progress events represent invocation lifecycle phases. `engine_completed` records that an Engine Result was returned and MUST carry or correlate to its final invocation status. Status-specific events record the relevant condition but MUST NOT substitute for Engine Result `status`.
+
+`engine_state_transition_proposed` records a proposal only. A separate Orchestrator-controlled Runtime Event MUST record whether the State Transition was committed or rejected. Neither event commits State by itself.
 
 ### 21.2 Required Event Fields
 

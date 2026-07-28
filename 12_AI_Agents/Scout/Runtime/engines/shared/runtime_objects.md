@@ -231,6 +231,17 @@ Containment and reference are different relationships.
 
 Engine Result may reference or embed a produced Runtime Object through `primary_output`. The produced object remains distinct from the invocation envelope.
 
+Invocation and lifecycle ownership is distributed without overlap:
+
+| Concept | Normative Owner | Machine Authority |
+|---|---|---|
+| Engine Invocation Status | `engine_contract.md` | `../../schemas/engine_result.schema.json` |
+| Engine Result | `engine_contract.md` | `../../schemas/engine_result.schema.json` |
+| Runtime State | `state_model.md` | State schema deferred; State Model remains normative |
+| State Transition | `state_model.md` | Transition schema deferred; State Model remains normative |
+| Runtime Event | `engine_contract.md` | Event schema deferred |
+| Decision | `decision_model.md` | Decision schema deferred |
+
 ---
 
 ## 16. State and Status Boundary
@@ -238,9 +249,15 @@ Engine Result may reference or embed a produced Runtime Object through `primary_
 Runtime State, object status, Decision status, Context status, Engine invocation status, validation status, approval status, freshness status, and integrity status are distinct domains.
 
 - Runtime State is owned by `state_model.md`.
-- Engine Result `status` is Engine invocation status.
+- Engine Result `status` is the final disposition of one Engine invocation and is owned by `engine_contract.md`.
 - Object status belongs only to the object whose contract defines it.
 - A status value MUST NOT be used as a State Transition target unless it is separately registered by the State Model as a canonical state.
+
+The canonical Engine Invocation Status enum is `waiting`, `succeeded`, `partial_success`, `failed`, `blocked`, `cancelled`, and `timeout`. All seven values are final for one `invocation_id`; workflow resumability is governed separately.
+
+`ready` and `running` are invocation lifecycle phases represented through Runtime Events, not Engine Result statuses. `success` is an invalid alias for `succeeded`. Runtime State `timed_out` MUST NOT replace invocation status `timeout`.
+
+Similar spelling does not create equivalence. For example, Engine Result `status: cancelled` may support a proposal to Runtime State `cancelled`, but only the Runtime Orchestrator may validate and commit that transition.
 
 The registry does not resolve existing State Model findings H-03 or H-04.
 
@@ -275,6 +292,28 @@ Engine Result and Execution Result are distinct:
 - **Execution Result** is the Runtime Object produced by the Execution Engine and validated by `../../schemas/execution_result.schema.json`.
 
 An Engine Result MAY reference or embed an Execution Result. An Execution Result MUST NOT replace the Engine Result envelope.
+
+Canonical interaction:
+
+```text
+Invocation lifecycle
+└── observed through Runtime Events
+        ↓
+Engine Result
+├── final Engine Invocation Status
+├── produced Runtime Object or reference
+├── Decision reference
+├── failure, recovery, and Exception Record reference where required
+└── optional State Transition proposal or reference
+        ↓
+Runtime Orchestrator validation
+        ↓
+Committed State Transition
+        ↓
+Runtime State
+```
+
+An Engine Result status MUST NOT commit or guarantee its proposed Runtime State. `succeeded` MUST NOT imply workflow completion, and `failed`, `blocked`, `cancelled`, or `timeout` MUST NOT automatically imply a terminal Runtime State.
 
 ---
 
