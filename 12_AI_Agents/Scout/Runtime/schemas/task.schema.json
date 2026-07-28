@@ -1,0 +1,1963 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://buxa.ai/scout/runtime/schemas/task.schema.json",
+  "title": "Scout Runtime Task",
+  "description": "Defines the structured business request accepted by Scout Runtime. A Task is the root object of a Runtime execution lifecycle.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "$defs": {
+    "task_status": {
+      "title": "Task Status",
+      "description": "Current lifecycle status of the Task.",
+      "type": "string",
+      "enum": [
+        "draft",
+        "submitted",
+        "clarification_required",
+        "accepted",
+        "in_progress",
+        "validation_required",
+        "approval_required",
+        "blocked",
+        "completed",
+        "failed",
+        "cancelled",
+        "superseded",
+        "archived"
+      ]
+    },
+
+    "task_type": {
+      "title": "Task Type",
+      "description": "Primary operational category of the Task.",
+      "type": "string",
+      "enum": [
+        "research",
+        "analysis",
+        "content_creation",
+        "content_revision",
+        "product_documentation",
+        "quality_review",
+        "planning",
+        "repository_management",
+        "knowledge_management",
+        "website_management",
+        "marketing",
+        "sales_support",
+        "pdms_delivery",
+        "automation",
+        "general"
+      ]
+    },
+
+    "business_domain": {
+      "title": "Business Domain",
+      "description": "Primary BUXA business domain affected by the Task.",
+      "type": "string",
+      "enum": [
+        "brand",
+        "products",
+        "flooring",
+        "pdms",
+        "content",
+        "xiaohongshu",
+        "social_media",
+        "website",
+        "seo",
+        "advertising",
+        "sales",
+        "market_intelligence",
+        "competitor_intelligence",
+        "quality_assurance",
+        "repository",
+        "knowledge_base",
+        "runtime",
+        "governance",
+        "general"
+      ]
+    },
+
+    "request_channel": {
+      "title": "Request Channel",
+      "description": "Channel through which the Task entered Scout Runtime.",
+      "type": "string",
+      "enum": [
+        "chat",
+        "runtime_api",
+        "workflow",
+        "scheduled_task",
+        "repository_event",
+        "email",
+        "manual_entry",
+        "system",
+        "other"
+      ]
+    },
+
+    "request_source": {
+      "title": "Request Source",
+      "description": "Information describing where the original Task request came from.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "channel",
+        "requested_by",
+        "received_at"
+      ],
+      "properties": {
+        "channel": {
+          "$ref": "#/$defs/request_channel"
+        },
+        "requested_by": {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+        "received_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        "source_reference": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/source_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "conversation_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 240,
+          "default": null
+        },
+        "message_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 240,
+          "default": null
+        }
+      }
+    },
+
+    "task_scope": {
+      "title": "Task Scope",
+      "description": "Defines what is included in and excluded from the Task.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "included",
+        "excluded"
+      ],
+      "properties": {
+        "included": {
+          "type": "array",
+          "description": "Work explicitly included in the Task.",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "excluded": {
+          "type": "array",
+          "description": "Work explicitly excluded from the Task.",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "boundaries": {
+          "type": "array",
+          "description": "Additional operational or business boundaries.",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      }
+    },
+
+    "task_input": {
+      "title": "Task Input",
+      "description": "A structured input supplied to the Task.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "input_id",
+        "input_type",
+        "name",
+        "required"
+      ],
+      "properties": {
+        "input_id": {
+          "type": "string",
+          "pattern": "^input_[A-Za-z0-9_.:-]+$",
+          "minLength": 7,
+          "maxLength": 240
+        },
+        "input_type": {
+          "type": "string",
+          "enum": [
+            "instruction",
+            "text",
+            "document",
+            "image",
+            "video",
+            "audio",
+            "dataset",
+            "repository",
+            "url",
+            "product",
+            "memory",
+            "workflow_output",
+            "tool_result",
+            "other"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "provided": {
+          "type": "boolean",
+          "default": false
+        },
+        "source_ref": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/source_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "value": {
+          "description": "Inline value when the input is not represented by a source reference.",
+          "type": [
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "array",
+            "object",
+            "null"
+          ],
+          "default": null
+        },
+        "validation_notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000,
+          "default": null
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "provided": {
+                "const": true
+              }
+            },
+            "required": [
+              "provided"
+            ]
+          },
+          "then": {
+            "anyOf": [
+              {
+                "required": [
+                  "source_ref"
+                ],
+                "properties": {
+                  "source_ref": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              },
+              {
+                "required": [
+                  "value"
+                ],
+                "properties": {
+                  "value": {
+                    "not": {
+                      "type": "null"
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+
+    "deliverable": {
+      "title": "Task Deliverable",
+      "description": "A specific output that the Task is expected to produce.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deliverable_id",
+        "name",
+        "description",
+        "required"
+      ],
+      "properties": {
+        "deliverable_id": {
+          "type": "string",
+          "pattern": "^deliverable_[A-Za-z0-9_.:-]+$",
+          "minLength": 13,
+          "maxLength": 240
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "deliverable_type": {
+          "type": "string",
+          "enum": [
+            "document",
+            "content_package",
+            "report",
+            "analysis",
+            "recommendation",
+            "plan",
+            "image_plan",
+            "image_prompt",
+            "copy",
+            "schema",
+            "code",
+            "repository_change",
+            "quality_report",
+            "data",
+            "notification",
+            "other"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "format": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 160,
+          "default": null
+        },
+        "quantity": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        },
+        "acceptance_notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        },
+        "approval_required": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+
+    "constraint_type": {
+      "title": "Constraint Type",
+      "type": "string",
+      "enum": [
+        "governance",
+        "brand",
+        "product",
+        "content",
+        "quality",
+        "legal",
+        "financial",
+        "technical",
+        "time",
+        "format",
+        "platform",
+        "language",
+        "source",
+        "approval",
+        "privacy",
+        "security",
+        "scope",
+        "other"
+      ]
+    },
+
+    "constraint": {
+      "title": "Task Constraint",
+      "description": "A requirement or limitation that must be respected during execution.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "constraint_id",
+        "constraint_type",
+        "description",
+        "mandatory"
+      ],
+      "properties": {
+        "constraint_id": {
+          "type": "string",
+          "pattern": "^constraint_[A-Za-z0-9_.:-]+$",
+          "minLength": 12,
+          "maxLength": 240
+        },
+        "constraint_type": {
+          "$ref": "#/$defs/constraint_type"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "mandatory": {
+          "type": "boolean"
+        },
+        "source_ref": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/source_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "verification_method": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000,
+          "default": null
+        }
+      }
+    },
+
+    "success_criterion": {
+      "title": "Success Criterion",
+      "description": "A measurable or verifiable condition used to determine whether the Task succeeded.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "criterion_id",
+        "description",
+        "required",
+        "verification_method"
+      ],
+      "properties": {
+        "criterion_id": {
+          "type": "string",
+          "pattern": "^criterion_[A-Za-z0-9_.:-]+$",
+          "minLength": 11,
+          "maxLength": 240
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "verification_method": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "target_value": {
+          "type": [
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ],
+          "default": null
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_evaluated",
+            "met",
+            "partially_met",
+            "not_met",
+            "not_applicable"
+          ],
+          "default": "not_evaluated"
+        },
+        "evidence_refs": {
+          "$ref": "./common.schema.json#/$defs/evidence_references"
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000,
+          "default": null
+        }
+      }
+    },
+
+    "task_dependency": {
+      "title": "Task Dependency",
+      "description": "An object, action, decision or external condition required by the Task.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dependency_id",
+        "dependency_type",
+        "description",
+        "required",
+        "status"
+      ],
+      "properties": {
+        "dependency_id": {
+          "type": "string",
+          "pattern": "^dependency_[A-Za-z0-9_.:-]+$",
+          "minLength": 12,
+          "maxLength": 240
+        },
+        "dependency_type": {
+          "type": "string",
+          "enum": [
+            "task",
+            "runtime_object",
+            "knowledge",
+            "human_decision",
+            "approval",
+            "skill",
+            "tool",
+            "external_event",
+            "resource",
+            "other"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "unresolved",
+            "pending",
+            "available",
+            "satisfied",
+            "blocked",
+            "failed",
+            "not_applicable"
+          ]
+        },
+        "related_object_id": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/object_id"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "owner": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "due_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      }
+    },
+
+    "task_authority": {
+      "title": "Task Authority",
+      "description": "Defines the operational authority granted to Scout for this Task.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "autonomy_level",
+        "allowed_actions",
+        "prohibited_actions"
+      ],
+      "properties": {
+        "autonomy_level": {
+          "type": "string",
+          "enum": [
+            "advisory_only",
+            "draft_only",
+            "execute_reversible_actions",
+            "execute_with_approval_gates",
+            "authorised_execution"
+          ]
+        },
+        "allowed_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "prohibited_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "publishing_allowed": {
+          "type": "boolean",
+          "default": false
+        },
+        "external_communication_allowed": {
+          "type": "boolean",
+          "default": false
+        },
+        "repository_write_allowed": {
+          "type": "boolean",
+          "default": false
+        },
+        "financial_commitment_allowed": {
+          "type": "boolean",
+          "default": false
+        },
+        "legal_commitment_allowed": {
+          "type": "boolean",
+          "default": false
+        },
+        "deletion_allowed": {
+          "type": "boolean",
+          "default": false
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        }
+      }
+    },
+
+    "clarification_question": {
+      "title": "Clarification Question",
+      "description": "A question that must or may be answered before Task execution proceeds.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question_id",
+        "question",
+        "required"
+      ],
+      "properties": {
+        "question_id": {
+          "type": "string",
+          "pattern": "^question_[A-Za-z0-9_.:-]+$",
+          "minLength": 10,
+          "maxLength": 240
+        },
+        "question": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000,
+          "default": null
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "open",
+            "answered",
+            "resolved_by_assumption",
+            "withdrawn"
+          ],
+          "default": "open"
+        },
+        "answer": {
+          "type": [
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "array",
+            "object",
+            "null"
+          ],
+          "default": null
+        },
+        "answered_by": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "answered_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "answered"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "answer",
+              "answered_by",
+              "answered_at"
+            ],
+            "properties": {
+              "answer": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "answered_by": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "answered_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "clarification": {
+      "title": "Task Clarification State",
+      "description": "Records whether clarification is needed before execution.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "questions"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/clarification_question"
+          },
+          "default": []
+        },
+        "assumptions_allowed": {
+          "type": "boolean",
+          "default": true
+        },
+        "blocking": {
+          "type": "boolean",
+          "default": false
+        },
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000,
+          "default": null
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "required": {
+                "const": true
+              }
+            },
+            "required": [
+              "required"
+            ]
+          },
+          "then": {
+            "properties": {
+              "questions": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "blocking": {
+                "const": true
+              }
+            },
+            "required": [
+              "blocking"
+            ]
+          },
+          "then": {
+            "properties": {
+              "required": {
+                "const": true
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "execution_policy": {
+      "title": "Execution Policy",
+      "description": "Controls how Scout Runtime may execute the Task.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "execution_mode",
+        "retry_policy",
+        "failure_policy"
+      ],
+      "properties": {
+        "execution_mode": {
+          "type": "string",
+          "enum": [
+            "synchronous",
+            "asynchronous",
+            "scheduled",
+            "condition_based",
+            "manual"
+          ]
+        },
+        "maximum_attempts": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20,
+          "default": 1
+        },
+        "retry_policy": {
+          "type": "string",
+          "enum": [
+            "no_retry",
+            "automatic_retry",
+            "manual_retry",
+            "retry_with_revision"
+          ]
+        },
+        "failure_policy": {
+          "type": "string",
+          "enum": [
+            "stop",
+            "continue_with_limitations",
+            "return_to_previous_stage",
+            "request_human_review",
+            "create_alternative_plan"
+          ]
+        },
+        "allow_partial_completion": {
+          "type": "boolean",
+          "default": false
+        },
+        "allow_assumptions": {
+          "type": "boolean",
+          "default": true
+        },
+        "require_evidence": {
+          "type": "boolean",
+          "default": true
+        },
+        "require_quality_review": {
+          "type": "boolean",
+          "default": true
+        },
+        "record_learning": {
+          "type": "boolean",
+          "default": true
+        },
+        "timeout_seconds": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1,
+          "default": null
+        }
+      }
+    },
+
+    "schedule": {
+      "title": "Task Schedule",
+      "description": "Optional scheduling and deadline information.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "not_before": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "due_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "timezone": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 100,
+          "examples": [
+            "Asia/Shanghai",
+            "Australia/Sydney"
+          ],
+          "default": null
+        },
+        "recurrence": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1000,
+          "default": null
+        },
+        "urgency_reason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000,
+          "default": null
+        }
+      }
+    }
+  },
+
+  "required": [
+    "id",
+    "schema_name",
+    "schema_version",
+    "execution_id",
+    "created_at",
+    "created_by",
+    "status",
+    "title",
+    "task_type",
+    "business_domains",
+    "priority",
+    "request_source",
+    "original_request",
+    "objective",
+    "scope",
+    "inputs",
+    "deliverables",
+    "constraints",
+    "success_criteria",
+    "authority",
+    "risk_assessment",
+    "approval",
+    "clarification",
+    "execution_policy"
+  ],
+
+  "properties": {
+    "id": {
+      "title": "Task Identifier",
+      "description": "Unique and immutable identifier of the Task.",
+      "type": "string",
+      "pattern": "^task_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+
+    "schema_name": {
+      "title": "Schema Name",
+      "type": "string",
+      "const": "task"
+    },
+
+    "schema_version": {
+      "$ref": "./common.schema.json#/$defs/schema_version"
+    },
+
+    "execution_id": {
+      "$ref": "./common.schema.json#/$defs/execution_id"
+    },
+
+    "workflow_id": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/workflow_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "parent_task_id": {
+      "description": "Identifier of the parent Task when this Task is a subtask or revision.",
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/task_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "created_at": {
+      "$ref": "./common.schema.json#/$defs/timestamp"
+    },
+
+    "updated_at": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "created_by": {
+      "$ref": "./common.schema.json#/$defs/actor_reference"
+    },
+
+    "updated_by": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "status": {
+      "$ref": "#/$defs/task_status"
+    },
+
+    "title": {
+      "$ref": "./common.schema.json#/$defs/title"
+    },
+
+    "task_type": {
+      "$ref": "#/$defs/task_type"
+    },
+
+    "business_domains": {
+      "title": "Business Domains",
+      "description": "One or more business domains affected by the Task.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/business_domain"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+
+    "priority": {
+      "$ref": "./common.schema.json#/$defs/priority"
+    },
+
+    "request_source": {
+      "$ref": "#/$defs/request_source"
+    },
+
+    "original_request": {
+      "title": "Original Request",
+      "description": "The original human or system request before Runtime structuring.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 20000
+    },
+
+    "objective": {
+      "title": "Task Objective",
+      "description": "A clear statement of the business outcome the Task is intended to achieve.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+
+    "business_context": {
+      "title": "Business Context",
+      "description": "Relevant business context needed to understand the Task.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "maxLength": 10000,
+      "default": null
+    },
+
+    "scope": {
+      "$ref": "#/$defs/task_scope"
+    },
+
+    "inputs": {
+      "title": "Task Inputs",
+      "description": "Inputs supplied or required for execution.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/task_input"
+      },
+      "default": []
+    },
+
+    "deliverables": {
+      "title": "Task Deliverables",
+      "description": "Outputs expected from the Task.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/deliverable"
+      },
+      "minItems": 1
+    },
+
+    "constraints": {
+      "title": "Task Constraints",
+      "description": "Requirements and limitations governing Task execution.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/constraint"
+      },
+      "default": []
+    },
+
+    "success_criteria": {
+      "title": "Success Criteria",
+      "description": "Conditions used to determine whether the Task has succeeded.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/success_criterion"
+      },
+      "minItems": 1
+    },
+
+    "assumptions": {
+      "title": "Task Assumptions",
+      "description": "Explicit assumptions accepted for Task execution.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4000
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+
+    "dependencies": {
+      "title": "Task Dependencies",
+      "description": "Dependencies that may affect execution.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/task_dependency"
+      },
+      "default": []
+    },
+
+    "authority": {
+      "$ref": "#/$defs/task_authority"
+    },
+
+    "risk_assessment": {
+      "$ref": "./common.schema.json#/$defs/risk_assessment"
+    },
+
+    "approval": {
+      "$ref": "./common.schema.json#/$defs/approval"
+    },
+
+    "quality_state": {
+      "$ref": "./common.schema.json#/$defs/quality_state"
+    },
+
+    "clarification": {
+      "$ref": "#/$defs/clarification"
+    },
+
+    "execution_policy": {
+      "$ref": "#/$defs/execution_policy"
+    },
+
+    "schedule": {
+      "$ref": "#/$defs/schedule"
+    },
+
+    "source_refs": {
+      "$ref": "./common.schema.json#/$defs/source_references"
+    },
+
+    "evidence_refs": {
+      "$ref": "./common.schema.json#/$defs/evidence_references"
+    },
+
+    "relationships": {
+      "$ref": "./common.schema.json#/$defs/object_relationships"
+    },
+
+    "revision": {
+      "$ref": "./common.schema.json#/$defs/revision"
+    },
+
+    "validation": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/validation_record"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "tags": {
+      "$ref": "./common.schema.json#/$defs/tags"
+    },
+
+    "metadata": {
+      "$ref": "./common.schema.json#/$defs/metadata"
+    }
+  },
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "clarification_required"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "clarification": {
+            "properties": {
+              "required": {
+                "const": true
+              },
+              "questions": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "required",
+              "questions"
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "approval_required"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "approval": {
+            "properties": {
+              "required": {
+                "const": true
+              },
+              "status": {
+                "const": "pending"
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "blocked"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "dependencies": {
+            "contains": {
+              "properties": {
+                "status": {
+                  "const": "blocked"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "minContains": 1
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "clarification": {
+            "properties": {
+              "blocking": {
+                "const": false
+              }
+            }
+          },
+          "success_criteria": {
+            "not": {
+              "contains": {
+                "properties": {
+                  "required": {
+                    "const": true
+                  },
+                  "status": {
+                    "enum": [
+                      "not_evaluated",
+                      "not_met"
+                    ]
+                  }
+                },
+                "required": [
+                  "required",
+                  "status"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "authority": {
+            "properties": {
+              "publishing_allowed": {
+                "const": true
+              }
+            },
+            "required": [
+              "publishing_allowed"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approval": {
+            "properties": {
+              "required": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "authority": {
+            "properties": {
+              "financial_commitment_allowed": {
+                "const": true
+              }
+            },
+            "required": [
+              "financial_commitment_allowed"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approval": {
+            "properties": {
+              "required": {
+                "const": true
+              }
+            }
+          },
+          "risk_assessment": {
+            "properties": {
+              "level": {
+                "enum": [
+                  "medium",
+                  "high",
+                  "critical"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "authority": {
+            "properties": {
+              "legal_commitment_allowed": {
+                "const": true
+              }
+            },
+            "required": [
+              "legal_commitment_allowed"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approval": {
+            "properties": {
+              "required": {
+                "const": true
+              }
+            }
+          },
+          "risk_assessment": {
+            "properties": {
+              "level": {
+                "enum": [
+                  "high",
+                  "critical"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "authority": {
+            "properties": {
+              "deletion_allowed": {
+                "const": true
+              }
+            },
+            "required": [
+              "deletion_allowed"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approval": {
+            "properties": {
+              "required": {
+                "const": true
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+
+  "examples": [
+    {
+      "id": "task_550e8400-e29b-41d4-a716-446655440000",
+      "schema_name": "task",
+      "schema_version": "1.0.0",
+      "execution_id": "exec_550e8400-e29b-41d4-a716-446655440001",
+      "workflow_id": "xiaohongshu_content_package.v1",
+      "parent_task_id": null,
+      "created_at": "2026-07-27T09:30:00Z",
+      "updated_at": null,
+      "created_by": {
+        "actor_type": "runtime",
+        "actor_id": "scout_runtime",
+        "display_name": "Scout Runtime",
+        "role": "task_intake",
+        "version": "1.0.0"
+      },
+      "updated_by": null,
+      "status": "accepted",
+      "title": "Create the Next Xiaohongshu Content Package",
+      "task_type": "content_creation",
+      "business_domains": [
+        "content",
+        "xiaohongshu",
+        "products"
+      ],
+      "priority": "normal",
+      "request_source": {
+        "channel": "chat",
+        "requested_by": {
+          "actor_type": "human",
+          "actor_id": "brand_owner",
+          "display_name": "BUXA Brand Owner",
+          "role": "brand_owner",
+          "version": null
+        },
+        "received_at": "2026-07-27T09:29:30Z",
+        "source_reference": null,
+        "conversation_id": "conversation_001",
+        "message_id": "message_001"
+      },
+      "original_request": "Scout, create the next Xiaohongshu Content Package. Do not publish.",
+      "objective": "Create one complete and quality-verified Xiaohongshu Content Package that extends the approved BUXA content strategy without repeating previously covered themes.",
+      "business_context": "The Joseph BUXA PDMS account publishes content about high-end residential project delivery, flooring and BUXA PDMS.",
+      "scope": {
+        "included": [
+          "Review approved Xiaohongshu content memory",
+          "Select a new topic",
+          "Retrieve authoritative knowledge",
+          "Create a six-page image plan",
+          "Create image prompts",
+          "Create Xiaohongshu copy",
+          "Perform quality assurance"
+        ],
+        "excluded": [
+          "Publishing the content",
+          "Changing approved Product Passports",
+          "Changing Brand Standards"
+        ],
+        "boundaries": [
+          "Use only approved product facts for product claims",
+          "Do not repeat an existing content theme"
+        ]
+      },
+      "inputs": [
+        {
+          "input_id": "input_content_memory",
+          "input_type": "memory",
+          "name": "Approved Xiaohongshu Content Memory",
+          "description": "Approved historical content and topic coverage.",
+          "required": true,
+          "provided": false,
+          "source_ref": null,
+          "value": null,
+          "validation_notes": null
+        },
+        {
+          "input_id": "input_product_passports",
+          "input_type": "repository",
+          "name": "Approved Product Passports",
+          "description": "Approved product knowledge for any product claims.",
+          "required": true,
+          "provided": false,
+          "source_ref": null,
+          "value": null,
+          "validation_notes": null
+        }
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "deliverable_topic_rationale",
+          "name": "Topic Selection and Rationale",
+          "description": "Selected topic and explanation of why it extends the existing strategy.",
+          "deliverable_type": "recommendation",
+          "required": true,
+          "format": "markdown",
+          "quantity": 1,
+          "acceptance_notes": "The topic must not duplicate a previously approved theme.",
+          "approval_required": false
+        },
+        {
+          "deliverable_id": "deliverable_image_plan",
+          "name": "Six-Page Image Plan",
+          "description": "A structured six-page visual narrative in 1:1 format.",
+          "deliverable_type": "image_plan",
+          "required": true,
+          "format": "markdown",
+          "quantity": 1,
+          "acceptance_notes": "The plan must contain exactly six pages.",
+          "approval_required": false
+        },
+        {
+          "deliverable_id": "deliverable_image_prompts",
+          "name": "Image Prompts",
+          "description": "One production-ready 1:1 image prompt for each page.",
+          "deliverable_type": "image_prompt",
+          "required": true,
+          "format": "markdown",
+          "quantity": 6,
+          "acceptance_notes": "Prompts must comply with BUXA Brand Standards.",
+          "approval_required": false
+        },
+        {
+          "deliverable_id": "deliverable_copy",
+          "name": "Xiaohongshu Copy",
+          "description": "Title, post copy and hashtags in Xiaohongshu format.",
+          "deliverable_type": "copy",
+          "required": true,
+          "format": "markdown",
+          "quantity": 1,
+          "acceptance_notes": "Copy must be clear, credible and aligned with BUXA positioning.",
+          "approval_required": false
+        },
+        {
+          "deliverable_id": "deliverable_quality_report",
+          "name": "Quality Report",
+          "description": "Formal review against Product, Brand and Content Standards.",
+          "deliverable_type": "quality_report",
+          "required": true,
+          "format": "structured_object",
+          "quantity": 1,
+          "acceptance_notes": "All critical checks must pass.",
+          "approval_required": false
+        }
+      ],
+      "constraints": [
+        {
+          "constraint_id": "constraint_no_publish",
+          "constraint_type": "approval",
+          "description": "The content package must not be published.",
+          "mandatory": true,
+          "source_ref": null,
+          "verification_method": "Confirm that no publishing Tool is invoked."
+        },
+        {
+          "constraint_id": "constraint_approved_knowledge",
+          "constraint_type": "source",
+          "description": "Product claims must be supported by approved Product Passports and Product Standards.",
+          "mandatory": true,
+          "source_ref": null,
+          "verification_method": "Verify each product claim against evidence references."
+        },
+        {
+          "constraint_id": "constraint_no_repetition",
+          "constraint_type": "content",
+          "description": "The selected topic must not repeat a previously approved Xiaohongshu topic.",
+          "mandatory": true,
+          "source_ref": null,
+          "verification_method": "Compare the selected theme against approved content memory."
+        }
+      ],
+      "success_criteria": [
+        {
+          "criterion_id": "criterion_complete_package",
+          "description": "All required deliverables are produced.",
+          "required": true,
+          "verification_method": "Check the final Execution Result against the deliverable list.",
+          "target_value": true,
+          "status": "not_evaluated",
+          "evidence_refs": [],
+          "notes": null
+        },
+        {
+          "criterion_id": "criterion_six_pages",
+          "description": "The image plan contains exactly six pages.",
+          "required": true,
+          "verification_method": "Count the image-plan pages.",
+          "target_value": 6,
+          "status": "not_evaluated",
+          "evidence_refs": [],
+          "notes": null
+        },
+        {
+          "criterion_id": "criterion_quality_pass",
+          "description": "The complete content package passes Product, Brand and Content quality review.",
+          "required": true,
+          "verification_method": "Review the final Quality Report.",
+          "target_value": "passed",
+          "status": "not_evaluated",
+          "evidence_refs": [],
+          "notes": null
+        }
+      ],
+      "assumptions": [
+        "Approved Product Passports and content memory are accessible to the Retrieval Engine.",
+        "The requested package is a draft and does not require publishing."
+      ],
+      "dependencies": [
+        {
+          "dependency_id": "dependency_content_memory",
+          "dependency_type": "knowledge",
+          "description": "Approved Xiaohongshu content memory must be available.",
+          "required": true,
+          "status": "unresolved",
+          "related_object_id": null,
+          "owner": null,
+          "due_at": null
+        },
+        {
+          "dependency_id": "dependency_product_knowledge",
+          "dependency_type": "knowledge",
+          "description": "Relevant approved Product Passports must be available.",
+          "required": true,
+          "status": "unresolved",
+          "related_object_id": null,
+          "owner": null,
+          "due_at": null
+        }
+      ],
+      "authority": {
+        "autonomy_level": "draft_only",
+        "allowed_actions": [
+          "Retrieve approved knowledge",
+          "Analyse historical content",
+          "Select a topic",
+          "Draft content",
+          "Create image prompts",
+          "Perform quality review"
+        ],
+        "prohibited_actions": [
+          "Publish content",
+          "Modify governance documents",
+          "Modify approved Product Passports",
+          "Make financial commitments"
+        ],
+        "publishing_allowed": false,
+        "external_communication_allowed": false,
+        "repository_write_allowed": false,
+        "financial_commitment_allowed": false,
+        "legal_commitment_allowed": false,
+        "deletion_allowed": false,
+        "notes": "The Runtime may create and review a draft package only."
+      },
+      "risk_assessment": {
+        "level": "medium",
+        "summary": "The primary risks are unsupported product claims, repeated content and inconsistency with BUXA Brand Standards.",
+        "risk_categories": [
+          "brand",
+          "product_accuracy",
+          "content"
+        ],
+        "mitigations": [
+          "Use approved sources only",
+          "Perform content-memory comparison",
+          "Require formal quality review"
+        ],
+        "residual_risk_level": "low"
+      },
+      "approval": {
+        "required": true,
+        "status": "pending",
+        "required_role": "brand_owner",
+        "requested_from": null,
+        "requested_at": null,
+        "decided_by": null,
+        "decided_at": null,
+        "expires_at": null,
+        "notes": "Human approval is required before publication, but not before draft creation."
+      },
+      "quality_state": {
+        "status": "not_reviewed",
+        "latest_report_id": null,
+        "reviewed_at": null,
+        "summary": null
+      },
+      "clarification": {
+        "required": false,
+        "questions": [],
+        "assumptions_allowed": true,
+        "blocking": false,
+        "summary": null
+      },
+      "execution_policy": {
+        "execution_mode": "synchronous",
+        "maximum_attempts": 2,
+        "retry_policy": "retry_with_revision",
+        "failure_policy": "return_to_previous_stage",
+        "allow_partial_completion": false,
+        "allow_assumptions": true,
+        "require_evidence": true,
+        "require_quality_review": true,
+        "record_learning": true,
+        "timeout_seconds": null
+      },
+      "schedule": {
+        "not_before": null,
+        "due_at": null,
+        "timezone": "Asia/Shanghai",
+        "recurrence": null,
+        "urgency_reason": null
+      },
+      "source_refs": [],
+      "evidence_refs": [],
+      "relationships": [],
+      "revision": {
+        "revision_number": 1,
+        "supersedes_id": null,
+        "change_summary": null,
+        "revision_notes": null,
+        "revised_by": null,
+        "revised_at": null
+      },
+      "validation": null,
+      "tags": [
+        "content",
+        "xiaohongshu",
+        "content_package"
+      ],
+      "metadata": {
+        "platform": "xiaohongshu",
+        "publication_status": "draft_only"
+      }
+    }
+  ]
+}

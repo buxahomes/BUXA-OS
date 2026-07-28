@@ -1,0 +1,2591 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://buxa.ai/scout/runtime/schemas/knowledge_package.schema.json",
+  "title": "Scout Runtime Knowledge Package",
+  "description": "Defines the structured, task-specific and traceable knowledge assembled by the Scout Retrieval Engine. A Knowledge Package supplies the verified context required by downstream Reasoning and Planning components.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "$defs": {
+    "knowledge_package_status": {
+      "title": "Knowledge Package Status",
+      "description": "Current lifecycle status of the Knowledge Package.",
+      "type": "string",
+      "enum": [
+        "draft",
+        "retrieval_pending",
+        "retrieving",
+        "clarification_required",
+        "validation_required",
+        "completed",
+        "completed_with_gaps",
+        "blocked",
+        "failed",
+        "superseded",
+        "archived"
+      ]
+    },
+
+    "retrieval_mode": {
+      "title": "Retrieval Mode",
+      "description": "Primary method used to obtain knowledge for the package.",
+      "type": "string",
+      "enum": [
+        "repository_search",
+        "memory_search",
+        "file_search",
+        "database_query",
+        "web_research",
+        "tool_assisted",
+        "human_supplied",
+        "hybrid"
+      ]
+    },
+
+    "retrieval_strategy": {
+      "title": "Retrieval Strategy",
+      "description": "Execution strategy used by the Retrieval Engine.",
+      "type": "string",
+      "enum": [
+        "precision_first",
+        "recall_first",
+        "authority_first",
+        "freshness_first",
+        "balanced",
+        "exhaustive",
+        "targeted"
+      ]
+    },
+
+    "knowledge_requirement_type": {
+      "title": "Knowledge Requirement Type",
+      "description": "Category of knowledge required by the Task.",
+      "type": "string",
+      "enum": [
+        "governance",
+        "brand",
+        "product",
+        "product_standard",
+        "content_standard",
+        "workflow",
+        "historical_content",
+        "organisational_memory",
+        "market",
+        "competitor",
+        "customer",
+        "technical",
+        "legal",
+        "financial",
+        "operational",
+        "quality",
+        "repository",
+        "external_reference",
+        "other"
+      ]
+    },
+
+    "requirement_status": {
+      "title": "Knowledge Requirement Status",
+      "description": "Current satisfaction state of a knowledge requirement.",
+      "type": "string",
+      "enum": [
+        "unassessed",
+        "searching",
+        "satisfied",
+        "partially_satisfied",
+        "not_found",
+        "conflicted",
+        "not_applicable"
+      ]
+    },
+
+    "knowledge_requirement": {
+      "title": "Knowledge Requirement",
+      "description": "A specific knowledge need derived from the Task.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirement_id",
+        "requirement_type",
+        "description",
+        "required",
+        "status"
+      ],
+      "properties": {
+        "requirement_id": {
+          "type": "string",
+          "pattern": "^kr_[A-Za-z0-9_.:-]+$",
+          "minLength": 4,
+          "maxLength": 240
+        },
+
+        "requirement_type": {
+          "$ref": "#/$defs/knowledge_requirement_type"
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+
+        "purpose": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000,
+          "default": null
+        },
+
+        "required": {
+          "type": "boolean"
+        },
+
+        "minimum_authority_level": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/authority_level"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "freshness_required": {
+          "type": "boolean",
+          "default": false
+        },
+
+        "maximum_age_days": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "default": null
+        },
+
+        "status": {
+          "$ref": "#/$defs/requirement_status"
+        },
+
+        "knowledge_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "gap_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^gap_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "conflict_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^conflict_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000,
+          "default": null
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "freshness_required": {
+                "const": true
+              }
+            },
+            "required": [
+              "freshness_required"
+            ]
+          },
+          "then": {
+            "required": [
+              "maximum_age_days"
+            ],
+            "properties": {
+              "maximum_age_days": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "satisfied"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "knowledge_item_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_found"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "gap_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "conflicted"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "conflict_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "retrieval_query": {
+      "title": "Retrieval Query",
+      "description": "A query or retrieval action executed to satisfy one or more knowledge requirements.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "query_id",
+        "query",
+        "retrieval_mode",
+        "executed_at",
+        "executed_by",
+        "status"
+      ],
+      "properties": {
+        "query_id": {
+          "type": "string",
+          "pattern": "^query_[A-Za-z0-9_.:-]+$",
+          "minLength": 7,
+          "maxLength": 240
+        },
+
+        "query": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+
+        "retrieval_mode": {
+          "$ref": "#/$defs/retrieval_mode"
+        },
+
+        "strategy": {
+          "$ref": "#/$defs/retrieval_strategy"
+        },
+
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^kr_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+
+        "source_filters": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "executed_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+
+        "executed_by": {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "completed",
+            "completed_no_results",
+            "partially_completed",
+            "failed"
+          ]
+        },
+
+        "result_count": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "error_summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "completed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "result_count": {
+                "minimum": 1
+              },
+              "source_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "completed_no_results"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "result_count": {
+                "const": 0
+              },
+              "source_ids": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "error_summary"
+            ],
+            "properties": {
+              "error_summary": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "source_freshness": {
+      "title": "Source Freshness",
+      "description": "Assessment of whether a source is current enough for the Task.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "assessed_at"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "current",
+            "acceptable",
+            "potentially_stale",
+            "stale",
+            "not_time_sensitive",
+            "unknown"
+          ]
+        },
+
+        "source_date": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/date"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "age_days": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "default": null
+        },
+
+        "maximum_acceptable_age_days": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "default": null
+        },
+
+        "assessed_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+
+        "basis": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000,
+          "default": null
+        }
+      }
+    },
+
+    "retrieved_source": {
+      "title": "Retrieved Source",
+      "description": "A source retrieved and assessed for potential inclusion in the Knowledge Package.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "retrieval_status",
+        "relevance",
+        "freshness",
+        "included"
+      ],
+      "properties": {
+        "source": {
+          "$ref": "./common.schema.json#/$defs/source_reference"
+        },
+
+        "retrieval_status": {
+          "type": "string",
+          "enum": [
+            "retrieved",
+            "partially_retrieved",
+            "unavailable",
+            "access_denied",
+            "invalid",
+            "superseded"
+          ]
+        },
+
+        "relevance": {
+          "$ref": "./common.schema.json#/$defs/confidence"
+        },
+
+        "freshness": {
+          "$ref": "#/$defs/source_freshness"
+        },
+
+        "included": {
+          "type": "boolean"
+        },
+
+        "exclusion_reason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        },
+
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^kr_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "retrieved_content_summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 10000,
+          "default": null
+        },
+
+        "retrieval_query_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^query_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "included": {
+                "const": false
+              }
+            },
+            "required": [
+              "included"
+            ]
+          },
+          "then": {
+            "required": [
+              "exclusion_reason"
+            ],
+            "properties": {
+              "exclusion_reason": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "included": {
+                "const": true
+              }
+            },
+            "required": [
+              "included"
+            ]
+          },
+          "then": {
+            "properties": {
+              "retrieval_status": {
+                "enum": [
+                  "retrieved",
+                  "partially_retrieved"
+                ]
+              },
+              "requirement_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "knowledge_item_type": {
+      "title": "Knowledge Item Type",
+      "description": "Functional category of a structured knowledge item.",
+      "type": "string",
+      "enum": [
+        "fact",
+        "standard",
+        "rule",
+        "constraint",
+        "definition",
+        "historical_record",
+        "approved_position",
+        "product_attribute",
+        "content_theme",
+        "workflow_instruction",
+        "market_observation",
+        "customer_insight",
+        "metric",
+        "reference",
+        "other"
+      ]
+    },
+
+    "knowledge_item": {
+      "title": "Knowledge Item",
+      "description": "A task-relevant unit of knowledge extracted or derived from one or more included sources.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "knowledge_item_id",
+        "knowledge_type",
+        "statement",
+        "requirement_ids",
+        "source_ids",
+        "evidence_refs",
+        "authority_level",
+        "confidence"
+      ],
+      "properties": {
+        "knowledge_item_id": {
+          "type": "string",
+          "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+          "minLength": 4,
+          "maxLength": 240
+        },
+
+        "knowledge_type": {
+          "$ref": "#/$defs/knowledge_item_type"
+        },
+
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 500,
+          "default": null
+        },
+
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^kr_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+
+        "evidence_refs": {
+          "$ref": "./common.schema.json#/$defs/evidence_references"
+        },
+
+        "authority_level": {
+          "$ref": "./common.schema.json#/$defs/authority_level"
+        },
+
+        "confidence": {
+          "$ref": "./common.schema.json#/$defs/confidence"
+        },
+
+        "applicability": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        },
+
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "effective_from": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/date"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "effective_until": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/date"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "supersedes_knowledge_item_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+          "maxLength": 240,
+          "default": null
+        },
+
+        "tags": {
+          "$ref": "./common.schema.json#/$defs/tags"
+        }
+      }
+    },
+
+    "gap_type": {
+      "title": "Knowledge Gap Type",
+      "description": "Category of missing or insufficient knowledge.",
+      "type": "string",
+      "enum": [
+        "missing_source",
+        "missing_fact",
+        "insufficient_detail",
+        "insufficient_authority",
+        "stale_information",
+        "access_failure",
+        "unresolved_ambiguity",
+        "unverified_claim",
+        "missing_standard",
+        "other"
+      ]
+    },
+
+    "knowledge_gap": {
+      "title": "Knowledge Gap",
+      "description": "A missing, unavailable or insufficient area of knowledge relevant to the Task.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gap_id",
+        "gap_type",
+        "description",
+        "requirement_ids",
+        "severity",
+        "blocking",
+        "resolution_status"
+      ],
+      "properties": {
+        "gap_id": {
+          "type": "string",
+          "pattern": "^gap_[A-Za-z0-9_.:-]+$",
+          "minLength": 5,
+          "maxLength": 240
+        },
+
+        "gap_type": {
+          "$ref": "#/$defs/gap_type"
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^kr_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+
+        "severity": {
+          "$ref": "./common.schema.json#/$defs/severity"
+        },
+
+        "blocking": {
+          "type": "boolean"
+        },
+
+        "impact": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+
+        "attempted_queries": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^query_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "recommended_action": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        },
+
+        "resolution_status": {
+          "type": "string",
+          "enum": [
+            "open",
+            "retrieval_retry_required",
+            "human_input_required",
+            "accepted_limitation",
+            "resolved",
+            "not_applicable"
+          ]
+        },
+
+        "resolved_by": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "resolved_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "resolution_notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "resolution_status": {
+                "const": "resolved"
+              }
+            },
+            "required": [
+              "resolution_status"
+            ]
+          },
+          "then": {
+            "required": [
+              "resolved_by",
+              "resolved_at",
+              "resolution_notes"
+            ],
+            "properties": {
+              "resolved_by": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "resolved_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "resolution_notes": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "conflict_type": {
+      "title": "Knowledge Conflict Type",
+      "description": "Category of contradiction between sources or knowledge items.",
+      "type": "string",
+      "enum": [
+        "factual_conflict",
+        "version_conflict",
+        "authority_conflict",
+        "date_conflict",
+        "terminology_conflict",
+        "policy_conflict",
+        "scope_conflict",
+        "interpretation_conflict",
+        "other"
+      ]
+    },
+
+    "knowledge_conflict": {
+      "title": "Knowledge Conflict",
+      "description": "An explicit contradiction or incompatibility identified during retrieval.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conflict_id",
+        "conflict_type",
+        "description",
+        "requirement_ids",
+        "source_ids",
+        "severity",
+        "resolution_status"
+      ],
+      "properties": {
+        "conflict_id": {
+          "type": "string",
+          "pattern": "^conflict_[A-Za-z0-9_.:-]+$",
+          "minLength": 10,
+          "maxLength": 240
+        },
+
+        "conflict_type": {
+          "$ref": "#/$defs/conflict_type"
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 6000
+        },
+
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^kr_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "minItems": 2,
+          "uniqueItems": true
+        },
+
+        "knowledge_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "severity": {
+          "$ref": "./common.schema.json#/$defs/severity"
+        },
+
+        "higher_authority_source_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 240,
+          "default": null
+        },
+
+        "resolution_status": {
+          "type": "string",
+          "enum": [
+            "unresolved",
+            "resolved_by_authority",
+            "resolved_by_freshness",
+            "resolved_by_scope",
+            "resolved_by_human",
+            "accepted_uncertainty",
+            "not_applicable"
+          ]
+        },
+
+        "resolution": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 6000,
+          "default": null
+        },
+
+        "resolved_by": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "resolved_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "resolution_status": {
+                "enum": [
+                  "resolved_by_authority",
+                  "resolved_by_freshness",
+                  "resolved_by_scope",
+                  "resolved_by_human",
+                  "accepted_uncertainty"
+                ]
+              }
+            },
+            "required": [
+              "resolution_status"
+            ]
+          },
+          "then": {
+            "required": [
+              "resolution"
+            ],
+            "properties": {
+              "resolution": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "resolution_status": {
+                "const": "resolved_by_human"
+              }
+            },
+            "required": [
+              "resolution_status"
+            ]
+          },
+          "then": {
+            "required": [
+              "resolved_by",
+              "resolved_at"
+            ],
+            "properties": {
+              "resolved_by": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "resolved_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "coverage_assessment": {
+      "title": "Coverage Assessment",
+      "description": "Summary of how completely the Knowledge Package satisfies Task requirements.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_requirements",
+        "satisfied_requirements",
+        "partially_satisfied_requirements",
+        "unsatisfied_requirements",
+        "coverage_score",
+        "blocking_gaps",
+        "unresolved_conflicts"
+      ],
+      "properties": {
+        "total_requirements": {
+          "type": "integer",
+          "minimum": 1
+        },
+
+        "satisfied_requirements": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "partially_satisfied_requirements": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "unsatisfied_requirements": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "coverage_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+
+        "blocking_gaps": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "unresolved_conflicts": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        }
+      }
+    },
+
+    "retrieval_summary": {
+      "title": "Retrieval Summary",
+      "description": "Operational summary of the retrieval work performed.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "started_at",
+        "completed_at",
+        "retrieval_modes",
+        "queries_executed",
+        "sources_retrieved",
+        "sources_included",
+        "sources_excluded"
+      ],
+      "properties": {
+        "started_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+
+        "completed_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+
+        "retrieval_modes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/retrieval_mode"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+
+        "strategy": {
+          "$ref": "#/$defs/retrieval_strategy"
+        },
+
+        "queries_executed": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "sources_retrieved": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "sources_included": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "sources_excluded": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "retrieval_attempts": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        },
+
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      }
+    }
+  },
+
+  "required": [
+    "id",
+    "schema_name",
+    "schema_version",
+    "task_id",
+    "execution_id",
+    "created_at",
+    "created_by",
+    "status",
+    "title",
+    "purpose",
+    "requirements",
+    "retrieval_queries",
+    "retrieved_sources",
+    "knowledge_items",
+    "gaps",
+    "conflicts",
+    "coverage",
+    "retrieval_summary",
+    "confidence",
+    "validation"
+  ],
+
+  "properties": {
+    "id": {
+      "title": "Knowledge Package Identifier",
+      "description": "Unique and immutable identifier of the Knowledge Package.",
+      "type": "string",
+      "pattern": "^kp_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+
+    "schema_name": {
+      "title": "Schema Name",
+      "type": "string",
+      "const": "knowledge_package"
+    },
+
+    "schema_version": {
+      "$ref": "./common.schema.json#/$defs/schema_version"
+    },
+
+    "task_id": {
+      "$ref": "./common.schema.json#/$defs/task_id"
+    },
+
+    "execution_id": {
+      "$ref": "./common.schema.json#/$defs/execution_id"
+    },
+
+    "workflow_id": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/workflow_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "parent_id": {
+      "description": "Identifier of an earlier Knowledge Package from which this package was revised or extended.",
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "created_at": {
+      "$ref": "./common.schema.json#/$defs/timestamp"
+    },
+
+    "updated_at": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "created_by": {
+      "$ref": "./common.schema.json#/$defs/actor_reference"
+    },
+
+    "updated_by": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "status": {
+      "$ref": "#/$defs/knowledge_package_status"
+    },
+
+    "title": {
+      "$ref": "./common.schema.json#/$defs/title"
+    },
+
+    "purpose": {
+      "title": "Knowledge Package Purpose",
+      "description": "Explains which Task decision or execution need this package is intended to support.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+
+    "task_objective_snapshot": {
+      "title": "Task Objective Snapshot",
+      "description": "Immutable snapshot of the relevant Task objective at retrieval time.",
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "maxLength": 4000,
+      "default": null
+    },
+
+    "requirements": {
+      "title": "Knowledge Requirements",
+      "description": "Knowledge needs derived from the Task and assessed by the Retrieval Engine.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/knowledge_requirement"
+      },
+      "minItems": 1
+    },
+
+    "retrieval_queries": {
+      "title": "Retrieval Queries",
+      "description": "Queries and retrieval actions executed while assembling the package.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/retrieval_query"
+      },
+      "default": []
+    },
+
+    "retrieved_sources": {
+      "title": "Retrieved Sources",
+      "description": "All sources considered by the Retrieval Engine, including excluded sources.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/retrieved_source"
+      },
+      "default": []
+    },
+
+    "knowledge_items": {
+      "title": "Knowledge Items",
+      "description": "Structured and task-relevant knowledge extracted from included sources.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/knowledge_item"
+      },
+      "default": []
+    },
+
+    "gaps": {
+      "title": "Knowledge Gaps",
+      "description": "Missing or insufficient knowledge identified during retrieval.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/knowledge_gap"
+      },
+      "default": []
+    },
+
+    "conflicts": {
+      "title": "Knowledge Conflicts",
+      "description": "Contradictions identified between sources or knowledge items.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/knowledge_conflict"
+      },
+      "default": []
+    },
+
+    "coverage": {
+      "$ref": "#/$defs/coverage_assessment"
+    },
+
+    "retrieval_summary": {
+      "$ref": "#/$defs/retrieval_summary"
+    },
+
+    "confidence": {
+      "$ref": "./common.schema.json#/$defs/confidence"
+    },
+
+    "approval": {
+      "$ref": "./common.schema.json#/$defs/approval"
+    },
+
+    "quality_state": {
+      "$ref": "./common.schema.json#/$defs/quality_state"
+    },
+
+    "source_refs": {
+      "$ref": "./common.schema.json#/$defs/source_references"
+    },
+
+    "evidence_refs": {
+      "$ref": "./common.schema.json#/$defs/evidence_references"
+    },
+
+    "relationships": {
+      "$ref": "./common.schema.json#/$defs/object_relationships"
+    },
+
+    "revision": {
+      "$ref": "./common.schema.json#/$defs/revision"
+    },
+
+    "validation": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/validation_record"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+
+    "exception_ids": {
+      "title": "Related Exception Identifiers",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^exception_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+
+    "tags": {
+      "$ref": "./common.schema.json#/$defs/tags"
+    },
+
+    "metadata": {
+      "$ref": "./common.schema.json#/$defs/metadata"
+    }
+  },
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "knowledge_items": {
+            "minItems": 1
+          },
+
+          "coverage": {
+            "properties": {
+              "blocking_gaps": {
+                "const": 0
+              },
+              "unresolved_conflicts": {
+                "const": 0
+              }
+            },
+            "required": [
+              "blocking_gaps",
+              "unresolved_conflicts"
+            ]
+          },
+
+          "requirements": {
+            "not": {
+              "contains": {
+                "properties": {
+                  "required": {
+                    "const": true
+                  },
+                  "status": {
+                    "enum": [
+                      "unassessed",
+                      "searching",
+                      "not_found",
+                      "conflicted"
+                    ]
+                  }
+                },
+                "required": [
+                  "required",
+                  "status"
+                ]
+              }
+            }
+          },
+
+          "retrieval_summary": {
+            "properties": {
+              "completed_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "completed_at"
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed_with_gaps"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "knowledge_items": {
+            "minItems": 1
+          },
+
+          "gaps": {
+            "minItems": 1
+          },
+
+          "coverage": {
+            "properties": {
+              "unsatisfied_requirements": {
+                "minimum": 1
+              }
+            }
+          },
+
+          "retrieval_summary": {
+            "properties": {
+              "completed_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "completed_at"
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "blocked"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "anyOf": [
+          {
+            "properties": {
+              "gaps": {
+                "contains": {
+                  "properties": {
+                    "blocking": {
+                      "const": true
+                    },
+                    "resolution_status": {
+                      "enum": [
+                        "open",
+                        "retrieval_retry_required",
+                        "human_input_required"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "blocking",
+                    "resolution_status"
+                  ]
+                },
+                "minContains": 1
+              }
+            }
+          },
+          {
+            "properties": {
+              "conflicts": {
+                "contains": {
+                  "properties": {
+                    "severity": {
+                      "enum": [
+                        "high",
+                        "critical"
+                      ]
+                    },
+                    "resolution_status": {
+                      "const": "unresolved"
+                    }
+                  },
+                  "required": [
+                    "severity",
+                    "resolution_status"
+                  ]
+                },
+                "minContains": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "clarification_required"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "gaps": {
+            "contains": {
+              "properties": {
+                "gap_type": {
+                  "enum": [
+                    "unresolved_ambiguity",
+                    "missing_fact",
+                    "missing_source"
+                  ]
+                },
+                "resolution_status": {
+                  "const": "human_input_required"
+                }
+              },
+              "required": [
+                "gap_type",
+                "resolution_status"
+              ]
+            },
+            "minContains": 1
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "failed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "exception_ids": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "coverage": {
+            "properties": {
+              "blocking_gaps": {
+                "minimum": 1
+              }
+            },
+            "required": [
+              "blocking_gaps"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "enum": [
+              "draft",
+              "retrieval_pending",
+              "retrieving",
+              "clarification_required",
+              "blocked",
+              "failed",
+              "completed_with_gaps",
+              "superseded",
+              "archived"
+            ]
+          }
+        }
+      }
+    }
+  ],
+
+  "examples": [
+    {
+      "id": "kp_550e8400-e29b-41d4-a716-446655440010",
+      "schema_name": "knowledge_package",
+      "schema_version": "1.0.0",
+      "task_id": "task_550e8400-e29b-41d4-a716-446655440000",
+      "execution_id": "exec_550e8400-e29b-41d4-a716-446655440001",
+      "workflow_id": "xiaohongshu_content_package.v1",
+      "parent_id": null,
+
+      "created_at": "2026-07-27T09:35:00Z",
+      "updated_at": null,
+
+      "created_by": {
+        "actor_type": "engine",
+        "actor_id": "retrieval_engine",
+        "display_name": "Scout Retrieval Engine",
+        "role": "retrieval",
+        "version": "1.0.0"
+      },
+
+      "updated_by": null,
+      "status": "completed",
+
+      "title": "Knowledge Package for the Next Xiaohongshu Content Package",
+
+      "purpose": "Provide authoritative product, brand, content-history and content-standard knowledge required to select and create a new Xiaohongshu content package.",
+
+      "task_objective_snapshot": "Create one complete and quality-verified Xiaohongshu Content Package that extends the approved BUXA content strategy without repeating previously covered themes.",
+
+      "requirements": [
+        {
+          "requirement_id": "kr_content_history",
+          "requirement_type": "historical_content",
+          "description": "Identify themes already covered by approved Xiaohongshu content.",
+          "purpose": "Prevent topic repetition.",
+          "required": true,
+          "minimum_authority_level": "approved_internal",
+          "freshness_required": false,
+          "maximum_age_days": null,
+          "status": "satisfied",
+          "knowledge_item_ids": [
+            "ki_covered_themes"
+          ],
+          "gap_ids": [],
+          "conflict_ids": [],
+          "notes": null
+        },
+
+        {
+          "requirement_id": "kr_product_knowledge",
+          "requirement_type": "product",
+          "description": "Retrieve approved product knowledge needed to support product-related claims.",
+          "purpose": "Ensure product accuracy.",
+          "required": true,
+          "minimum_authority_level": "approved_internal",
+          "freshness_required": false,
+          "maximum_age_days": null,
+          "status": "satisfied",
+          "knowledge_item_ids": [
+            "ki_hd03_product_identity"
+          ],
+          "gap_ids": [],
+          "conflict_ids": [],
+          "notes": null
+        },
+
+        {
+          "requirement_id": "kr_content_standards",
+          "requirement_type": "content_standard",
+          "description": "Retrieve current approved Xiaohongshu Content Standards.",
+          "purpose": "Guide content production and quality review.",
+          "required": true,
+          "minimum_authority_level": "approved_internal",
+          "freshness_required": true,
+          "maximum_age_days": 365,
+          "status": "satisfied",
+          "knowledge_item_ids": [
+            "ki_content_standard"
+          ],
+          "gap_ids": [],
+          "conflict_ids": [],
+          "notes": null
+        }
+      ],
+
+      "retrieval_queries": [
+        {
+          "query_id": "query_content_memory",
+          "query": "Approved Xiaohongshu content memory and previously covered themes",
+          "retrieval_mode": "repository_search",
+          "strategy": "authority_first",
+          "requirement_ids": [
+            "kr_content_history"
+          ],
+          "source_filters": [
+            "12_AI_Agents/Scout/BOS",
+            "Xiaohongshu approved content memory"
+          ],
+          "executed_at": "2026-07-27T09:31:00Z",
+          "executed_by": {
+            "actor_type": "engine",
+            "actor_id": "retrieval_engine",
+            "display_name": "Scout Retrieval Engine",
+            "role": "retrieval",
+            "version": "1.0.0"
+          },
+          "status": "completed",
+          "result_count": 1,
+          "source_ids": [
+            "source_xhs_memory"
+          ],
+          "error_summary": null
+        },
+
+        {
+          "query_id": "query_hd03_passport",
+          "query": "Approved HD03 Product Passport",
+          "retrieval_mode": "repository_search",
+          "strategy": "authority_first",
+          "requirement_ids": [
+            "kr_product_knowledge"
+          ],
+          "source_filters": [
+            "02_Products/01_Flooring"
+          ],
+          "executed_at": "2026-07-27T09:32:00Z",
+          "executed_by": {
+            "actor_type": "engine",
+            "actor_id": "retrieval_engine",
+            "display_name": "Scout Retrieval Engine",
+            "role": "retrieval",
+            "version": "1.0.0"
+          },
+          "status": "completed",
+          "result_count": 1,
+          "source_ids": [
+            "source_hd03_passport"
+          ],
+          "error_summary": null
+        },
+
+        {
+          "query_id": "query_content_standards",
+          "query": "Current approved Xiaohongshu Content Standards",
+          "retrieval_mode": "repository_search",
+          "strategy": "freshness_first",
+          "requirement_ids": [
+            "kr_content_standards"
+          ],
+          "source_filters": [
+            "Content Standards"
+          ],
+          "executed_at": "2026-07-27T09:33:00Z",
+          "executed_by": {
+            "actor_type": "engine",
+            "actor_id": "retrieval_engine",
+            "display_name": "Scout Retrieval Engine",
+            "role": "retrieval",
+            "version": "1.0.0"
+          },
+          "status": "completed",
+          "result_count": 1,
+          "source_ids": [
+            "source_xhs_content_standards"
+          ],
+          "error_summary": null
+        }
+      ],
+
+      "retrieved_sources": [
+        {
+          "source": {
+            "source_id": "source_xhs_memory",
+            "source_type": "runtime_memory",
+            "source_location": "12_AI_Agents/Scout/BOS/Xiaohongshu_Content_Memory.md",
+            "title": "Approved Xiaohongshu Content Memory",
+            "version": "1.0.0",
+            "authority_level": "validated_memory",
+            "retrieved_at": "2026-07-27T09:31:20Z",
+            "content_hash": null,
+            "notes": null
+          },
+
+          "retrieval_status": "retrieved",
+
+          "relevance": {
+            "level": "very_high",
+            "score": 0.98,
+            "basis": "The source directly records approved historical Xiaohongshu topics.",
+            "limitations": []
+          },
+
+          "freshness": {
+            "status": "current",
+            "source_date": "2026-07-26",
+            "age_days": 1,
+            "maximum_acceptable_age_days": null,
+            "assessed_at": "2026-07-27T09:31:30Z",
+            "basis": "The memory includes content approved through the previous day."
+          },
+
+          "included": true,
+          "exclusion_reason": null,
+
+          "requirement_ids": [
+            "kr_content_history"
+          ],
+
+          "retrieved_content_summary": "The source lists approved topics, themes and strategic content categories already used by the account.",
+
+          "retrieval_query_ids": [
+            "query_content_memory"
+          ]
+        },
+
+        {
+          "source": {
+            "source_id": "source_hd03_passport",
+            "source_type": "product_passport",
+            "source_location": "02_Products/01_Flooring/HD03_Product_Passport.md",
+            "title": "HD03 Product Passport",
+            "version": "1.2.0",
+            "authority_level": "approved_internal",
+            "retrieved_at": "2026-07-27T09:32:20Z",
+            "content_hash": null,
+            "notes": null
+          },
+
+          "retrieval_status": "retrieved",
+
+          "relevance": {
+            "level": "high",
+            "score": 0.92,
+            "basis": "The Passport contains approved HD03 product facts relevant to the proposed content direction.",
+            "limitations": []
+          },
+
+          "freshness": {
+            "status": "not_time_sensitive",
+            "source_date": null,
+            "age_days": null,
+            "maximum_acceptable_age_days": null,
+            "assessed_at": "2026-07-27T09:32:30Z",
+            "basis": "The Product Passport remains authoritative until superseded."
+          },
+
+          "included": true,
+          "exclusion_reason": null,
+
+          "requirement_ids": [
+            "kr_product_knowledge"
+          ],
+
+          "retrieved_content_summary": "The Passport defines the approved identity, appearance, construction and communication boundaries of HD03.",
+
+          "retrieval_query_ids": [
+            "query_hd03_passport"
+          ]
+        },
+
+        {
+          "source": {
+            "source_id": "source_xhs_content_standards",
+            "source_type": "repository_document",
+            "source_location": "12_AI_Agents/Scout/BOS/Xiaohongshu_Content_Standards.md",
+            "title": "Xiaohongshu Content Standards",
+            "version": "1.0.0",
+            "authority_level": "approved_internal",
+            "retrieved_at": "2026-07-27T09:33:20Z",
+            "content_hash": null,
+            "notes": null
+          },
+
+          "retrieval_status": "retrieved",
+
+          "relevance": {
+            "level": "very_high",
+            "score": 0.97,
+            "basis": "The source directly governs Xiaohongshu content structure and quality.",
+            "limitations": []
+          },
+
+          "freshness": {
+            "status": "current",
+            "source_date": "2026-07-01",
+            "age_days": 26,
+            "maximum_acceptable_age_days": 365,
+            "assessed_at": "2026-07-27T09:33:30Z",
+            "basis": "The document is within the required freshness threshold and has not been superseded."
+          },
+
+          "included": true,
+          "exclusion_reason": null,
+
+          "requirement_ids": [
+            "kr_content_standards"
+          ],
+
+          "retrieved_content_summary": "The standards define topic, structure, image, copy, brand and QA requirements for Xiaohongshu content.",
+
+          "retrieval_query_ids": [
+            "query_content_standards"
+          ]
+        }
+      ],
+
+      "knowledge_items": [
+        {
+          "knowledge_item_id": "ki_covered_themes",
+          "knowledge_type": "historical_record",
+          "title": "Previously Covered Xiaohongshu Themes",
+          "statement": "The approved content history already covers common topics such as flooring installation mistakes, project delivery control, designer responsibility, rework cost and the reasons for creating BUXA PDMS.",
+          "requirement_ids": [
+            "kr_content_history"
+          ],
+          "source_ids": [
+            "source_xhs_memory"
+          ],
+          "evidence_refs": [
+            {
+              "evidence_id": "evidence_covered_themes",
+              "source_id": "source_xhs_memory",
+              "evidence_type": "direct",
+              "description": "The approved content-memory topic list identifies previously covered themes.",
+              "locator": "Approved topic index",
+              "claim_ids": [
+                "claim_previously_covered_topics"
+              ],
+              "verified": true,
+              "verified_by": {
+                "actor_type": "engine",
+                "actor_id": "retrieval_engine",
+                "display_name": "Scout Retrieval Engine",
+                "role": "retrieval",
+                "version": "1.0.0"
+              },
+              "verified_at": "2026-07-27T09:34:00Z"
+            }
+          ],
+          "authority_level": "validated_memory",
+          "confidence": {
+            "level": "very_high",
+            "score": 0.98,
+            "basis": "Directly supported by approved content memory.",
+            "limitations": []
+          },
+          "applicability": "Used to reject repeated topics during topic selection.",
+          "limitations": [],
+          "effective_from": null,
+          "effective_until": null,
+          "supersedes_knowledge_item_id": null,
+          "tags": [
+            "xiaohongshu",
+            "content_history"
+          ]
+        },
+
+        {
+          "knowledge_item_id": "ki_hd03_product_identity",
+          "knowledge_type": "product_attribute",
+          "title": "HD03 Approved Product Identity",
+          "statement": "HD03 must be described using the facts, terminology and communication boundaries contained in its approved Product Passport.",
+          "requirement_ids": [
+            "kr_product_knowledge"
+          ],
+          "source_ids": [
+            "source_hd03_passport"
+          ],
+          "evidence_refs": [
+            {
+              "evidence_id": "evidence_hd03_passport",
+              "source_id": "source_hd03_passport",
+              "evidence_type": "direct",
+              "description": "The approved Product Passport is the governing source for HD03 product claims.",
+              "locator": "Entire approved Product Passport",
+              "claim_ids": [
+                "claim_hd03_product_identity"
+              ],
+              "verified": true,
+              "verified_by": {
+                "actor_type": "engine",
+                "actor_id": "retrieval_engine",
+                "display_name": "Scout Retrieval Engine",
+                "role": "retrieval",
+                "version": "1.0.0"
+              },
+              "verified_at": "2026-07-27T09:34:10Z"
+            }
+          ],
+          "authority_level": "approved_internal",
+          "confidence": {
+            "level": "very_high",
+            "score": 0.99,
+            "basis": "The statement is governed by the approved HD03 Product Passport.",
+            "limitations": []
+          },
+          "applicability": "Applies to all HD03 claims in the content package.",
+          "limitations": [],
+          "effective_from": null,
+          "effective_until": null,
+          "supersedes_knowledge_item_id": null,
+          "tags": [
+            "hd03",
+            "product_accuracy"
+          ]
+        },
+
+        {
+          "knowledge_item_id": "ki_content_standard",
+          "knowledge_type": "standard",
+          "title": "Xiaohongshu Content Standard",
+          "statement": "The package must comply with the approved Xiaohongshu Content Standards, including topic differentiation, six-page image structure, copy quality and formal QA.",
+          "requirement_ids": [
+            "kr_content_standards"
+          ],
+          "source_ids": [
+            "source_xhs_content_standards"
+          ],
+          "evidence_refs": [
+            {
+              "evidence_id": "evidence_content_standard",
+              "source_id": "source_xhs_content_standards",
+              "evidence_type": "direct",
+              "description": "The approved standards define mandatory requirements for the Xiaohongshu Content Package.",
+              "locator": "Content Package and QA sections",
+              "claim_ids": [
+                "claim_content_package_requirements"
+              ],
+              "verified": true,
+              "verified_by": {
+                "actor_type": "engine",
+                "actor_id": "retrieval_engine",
+                "display_name": "Scout Retrieval Engine",
+                "role": "retrieval",
+                "version": "1.0.0"
+              },
+              "verified_at": "2026-07-27T09:34:20Z"
+            }
+          ],
+          "authority_level": "approved_internal",
+          "confidence": {
+            "level": "very_high",
+            "score": 0.99,
+            "basis": "Directly supported by the current approved Content Standards.",
+            "limitations": []
+          },
+          "applicability": "Applies to planning, drafting and quality review of the complete package.",
+          "limitations": [],
+          "effective_from": "2026-07-01",
+          "effective_until": null,
+          "supersedes_knowledge_item_id": null,
+          "tags": [
+            "xiaohongshu",
+            "content_standard"
+          ]
+        }
+      ],
+
+      "gaps": [],
+      "conflicts": [],
+
+      "coverage": {
+        "total_requirements": 3,
+        "satisfied_requirements": 3,
+        "partially_satisfied_requirements": 0,
+        "unsatisfied_requirements": 0,
+        "coverage_score": 1,
+        "blocking_gaps": 0,
+        "unresolved_conflicts": 0,
+        "summary": "All required knowledge categories were retrieved from approved or validated sources."
+      },
+
+      "retrieval_summary": {
+        "started_at": "2026-07-27T09:30:30Z",
+        "completed_at": "2026-07-27T09:35:00Z",
+        "retrieval_modes": [
+          "repository_search",
+          "memory_search"
+        ],
+        "strategy": "authority_first",
+        "queries_executed": 3,
+        "sources_retrieved": 3,
+        "sources_included": 3,
+        "sources_excluded": 0,
+        "retrieval_attempts": 1,
+        "limitations": []
+      },
+
+      "confidence": {
+        "level": "very_high",
+        "score": 0.97,
+        "basis": "All mandatory requirements are supported by approved internal documents or validated organisational memory.",
+        "limitations": []
+      },
+
+      "approval": {
+        "required": false,
+        "status": "not_required",
+        "required_role": null,
+        "requested_from": null,
+        "requested_at": null,
+        "decided_by": null,
+        "decided_at": null,
+        "expires_at": null,
+        "notes": null
+      },
+
+      "quality_state": {
+        "status": "not_reviewed",
+        "latest_report_id": null,
+        "reviewed_at": null,
+        "summary": null
+      },
+
+      "source_refs": [
+        {
+          "source_id": "source_xhs_memory",
+          "source_type": "runtime_memory",
+          "source_location": "12_AI_Agents/Scout/BOS/Xiaohongshu_Content_Memory.md",
+          "title": "Approved Xiaohongshu Content Memory",
+          "version": "1.0.0",
+          "authority_level": "validated_memory",
+          "retrieved_at": "2026-07-27T09:31:20Z",
+          "content_hash": null,
+          "notes": null
+        },
+
+        {
+          "source_id": "source_hd03_passport",
+          "source_type": "product_passport",
+          "source_location": "02_Products/01_Flooring/HD03_Product_Passport.md",
+          "title": "HD03 Product Passport",
+          "version": "1.2.0",
+          "authority_level": "approved_internal",
+          "retrieved_at": "2026-07-27T09:32:20Z",
+          "content_hash": null,
+          "notes": null
+        },
+
+        {
+          "source_id": "source_xhs_content_standards",
+          "source_type": "repository_document",
+          "source_location": "12_AI_Agents/Scout/BOS/Xiaohongshu_Content_Standards.md",
+          "title": "Xiaohongshu Content Standards",
+          "version": "1.0.0",
+          "authority_level": "approved_internal",
+          "retrieved_at": "2026-07-27T09:33:20Z",
+          "content_hash": null,
+          "notes": null
+        }
+      ],
+
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence_covered_themes",
+          "source_id": "source_xhs_memory",
+          "evidence_type": "direct",
+          "description": "The approved content-memory topic list identifies previously covered themes.",
+          "locator": "Approved topic index",
+          "claim_ids": [
+            "claim_previously_covered_topics"
+          ],
+          "verified": true,
+          "verified_by": {
+            "actor_type": "engine",
+            "actor_id": "retrieval_engine",
+            "display_name": "Scout Retrieval Engine",
+            "role": "retrieval",
+            "version": "1.0.0"
+          },
+          "verified_at": "2026-07-27T09:34:00Z"
+        },
+
+        {
+          "evidence_id": "evidence_hd03_passport",
+          "source_id": "source_hd03_passport",
+          "evidence_type": "direct",
+          "description": "The approved Product Passport is the governing source for HD03 product claims.",
+          "locator": "Entire approved Product Passport",
+          "claim_ids": [
+            "claim_hd03_product_identity"
+          ],
+          "verified": true,
+          "verified_by": {
+            "actor_type": "engine",
+            "actor_id": "retrieval_engine",
+            "display_name": "Scout Retrieval Engine",
+            "role": "retrieval",
+            "version": "1.0.0"
+          },
+          "verified_at": "2026-07-27T09:34:10Z"
+        },
+
+        {
+          "evidence_id": "evidence_content_standard",
+          "source_id": "source_xhs_content_standards",
+          "evidence_type": "direct",
+          "description": "The approved standards define mandatory requirements for the Xiaohongshu Content Package.",
+          "locator": "Content Package and QA sections",
+          "claim_ids": [
+            "claim_content_package_requirements"
+          ],
+          "verified": true,
+          "verified_by": {
+            "actor_type": "engine",
+            "actor_id": "retrieval_engine",
+            "display_name": "Scout Retrieval Engine",
+            "role": "retrieval",
+            "version": "1.0.0"
+          },
+          "verified_at": "2026-07-27T09:34:20Z"
+        }
+      ],
+
+      "relationships": [
+        {
+          "relationship_type": "derived_from",
+          "target_object_id": "task_550e8400-e29b-41d4-a716-446655440000",
+          "description": "The Knowledge Package was assembled to satisfy this Task."
+        }
+      ],
+
+      "revision": {
+        "revision_number": 1,
+        "supersedes_id": null,
+        "change_summary": null,
+        "revision_notes": null,
+        "revised_by": null,
+        "revised_at": null
+      },
+
+      "validation": {
+        "status": "valid",
+        "validated_at": "2026-07-27T09:35:00Z",
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "schema_validation_engine",
+          "display_name": "Scout Schema Validation Engine",
+          "role": "schema_validation",
+          "version": "1.0.0"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+
+      "exception_ids": [],
+
+      "tags": [
+        "knowledge_package",
+        "xiaohongshu",
+        "content",
+        "hd03"
+      ],
+
+      "metadata": {
+        "downstream_engine": "reasoning_engine",
+        "retrieval_policy": "approved_sources_first"
+      }
+    }
+  ]
+}

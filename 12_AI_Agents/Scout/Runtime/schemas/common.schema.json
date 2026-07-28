@@ -1,0 +1,1314 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://buxa.ai/scout/runtime/schemas/common.schema.json",
+  "title": "Scout Runtime Common Definitions",
+  "description": "Shared definitions used by Scout Runtime schemas.",
+  "type": "object",
+  "$defs": {
+    "schema_version": {
+      "title": "Schema Version",
+      "description": "Semantic version of the schema used to validate the object.",
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "examples": [
+        "1.0.0"
+      ]
+    },
+
+    "object_id": {
+      "title": "Runtime Object Identifier",
+      "description": "Unique and immutable identifier for a Scout Runtime object.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "examples": [
+        "task_550e8400-e29b-41d4-a716-446655440000",
+        "kp_550e8400-e29b-41d4-a716-446655440000"
+      ]
+    },
+
+    "task_id": {
+      "title": "Task Identifier",
+      "description": "Identifier of the Task associated with the object.",
+      "type": "string",
+      "pattern": "^task_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "examples": [
+        "task_550e8400-e29b-41d4-a716-446655440000"
+      ]
+    },
+
+    "execution_id": {
+      "title": "Execution Identifier",
+      "description": "Identifier of one execution attempt or execution lifecycle.",
+      "type": "string",
+      "pattern": "^exec_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+      "examples": [
+        "exec_550e8400-e29b-41d4-a716-446655440000"
+      ]
+    },
+
+    "workflow_id": {
+      "title": "Workflow Identifier",
+      "description": "Identifier of the Workflow used during execution.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[a-z][a-z0-9_.-]*$",
+      "examples": [
+        "xiaohongshu_content_package.v1"
+      ]
+    },
+
+    "skill_id": {
+      "title": "Skill Identifier",
+      "description": "Stable identifier of a registered Runtime Skill.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[a-z][a-z0-9_.-]*$",
+      "examples": [
+        "content.xiaohongshu.create_package"
+      ]
+    },
+
+    "tool_id": {
+      "title": "Tool Identifier",
+      "description": "Stable identifier of a registered Runtime Tool.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "pattern": "^[a-z][a-z0-9_.-]*$",
+      "examples": [
+        "github.read_repository_file"
+      ]
+    },
+
+    "timestamp": {
+      "title": "Timestamp",
+      "description": "UTC timestamp using ISO 8601 date-time format.",
+      "type": "string",
+      "format": "date-time",
+      "examples": [
+        "2026-07-27T09:30:00Z"
+      ]
+    },
+
+    "date": {
+      "title": "Calendar Date",
+      "description": "Calendar date using ISO 8601 full-date format.",
+      "type": "string",
+      "format": "date",
+      "examples": [
+        "2026-07-27"
+      ]
+    },
+
+    "non_empty_string": {
+      "title": "Non-Empty String",
+      "type": "string",
+      "minLength": 1
+    },
+
+    "title": {
+      "title": "Object Title",
+      "description": "Human-readable title of a Runtime object.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+
+    "description": {
+      "title": "Description",
+      "description": "Human-readable description of an object or condition.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 10000
+    },
+
+    "tag": {
+      "title": "Tag",
+      "description": "Controlled categorisation tag.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[a-z0-9][a-z0-9_.:-]*$"
+    },
+
+    "tags": {
+      "title": "Tags",
+      "description": "Unique controlled categorisation tags.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tag"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+
+    "creator_type": {
+      "title": "Creator Type",
+      "description": "Category of actor that created or modified an object.",
+      "type": "string",
+      "enum": [
+        "human",
+        "runtime",
+        "engine",
+        "workflow",
+        "skill",
+        "tool",
+        "system"
+      ]
+    },
+
+    "actor_reference": {
+      "title": "Actor Reference",
+      "description": "Identifies the human or Runtime component responsible for an action.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor_type",
+        "actor_id"
+      ],
+      "properties": {
+        "actor_type": {
+          "$ref": "#/$defs/creator_type"
+        },
+        "actor_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "display_name": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "role": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 100
+        }
+      },
+      "examples": [
+        {
+          "actor_type": "engine",
+          "actor_id": "retrieval_engine",
+          "display_name": "Scout Retrieval Engine",
+          "role": "retrieval",
+          "version": "1.0.0"
+        }
+      ]
+    },
+
+    "generic_status": {
+      "title": "Generic Runtime Status",
+      "description": "General lifecycle status used where a specialised object status is not required.",
+      "type": "string",
+      "enum": [
+        "draft",
+        "pending",
+        "in_progress",
+        "clarification_required",
+        "validation_required",
+        "approval_required",
+        "approved",
+        "completed",
+        "failed",
+        "cancelled",
+        "superseded",
+        "archived"
+      ]
+    },
+
+    "validation_status": {
+      "title": "Validation Status",
+      "type": "string",
+      "enum": [
+        "not_validated",
+        "validation_pending",
+        "valid",
+        "invalid"
+      ]
+    },
+
+    "quality_status": {
+      "title": "Quality Status",
+      "description": "Current quality-review status of an object.",
+      "type": "string",
+      "enum": [
+        "not_reviewed",
+        "review_pending",
+        "passed",
+        "passed_with_conditions",
+        "failed",
+        "revision_required"
+      ]
+    },
+
+    "approval_status": {
+      "title": "Approval Status",
+      "description": "Current approval state of an object or action.",
+      "type": "string",
+      "enum": [
+        "not_required",
+        "pending",
+        "approved",
+        "rejected",
+        "revision_required",
+        "expired"
+      ]
+    },
+
+    "risk_level": {
+      "title": "Risk Level",
+      "description": "Assessed operational or governance risk level.",
+      "type": "string",
+      "enum": [
+        "negligible",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+
+    "severity": {
+      "title": "Severity",
+      "description": "Severity of a finding, failure or exception.",
+      "type": "string",
+      "enum": [
+        "informational",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+
+    "priority": {
+      "title": "Priority",
+      "description": "Operational priority of a task, action or finding.",
+      "type": "string",
+      "enum": [
+        "low",
+        "normal",
+        "high",
+        "urgent"
+      ]
+    },
+
+    "confidence_level": {
+      "title": "Confidence Level",
+      "type": "string",
+      "enum": [
+        "very_low",
+        "low",
+        "medium",
+        "high",
+        "very_high"
+      ]
+    },
+
+    "confidence": {
+      "title": "Confidence Assessment",
+      "description": "Structured assessment of confidence and its basis.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "basis"
+      ],
+      "properties": {
+        "level": {
+          "$ref": "#/$defs/confidence_level"
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      },
+      "examples": [
+        {
+          "level": "high",
+          "score": 0.9,
+          "basis": "Supported by the approved Product Passport and current Product Standards.",
+          "limitations": []
+        }
+      ]
+    },
+
+    "authority_level": {
+      "title": "Source Authority Level",
+      "description": "Organisational authority classification of a source.",
+      "type": "string",
+      "enum": [
+        "governance",
+        "approved_internal",
+        "validated_memory",
+        "approved_previous_output",
+        "authoritative_external",
+        "general_external",
+        "unverified"
+      ]
+    },
+
+    "source_type": {
+      "title": "Source Type",
+      "description": "Technical or organisational category of a source.",
+      "type": "string",
+      "enum": [
+        "human_instruction",
+        "governance_document",
+        "repository_document",
+        "product_passport",
+        "runtime_memory",
+        "execution_record",
+        "approved_output",
+        "external_document",
+        "web_source",
+        "database_record",
+        "tool_result",
+        "api_response",
+        "file",
+        "other"
+      ]
+    },
+
+    "source_reference": {
+      "title": "Source Reference",
+      "description": "Reference to source material used by a Runtime object.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "source_type",
+        "source_location",
+        "authority_level"
+      ],
+      "properties": {
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "source_type": {
+          "$ref": "#/$defs/source_type"
+        },
+        "source_location": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "authority_level": {
+          "$ref": "#/$defs/authority_level"
+        },
+        "retrieved_at": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "content_hash": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Za-z0-9:_-]+$",
+          "maxLength": 256
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      },
+      "examples": [
+        {
+          "source_id": "source_hd03_passport",
+          "source_type": "product_passport",
+          "source_location": "02_Products/01_Flooring/HD03_Product_Passport.md",
+          "title": "HD03 Product Passport",
+          "version": "1.2.0",
+          "authority_level": "approved_internal",
+          "retrieved_at": "2026-07-27T09:30:00Z",
+          "content_hash": null,
+          "notes": null
+        }
+      ]
+    },
+
+    "source_references": {
+      "title": "Source References",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source_reference"
+      },
+      "default": []
+    },
+
+    "evidence_type": {
+      "title": "Evidence Type",
+      "type": "string",
+      "enum": [
+        "direct",
+        "supporting",
+        "contradictory",
+        "contextual",
+        "derived",
+        "observational"
+      ]
+    },
+
+    "evidence_reference": {
+      "title": "Evidence Reference",
+      "description": "Reference linking a claim, finding or decision to supporting evidence.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "source_id",
+        "evidence_type",
+        "description"
+      ],
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240,
+          "pattern": "^evidence_[A-Za-z0-9_.:-]+$"
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 240
+        },
+        "evidence_type": {
+          "$ref": "#/$defs/evidence_type"
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "locator": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "claim_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "verified": {
+          "type": "boolean",
+          "default": false
+        },
+        "verified_by": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verified_at": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+
+    "evidence_references": {
+      "title": "Evidence References",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence_reference"
+      },
+      "default": []
+    },
+
+    "approval": {
+      "title": "Approval",
+      "description": "Approval requirements and current decision state.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "status"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "status": {
+          "$ref": "#/$defs/approval_status"
+        },
+        "required_role": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "requested_from": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requested_at": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decided_by": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decided_at": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "expires_at": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "required": {
+                "const": false
+              }
+            },
+            "required": [
+              "required"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "not_required"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "approved"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "decided_by",
+              "decided_at"
+            ],
+            "properties": {
+              "decided_by": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "decided_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "rejected",
+                  "revision_required"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "decided_by",
+              "decided_at",
+              "notes"
+            ],
+            "properties": {
+              "decided_by": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "decided_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "notes": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "examples": [
+        {
+          "required": true,
+          "status": "pending",
+          "required_role": "brand_owner",
+          "requested_from": null,
+          "requested_at": "2026-07-27T09:30:00Z",
+          "decided_by": null,
+          "decided_at": null,
+          "expires_at": null,
+          "notes": null
+        }
+      ]
+    },
+
+    "quality_state": {
+      "title": "Quality State",
+      "description": "Summary of the quality-review state associated with an object.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/quality_status"
+        },
+        "latest_report_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^quality_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "reviewed_at": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+
+    "risk_assessment": {
+      "title": "Risk Assessment",
+      "description": "Structured assessment of operational, business or governance risk.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "summary"
+      ],
+      "properties": {
+        "level": {
+          "$ref": "#/$defs/risk_level"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "risk_categories": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "brand",
+              "product_accuracy",
+              "legal",
+              "financial",
+              "privacy",
+              "security",
+              "reputation",
+              "customer",
+              "operational",
+              "technical",
+              "governance",
+              "content",
+              "other"
+            ]
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "mitigations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "default": []
+        },
+        "residual_risk_level": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/risk_level"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+
+    "validation_error": {
+      "title": "Validation Error",
+      "description": "A structured structural, semantic, governance or cross-object validation error.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "validation_type",
+        "severity"
+      ],
+      "properties": {
+        "field": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 500
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[a-z][a-z0-9_.-]*$"
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "validation_type": {
+          "type": "string",
+          "enum": [
+            "structural",
+            "semantic",
+            "governance",
+            "cross_object"
+          ]
+        },
+        "severity": {
+          "$ref": "#/$defs/severity"
+        },
+        "related_object_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/object_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "suggested_resolution": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000
+        }
+      }
+    },
+
+    "validation_record": {
+      "title": "Validation Record",
+      "description": "Summary of validation performed on a Runtime object.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "validated_at",
+        "validator"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/validation_status"
+        },
+        "validated_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "validator": {
+          "$ref": "#/$defs/actor_reference"
+        },
+        "schema_version_validated": {
+          "$ref": "#/$defs/schema_version"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/validation_error"
+          },
+          "default": []
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/validation_error"
+          },
+          "default": []
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "valid"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "errors": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "invalid"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "errors": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "relationship_type": {
+      "title": "Relationship Type",
+      "description": "Relationship between two Runtime objects.",
+      "type": "string",
+      "enum": [
+        "parent_of",
+        "child_of",
+        "derived_from",
+        "supports",
+        "contradicts",
+        "reviews",
+        "revises",
+        "supersedes",
+        "superseded_by",
+        "depends_on",
+        "produced_by",
+        "input_to",
+        "output_of",
+        "related_to"
+      ]
+    },
+
+    "object_relationship": {
+      "title": "Object Relationship",
+      "description": "Explicit relationship between Runtime objects.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relationship_type",
+        "target_object_id"
+      ],
+      "properties": {
+        "relationship_type": {
+          "$ref": "#/$defs/relationship_type"
+        },
+        "target_object_id": {
+          "$ref": "#/$defs/object_id"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+
+    "object_relationships": {
+      "title": "Object Relationships",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/object_relationship"
+      },
+      "default": []
+    },
+
+    "revision": {
+      "title": "Revision Information",
+      "description": "Revision and version history metadata for a Runtime object.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "revision_number"
+      ],
+      "properties": {
+        "revision_number": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        },
+        "supersedes_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/object_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "change_summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "revision_notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "revised_by": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "revised_at": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "revision_number": {
+                "minimum": 2
+              }
+            },
+            "required": [
+              "revision_number"
+            ]
+          },
+          "then": {
+            "required": [
+              "change_summary",
+              "revised_by",
+              "revised_at"
+            ],
+            "properties": {
+              "change_summary": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "revised_by": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "revised_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "metadata": {
+      "title": "Extensible Metadata",
+      "description": "Controlled non-core metadata. Core operational fields must not be hidden here.",
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "type": [
+          "string",
+          "number",
+          "integer",
+          "boolean",
+          "null",
+          "array",
+          "object"
+        ]
+      },
+      "default": {}
+    },
+
+    "runtime_object_header": {
+      "title": "Runtime Object Header",
+      "description": "Common identity, traceability and lifecycle metadata used by major Runtime objects.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "schema_name",
+        "schema_version",
+        "task_id",
+        "execution_id",
+        "created_at",
+        "created_by",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/object_id"
+        },
+        "schema_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/schema_version"
+        },
+        "task_id": {
+          "$ref": "#/$defs/task_id"
+        },
+        "execution_id": {
+          "$ref": "#/$defs/execution_id"
+        },
+        "workflow_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/workflow_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "parent_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/object_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "$ref": "#/$defs/timestamp"
+        },
+        "updated_at": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_by": {
+          "$ref": "#/$defs/actor_reference"
+        },
+        "updated_by": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "$ref": "#/$defs/generic_status"
+        },
+        "tags": {
+          "$ref": "#/$defs/tags"
+        },
+        "relationships": {
+          "$ref": "#/$defs/object_relationships"
+        },
+        "revision": {
+          "$ref": "#/$defs/revision"
+        },
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        }
+      }
+    }
+  }
+}

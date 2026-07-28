@@ -1,0 +1,3318 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://buxa.local/scout/runtime/schemas/execution_result.schema.json",
+  "title": "Scout Runtime Execution Result",
+  "description": "Defines the final runtime ledger for a Scout execution. An Execution Result consolidates the execution outcome, objective completion, deliverables, produced runtime objects, step results, quality decisions, approvals, exceptions, statistics, resource usage, publication readiness, learning candidates, memory outcomes, trace data, and recommended next actions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_name",
+    "schema_version",
+    "task_id",
+    "execution_id",
+    "execution_blueprint_id",
+    "created_at",
+    "created_by",
+    "status",
+    "execution_summary",
+    "objective_results",
+    "deliverables",
+    "produced_objects",
+    "step_results",
+    "quality_summary",
+    "approval_summary",
+    "exception_summary",
+    "statistics",
+    "resource_usage",
+    "trace",
+    "final_summary",
+    "quality_state",
+    "validation"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "./common.schema.json#/$defs/object_id"
+    },
+    "schema_name": {
+      "const": "execution_result"
+    },
+    "schema_version": {
+      "$ref": "./common.schema.json#/$defs/schema_version"
+    },
+    "task_id": {
+      "$ref": "./common.schema.json#/$defs/task_id"
+    },
+    "execution_id": {
+      "$ref": "./common.schema.json#/$defs/execution_id"
+    },
+    "workflow_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/workflow_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "execution_blueprint_id": {
+      "$ref": "./common.schema.json#/$defs/object_id"
+    },
+    "business_judgement_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "knowledge_package_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "parent_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "created_at": {
+      "$ref": "./common.schema.json#/$defs/timestamp"
+    },
+    "updated_at": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "created_by": {
+      "$ref": "./common.schema.json#/$defs/actor_reference"
+    },
+    "updated_by": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "assembling",
+        "clarification_required",
+        "approval_required",
+        "completed",
+        "completed_with_warnings",
+        "completed_with_exceptions",
+        "partially_completed",
+        "blocked",
+        "failed",
+        "cancelled",
+        "superseded",
+        "archived"
+      ]
+    },
+    "title": {
+      "$ref": "./common.schema.json#/$defs/title"
+    },
+    "execution_summary": {
+      "$ref": "#/$defs/execution_summary"
+    },
+    "objective_results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/objective_result"
+      }
+    },
+    "deliverables": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/deliverable_result"
+      },
+      "default": []
+    },
+    "produced_objects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/produced_object"
+      },
+      "default": []
+    },
+    "step_results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/step_result"
+      }
+    },
+    "skill_output_summary": {
+      "$ref": "#/$defs/skill_output_summary"
+    },
+    "quality_summary": {
+      "$ref": "#/$defs/quality_summary"
+    },
+    "approval_summary": {
+      "$ref": "#/$defs/approval_summary"
+    },
+    "publication_readiness": {
+      "$ref": "#/$defs/publication_readiness"
+    },
+    "external_actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/external_action"
+      },
+      "default": []
+    },
+    "exception_summary": {
+      "$ref": "#/$defs/exception_summary"
+    },
+    "statistics": {
+      "$ref": "#/$defs/statistics"
+    },
+    "resource_usage": {
+      "$ref": "#/$defs/resource_usage"
+    },
+    "cost_summary": {
+      "$ref": "#/$defs/cost_summary"
+    },
+    "learning_pipeline": {
+      "$ref": "#/$defs/learning_pipeline"
+    },
+    "memory_pipeline": {
+      "$ref": "#/$defs/memory_pipeline"
+    },
+    "trace": {
+      "$ref": "#/$defs/trace"
+    },
+    "final_summary": {
+      "$ref": "#/$defs/final_summary"
+    },
+    "next_actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/next_action"
+      },
+      "default": []
+    },
+    "approval": {
+      "$ref": "./common.schema.json#/$defs/approval"
+    },
+    "confidence": {
+      "$ref": "./common.schema.json#/$defs/confidence"
+    },
+    "quality_state": {
+      "$ref": "./common.schema.json#/$defs/quality_state"
+    },
+    "source_refs": {
+      "$ref": "./common.schema.json#/$defs/source_references"
+    },
+    "evidence_refs": {
+      "$ref": "./common.schema.json#/$defs/evidence_references"
+    },
+    "relationships": {
+      "$ref": "./common.schema.json#/$defs/relationships"
+    },
+    "revision": {
+      "$ref": "./common.schema.json#/$defs/revision"
+    },
+    "validation": {
+      "$ref": "./common.schema.json#/$defs/validation_record"
+    },
+    "exception_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "./common.schema.json#/$defs/object_id"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "tags": {
+      "$ref": "./common.schema.json#/$defs/tags"
+    },
+    "metadata": {
+      "$ref": "./common.schema.json#/$defs/metadata"
+    }
+  },
+  "$defs": {
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nullable_string": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_\\-]{2,127}$"
+    },
+    "execution_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "outcome",
+        "completion_state",
+        "started_at",
+        "completed_at",
+        "duration_ms",
+        "completion_percentage",
+        "execution_mode",
+        "attempt_number",
+        "retry_count",
+        "summary"
+      ],
+      "properties": {
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "success",
+            "success_with_warnings",
+            "success_with_exceptions",
+            "partial_success",
+            "blocked",
+            "failure",
+            "cancelled"
+          ]
+        },
+        "completion_state": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "complete_with_warnings",
+            "complete_with_exceptions",
+            "partial",
+            "not_completed"
+          ]
+        },
+        "started_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        "completed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "duration_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "completion_percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "execution_mode": {
+          "type": "string",
+          "enum": [
+            "automatic",
+            "human_in_the_loop",
+            "human_led",
+            "manual",
+            "hybrid"
+          ]
+        },
+        "attempt_number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "retry_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "recovery_count": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "rollback_performed": {
+          "type": "boolean",
+          "default": false
+        },
+        "termination_reason": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "summary": {
+          "$ref": "#/$defs/non_empty_string"
+        }
+      }
+    },
+    "objective_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "objective_id",
+        "statement",
+        "status",
+        "completion_percentage",
+        "evidence_refs",
+        "summary"
+      ],
+      "properties": {
+        "objective_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "statement": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "satisfied",
+            "partially_satisfied",
+            "not_satisfied",
+            "not_evaluated",
+            "cancelled"
+          ]
+        },
+        "completion_percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "success_criterion_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "evidence_refs": {
+          "$ref": "./common.schema.json#/$defs/evidence_references"
+        },
+        "deliverable_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "blocking_issue_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "summary": {
+          "$ref": "#/$defs/non_empty_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "satisfied"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "completion_percentage": {
+                "const": 100
+              },
+              "blocking_issue_ids": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_satisfied"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "blocking_issue_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "deliverable_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deliverable_id",
+        "name",
+        "deliverable_type",
+        "required",
+        "status",
+        "quality_status",
+        "approval_status"
+      ],
+      "properties": {
+        "deliverable_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "description": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "deliverable_type": {
+          "type": "string",
+          "enum": [
+            "document",
+            "structured_data",
+            "artifact",
+            "message",
+            "decision",
+            "plan",
+            "report",
+            "media",
+            "code",
+            "runtime_object",
+            "custom"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "planned",
+            "produced",
+            "produced_with_warnings",
+            "partially_produced",
+            "missing",
+            "failed",
+            "cancelled"
+          ]
+        },
+        "source_object_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "artifact_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "location_type": {
+          "type": "string",
+          "enum": [
+            "runtime_path",
+            "repository_path",
+            "connector_reference",
+            "external_url",
+            "inline",
+            "none"
+          ],
+          "default": "none"
+        },
+        "location": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "quality_status": {
+          "type": "string",
+          "enum": [
+            "not_evaluated",
+            "passed",
+            "passed_with_warnings",
+            "failed",
+            "not_applicable"
+          ]
+        },
+        "quality_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "approval_status": {
+          "type": "string",
+          "enum": [
+            "not_required",
+            "pending",
+            "approved",
+            "approved_with_conditions",
+            "rejected"
+          ]
+        },
+        "publish_ready": {
+          "type": "boolean",
+          "default": false
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "location_type": {
+                "enum": [
+                  "runtime_path",
+                  "repository_path",
+                  "connector_reference",
+                  "external_url"
+                ]
+              }
+            },
+            "required": [
+              "location_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "location": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "location"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "publish_ready": {
+                "const": true
+              }
+            },
+            "required": [
+              "publish_ready"
+            ]
+          },
+          "then": {
+            "properties": {
+              "quality_status": {
+                "enum": [
+                  "passed",
+                  "passed_with_warnings"
+                ]
+              },
+              "approval_status": {
+                "enum": [
+                  "not_required",
+                  "approved",
+                  "approved_with_conditions"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "produced_object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_id",
+        "object_type",
+        "schema_ref",
+        "status",
+        "created_at",
+        "is_final"
+      ],
+      "properties": {
+        "object_id": {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        "object_type": {
+          "type": "string",
+          "enum": [
+            "task",
+            "knowledge_package",
+            "business_judgement",
+            "execution_blueprint",
+            "skill_output",
+            "quality_report",
+            "execution_result",
+            "exception_record",
+            "learning_candidate",
+            "memory_record",
+            "artifact",
+            "custom"
+          ]
+        },
+        "schema_ref": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "status": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "created_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        "created_by": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "is_final": {
+          "type": "boolean"
+        },
+        "superseded_by_id": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/object_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "location": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "summary": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "step_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "step_id",
+        "sequence",
+        "title",
+        "status",
+        "started_at",
+        "completed_at",
+        "duration_ms",
+        "attempts",
+        "output_object_ids",
+        "quality_gate_status",
+        "approval_gate_status"
+      ],
+      "properties": {
+        "step_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "completed",
+            "completed_with_warnings",
+            "completed_with_exceptions",
+            "partially_completed",
+            "failed",
+            "blocked",
+            "skipped",
+            "cancelled"
+          ]
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "duration_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "attempts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "retry_count": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "executor": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "skill_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "tool_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "output_object_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "uniqueItems": true
+        },
+        "quality_gate_status": {
+          "type": "string",
+          "enum": [
+            "not_required",
+            "not_evaluated",
+            "passed",
+            "passed_with_warnings",
+            "failed"
+          ]
+        },
+        "approval_gate_status": {
+          "type": "string",
+          "enum": [
+            "not_required",
+            "pending",
+            "approved",
+            "approved_with_conditions",
+            "rejected"
+          ]
+        },
+        "exception_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "summary": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "completed",
+                  "completed_with_warnings",
+                  "completed_with_exceptions",
+                  "partially_completed"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "completed_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "duration_ms": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "completed_at",
+              "duration_ms"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "exception_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "skill_output_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total",
+        "completed",
+        "completed_with_warnings",
+        "completed_with_exceptions",
+        "failed",
+        "blocked",
+        "object_ids"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completed_with_warnings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "completed_with_exceptions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blocked": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "object_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "uniqueItems": true
+        },
+        "primary_output_id": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/object_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "quality_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overall_status",
+        "overall_score",
+        "quality_report_ids",
+        "checks_total",
+        "checks_passed",
+        "checks_failed",
+        "blocking_failures",
+        "warnings",
+        "execution_may_continue"
+      ],
+      "properties": {
+        "overall_status": {
+          "type": "string",
+          "enum": [
+            "not_evaluated",
+            "passed",
+            "passed_with_warnings",
+            "conditional_pass",
+            "failed",
+            "blocked"
+          ]
+        },
+        "overall_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "quality_report_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "uniqueItems": true
+        },
+        "checks_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "checks_passed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "checks_failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blocking_failures": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "warnings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "execution_may_continue": {
+          "type": "boolean"
+        },
+        "publish_ready": {
+          "type": "boolean",
+          "default": false
+        },
+        "summary": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "approval_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overall_status",
+        "required_approvals",
+        "granted_approvals",
+        "pending_approvals",
+        "rejected_approvals",
+        "execution_approved"
+      ],
+      "properties": {
+        "overall_status": {
+          "type": "string",
+          "enum": [
+            "not_required",
+            "pending",
+            "approved",
+            "approved_with_conditions",
+            "rejected",
+            "partially_approved"
+          ]
+        },
+        "required_approvals": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "granted_approvals": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pending_approvals": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rejected_approvals": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "execution_approved": {
+          "type": "boolean"
+        },
+        "publish_approved": {
+          "type": "boolean",
+          "default": false
+        },
+        "financial_commitment_approved": {
+          "type": "boolean",
+          "default": false
+        },
+        "legal_commitment_approved": {
+          "type": "boolean",
+          "default": false
+        },
+        "deletion_approved": {
+          "type": "boolean",
+          "default": false
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "approval_records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/approval_record"
+          },
+          "default": []
+        }
+      }
+    },
+    "approval_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approval_id",
+        "approval_type",
+        "status",
+        "required"
+      ],
+      "properties": {
+        "approval_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "approval_type": {
+          "type": "string",
+          "enum": [
+            "execution",
+            "quality",
+            "publish",
+            "external_action",
+            "financial_commitment",
+            "legal_commitment",
+            "deletion",
+            "memory_write",
+            "custom"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_required",
+            "pending",
+            "approved",
+            "approved_with_conditions",
+            "rejected",
+            "cancelled"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "approved_by": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "approved_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "publication_readiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publishing_in_scope",
+        "ready",
+        "approved",
+        "blocking_reasons"
+      ],
+      "properties": {
+        "publishing_in_scope": {
+          "type": "boolean"
+        },
+        "ready": {
+          "type": "boolean"
+        },
+        "approved": {
+          "type": "boolean"
+        },
+        "target_channels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "blocking_reasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "publishable_deliverable_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "ready": {
+                "const": true
+              }
+            },
+            "required": [
+              "ready"
+            ]
+          },
+          "then": {
+            "properties": {
+              "blocking_reasons": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "external_action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "external_action_id",
+        "action_type",
+        "target",
+        "status",
+        "approval_required",
+        "performed"
+      ],
+      "properties": {
+        "external_action_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "action_type": {
+          "type": "string",
+          "enum": [
+            "send_message",
+            "send_email",
+            "publish",
+            "create_calendar_event",
+            "modify_calendar_event",
+            "write_repository",
+            "delete_repository_content",
+            "financial_commitment",
+            "legal_commitment",
+            "delete_data",
+            "notify",
+            "custom"
+          ]
+        },
+        "target": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_requested",
+            "planned",
+            "approval_pending",
+            "approved",
+            "performed",
+            "failed",
+            "cancelled",
+            "blocked"
+          ]
+        },
+        "approval_required": {
+          "type": "boolean"
+        },
+        "approval_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "performed": {
+          "type": "boolean"
+        },
+        "performed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "performed_by": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_summary": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "exception_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "approval_required": {
+                "const": true
+              }
+            },
+            "required": [
+              "approval_required"
+            ]
+          },
+          "then": {
+            "properties": {
+              "approval_id": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "approval_id"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "performed": {
+                "const": true
+              }
+            },
+            "required": [
+              "performed"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "performed"
+              },
+              "performed_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "performed_by": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "performed_at",
+              "performed_by"
+            ]
+          }
+        }
+      ]
+    },
+    "exception_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total",
+        "open",
+        "resolved",
+        "blocking",
+        "critical",
+        "exception_ids"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "open": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "resolved": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blocking": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "critical": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "warning": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "exception_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "uniqueItems": true
+        },
+        "summary": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "statistics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "steps_total",
+        "steps_completed",
+        "steps_failed",
+        "steps_blocked",
+        "skills_invoked",
+        "tools_invoked",
+        "models_used",
+        "artifacts_created",
+        "messages_created",
+        "files_created",
+        "runtime_objects_created"
+      ],
+      "properties": {
+        "steps_total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "steps_completed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "steps_completed_with_warnings": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "steps_failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "steps_blocked": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "steps_skipped": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "skills_invoked": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unique_skills_used": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "tools_invoked": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unique_tools_used": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "models_used": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "artifacts_created": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "messages_created": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "files_created": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "runtime_objects_created": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "quality_reports_created": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "learning_candidates_created": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "memory_records_created": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        }
+      }
+    },
+    "resource_usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "duration_ms",
+        "human_effort_minutes",
+        "cpu_time_ms",
+        "memory_peak_mb",
+        "network_requests",
+        "files_read",
+        "files_written",
+        "input_tokens",
+        "output_tokens"
+      ],
+      "properties": {
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "human_effort_minutes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cpu_time_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "memory_peak_mb": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "network_requests": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "files_read": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "files_written": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "input_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "output_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "cached_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "tool_usage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tool_usage"
+          },
+          "default": []
+        },
+        "model_usage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/model_usage"
+          },
+          "default": []
+        }
+      }
+    },
+    "tool_usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tool_id",
+        "invocations",
+        "successful",
+        "failed"
+      ],
+      "properties": {
+        "tool_id": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "invocations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "successful": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "duration_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        }
+      }
+    },
+    "model_usage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "model",
+        "invocations"
+      ],
+      "properties": {
+        "provider": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "model": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "invocations": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "input_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "output_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "cached_tokens": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "estimated_cost": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "currency": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "cost_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cost_tracking_enabled",
+        "total_cost",
+        "currency",
+        "estimated"
+      ],
+      "properties": {
+        "cost_tracking_enabled": {
+          "type": "boolean"
+        },
+        "total_cost": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "currency": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "estimated": {
+          "type": "boolean"
+        },
+        "model_cost": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "tool_cost": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "external_service_cost": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "human_cost": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "cost_tracking_enabled": {
+                "const": true
+              }
+            },
+            "required": [
+              "cost_tracking_enabled"
+            ]
+          },
+          "then": {
+            "properties": {
+              "total_cost": {
+                "type": "number",
+                "minimum": 0
+              },
+              "currency": {
+                "type": "string",
+                "minLength": 3
+              }
+            },
+            "required": [
+              "total_cost",
+              "currency"
+            ]
+          }
+        }
+      ]
+    },
+    "learning_pipeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "learning_evaluation_performed",
+        "candidate_count",
+        "candidate_ids",
+        "status"
+      ],
+      "properties": {
+        "learning_evaluation_performed": {
+          "type": "boolean"
+        },
+        "candidate_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "candidate_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "uniqueItems": true
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_evaluated",
+            "no_candidates",
+            "candidates_created",
+            "review_required",
+            "approved",
+            "rejected"
+          ]
+        },
+        "candidate_summaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "memory_pipeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory_write_evaluated",
+        "memory_write_allowed",
+        "records_created",
+        "record_ids",
+        "status"
+      ],
+      "properties": {
+        "memory_write_evaluated": {
+          "type": "boolean"
+        },
+        "memory_write_allowed": {
+          "type": "boolean"
+        },
+        "records_created": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "record_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "uniqueItems": true
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_evaluated",
+            "not_allowed",
+            "no_memory_required",
+            "candidate_pending",
+            "written",
+            "partially_written",
+            "failed"
+          ]
+        },
+        "retention_scope": {
+          "type": "string",
+          "enum": [
+            "none",
+            "execution",
+            "workflow",
+            "project",
+            "business",
+            "global"
+          ],
+          "default": "none"
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "trace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trace_id",
+        "root_span_id",
+        "events",
+        "object_lineage",
+        "logs_ref"
+      ],
+      "properties": {
+        "trace_id": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "root_span_id": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/trace_event"
+          },
+          "default": []
+        },
+        "object_lineage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lineage_edge"
+          },
+          "default": []
+        },
+        "logs_ref": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "checkpoint_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      }
+    },
+    "trace_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "event_type",
+        "timestamp",
+        "actor",
+        "summary"
+      ],
+      "properties": {
+        "event_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "event_type": {
+          "type": "string",
+          "enum": [
+            "execution_started",
+            "step_started",
+            "step_completed",
+            "step_failed",
+            "tool_invoked",
+            "skill_invoked",
+            "quality_evaluated",
+            "approval_requested",
+            "approval_granted",
+            "approval_rejected",
+            "exception_created",
+            "exception_resolved",
+            "recovery_started",
+            "rollback_started",
+            "external_action_performed",
+            "learning_candidate_created",
+            "memory_record_created",
+            "execution_completed",
+            "custom"
+          ]
+        },
+        "timestamp": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        "actor": {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+        "step_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "object_id": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/object_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "summary": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "details": {
+          "type": "object",
+          "additionalProperties": true,
+          "default": {}
+        }
+      }
+    },
+    "lineage_edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from_object_id",
+        "to_object_id",
+        "relationship"
+      ],
+      "properties": {
+        "from_object_id": {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        "to_object_id": {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        "relationship": {
+          "type": "string",
+          "enum": [
+            "derived_from",
+            "generated_from",
+            "validated_by",
+            "supersedes",
+            "references",
+            "consumed_by",
+            "produced_by",
+            "created_exception",
+            "created_learning",
+            "created_memory",
+            "custom"
+          ]
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "final_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "executive_summary",
+        "what_was_completed",
+        "what_was_not_completed",
+        "key_outcomes",
+        "limitations",
+        "recommendations"
+      ],
+      "properties": {
+        "executive_summary": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "what_was_completed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          }
+        },
+        "what_was_not_completed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          }
+        },
+        "key_outcomes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          }
+        },
+        "recommendations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          }
+        },
+        "lessons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "user_facing_message": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "next_action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "next_action_id",
+        "action_type",
+        "description",
+        "priority",
+        "required",
+        "owner_type",
+        "status"
+      ],
+      "properties": {
+        "next_action_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "action_type": {
+          "type": "string",
+          "enum": [
+            "none",
+            "review",
+            "approve",
+            "revise",
+            "retry",
+            "publish",
+            "archive",
+            "create_learning_candidate",
+            "write_memory",
+            "notify",
+            "follow_up",
+            "custom"
+          ]
+        },
+        "description": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "owner_type": {
+          "type": "string",
+          "enum": [
+            "agent",
+            "human",
+            "workflow",
+            "system",
+            "external"
+          ]
+        },
+        "owner": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_started",
+            "planned",
+            "in_progress",
+            "completed",
+            "cancelled"
+          ]
+        },
+        "due_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "related_object_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "execution_summary": {
+            "properties": {
+              "outcome": {
+                "const": "success"
+              },
+              "completion_state": {
+                "const": "complete"
+              },
+              "completion_percentage": {
+                "const": 100
+              },
+              "completed_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "duration_ms": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "outcome",
+              "completion_state",
+              "completion_percentage",
+              "completed_at",
+              "duration_ms"
+            ]
+          },
+          "objective_results": {
+            "items": {
+              "properties": {
+                "status": {
+                  "const": "satisfied"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            }
+          },
+          "quality_summary": {
+            "properties": {
+              "overall_status": {
+                "const": "passed"
+              },
+              "blocking_failures": {
+                "const": 0
+              },
+              "execution_may_continue": {
+                "const": true
+              }
+            },
+            "required": [
+              "overall_status",
+              "blocking_failures",
+              "execution_may_continue"
+            ]
+          },
+          "validation": {
+            "properties": {
+              "is_valid": {
+                "const": true
+              }
+            },
+            "required": [
+              "is_valid"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed_with_warnings"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "execution_summary": {
+            "properties": {
+              "outcome": {
+                "const": "success_with_warnings"
+              },
+              "completion_state": {
+                "const": "complete_with_warnings"
+              },
+              "completion_percentage": {
+                "const": 100
+              }
+            },
+            "required": [
+              "outcome",
+              "completion_state",
+              "completion_percentage"
+            ]
+          },
+          "quality_summary": {
+            "properties": {
+              "overall_status": {
+                "enum": [
+                  "passed_with_warnings",
+                  "conditional_pass"
+                ]
+              },
+              "blocking_failures": {
+                "const": 0
+              }
+            },
+            "required": [
+              "overall_status",
+              "blocking_failures"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed_with_exceptions"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "execution_summary": {
+            "properties": {
+              "outcome": {
+                "const": "success_with_exceptions"
+              },
+              "completion_state": {
+                "const": "complete_with_exceptions"
+              },
+              "completion_percentage": {
+                "const": 100
+              }
+            },
+            "required": [
+              "outcome",
+              "completion_state",
+              "completion_percentage"
+            ]
+          },
+          "exception_ids": {
+            "minItems": 1
+          },
+          "exception_summary": {
+            "properties": {
+              "total": {
+                "minimum": 1
+              }
+            },
+            "required": [
+              "total"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "partially_completed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "execution_summary": {
+            "properties": {
+              "outcome": {
+                "const": "partial_success"
+              },
+              "completion_state": {
+                "const": "partial"
+              },
+              "completion_percentage": {
+                "exclusiveMinimum": 0,
+                "exclusiveMaximum": 100
+              }
+            },
+            "required": [
+              "outcome",
+              "completion_state",
+              "completion_percentage"
+            ]
+          },
+          "objective_results": {
+            "contains": {
+              "properties": {
+                "status": {
+                  "enum": [
+                    "partially_satisfied",
+                    "not_satisfied"
+                  ]
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "minContains": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "blocked"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "execution_summary": {
+            "properties": {
+              "outcome": {
+                "const": "blocked"
+              },
+              "completion_state": {
+                "const": "not_completed"
+              }
+            },
+            "required": [
+              "outcome",
+              "completion_state"
+            ]
+          },
+          "exception_ids": {
+            "minItems": 1
+          },
+          "exception_summary": {
+            "properties": {
+              "blocking": {
+                "minimum": 1
+              }
+            },
+            "required": [
+              "blocking"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "failed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "execution_summary": {
+            "properties": {
+              "outcome": {
+                "const": "failure"
+              },
+              "completion_state": {
+                "const": "not_completed"
+              }
+            },
+            "required": [
+              "outcome",
+              "completion_state"
+            ]
+          },
+          "exception_ids": {
+            "minItems": 1
+          },
+          "quality_summary": {
+            "properties": {
+              "overall_status": {
+                "enum": [
+                  "failed",
+                  "blocked",
+                  "not_evaluated"
+                ]
+              },
+              "execution_may_continue": {
+                "const": false
+              }
+            },
+            "required": [
+              "overall_status",
+              "execution_may_continue"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "approval_required"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "approval_summary": {
+            "properties": {
+              "overall_status": {
+                "const": "pending"
+              },
+              "pending_approvals": {
+                "minimum": 1
+              },
+              "execution_approved": {
+                "const": false
+              }
+            },
+            "required": [
+              "overall_status",
+              "pending_approvals",
+              "execution_approved"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "publication_readiness": {
+            "properties": {
+              "ready": {
+                "const": true
+              }
+            },
+            "required": [
+              "ready"
+            ]
+          }
+        },
+        "required": [
+          "publication_readiness"
+        ]
+      },
+      "then": {
+        "properties": {
+          "quality_summary": {
+            "properties": {
+              "overall_status": {
+                "enum": [
+                  "passed",
+                  "passed_with_warnings",
+                  "conditional_pass"
+                ]
+              },
+              "blocking_failures": {
+                "const": 0
+              }
+            },
+            "required": [
+              "overall_status",
+              "blocking_failures"
+            ]
+          },
+          "publication_readiness": {
+            "properties": {
+              "blocking_reasons": {
+                "maxItems": 0
+              },
+              "publishable_deliverable_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "blocking_reasons",
+              "publishable_deliverable_ids"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "publication_readiness": {
+            "properties": {
+              "publishing_in_scope": {
+                "const": true
+              },
+              "approved": {
+                "const": true
+              }
+            },
+            "required": [
+              "publishing_in_scope",
+              "approved"
+            ]
+          }
+        },
+        "required": [
+          "publication_readiness"
+        ]
+      },
+      "then": {
+        "properties": {
+          "approval_summary": {
+            "properties": {
+              "publish_approved": {
+                "const": true
+              }
+            },
+            "required": [
+              "publish_approved"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "memory_pipeline": {
+            "properties": {
+              "status": {
+                "const": "written"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "memory_pipeline"
+        ]
+      },
+      "then": {
+        "properties": {
+          "memory_pipeline": {
+            "properties": {
+              "memory_write_allowed": {
+                "const": true
+              },
+              "records_created": {
+                "minimum": 1
+              },
+              "record_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "memory_write_allowed",
+              "records_created",
+              "record_ids"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "learning_pipeline": {
+            "properties": {
+              "status": {
+                "const": "candidates_created"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "learning_pipeline"
+        ]
+      },
+      "then": {
+        "properties": {
+          "learning_pipeline": {
+            "properties": {
+              "learning_evaluation_performed": {
+                "const": true
+              },
+              "candidate_count": {
+                "minimum": 1
+              },
+              "candidate_ids": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "learning_evaluation_performed",
+              "candidate_count",
+              "candidate_ids"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "examples": [
+    {
+      "id": "er_01JSCOUTNEXTXHS000000001",
+      "schema_name": "execution_result",
+      "schema_version": "1.0.0",
+      "task_id": "task_01JSCOUTNEXTXHS000000001",
+      "execution_id": "exec_01JSCOUTNEXTXHS000000001",
+      "workflow_id": "wf_xiaohongshu_content_package",
+      "execution_blueprint_id": "eb_01JSCOUTNEXTXHS00000000001",
+      "business_judgement_id": "bj_01JSCOUTNEXTXHS000000001",
+      "knowledge_package_id": "kp_01JSCOUTNEXTXHS000000001",
+      "parent_id": null,
+      "created_at": "2026-07-27T20:35:00+08:00",
+      "updated_at": null,
+      "created_by": {
+        "actor_type": "workflow",
+        "actor_id": "scout_runtime",
+        "display_name": "Scout Runtime"
+      },
+      "updated_by": null,
+      "status": "completed",
+      "title": "Xiaohongshu Content Package Execution Result",
+      "execution_summary": {
+        "outcome": "success",
+        "completion_state": "complete",
+        "started_at": "2026-07-27T20:00:00+08:00",
+        "completed_at": "2026-07-27T20:35:00+08:00",
+        "duration_ms": 2100000,
+        "completion_percentage": 100,
+        "execution_mode": "human_in_the_loop",
+        "attempt_number": 1,
+        "retry_count": 0,
+        "recovery_count": 0,
+        "rollback_performed": false,
+        "termination_reason": null,
+        "summary": "The requested Xiaohongshu content package was created and passed all blocking quality checks."
+      },
+      "objective_results": [
+        {
+          "objective_id": "create_complete_content_package",
+          "statement": "Create one new Xiaohongshu content package that extends the approved content strategy.",
+          "status": "satisfied",
+          "completion_percentage": 100,
+          "success_criterion_ids": [
+            "topic_is_new",
+            "all_components_present",
+            "qa_passed"
+          ],
+          "evidence_refs": [],
+          "deliverable_ids": [
+            "deliverable_content_package",
+            "deliverable_quality_report"
+          ],
+          "blocking_issue_ids": [],
+          "summary": "The package is complete, differentiated, and quality-approved."
+        }
+      ],
+      "deliverables": [
+        {
+          "deliverable_id": "deliverable_content_package",
+          "name": "Xiaohongshu Content Package",
+          "description": "Six-page image plan, prompts, title, post copy, and hashtags.",
+          "deliverable_type": "structured_data",
+          "required": true,
+          "status": "produced",
+          "source_object_ids": [
+            "so_01JSCOUTXHSOUTPUT000000001"
+          ],
+          "artifact_ids": [],
+          "location_type": "runtime_path",
+          "location": "Runtime/outputs/so_01JSCOUTXHSOUTPUT000000001.json",
+          "quality_status": "passed",
+          "quality_score": 1,
+          "approval_status": "not_required",
+          "publish_ready": false,
+          "notes": "Publishing was explicitly excluded."
+        },
+        {
+          "deliverable_id": "deliverable_quality_report",
+          "name": "Quality Report",
+          "description": "Evaluation against Product, Brand, and Content Standards.",
+          "deliverable_type": "report",
+          "required": true,
+          "status": "produced",
+          "source_object_ids": [
+            "qr_01JSCOUTXHSQUALITY00000001"
+          ],
+          "artifact_ids": [],
+          "location_type": "runtime_path",
+          "location": "Runtime/quality/qr_01JSCOUTXHSQUALITY00000001.json",
+          "quality_status": "passed",
+          "quality_score": 1,
+          "approval_status": "not_required",
+          "publish_ready": false,
+          "notes": null
+        }
+      ],
+      "produced_objects": [
+        {
+          "object_id": "so_01JSCOUTXHSOUTPUT000000001",
+          "object_type": "skill_output",
+          "schema_ref": "./skill_output.schema.json",
+          "status": "completed",
+          "created_at": "2026-07-27T20:20:00+08:00",
+          "created_by": {
+            "actor_type": "skill",
+            "actor_id": "xiaohongshu_content_generation",
+            "display_name": "Xiaohongshu Content Generation Skill"
+          },
+          "is_final": true,
+          "superseded_by_id": null,
+          "location": "Runtime/outputs/so_01JSCOUTXHSOUTPUT000000001.json",
+          "summary": "Complete Xiaohongshu content package."
+        },
+        {
+          "object_id": "qr_01JSCOUTXHSQUALITY00000001",
+          "object_type": "quality_report",
+          "schema_ref": "./quality_report.schema.json",
+          "status": "completed",
+          "created_at": "2026-07-27T20:30:00+08:00",
+          "created_by": {
+            "actor_type": "workflow",
+            "actor_id": "quality_engine",
+            "display_name": "Scout Quality Engine"
+          },
+          "is_final": true,
+          "superseded_by_id": null,
+          "location": "Runtime/quality/qr_01JSCOUTXHSQUALITY00000001.json",
+          "summary": "All blocking checks passed."
+        }
+      ],
+      "step_results": [
+        {
+          "step_id": "step_select_topic",
+          "sequence": 1,
+          "title": "Select a New Topic",
+          "status": "completed",
+          "started_at": "2026-07-27T20:00:00+08:00",
+          "completed_at": "2026-07-27T20:05:00+08:00",
+          "duration_ms": 300000,
+          "attempts": 1,
+          "retry_count": 0,
+          "executor": {
+            "actor_type": "agent",
+            "actor_id": "scout",
+            "display_name": "Scout"
+          },
+          "skill_ids": [],
+          "tool_ids": [],
+          "output_object_ids": [],
+          "quality_gate_status": "not_required",
+          "approval_gate_status": "not_required",
+          "exception_ids": [],
+          "summary": "A differentiated topic was selected."
+        },
+        {
+          "step_id": "step_generate_package",
+          "sequence": 2,
+          "title": "Generate Content Package",
+          "status": "completed",
+          "started_at": "2026-07-27T20:05:00+08:00",
+          "completed_at": "2026-07-27T20:20:00+08:00",
+          "duration_ms": 900000,
+          "attempts": 1,
+          "retry_count": 0,
+          "executor": {
+            "actor_type": "skill",
+            "actor_id": "xiaohongshu_content_generation",
+            "display_name": "Xiaohongshu Content Generation Skill"
+          },
+          "skill_ids": [
+            "xiaohongshu_content_generation"
+          ],
+          "tool_ids": [],
+          "output_object_ids": [
+            "so_01JSCOUTXHSOUTPUT000000001"
+          ],
+          "quality_gate_status": "not_evaluated",
+          "approval_gate_status": "not_required",
+          "exception_ids": [],
+          "summary": "The complete content package was generated."
+        },
+        {
+          "step_id": "step_quality_check",
+          "sequence": 3,
+          "title": "Run Quality Assurance",
+          "status": "completed",
+          "started_at": "2026-07-27T20:20:00+08:00",
+          "completed_at": "2026-07-27T20:30:00+08:00",
+          "duration_ms": 600000,
+          "attempts": 1,
+          "retry_count": 0,
+          "executor": {
+            "actor_type": "workflow",
+            "actor_id": "quality_engine",
+            "display_name": "Scout Quality Engine"
+          },
+          "skill_ids": [
+            "content_quality_assurance"
+          ],
+          "tool_ids": [
+            "schema_validator",
+            "standards_comparator"
+          ],
+          "output_object_ids": [
+            "qr_01JSCOUTXHSQUALITY00000001"
+          ],
+          "quality_gate_status": "passed",
+          "approval_gate_status": "not_required",
+          "exception_ids": [],
+          "summary": "All blocking quality checks passed."
+        }
+      ],
+      "skill_output_summary": {
+        "total": 1,
+        "completed": 1,
+        "completed_with_warnings": 0,
+        "completed_with_exceptions": 0,
+        "failed": 0,
+        "blocked": 0,
+        "object_ids": [
+          "so_01JSCOUTXHSOUTPUT000000001"
+        ],
+        "primary_output_id": "so_01JSCOUTXHSOUTPUT000000001"
+      },
+      "quality_summary": {
+        "overall_status": "passed",
+        "overall_score": 1,
+        "quality_report_ids": [
+          "qr_01JSCOUTXHSQUALITY00000001"
+        ],
+        "checks_total": 4,
+        "checks_passed": 4,
+        "checks_failed": 0,
+        "blocking_failures": 0,
+        "warnings": 0,
+        "execution_may_continue": true,
+        "publish_ready": false,
+        "summary": "Product, Brand, Content, and Completeness checks passed."
+      },
+      "approval_summary": {
+        "overall_status": "not_required",
+        "required_approvals": 0,
+        "granted_approvals": 0,
+        "pending_approvals": 0,
+        "rejected_approvals": 0,
+        "execution_approved": true,
+        "publish_approved": false,
+        "financial_commitment_approved": false,
+        "legal_commitment_approved": false,
+        "deletion_approved": false,
+        "conditions": [],
+        "approval_records": []
+      },
+      "publication_readiness": {
+        "publishing_in_scope": false,
+        "ready": false,
+        "approved": false,
+        "target_channels": [
+          "xiaohongshu"
+        ],
+        "blocking_reasons": [
+          "Publishing was excluded from the task scope."
+        ],
+        "publishable_deliverable_ids": [],
+        "notes": "The package is intended for human review only."
+      },
+      "external_actions": [],
+      "exception_summary": {
+        "total": 0,
+        "open": 0,
+        "resolved": 0,
+        "blocking": 0,
+        "critical": 0,
+        "warning": 0,
+        "exception_ids": [],
+        "summary": "No exceptions occurred."
+      },
+      "statistics": {
+        "steps_total": 3,
+        "steps_completed": 3,
+        "steps_completed_with_warnings": 0,
+        "steps_failed": 0,
+        "steps_blocked": 0,
+        "steps_skipped": 0,
+        "skills_invoked": 2,
+        "unique_skills_used": 2,
+        "tools_invoked": 2,
+        "unique_tools_used": 2,
+        "models_used": 1,
+        "artifacts_created": 0,
+        "messages_created": 0,
+        "files_created": 2,
+        "runtime_objects_created": 3,
+        "quality_reports_created": 1,
+        "learning_candidates_created": 0,
+        "memory_records_created": 0
+      },
+      "resource_usage": {
+        "duration_ms": 2100000,
+        "human_effort_minutes": 5,
+        "cpu_time_ms": null,
+        "memory_peak_mb": null,
+        "network_requests": 0,
+        "files_read": 6,
+        "files_written": 2,
+        "input_tokens": null,
+        "output_tokens": null,
+        "cached_tokens": null,
+        "tool_usage": [
+          {
+            "tool_id": "schema_validator",
+            "invocations": 1,
+            "successful": 1,
+            "failed": 0,
+            "duration_ms": 1000
+          },
+          {
+            "tool_id": "standards_comparator",
+            "invocations": 1,
+            "successful": 1,
+            "failed": 0,
+            "duration_ms": 5000
+          }
+        ],
+        "model_usage": [
+          {
+            "provider": "OpenAI",
+            "model": "GPT",
+            "invocations": 2,
+            "input_tokens": null,
+            "output_tokens": null,
+            "cached_tokens": null,
+            "estimated_cost": null,
+            "currency": null
+          }
+        ]
+      },
+      "cost_summary": {
+        "cost_tracking_enabled": false,
+        "total_cost": null,
+        "currency": null,
+        "estimated": true,
+        "model_cost": null,
+        "tool_cost": null,
+        "external_service_cost": null,
+        "human_cost": null,
+        "notes": "Cost tracking was not enabled."
+      },
+      "learning_pipeline": {
+        "learning_evaluation_performed": true,
+        "candidate_count": 0,
+        "candidate_ids": [],
+        "status": "no_candidates",
+        "candidate_summaries": [],
+        "notes": "No durable learning candidate was identified."
+      },
+      "memory_pipeline": {
+        "memory_write_evaluated": true,
+        "memory_write_allowed": false,
+        "records_created": 0,
+        "record_ids": [],
+        "status": "not_allowed",
+        "retention_scope": "execution",
+        "notes": "The execution policy did not allow memory writes."
+      },
+      "trace": {
+        "trace_id": "trace_01JSCOUTNEXTXHS000000001",
+        "root_span_id": "span_root_01JSCOUTNEXTXHS0001",
+        "events": [
+          {
+            "event_id": "event_execution_started",
+            "event_type": "execution_started",
+            "timestamp": "2026-07-27T20:00:00+08:00",
+            "actor": {
+              "actor_type": "workflow",
+              "actor_id": "scout_runtime",
+              "display_name": "Scout Runtime"
+            },
+            "step_id": null,
+            "object_id": null,
+            "summary": "Execution started.",
+            "details": {}
+          },
+          {
+            "event_id": "event_quality_evaluated",
+            "event_type": "quality_evaluated",
+            "timestamp": "2026-07-27T20:30:00+08:00",
+            "actor": {
+              "actor_type": "workflow",
+              "actor_id": "quality_engine",
+              "display_name": "Scout Quality Engine"
+            },
+            "step_id": "step_quality_check",
+            "object_id": "qr_01JSCOUTXHSQUALITY00000001",
+            "summary": "Quality evaluation passed.",
+            "details": {
+              "score": 1
+            }
+          },
+          {
+            "event_id": "event_execution_completed",
+            "event_type": "execution_completed",
+            "timestamp": "2026-07-27T20:35:00+08:00",
+            "actor": {
+              "actor_type": "workflow",
+              "actor_id": "scout_runtime",
+              "display_name": "Scout Runtime"
+            },
+            "step_id": null,
+            "object_id": "er_01JSCOUTNEXTXHS000000001",
+            "summary": "Execution completed successfully.",
+            "details": {}
+          }
+        ],
+        "object_lineage": [
+          {
+            "from_object_id": "eb_01JSCOUTNEXTXHS00000000001",
+            "to_object_id": "so_01JSCOUTXHSOUTPUT000000001",
+            "relationship": "generated_from",
+            "notes": null
+          },
+          {
+            "from_object_id": "so_01JSCOUTXHSOUTPUT000000001",
+            "to_object_id": "qr_01JSCOUTXHSQUALITY00000001",
+            "relationship": "validated_by",
+            "notes": null
+          },
+          {
+            "from_object_id": "qr_01JSCOUTXHSQUALITY00000001",
+            "to_object_id": "er_01JSCOUTNEXTXHS000000001",
+            "relationship": "consumed_by",
+            "notes": null
+          }
+        ],
+        "logs_ref": "Runtime/logs/exec_01JSCOUTNEXTXHS000000001",
+        "checkpoint_refs": []
+      },
+      "final_summary": {
+        "executive_summary": "Scout created a complete Xiaohongshu content package and verified it against all applicable standards.",
+        "what_was_completed": [
+          "A differentiated topic was selected.",
+          "A six-page image plan was created.",
+          "Six image prompts were created.",
+          "The title, post copy, and hashtags were created.",
+          "The package passed all blocking quality checks."
+        ],
+        "what_was_not_completed": [
+          "The post was not published because publishing was outside task scope."
+        ],
+        "key_outcomes": [
+          "The content package is ready for human review.",
+          "No blocking issues or exceptions were recorded."
+        ],
+        "limitations": [
+          "Image rendering quality was not evaluated because only prompts were produced."
+        ],
+        "recommendations": [
+          "Review the final package before image generation or publishing."
+        ],
+        "lessons": [],
+        "user_facing_message": "The content package is complete and has passed quality review. It has not been published."
+      },
+      "next_actions": [
+        {
+          "next_action_id": "next_human_review",
+          "action_type": "review",
+          "description": "Review the final content package before image generation or publishing.",
+          "priority": "medium",
+          "required": false,
+          "owner_type": "human",
+          "owner": null,
+          "status": "not_started",
+          "due_at": null,
+          "related_object_ids": [
+            "so_01JSCOUTXHSOUTPUT000000001",
+            "qr_01JSCOUTXHSQUALITY00000001"
+          ]
+        }
+      ],
+      "approval": {
+        "status": "not_required",
+        "required": false,
+        "approved_by": null,
+        "approved_at": null,
+        "notes": "No external action or publishing was performed."
+      },
+      "confidence": 0.98,
+      "quality_state": {
+        "status": "passed",
+        "score": 1,
+        "blocking_issues": 0,
+        "warnings": 0,
+        "notes": "Execution completed successfully."
+      },
+      "source_refs": [],
+      "evidence_refs": [],
+      "relationships": [],
+      "revision": {
+        "revision_number": 1,
+        "supersedes_id": null,
+        "change_summary": "Initial execution result."
+      },
+      "validation": {
+        "is_valid": true,
+        "validated_at": "2026-07-27T20:35:00+08:00",
+        "validator": {
+          "actor_type": "system",
+          "actor_id": "schema_validator",
+          "display_name": "Schema Validator"
+        },
+        "errors": [],
+        "warnings": []
+      },
+      "exception_ids": [],
+      "tags": [
+        "execution_result",
+        "xiaohongshu",
+        "content_package"
+      ],
+      "metadata": {}
+    }
+  ]
+}

@@ -1,0 +1,3805 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://buxa.local/scout/runtime/schemas/learning_candidate.schema.json",
+  "title": "Scout Runtime Learning Candidate",
+  "description": "Defines a governed proposal for durable runtime learning. A Learning Candidate is evidence-backed but is not accepted truth until evaluated, approved, implemented, verified, and optionally converted into a Memory Record.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_name",
+    "schema_version",
+    "task_id",
+    "execution_id",
+    "created_at",
+    "created_by",
+    "status",
+    "identity",
+    "origin",
+    "learning_statement",
+    "evidence",
+    "analysis",
+    "generalization",
+    "risk_assessment",
+    "change_proposal",
+    "evaluation",
+    "decision",
+    "implementation",
+    "verification",
+    "memory_recommendation",
+    "quality_state",
+    "validation"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "./common.schema.json#/$defs/object_id"
+    },
+    "schema_name": {
+      "const": "learning_candidate"
+    },
+    "schema_version": {
+      "$ref": "./common.schema.json#/$defs/schema_version"
+    },
+    "task_id": {
+      "$ref": "./common.schema.json#/$defs/task_id"
+    },
+    "execution_id": {
+      "$ref": "./common.schema.json#/$defs/execution_id"
+    },
+    "workflow_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/workflow_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "execution_result_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "exception_record_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "quality_report_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "skill_output_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "business_judgement_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "knowledge_package_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "created_at": {
+      "$ref": "./common.schema.json#/$defs/timestamp"
+    },
+    "updated_at": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "created_by": {
+      "$ref": "./common.schema.json#/$defs/actor_reference"
+    },
+    "updated_by": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "evidence_pending",
+        "analysis_pending",
+        "under_evaluation",
+        "human_review_required",
+        "approved",
+        "approved_with_conditions",
+        "rejected",
+        "deferred",
+        "implementation_pending",
+        "implementing",
+        "implemented",
+        "verification_pending",
+        "verified",
+        "verification_failed",
+        "converted_to_memory",
+        "superseded",
+        "archived"
+      ]
+    },
+    "title": {
+      "$ref": "./common.schema.json#/$defs/title"
+    },
+    "identity": {
+      "$ref": "#/$defs/identity"
+    },
+    "origin": {
+      "$ref": "#/$defs/origin"
+    },
+    "learning_statement": {
+      "$ref": "#/$defs/learning_statement"
+    },
+    "evidence": {
+      "$ref": "#/$defs/evidence"
+    },
+    "analysis": {
+      "$ref": "#/$defs/analysis"
+    },
+    "generalization": {
+      "$ref": "#/$defs/generalization"
+    },
+    "risk_assessment": {
+      "$ref": "#/$defs/risk_assessment"
+    },
+    "change_proposal": {
+      "$ref": "#/$defs/change_proposal"
+    },
+    "evaluation": {
+      "$ref": "#/$defs/evaluation"
+    },
+    "decision": {
+      "$ref": "#/$defs/decision"
+    },
+    "implementation": {
+      "$ref": "#/$defs/implementation"
+    },
+    "verification": {
+      "$ref": "#/$defs/verification"
+    },
+    "memory_recommendation": {
+      "$ref": "#/$defs/memory_recommendation"
+    },
+    "governance": {
+      "$ref": "#/$defs/governance"
+    },
+    "timeline": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/timeline_event"
+      },
+      "default": []
+    },
+    "approval": {
+      "$ref": "./common.schema.json#/$defs/approval"
+    },
+    "confidence": {
+      "$ref": "./common.schema.json#/$defs/confidence"
+    },
+    "quality_state": {
+      "$ref": "./common.schema.json#/$defs/quality_state"
+    },
+    "source_refs": {
+      "$ref": "./common.schema.json#/$defs/source_references"
+    },
+    "evidence_refs": {
+      "$ref": "./common.schema.json#/$defs/evidence_references"
+    },
+    "relationships": {
+      "$ref": "./common.schema.json#/$defs/relationships"
+    },
+    "revision": {
+      "$ref": "./common.schema.json#/$defs/revision"
+    },
+    "validation": {
+      "$ref": "./common.schema.json#/$defs/validation_record"
+    },
+    "memory_record_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "./common.schema.json#/$defs/object_id"
+      },
+      "default": [],
+      "uniqueItems": true
+    },
+    "related_learning_candidate_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "./common.schema.json#/$defs/object_id"
+      },
+      "default": [],
+      "uniqueItems": true
+    },
+    "supersedes_learning_candidate_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "tags": {
+      "$ref": "./common.schema.json#/$defs/tags"
+    },
+    "metadata": {
+      "$ref": "./common.schema.json#/$defs/metadata"
+    }
+  },
+  "$defs": {
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nullable_string": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_\\-]{2,127}$"
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_code",
+        "candidate_type",
+        "category",
+        "priority",
+        "scope",
+        "novelty",
+        "durability"
+      ],
+      "properties": {
+        "candidate_code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_\\-]{2,63}$"
+        },
+        "candidate_type": {
+          "type": "string",
+          "enum": [
+            "prompt_improvement",
+            "schema_improvement",
+            "workflow_improvement",
+            "skill_improvement",
+            "tool_binding_improvement",
+            "quality_rule_improvement",
+            "approval_rule_improvement",
+            "business_rule_improvement",
+            "knowledge_rule_improvement",
+            "memory_candidate",
+            "policy_improvement",
+            "security_improvement",
+            "privacy_improvement",
+            "operational_improvement",
+            "automation_opportunity",
+            "deprecation_candidate",
+            "new_standard_candidate",
+            "custom"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "knowledge",
+            "reasoning",
+            "planning",
+            "execution",
+            "quality",
+            "approval",
+            "memory",
+            "learning",
+            "security",
+            "privacy",
+            "policy",
+            "business",
+            "operations",
+            "infrastructure",
+            "human_feedback",
+            "other"
+          ]
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "scope": {
+          "type": "string",
+          "enum": [
+            "single_prompt",
+            "single_schema",
+            "single_skill",
+            "single_tool",
+            "single_workflow",
+            "single_project",
+            "business_domain",
+            "runtime",
+            "global"
+          ]
+        },
+        "novelty": {
+          "type": "string",
+          "enum": [
+            "new",
+            "known_but_unimplemented",
+            "refinement",
+            "duplicate",
+            "conflicting",
+            "unknown"
+          ]
+        },
+        "durability": {
+          "type": "string",
+          "enum": [
+            "ephemeral",
+            "short_term",
+            "medium_term",
+            "long_term",
+            "permanent",
+            "unknown"
+          ]
+        },
+        "business_domain": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "taxonomy_version": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "origin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "origin_type",
+        "origin_summary",
+        "detected_at",
+        "detected_by",
+        "trigger_ids"
+      ],
+      "properties": {
+        "origin_type": {
+          "type": "string",
+          "enum": [
+            "exception",
+            "quality_finding",
+            "human_correction",
+            "execution_pattern",
+            "repeated_failure",
+            "repeated_success",
+            "performance_analysis",
+            "business_feedback",
+            "customer_feedback",
+            "policy_review",
+            "security_review",
+            "privacy_review",
+            "manual_proposal",
+            "external_research",
+            "custom"
+          ]
+        },
+        "origin_summary": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "detected_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        "detected_by": {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+        "trigger_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "trigger_count": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 1
+        },
+        "first_observed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "last_observed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "correlation_id": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "learning_statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "problem_statement",
+        "proposed_learning",
+        "expected_benefit",
+        "learning_form",
+        "assertion_level",
+        "current_behavior",
+        "desired_behavior",
+        "short_form"
+      ],
+      "properties": {
+        "problem_statement": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "proposed_learning": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "expected_benefit": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "learning_form": {
+          "type": "string",
+          "enum": [
+            "rule",
+            "guardrail",
+            "heuristic",
+            "standard",
+            "pattern",
+            "anti_pattern",
+            "procedure",
+            "classification",
+            "definition",
+            "preference",
+            "constraint",
+            "threshold",
+            "mapping",
+            "custom"
+          ]
+        },
+        "assertion_level": {
+          "type": "string",
+          "enum": [
+            "observation",
+            "hypothesis",
+            "supported_hypothesis",
+            "validated_rule",
+            "approved_standard"
+          ]
+        },
+        "current_behavior": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "desired_behavior": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "short_form": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "rationale": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "counterexamples": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "exceptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        }
+      }
+    },
+    "evidence_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "evidence_type",
+        "direction",
+        "description",
+        "source_object_id",
+        "reliability",
+        "relevance",
+        "independent"
+      ],
+      "properties": {
+        "evidence_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "evidence_type": {
+          "type": "string",
+          "enum": [
+            "exception_record",
+            "quality_finding",
+            "execution_result",
+            "human_feedback",
+            "user_correction",
+            "performance_metric",
+            "test_result",
+            "schema_validation",
+            "standard_reference",
+            "business_outcome",
+            "customer_outcome",
+            "external_research",
+            "historical_pattern",
+            "custom"
+          ]
+        },
+        "direction": {
+          "type": "string",
+          "enum": [
+            "supporting",
+            "contradicting",
+            "neutral"
+          ]
+        },
+        "description": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "source_object_id": {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        "source_location": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "reliability": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "authoritative"
+          ]
+        },
+        "relevance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "independent": {
+          "type": "boolean"
+        },
+        "observed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "content_hash": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "evidence_gap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gap_id",
+        "description",
+        "blocking",
+        "resolution_status"
+      ],
+      "properties": {
+        "gap_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "description": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "resolution_status": {
+          "type": "string",
+          "enum": [
+            "open",
+            "in_progress",
+            "resolved",
+            "accepted"
+          ]
+        },
+        "resolution_plan": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "resolved_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "resolved_by": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      }
+    },
+    "evidence_conflict": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conflict_id",
+        "description",
+        "supporting_evidence_ids",
+        "contradicting_evidence_ids",
+        "severity",
+        "status"
+      ],
+      "properties": {
+        "conflict_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "description": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "supporting_evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "contradicting_evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "severity": {
+          "$ref": "./common.schema.json#/$defs/severity"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "open",
+            "under_review",
+            "resolved",
+            "accepted_uncertainty"
+          ]
+        },
+        "resolution": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "resolved_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "resolved_by": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_status",
+        "evidence_strength",
+        "items",
+        "supporting_count",
+        "contradicting_count",
+        "independent_source_count",
+        "sufficient_for_evaluation"
+      ],
+      "properties": {
+        "evidence_status": {
+          "type": "string",
+          "enum": [
+            "not_collected",
+            "collecting",
+            "insufficient",
+            "sufficient",
+            "conflicted",
+            "verified"
+          ]
+        },
+        "evidence_strength": {
+          "type": "string",
+          "enum": [
+            "none",
+            "weak",
+            "moderate",
+            "strong",
+            "very_strong"
+          ]
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence_item"
+          },
+          "default": []
+        },
+        "supporting_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "contradicting_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "independent_source_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sufficient_for_evaluation": {
+          "type": "boolean"
+        },
+        "evidence_gaps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence_gap"
+          },
+          "default": []
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence_conflict"
+          },
+          "default": []
+        },
+        "summary": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "evidence_status": {
+                "enum": [
+                  "sufficient",
+                  "verified"
+                ]
+              }
+            },
+            "required": [
+              "evidence_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "items": {
+                "minItems": 1
+              },
+              "supporting_count": {
+                "minimum": 1
+              },
+              "sufficient_for_evaluation": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "evidence_status": {
+                "const": "conflicted"
+              }
+            },
+            "required": [
+              "evidence_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "conflicts": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "analysis_status",
+        "causal_link_strength",
+        "repeatability",
+        "benefit_score",
+        "cost_score",
+        "complexity_score",
+        "confidence_score",
+        "analysis_summary"
+      ],
+      "properties": {
+        "analysis_status": {
+          "type": "string",
+          "enum": [
+            "not_started",
+            "in_progress",
+            "completed",
+            "inconclusive"
+          ]
+        },
+        "causal_link_strength": {
+          "type": "string",
+          "enum": [
+            "none",
+            "weak",
+            "moderate",
+            "strong",
+            "very_strong"
+          ]
+        },
+        "repeatability": {
+          "type": "string",
+          "enum": [
+            "one_off",
+            "occasional",
+            "recurring",
+            "systematic",
+            "unknown"
+          ]
+        },
+        "benefit_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "cost_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "complexity_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "confidence_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "false_positive_risk": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0
+        },
+        "overfitting_risk": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0
+        },
+        "underfitting_risk": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0
+        },
+        "affected_capabilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": [],
+          "uniqueItems": true
+        },
+        "analysis_summary": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "alternative_explanations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        }
+      }
+    },
+    "applicable_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "context_id",
+        "context_type",
+        "name",
+        "applicability",
+        "rationale"
+      ],
+      "properties": {
+        "context_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "context_type": {
+          "type": "string",
+          "enum": [
+            "task_type",
+            "workflow",
+            "skill",
+            "tool",
+            "business_domain",
+            "content_channel",
+            "product",
+            "project",
+            "runtime",
+            "custom"
+          ]
+        },
+        "name": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "applicability": {
+          "type": "string",
+          "enum": [
+            "required",
+            "recommended",
+            "optional",
+            "experimental"
+          ]
+        },
+        "rationale": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        }
+      }
+    },
+    "generalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generalizable",
+        "generalization_level",
+        "applicable_contexts",
+        "excluded_contexts",
+        "conditions",
+        "boundary_confidence"
+      ],
+      "properties": {
+        "generalizable": {
+          "type": "boolean"
+        },
+        "generalization_level": {
+          "type": "string",
+          "enum": [
+            "none",
+            "single_case",
+            "single_task_type",
+            "single_workflow",
+            "single_domain",
+            "multiple_domains",
+            "runtime_wide",
+            "global"
+          ]
+        },
+        "applicable_contexts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/applicable_context"
+          },
+          "default": []
+        },
+        "excluded_contexts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "boundary_confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "generalization_summary": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "generalizable": {
+                "const": true
+              }
+            },
+            "required": [
+              "generalizable"
+            ]
+          },
+          "then": {
+            "properties": {
+              "generalization_level": {
+                "not": {
+                  "enum": [
+                    "none",
+                    "single_case"
+                  ]
+                }
+              },
+              "applicable_contexts": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "change_risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk_id",
+        "risk_type",
+        "likelihood",
+        "impact",
+        "severity",
+        "description",
+        "mitigation"
+      ],
+      "properties": {
+        "risk_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "risk_type": {
+          "type": "string",
+          "enum": [
+            "quality_regression",
+            "over_generalization",
+            "under_generalization",
+            "performance_regression",
+            "business_misalignment",
+            "security",
+            "privacy",
+            "legal",
+            "operational",
+            "maintenance",
+            "compatibility",
+            "user_experience",
+            "no_change",
+            "custom"
+          ]
+        },
+        "likelihood": {
+          "type": "string",
+          "enum": [
+            "rare",
+            "unlikely",
+            "possible",
+            "likely",
+            "almost_certain"
+          ]
+        },
+        "impact": {
+          "type": "string",
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "severity": {
+          "$ref": "./common.schema.json#/$defs/severity"
+        },
+        "description": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "mitigation": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "residual_risk": {
+          "type": "string",
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "critical",
+            "unknown"
+          ],
+          "default": "unknown"
+        }
+      }
+    },
+    "risk_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overall_risk",
+        "change_risks",
+        "no_change_risk",
+        "rollback_feasibility",
+        "human_review_required",
+        "approval_required"
+      ],
+      "properties": {
+        "overall_risk": {
+          "type": "string",
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "critical",
+            "unknown"
+          ]
+        },
+        "change_risks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/change_risk"
+          },
+          "default": []
+        },
+        "no_change_risk": {
+          "$ref": "#/$defs/change_risk"
+        },
+        "rollback_feasibility": {
+          "type": "string",
+          "enum": [
+            "easy",
+            "moderate",
+            "difficult",
+            "impossible",
+            "unknown"
+          ]
+        },
+        "human_review_required": {
+          "type": "boolean"
+        },
+        "approval_required": {
+          "type": "boolean"
+        },
+        "security_review_required": {
+          "type": "boolean",
+          "default": false
+        },
+        "privacy_review_required": {
+          "type": "boolean",
+          "default": false
+        },
+        "legal_review_required": {
+          "type": "boolean",
+          "default": false
+        },
+        "business_review_required": {
+          "type": "boolean",
+          "default": false
+        },
+        "risk_summary": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "dependency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dependency_id",
+        "dependency_type",
+        "description",
+        "blocking",
+        "status"
+      ],
+      "properties": {
+        "dependency_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "dependency_type": {
+          "type": "string",
+          "enum": [
+            "schema",
+            "prompt",
+            "skill",
+            "tool",
+            "workflow",
+            "data",
+            "approval",
+            "human",
+            "external_system",
+            "custom"
+          ]
+        },
+        "description": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_started",
+            "in_progress",
+            "satisfied",
+            "blocked",
+            "waived"
+          ]
+        },
+        "reference": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "acceptance_criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "criterion_id",
+        "statement",
+        "measure_type",
+        "threshold",
+        "required"
+      ],
+      "properties": {
+        "criterion_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "statement": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "measure_type": {
+          "type": "string",
+          "enum": [
+            "boolean",
+            "count",
+            "percentage",
+            "score",
+            "duration",
+            "error_rate",
+            "human_judgement",
+            "custom"
+          ]
+        },
+        "threshold": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "verification_method": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "change_proposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "change_required",
+        "target_type",
+        "target_ids",
+        "change_type",
+        "proposed_change",
+        "implementation_strategy",
+        "backward_compatible",
+        "version_change"
+      ],
+      "properties": {
+        "change_required": {
+          "type": "boolean"
+        },
+        "target_type": {
+          "type": "string",
+          "enum": [
+            "prompt",
+            "schema",
+            "workflow",
+            "skill",
+            "tool_binding",
+            "quality_rule",
+            "approval_rule",
+            "business_rule",
+            "knowledge_standard",
+            "memory",
+            "policy",
+            "runtime_config",
+            "documentation",
+            "test_suite",
+            "custom",
+            "none"
+          ]
+        },
+        "target_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "uniqueItems": true
+        },
+        "change_type": {
+          "type": "string",
+          "enum": [
+            "add",
+            "modify",
+            "remove",
+            "deprecate",
+            "replace",
+            "reconfigure",
+            "document",
+            "test",
+            "none",
+            "custom"
+          ]
+        },
+        "proposed_change": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "implementation_strategy": {
+          "type": "string",
+          "enum": [
+            "direct_update",
+            "feature_flag",
+            "shadow_mode",
+            "canary",
+            "a_b_test",
+            "manual_trial",
+            "phased_rollout",
+            "documentation_only",
+            "none",
+            "custom"
+          ]
+        },
+        "backward_compatible": {
+          "type": "boolean"
+        },
+        "version_change": {
+          "type": "string",
+          "enum": [
+            "none",
+            "patch",
+            "minor",
+            "major"
+          ]
+        },
+        "migration_required": {
+          "type": "boolean",
+          "default": false
+        },
+        "migration_plan": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "rollback_plan": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dependency"
+          },
+          "default": []
+        },
+        "acceptance_criteria": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/acceptance_criterion"
+          },
+          "default": []
+        },
+        "implementation_notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "change_required": {
+                "const": false
+              }
+            },
+            "required": [
+              "change_required"
+            ]
+          },
+          "then": {
+            "properties": {
+              "target_type": {
+                "const": "none"
+              },
+              "change_type": {
+                "const": "none"
+              },
+              "implementation_strategy": {
+                "const": "none"
+              },
+              "version_change": {
+                "const": "none"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "change_required": {
+                "const": true
+              }
+            },
+            "required": [
+              "change_required"
+            ]
+          },
+          "then": {
+            "properties": {
+              "target_type": {
+                "not": {
+                  "const": "none"
+                }
+              },
+              "target_ids": {
+                "minItems": 1
+              },
+              "change_type": {
+                "not": {
+                  "const": "none"
+                }
+              },
+              "implementation_strategy": {
+                "not": {
+                  "const": "none"
+                }
+              },
+              "acceptance_criteria": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "migration_required": {
+                "const": true
+              }
+            },
+            "required": [
+              "migration_required"
+            ]
+          },
+          "then": {
+            "properties": {
+              "migration_plan": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "migration_plan"
+            ]
+          }
+        }
+      ]
+    },
+    "evaluation_criterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "criterion_id",
+        "criterion_type",
+        "weight",
+        "score",
+        "passed",
+        "rationale"
+      ],
+      "properties": {
+        "criterion_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "criterion_type": {
+          "type": "string",
+          "enum": [
+            "evidence_strength",
+            "business_value",
+            "generalizability",
+            "risk",
+            "implementation_cost",
+            "maintainability",
+            "compatibility",
+            "testability",
+            "reversibility",
+            "policy_alignment",
+            "security",
+            "privacy",
+            "custom"
+          ]
+        },
+        "weight": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "passed": {
+          "type": "boolean"
+        },
+        "rationale": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "default": [],
+          "uniqueItems": true
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluation_status",
+        "evaluators",
+        "criteria",
+        "overall_score",
+        "recommendation",
+        "evaluation_summary"
+      ],
+      "properties": {
+        "evaluation_status": {
+          "type": "string",
+          "enum": [
+            "not_started",
+            "in_progress",
+            "completed",
+            "inconclusive",
+            "cancelled"
+          ]
+        },
+        "evaluators": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/actor_reference"
+          },
+          "default": []
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evaluation_criterion"
+          },
+          "default": []
+        },
+        "overall_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "recommendation": {
+          "type": "string",
+          "enum": [
+            "not_evaluated",
+            "approve",
+            "approve_with_conditions",
+            "reject",
+            "defer",
+            "collect_more_evidence",
+            "run_experiment"
+          ]
+        },
+        "evaluation_summary": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "completed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "evaluation_status": {
+                "const": "completed"
+              }
+            },
+            "required": [
+              "evaluation_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "evaluators": {
+                "minItems": 1
+              },
+              "criteria": {
+                "minItems": 1
+              },
+              "overall_score": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "recommendation": {
+                "not": {
+                  "const": "not_evaluated"
+                }
+              },
+              "completed_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "evaluators",
+              "criteria",
+              "overall_score",
+              "recommendation",
+              "completed_at"
+            ]
+          }
+        }
+      ]
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_status",
+        "decision",
+        "decided_at",
+        "decided_by",
+        "rationale",
+        "conditions"
+      ],
+      "properties": {
+        "decision_status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "decided",
+            "superseded",
+            "cancelled"
+          ]
+        },
+        "decision": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "approved",
+            "approved_with_conditions",
+            "rejected",
+            "deferred",
+            "experiment_required",
+            "more_evidence_required"
+          ]
+        },
+        "decided_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "decided_by": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "rationale": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "approval_record_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "default": [],
+          "uniqueItems": true
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "reconsideration_trigger": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "decision_status": {
+                "const": "decided"
+              }
+            },
+            "required": [
+              "decision_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "decision": {
+                "not": {
+                  "const": "pending"
+                }
+              },
+              "decided_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "decided_by": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "decision",
+              "decided_at",
+              "decided_by"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "decision": {
+                "const": "approved_with_conditions"
+              }
+            },
+            "required": [
+              "decision"
+            ]
+          },
+          "then": {
+            "properties": {
+              "conditions": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "implementation_step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "step_id",
+        "sequence",
+        "description",
+        "status",
+        "performed_by"
+      ],
+      "properties": {
+        "step_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "description": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_started",
+            "in_progress",
+            "completed",
+            "failed",
+            "skipped",
+            "cancelled"
+          ]
+        },
+        "performed_by": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "completed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "result": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "exception_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "default": [],
+          "uniqueItems": true
+        }
+      }
+    },
+    "repository_change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "change_id",
+        "repository",
+        "path",
+        "change_type",
+        "status"
+      ],
+      "properties": {
+        "change_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "repository": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "path": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "change_type": {
+          "type": "string",
+          "enum": [
+            "create",
+            "modify",
+            "delete",
+            "rename",
+            "move"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "planned",
+            "applied",
+            "failed",
+            "reverted",
+            "cancelled"
+          ]
+        },
+        "commit_ref": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "pull_request_ref": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "diff_ref": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "implementation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "implementation_required",
+        "status",
+        "implementation_id",
+        "steps",
+        "started_at",
+        "completed_at",
+        "implemented_by",
+        "rollback_available"
+      ],
+      "properties": {
+        "implementation_required": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_required",
+            "not_started",
+            "planned",
+            "in_progress",
+            "completed",
+            "partially_completed",
+            "failed",
+            "rolled_back",
+            "cancelled"
+          ]
+        },
+        "implementation_id": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/implementation_step"
+          },
+          "default": []
+        },
+        "started_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "completed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "implemented_by": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "changed_object_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "default": [],
+          "uniqueItems": true
+        },
+        "repository_changes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/repository_change"
+          },
+          "default": []
+        },
+        "rollback_available": {
+          "type": "boolean"
+        },
+        "rollback_ref": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "implementation_summary": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "implementation_required": {
+                "const": false
+              }
+            },
+            "required": [
+              "implementation_required"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "not_required"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "completed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "implementation_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "steps": {
+                "minItems": 1
+              },
+              "completed_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "implemented_by": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "implementation_summary": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "implementation_id",
+              "steps",
+              "completed_at",
+              "implemented_by",
+              "implementation_summary"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "rollback_available": {
+                "const": true
+              }
+            },
+            "required": [
+              "rollback_available"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rollback_ref": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "rollback_ref"
+            ]
+          }
+        }
+      ]
+    },
+    "test_case": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "test_case_id",
+        "name",
+        "test_type",
+        "status",
+        "expected_result",
+        "actual_result",
+        "passed"
+      ],
+      "properties": {
+        "test_case_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "test_type": {
+          "type": "string",
+          "enum": [
+            "positive",
+            "negative",
+            "boundary",
+            "regression",
+            "performance",
+            "security",
+            "privacy",
+            "business",
+            "human_review",
+            "custom"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_run",
+            "running",
+            "passed",
+            "failed",
+            "skipped"
+          ]
+        },
+        "expected_result": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "actual_result": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "passed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "executed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "executed_by": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "evidence_ref": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "verification_required",
+        "status",
+        "method",
+        "test_cases",
+        "success_criteria_met",
+        "regression_detected"
+      ],
+      "properties": {
+        "verification_required": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_required",
+            "not_started",
+            "in_progress",
+            "passed",
+            "failed",
+            "inconclusive",
+            "cancelled"
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "none",
+            "schema_validation",
+            "unit_test",
+            "integration_test",
+            "workflow_replay",
+            "shadow_run",
+            "canary_run",
+            "a_b_test",
+            "human_review",
+            "business_outcome_review",
+            "custom"
+          ]
+        },
+        "test_cases": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/test_case"
+          },
+          "default": []
+        },
+        "success_criteria_met": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "regression_detected": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "verified_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "verified_by": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "verification_summary": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "evidence_refs": {
+          "$ref": "./common.schema.json#/$defs/evidence_references"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "verification_required": {
+                "const": false
+              }
+            },
+            "required": [
+              "verification_required"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "not_required"
+              },
+              "method": {
+                "const": "none"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "passed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "success_criteria_met": {
+                "const": true
+              },
+              "regression_detected": {
+                "const": false
+              },
+              "verified_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "verified_by": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "verification_summary": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "success_criteria_met",
+              "regression_detected",
+              "verified_at",
+              "verified_by",
+              "verification_summary"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "success_criteria_met": {
+                "const": false
+              }
+            }
+          }
+        }
+      ]
+    },
+    "memory_recommendation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory_write_recommended",
+        "memory_type",
+        "memory_scope",
+        "proposed_memory",
+        "retention",
+        "sensitivity",
+        "approval_required",
+        "status"
+      ],
+      "properties": {
+        "memory_write_recommended": {
+          "type": "boolean"
+        },
+        "memory_type": {
+          "type": "string",
+          "enum": [
+            "none",
+            "business_rule",
+            "product_rule",
+            "brand_rule",
+            "workflow_rule",
+            "quality_rule",
+            "user_preference",
+            "project_fact",
+            "operational_pattern",
+            "anti_pattern",
+            "definition",
+            "custom"
+          ]
+        },
+        "memory_scope": {
+          "type": "string",
+          "enum": [
+            "none",
+            "execution",
+            "workflow",
+            "project",
+            "business_domain",
+            "organization",
+            "global"
+          ]
+        },
+        "proposed_memory": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "retention": {
+          "type": "string",
+          "enum": [
+            "none",
+            "temporary",
+            "short_term",
+            "long_term",
+            "permanent",
+            "review_required"
+          ]
+        },
+        "sensitivity": {
+          "type": "string",
+          "enum": [
+            "public",
+            "internal",
+            "confidential",
+            "restricted",
+            "personal",
+            "secret"
+          ]
+        },
+        "approval_required": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_recommended",
+            "pending",
+            "approved",
+            "rejected",
+            "written",
+            "write_failed"
+          ]
+        },
+        "memory_record_id": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/object_id"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "conflict_check_required": {
+          "type": "boolean",
+          "default": true
+        },
+        "conflict_check_status": {
+          "type": "string",
+          "enum": [
+            "not_required",
+            "pending",
+            "clear",
+            "conflict_found",
+            "resolved"
+          ],
+          "default": "pending"
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "memory_write_recommended": {
+                "const": false
+              }
+            },
+            "required": [
+              "memory_write_recommended"
+            ]
+          },
+          "then": {
+            "properties": {
+              "memory_type": {
+                "const": "none"
+              },
+              "memory_scope": {
+                "const": "none"
+              },
+              "retention": {
+                "const": "none"
+              },
+              "status": {
+                "const": "not_recommended"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "memory_write_recommended": {
+                "const": true
+              }
+            },
+            "required": [
+              "memory_write_recommended"
+            ]
+          },
+          "then": {
+            "properties": {
+              "memory_type": {
+                "not": {
+                  "const": "none"
+                }
+              },
+              "memory_scope": {
+                "not": {
+                  "const": "none"
+                }
+              },
+              "proposed_memory": {
+                "type": "string",
+                "minLength": 1
+              },
+              "retention": {
+                "not": {
+                  "const": "none"
+                }
+              }
+            },
+            "required": [
+              "proposed_memory"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "written"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "memory_record_id": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "memory_record_id"
+            ]
+          }
+        }
+      ]
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "owner",
+        "reviewers",
+        "review_frequency",
+        "expires_at",
+        "deprecation_review_required"
+      ],
+      "properties": {
+        "owner": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "reviewers": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/actor_reference"
+          },
+          "default": []
+        },
+        "review_frequency": {
+          "type": "string",
+          "enum": [
+            "none",
+            "per_execution",
+            "weekly",
+            "monthly",
+            "quarterly",
+            "annually",
+            "event_driven"
+          ]
+        },
+        "next_review_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "expires_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "deprecation_review_required": {
+          "type": "boolean"
+        },
+        "deprecation_trigger": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "audit_required": {
+          "type": "boolean",
+          "default": false
+        },
+        "audit_log_ref": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "timeline_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "event_type",
+        "timestamp",
+        "actor",
+        "summary"
+      ],
+      "properties": {
+        "event_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "event_type": {
+          "type": "string",
+          "enum": [
+            "candidate_created",
+            "evidence_added",
+            "evidence_conflict_detected",
+            "analysis_started",
+            "analysis_completed",
+            "evaluation_started",
+            "evaluation_completed",
+            "human_review_requested",
+            "candidate_approved",
+            "candidate_rejected",
+            "candidate_deferred",
+            "implementation_started",
+            "implementation_completed",
+            "implementation_failed",
+            "verification_started",
+            "verification_passed",
+            "verification_failed",
+            "memory_write_recommended",
+            "memory_record_created",
+            "candidate_superseded",
+            "candidate_archived",
+            "custom"
+          ]
+        },
+        "timestamp": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        "actor": {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+        "summary": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "details": {
+          "type": "object",
+          "additionalProperties": true,
+          "default": {}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "approved"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "decision_status": {
+                "const": "decided"
+              },
+              "decision": {
+                "const": "approved"
+              },
+              "decided_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "decided_by": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "decision_status",
+              "decision",
+              "decided_at",
+              "decided_by"
+            ]
+          },
+          "evaluation": {
+            "properties": {
+              "evaluation_status": {
+                "const": "completed"
+              },
+              "recommendation": {
+                "enum": [
+                  "approve",
+                  "approve_with_conditions"
+                ]
+              }
+            },
+            "required": [
+              "evaluation_status",
+              "recommendation"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "approved_with_conditions"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "decision_status": {
+                "const": "decided"
+              },
+              "decision": {
+                "const": "approved_with_conditions"
+              },
+              "conditions": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "decision_status",
+              "decision",
+              "conditions"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "rejected"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "decision_status": {
+                "const": "decided"
+              },
+              "decision": {
+                "const": "rejected"
+              }
+            },
+            "required": [
+              "decision_status",
+              "decision"
+            ]
+          },
+          "implementation": {
+            "properties": {
+              "implementation_required": {
+                "const": false
+              },
+              "status": {
+                "const": "not_required"
+              }
+            },
+            "required": [
+              "implementation_required",
+              "status"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "implemented"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "implementation": {
+            "properties": {
+              "implementation_required": {
+                "const": true
+              },
+              "status": {
+                "const": "completed"
+              }
+            },
+            "required": [
+              "implementation_required",
+              "status"
+            ]
+          },
+          "decision": {
+            "properties": {
+              "decision": {
+                "enum": [
+                  "approved",
+                  "approved_with_conditions"
+                ]
+              }
+            },
+            "required": [
+              "decision"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "verified"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "implementation": {
+            "properties": {
+              "status": {
+                "const": "completed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "verification": {
+            "properties": {
+              "verification_required": {
+                "const": true
+              },
+              "status": {
+                "const": "passed"
+              },
+              "success_criteria_met": {
+                "const": true
+              },
+              "regression_detected": {
+                "const": false
+              }
+            },
+            "required": [
+              "verification_required",
+              "status",
+              "success_criteria_met",
+              "regression_detected"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "converted_to_memory"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "memory_recommendation": {
+            "properties": {
+              "memory_write_recommended": {
+                "const": true
+              },
+              "status": {
+                "const": "written"
+              },
+              "memory_record_id": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "memory_write_recommended",
+              "status",
+              "memory_record_id"
+            ]
+          },
+          "memory_record_ids": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "risk_assessment": {
+            "properties": {
+              "overall_risk": {
+                "enum": [
+                  "high",
+                  "critical"
+                ]
+              }
+            },
+            "required": [
+              "overall_risk"
+            ]
+          }
+        },
+        "required": [
+          "risk_assessment"
+        ]
+      },
+      "then": {
+        "properties": {
+          "risk_assessment": {
+            "properties": {
+              "human_review_required": {
+                "const": true
+              },
+              "approval_required": {
+                "const": true
+              }
+            },
+            "required": [
+              "human_review_required",
+              "approval_required"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "identity": {
+            "properties": {
+              "candidate_type": {
+                "const": "schema_improvement"
+              }
+            },
+            "required": [
+              "candidate_type"
+            ]
+          }
+        },
+        "required": [
+          "identity"
+        ]
+      },
+      "then": {
+        "properties": {
+          "change_proposal": {
+            "properties": {
+              "target_type": {
+                "const": "schema"
+              },
+              "version_change": {
+                "enum": [
+                  "patch",
+                  "minor",
+                  "major"
+                ]
+              }
+            },
+            "required": [
+              "target_type",
+              "version_change"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "identity": {
+            "properties": {
+              "candidate_type": {
+                "const": "memory_candidate"
+              }
+            },
+            "required": [
+              "candidate_type"
+            ]
+          }
+        },
+        "required": [
+          "identity"
+        ]
+      },
+      "then": {
+        "properties": {
+          "memory_recommendation": {
+            "properties": {
+              "memory_write_recommended": {
+                "const": true
+              },
+              "memory_type": {
+                "not": {
+                  "const": "none"
+                }
+              },
+              "memory_scope": {
+                "not": {
+                  "const": "none"
+                }
+              },
+              "proposed_memory": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "memory_write_recommended",
+              "memory_type",
+              "memory_scope",
+              "proposed_memory"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "evidence": {
+            "properties": {
+              "sufficient_for_evaluation": {
+                "const": false
+              }
+            },
+            "required": [
+              "sufficient_for_evaluation"
+            ]
+          }
+        },
+        "required": [
+          "evidence"
+        ]
+      },
+      "then": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "decision": {
+                "enum": [
+                  "pending",
+                  "deferred",
+                  "more_evidence_required",
+                  "experiment_required"
+                ]
+              }
+            },
+            "required": [
+              "decision"
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "examples": [
+    {
+      "id": "lc_01JSCOUTCLAIMGUARDRAIL0001",
+      "schema_name": "learning_candidate",
+      "schema_version": "1.0.0",
+      "task_id": "task_01JSCOUTNEXTXHS000000001",
+      "execution_id": "exec_01JSCOUTNEXTXHS000000001",
+      "workflow_id": "wf_xiaohongshu_content_package",
+      "execution_result_id": "er_01JSCOUTNEXTXHS000000001",
+      "exception_record_id": "ex_01JSCOUTQUALITYFAIL00000001",
+      "quality_report_id": "qr_01JSCOUTXHSQUALITY00000001",
+      "skill_output_id": "so_01JSCOUTXHSOUTPUT000000001",
+      "business_judgement_id": "bj_01JSCOUTNEXTXHS000000001",
+      "knowledge_package_id": "kp_01JSCOUTNEXTXHS000000001",
+      "created_at": "2026-07-27T20:40:00+08:00",
+      "updated_at": "2026-07-27T21:10:00+08:00",
+      "created_by": {
+        "actor_type": "workflow",
+        "actor_id": "learning_engine",
+        "display_name": "Scout Learning Engine"
+      },
+      "updated_by": {
+        "actor_type": "human",
+        "actor_id": "buxa_content_owner",
+        "display_name": "BUXA Content Owner"
+      },
+      "status": "verified",
+      "title": "Bind Product Claims to Authoritative Evidence During Generation",
+      "identity": {
+        "candidate_code": "CONTENT_EVIDENCE_BOUND_CLAIMS",
+        "candidate_type": "prompt_improvement",
+        "category": "quality",
+        "priority": "high",
+        "scope": "single_skill",
+        "novelty": "new",
+        "durability": "long_term",
+        "business_domain": "BUXA content operations",
+        "taxonomy_version": "1.0.0"
+      },
+      "origin": {
+        "origin_type": "exception",
+        "origin_summary": "A Xiaohongshu draft contained an unsupported product claim.",
+        "detected_at": "2026-07-27T20:25:00+08:00",
+        "detected_by": {
+          "actor_type": "workflow",
+          "actor_id": "quality_engine",
+          "display_name": "Scout Quality Engine"
+        },
+        "trigger_ids": [
+          "ex_01JSCOUTQUALITYFAIL00000001",
+          "qr_01JSCOUTXHSQUALITY00000001"
+        ],
+        "trigger_count": 1,
+        "first_observed_at": "2026-07-27T20:25:00+08:00",
+        "last_observed_at": "2026-07-27T20:25:00+08:00",
+        "correlation_id": "corr_01JSCOUTNEXTXHS000001",
+        "notes": null
+      },
+      "learning_statement": {
+        "problem_statement": "The generation skill may create unsupported product claims and rely on downstream QA.",
+        "proposed_learning": "All factual product and process claims should map to authoritative knowledge before final Skill Output.",
+        "expected_benefit": "Reduce unsupported claims, rework, quality failures, and brand risk.",
+        "learning_form": "guardrail",
+        "assertion_level": "validated_rule",
+        "current_behavior": "Claims are generated first and validated after drafting.",
+        "desired_behavior": "Claims are finalized only when linked to approved knowledge.",
+        "short_form": "No unsupported product claim may enter final Skill Output.",
+        "rationale": "Prevention is more efficient than downstream correction.",
+        "counterexamples": [
+          "Purely expressive copy without factual claims."
+        ],
+        "exceptions": [
+          "Clearly labelled speculative ideation."
+        ]
+      },
+      "evidence": {
+        "evidence_status": "verified",
+        "evidence_strength": "strong",
+        "items": [
+          {
+            "evidence_id": "evidence_exception",
+            "evidence_type": "exception_record",
+            "direction": "supporting",
+            "description": "The exception documents an unsupported claim and correction.",
+            "source_object_id": "ex_01JSCOUTQUALITYFAIL00000001",
+            "source_location": "Runtime/exceptions/ex_01JSCOUTQUALITYFAIL00000001.json",
+            "reliability": "authoritative",
+            "relevance": 1,
+            "independent": false,
+            "observed_at": "2026-07-27T20:25:00+08:00",
+            "content_hash": null,
+            "notes": null
+          },
+          {
+            "evidence_id": "evidence_quality",
+            "evidence_type": "quality_finding",
+            "direction": "supporting",
+            "description": "The quality report classified the claim as a blocking failure.",
+            "source_object_id": "qr_01JSCOUTXHSQUALITY00000001",
+            "source_location": "Runtime/quality/qr_01JSCOUTXHSQUALITY00000001.json",
+            "reliability": "authoritative",
+            "relevance": 1,
+            "independent": true,
+            "observed_at": "2026-07-27T20:25:00+08:00",
+            "content_hash": null,
+            "notes": null
+          },
+          {
+            "evidence_id": "evidence_test",
+            "evidence_type": "test_result",
+            "direction": "supporting",
+            "description": "A replay with the guardrail produced zero unsupported claims.",
+            "source_object_id": "test_01JSCOUTCLAIMGUARDRAIL01",
+            "source_location": "Runtime/tests/results/test_01JSCOUTCLAIMGUARDRAIL01.json",
+            "reliability": "high",
+            "relevance": 0.95,
+            "independent": true,
+            "observed_at": "2026-07-27T21:05:00+08:00",
+            "content_hash": null,
+            "notes": null
+          }
+        ],
+        "supporting_count": 3,
+        "contradicting_count": 0,
+        "independent_source_count": 2,
+        "sufficient_for_evaluation": true,
+        "evidence_gaps": [],
+        "conflicts": [],
+        "summary": "Exception, quality finding, and replay support the rule."
+      },
+      "analysis": {
+        "analysis_status": "completed",
+        "causal_link_strength": "strong",
+        "repeatability": "recurring",
+        "benefit_score": 0.95,
+        "cost_score": 0.2,
+        "complexity_score": 0.25,
+        "confidence_score": 0.94,
+        "false_positive_risk": 0.05,
+        "overfitting_risk": 0.1,
+        "underfitting_risk": 0.05,
+        "affected_capabilities": [
+          "xiaohongshu_content_generation",
+          "product_claim_generation"
+        ],
+        "analysis_summary": "A low-cost generation-stage check can prevent meaningful quality failures.",
+        "alternative_explanations": [
+          "The incident may have been isolated."
+        ],
+        "assumptions": [
+          "Approved knowledge is available before generation."
+        ]
+      },
+      "generalization": {
+        "generalizable": true,
+        "generalization_level": "single_domain",
+        "applicable_contexts": [
+          {
+            "context_id": "context_buxa_product_content",
+            "context_type": "business_domain",
+            "name": "BUXA Product Content",
+            "applicability": "required",
+            "rationale": "Product claims must align with approved Product Passports.",
+            "constraints": [
+              "Applies to factual product, manufacturing, installation, certification, performance, and service claims."
+            ]
+          }
+        ],
+        "excluded_contexts": [
+          "Pure moodboard generation without factual claims."
+        ],
+        "conditions": [
+          "Authoritative knowledge must be available."
+        ],
+        "boundary_confidence": 0.9,
+        "generalization_summary": "Apply across BUXA product-content generation."
+      },
+      "risk_assessment": {
+        "overall_risk": "low",
+        "change_risks": [
+          {
+            "risk_id": "risk_copy_rigid",
+            "risk_type": "user_experience",
+            "likelihood": "possible",
+            "impact": "low",
+            "severity": "low",
+            "description": "Strict evidence binding could make copy rigid.",
+            "mitigation": "Bind only factual claims, not tone or narrative.",
+            "residual_risk": "low"
+          }
+        ],
+        "no_change_risk": {
+          "risk_id": "risk_repeat_claims",
+          "risk_type": "no_change",
+          "likelihood": "likely",
+          "impact": "high",
+          "severity": "high",
+          "description": "Unsupported claims may recur.",
+          "mitigation": "Implement the guardrail and retain QA.",
+          "residual_risk": "low"
+        },
+        "rollback_feasibility": "easy",
+        "human_review_required": false,
+        "approval_required": false,
+        "security_review_required": false,
+        "privacy_review_required": false,
+        "legal_review_required": false,
+        "business_review_required": false,
+        "risk_summary": "Low implementation risk and high quality benefit."
+      },
+      "change_proposal": {
+        "change_required": true,
+        "target_type": "prompt",
+        "target_ids": [
+          "xiaohongshu_content_generation_prompt",
+          "skill_output_claim_mapping"
+        ],
+        "change_type": "modify",
+        "proposed_change": "Require every factual claim to reference authoritative knowledge.",
+        "implementation_strategy": "direct_update",
+        "backward_compatible": true,
+        "version_change": "minor",
+        "migration_required": false,
+        "migration_plan": null,
+        "rollback_plan": "Revert prompt and output contract if tests fail.",
+        "dependencies": [
+          {
+            "dependency_id": "dependency_claim_source",
+            "dependency_type": "schema",
+            "description": "Skill Output supports claim-to-source mapping.",
+            "blocking": true,
+            "status": "satisfied",
+            "reference": "skill_output.schema.json"
+          }
+        ],
+        "acceptance_criteria": [
+          {
+            "criterion_id": "criterion_zero_claims",
+            "statement": "Ten replays produce zero unsupported factual claims.",
+            "measure_type": "count",
+            "threshold": "0 unsupported claims across 10 replays",
+            "required": true,
+            "verification_method": "Product Standards QA."
+          }
+        ],
+        "implementation_notes": "Keep the guardrail narrow."
+      },
+      "evaluation": {
+        "evaluation_status": "completed",
+        "evaluators": [
+          {
+            "actor_type": "workflow",
+            "actor_id": "learning_engine",
+            "display_name": "Scout Learning Engine"
+          }
+        ],
+        "criteria": [
+          {
+            "criterion_id": "eval_evidence",
+            "criterion_type": "evidence_strength",
+            "weight": 0.4,
+            "score": 0.95,
+            "passed": true,
+            "rationale": "Multiple strong sources support the rule.",
+            "evidence_ids": [
+              "evidence_exception",
+              "evidence_quality",
+              "evidence_test"
+            ]
+          },
+          {
+            "criterion_id": "eval_value",
+            "criterion_type": "business_value",
+            "weight": 0.3,
+            "score": 0.95,
+            "passed": true,
+            "rationale": "Protects accuracy and brand trust.",
+            "evidence_ids": [
+              "evidence_quality"
+            ]
+          },
+          {
+            "criterion_id": "eval_risk",
+            "criterion_type": "risk",
+            "weight": 0.3,
+            "score": 0.9,
+            "passed": true,
+            "rationale": "Low risk and easy rollback.",
+            "evidence_ids": []
+          }
+        ],
+        "overall_score": 0.94,
+        "recommendation": "approve",
+        "evaluation_summary": "Strongly supported, low risk, and testable.",
+        "conditions": [],
+        "completed_at": "2026-07-27T20:50:00+08:00"
+      },
+      "decision": {
+        "decision_status": "decided",
+        "decision": "approved",
+        "decided_at": "2026-07-27T20:52:00+08:00",
+        "decided_by": {
+          "actor_type": "workflow",
+          "actor_id": "scout_runtime",
+          "display_name": "Scout Runtime"
+        },
+        "rationale": "Meets evidence, value, risk, and testability thresholds.",
+        "conditions": [],
+        "approval_record_ids": [],
+        "expires_at": null,
+        "reconsideration_trigger": null
+      },
+      "implementation": {
+        "implementation_required": true,
+        "status": "completed",
+        "implementation_id": "impl_01JSCOUTCLAIMGUARDRAIL01",
+        "steps": [
+          {
+            "step_id": "impl_update_prompt",
+            "sequence": 1,
+            "description": "Add the evidence-bound claim rule.",
+            "status": "completed",
+            "performed_by": {
+              "actor_type": "workflow",
+              "actor_id": "runtime_configuration_manager",
+              "display_name": "Runtime Configuration Manager"
+            },
+            "started_at": "2026-07-27T20:55:00+08:00",
+            "completed_at": "2026-07-27T20:57:00+08:00",
+            "result": "Prompt updated.",
+            "exception_ids": []
+          }
+        ],
+        "started_at": "2026-07-27T20:55:00+08:00",
+        "completed_at": "2026-07-27T21:00:00+08:00",
+        "implemented_by": {
+          "actor_type": "workflow",
+          "actor_id": "runtime_configuration_manager",
+          "display_name": "Runtime Configuration Manager"
+        },
+        "changed_object_ids": [
+          "prompt_xiaohongshu_content_generation_v1_2_0"
+        ],
+        "repository_changes": [
+          {
+            "change_id": "repo_change_prompt",
+            "repository": "buxahomes/BUXA-OS",
+            "path": "12_AI_Agents/Scout/Runtime/prompts/xiaohongshu_content_generation.md",
+            "change_type": "modify",
+            "status": "applied",
+            "commit_ref": "example-commit-ref",
+            "pull_request_ref": null,
+            "diff_ref": null
+          }
+        ],
+        "rollback_available": true,
+        "rollback_ref": "Runtime/rollback/impl_01JSCOUTCLAIMGUARDRAIL01.json",
+        "implementation_summary": "Prompt and output contract updated."
+      },
+      "verification": {
+        "verification_required": true,
+        "status": "passed",
+        "method": "workflow_replay",
+        "test_cases": [
+          {
+            "test_case_id": "test_positive",
+            "name": "Supported Product Claims",
+            "test_type": "positive",
+            "status": "passed",
+            "expected_result": "Every factual claim has evidence.",
+            "actual_result": "All claims had valid references.",
+            "passed": true,
+            "executed_at": "2026-07-27T21:05:00+08:00",
+            "executed_by": {
+              "actor_type": "workflow",
+              "actor_id": "test_runner",
+              "display_name": "Scout Test Runner"
+            },
+            "evidence_ref": "Runtime/tests/results/test_positive.json"
+          }
+        ],
+        "success_criteria_met": true,
+        "regression_detected": false,
+        "verified_at": "2026-07-27T21:08:00+08:00",
+        "verified_by": {
+          "actor_type": "workflow",
+          "actor_id": "test_runner",
+          "display_name": "Scout Test Runner"
+        },
+        "verification_summary": "Guardrail prevented unsupported claims without regression.",
+        "evidence_refs": []
+      },
+      "memory_recommendation": {
+        "memory_write_recommended": true,
+        "memory_type": "quality_rule",
+        "memory_scope": "business_domain",
+        "proposed_memory": "For BUXA product content, every factual product or process claim must be traceable to approved authoritative knowledge before final output.",
+        "retention": "long_term",
+        "sensitivity": "internal",
+        "approval_required": false,
+        "status": "pending",
+        "memory_record_id": null,
+        "conflict_check_required": true,
+        "conflict_check_status": "clear",
+        "notes": "Create Memory Record after verification."
+      },
+      "governance": {
+        "owner": {
+          "actor_type": "workflow",
+          "actor_id": "scout_runtime",
+          "display_name": "Scout Runtime"
+        },
+        "reviewers": [
+          {
+            "actor_type": "human",
+            "actor_id": "buxa_content_owner",
+            "display_name": "BUXA Content Owner"
+          }
+        ],
+        "review_frequency": "quarterly",
+        "next_review_at": "2026-10-27T20:00:00+08:00",
+        "expires_at": null,
+        "deprecation_review_required": true,
+        "deprecation_trigger": "Review if Product Passport or claim-validation architecture changes.",
+        "audit_required": true,
+        "audit_log_ref": "Runtime/logs/learning/lc_01JSCOUTCLAIMGUARDRAIL0001"
+      },
+      "timeline": [
+        {
+          "event_id": "event_created",
+          "event_type": "candidate_created",
+          "timestamp": "2026-07-27T20:40:00+08:00",
+          "actor": {
+            "actor_type": "workflow",
+            "actor_id": "learning_engine",
+            "display_name": "Scout Learning Engine"
+          },
+          "summary": "Candidate created from a resolved quality exception.",
+          "details": {}
+        },
+        {
+          "event_id": "event_verified",
+          "event_type": "verification_passed",
+          "timestamp": "2026-07-27T21:08:00+08:00",
+          "actor": {
+            "actor_type": "workflow",
+            "actor_id": "test_runner",
+            "display_name": "Scout Test Runner"
+          },
+          "summary": "Verification passed.",
+          "details": {}
+        }
+      ],
+      "approval": {
+        "status": "not_required",
+        "required": false,
+        "approved_by": null,
+        "approved_at": null,
+        "notes": "Within runtime authority."
+      },
+      "confidence": 0.94,
+      "quality_state": {
+        "status": "passed",
+        "score": 0.96,
+        "blocking_issues": 0,
+        "warnings": 0,
+        "notes": "Evidence-supported, implemented, and verified."
+      },
+      "source_refs": [],
+      "evidence_refs": [],
+      "relationships": [],
+      "revision": {
+        "revision_number": 1,
+        "supersedes_id": null,
+        "change_summary": "Initial learning candidate."
+      },
+      "validation": {
+        "is_valid": true,
+        "validated_at": "2026-07-27T21:10:00+08:00",
+        "validator": {
+          "actor_type": "system",
+          "actor_id": "schema_validator",
+          "display_name": "Schema Validator"
+        },
+        "errors": [],
+        "warnings": []
+      },
+      "memory_record_ids": [],
+      "related_learning_candidate_ids": [],
+      "supersedes_learning_candidate_id": null,
+      "tags": [
+        "learning_candidate",
+        "content_quality",
+        "evidence_bound_claims"
+      ],
+      "metadata": {}
+    }
+  ]
+}

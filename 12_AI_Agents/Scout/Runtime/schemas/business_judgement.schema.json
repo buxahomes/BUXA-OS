@@ -1,0 +1,7201 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://buxa.ai/scout/runtime/schemas/business_judgement.schema.json",
+  "title": "Scout Runtime Business Judgement",
+  "description": "Defines the structured business judgement produced by the Scout Reasoning Engine. A Business Judgement interprets a validated Knowledge Package, evaluates alternatives, identifies risks and trade-offs, and produces a reasoned recommendation for downstream planning.",
+  "type": "object",
+  "additionalProperties": false,
+
+  "$defs": {
+    "business_judgement_status": {
+      "title": "Business Judgement Status",
+      "description": "Current lifecycle status of the Business Judgement.",
+      "type": "string",
+      "enum": [
+        "draft",
+        "reasoning_pending",
+        "reasoning_in_progress",
+        "clarification_required",
+        "additional_knowledge_required",
+        "validation_required",
+        "approval_required",
+        "completed",
+        "completed_with_conditions",
+        "blocked",
+        "failed",
+        "rejected",
+        "superseded",
+        "archived"
+      ]
+    },
+
+    "judgement_type": {
+      "title": "Judgement Type",
+      "description": "Primary category of business judgement being made.",
+      "type": "string",
+      "enum": [
+        "strategic",
+        "operational",
+        "creative",
+        "content",
+        "product",
+        "brand",
+        "commercial",
+        "sales",
+        "marketing",
+        "customer",
+        "quality",
+        "technical",
+        "governance",
+        "risk",
+        "prioritisation",
+        "selection",
+        "classification",
+        "recommendation",
+        "feasibility",
+        "other"
+      ]
+    },
+
+    "judgement_scope": {
+      "title": "Judgement Scope",
+      "description": "Defines the breadth and intended application of the judgement.",
+      "type": "string",
+      "enum": [
+        "task_specific",
+        "execution_specific",
+        "workflow_specific",
+        "product_specific",
+        "channel_specific",
+        "project_specific",
+        "business_unit",
+        "organisation_wide"
+      ]
+    },
+
+    "decision_mode": {
+      "title": "Decision Mode",
+      "description": "Method used to reach the judgement.",
+      "type": "string",
+      "enum": [
+        "rule_based",
+        "evidence_weighted",
+        "comparative",
+        "risk_adjusted",
+        "constraint_driven",
+        "principle_based",
+        "expert_reasoning",
+        "hybrid"
+      ]
+    },
+
+    "reasoning_method": {
+      "title": "Reasoning Method",
+      "description": "A reasoning method applied during judgement formation.",
+      "type": "string",
+      "enum": [
+        "deductive",
+        "inductive",
+        "abductive",
+        "comparative_analysis",
+        "constraint_analysis",
+        "tradeoff_analysis",
+        "risk_analysis",
+        "scenario_analysis",
+        "precedent_analysis",
+        "root_cause_analysis",
+        "principle_application",
+        "weighted_scoring",
+        "elimination",
+        "other"
+      ]
+    },
+
+    "judgement_outcome_type": {
+      "title": "Judgement Outcome Type",
+      "description": "Nature of the outcome produced by the judgement.",
+      "type": "string",
+      "enum": [
+        "select_option",
+        "reject_option",
+        "approve_direction",
+        "reject_direction",
+        "prioritise",
+        "deprioritise",
+        "proceed",
+        "proceed_with_conditions",
+        "do_not_proceed",
+        "request_clarification",
+        "request_more_knowledge",
+        "escalate",
+        "defer",
+        "other"
+      ]
+    },
+
+    "criterion_type": {
+      "title": "Decision Criterion Type",
+      "description": "Category of criterion used to evaluate judgement alternatives.",
+      "type": "string",
+      "enum": [
+        "task_objective",
+        "success_criterion",
+        "mandatory_constraint",
+        "business_value",
+        "strategic_alignment",
+        "brand_alignment",
+        "product_accuracy",
+        "customer_value",
+        "content_value",
+        "quality",
+        "feasibility",
+        "cost",
+        "time",
+        "risk",
+        "reversibility",
+        "evidence_strength",
+        "authority",
+        "differentiation",
+        "scalability",
+        "maintainability",
+        "compliance",
+        "other"
+      ]
+    },
+
+    "criterion_importance": {
+      "title": "Criterion Importance",
+      "description": "Relative importance of an evaluation criterion.",
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+
+    "assessment_result": {
+      "title": "Assessment Result",
+      "description": "Qualitative result of an assessment.",
+      "type": "string",
+      "enum": [
+        "strongly_supports",
+        "supports",
+        "neutral",
+        "weakens",
+        "strongly_weakens",
+        "insufficient_evidence",
+        "not_applicable"
+      ]
+    },
+
+    "option_status": {
+      "title": "Alternative Option Status",
+      "description": "Current evaluation status of an alternative option.",
+      "type": "string",
+      "enum": [
+        "identified",
+        "under_evaluation",
+        "viable",
+        "viable_with_conditions",
+        "preferred",
+        "not_preferred",
+        "rejected",
+        "deferred",
+        "insufficient_information"
+      ]
+    },
+
+    "assumption_status": {
+      "title": "Assumption Status",
+      "description": "Current status of an assumption used in reasoning.",
+      "type": "string",
+      "enum": [
+        "proposed",
+        "accepted",
+        "validated",
+        "invalidated",
+        "requires_validation",
+        "superseded"
+      ]
+    },
+
+    "assumption_type": {
+      "title": "Assumption Type",
+      "description": "Category of assumption introduced during reasoning.",
+      "type": "string",
+      "enum": [
+        "business",
+        "customer",
+        "market",
+        "product",
+        "brand",
+        "content",
+        "technical",
+        "operational",
+        "financial",
+        "time",
+        "resource",
+        "behavioural",
+        "data",
+        "scope",
+        "workflow",
+        "other"
+      ]
+    },
+
+    "evidence_role": {
+      "title": "Evidence Role",
+      "description": "Role played by evidence in forming the judgement.",
+      "type": "string",
+      "enum": [
+        "supports",
+        "contradicts",
+        "qualifies",
+        "limits",
+        "contextualises",
+        "establishes_rule",
+        "establishes_precedent",
+        "establishes_constraint"
+      ]
+    },
+
+    "evidence_strength": {
+      "title": "Evidence Strength",
+      "description": "Assessed strength of evidence for judgement purposes.",
+      "type": "string",
+      "enum": [
+        "very_weak",
+        "weak",
+        "moderate",
+        "strong",
+        "very_strong"
+      ]
+    },
+
+    "evidence_reliability": {
+      "title": "Evidence Reliability",
+      "description": "Assessed reliability of evidence based on source authority, freshness and verification.",
+      "type": "string",
+      "enum": [
+        "unreliable",
+        "low",
+        "moderate",
+        "high",
+        "authoritative"
+      ]
+    },
+
+    "context_factor_type": {
+      "title": "Context Factor Type",
+      "description": "Category of contextual factor affecting the judgement.",
+      "type": "string",
+      "enum": [
+        "business_objective",
+        "brand_position",
+        "product_context",
+        "customer_context",
+        "market_context",
+        "channel_context",
+        "historical_context",
+        "workflow_context",
+        "operational_context",
+        "resource_context",
+        "timing_context",
+        "governance_context",
+        "risk_context",
+        "other"
+      ]
+    },
+
+    "context_factor": {
+      "title": "Context Factor",
+      "description": "A contextual condition relevant to formation of the Business Judgement.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "factor_id",
+        "factor_type",
+        "description",
+        "relevance"
+      ],
+      "properties": {
+        "factor_id": {
+          "type": "string",
+          "pattern": "^context_[A-Za-z0-9_.:-]+$",
+          "minLength": 9,
+          "maxLength": 240
+        },
+
+        "factor_type": {
+          "$ref": "#/$defs/context_factor_type"
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 6000
+        },
+
+        "relevance": {
+          "$ref": "./common.schema.json#/$defs/confidence"
+        },
+
+        "knowledge_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "impact_summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        },
+
+        "mandatory_consideration": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+
+    "judgement_context": {
+      "title": "Judgement Context",
+      "description": "Structured context within which the Business Judgement is formed.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_objective",
+        "decision_question",
+        "judgement_scope",
+        "business_context",
+        "context_factors"
+      ],
+      "properties": {
+        "task_objective": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+
+        "decision_question": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+
+        "judgement_scope": {
+          "$ref": "#/$defs/judgement_scope"
+        },
+
+        "business_context": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+
+        "knowledge_package_id": {
+          "type": "string",
+          "pattern": "^kp_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+
+        "task_constraint_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^constraint_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "task_success_criterion_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^criterion_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "context_factors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/context_factor"
+          },
+          "default": []
+        },
+
+        "known_limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "out_of_scope": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      }
+    },
+
+    "evidence_assessment": {
+      "title": "Evidence Assessment",
+      "description": "Assessment of a Knowledge Item or evidence reference used in reasoning.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assessment_id",
+        "evidence_role",
+        "strength",
+        "reliability",
+        "assessment_result",
+        "reasoning"
+      ],
+      "properties": {
+        "assessment_id": {
+          "type": "string",
+          "pattern": "^ea_[A-Za-z0-9_.:-]+$",
+          "minLength": 4,
+          "maxLength": 240
+        },
+
+        "knowledge_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^evidence_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "evidence_role": {
+          "$ref": "#/$defs/evidence_role"
+        },
+
+        "strength": {
+          "$ref": "#/$defs/evidence_strength"
+        },
+
+        "reliability": {
+          "$ref": "#/$defs/evidence_reliability"
+        },
+
+        "assessment_result": {
+          "$ref": "#/$defs/assessment_result"
+        },
+
+        "reasoning": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "affected_option_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^option_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "affected_criterion_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^dc_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "confidence": {
+          "$ref": "./common.schema.json#/$defs/confidence"
+        }
+      },
+
+      "anyOf": [
+        {
+          "properties": {
+            "knowledge_item_ids": {
+              "minItems": 1
+            }
+          },
+          "required": [
+            "knowledge_item_ids"
+          ]
+        },
+        {
+          "properties": {
+            "evidence_ids": {
+              "minItems": 1
+            }
+          },
+          "required": [
+            "evidence_ids"
+          ]
+        },
+        {
+          "properties": {
+            "source_ids": {
+              "minItems": 1
+            }
+          },
+          "required": [
+            "source_ids"
+          ]
+        }
+      ]
+    },
+
+    "assumption": {
+      "title": "Reasoning Assumption",
+      "description": "An explicit assumption introduced or accepted during judgement formation.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assumption_id",
+        "assumption_type",
+        "statement",
+        "status",
+        "materiality",
+        "basis",
+        "confidence"
+      ],
+      "properties": {
+        "assumption_id": {
+          "type": "string",
+          "pattern": "^assumption_[A-Za-z0-9_.:-]+$",
+          "minLength": 12,
+          "maxLength": 240
+        },
+
+        "assumption_type": {
+          "$ref": "#/$defs/assumption_type"
+        },
+
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 6000
+        },
+
+        "status": {
+          "$ref": "#/$defs/assumption_status"
+        },
+
+        "materiality": {
+          "description": "How materially the assumption affects the final judgement.",
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+
+        "basis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 6000
+        },
+
+        "knowledge_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^evidence_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "confidence": {
+          "$ref": "./common.schema.json#/$defs/confidence"
+        },
+
+        "validation_method": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        },
+
+        "validation_owner": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "validation_due_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "impact_if_false": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 6000,
+          "default": null
+        },
+
+        "affected_option_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^option_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "requires_validation"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "validation_method"
+            ],
+            "properties": {
+              "validation_method": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "materiality": {
+                "enum": [
+                  "high",
+                  "critical"
+                ]
+              }
+            },
+            "required": [
+              "materiality"
+            ]
+          },
+          "then": {
+            "required": [
+              "impact_if_false"
+            ],
+            "properties": {
+              "impact_if_false": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "decision_criterion": {
+      "title": "Decision Criterion",
+      "description": "A criterion against which alternatives are evaluated.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "criterion_id",
+        "criterion_type",
+        "name",
+        "description",
+        "importance",
+        "weight",
+        "mandatory"
+      ],
+      "properties": {
+        "criterion_id": {
+          "type": "string",
+          "pattern": "^dc_[A-Za-z0-9_.:-]+$",
+          "minLength": 4,
+          "maxLength": 240
+        },
+
+        "criterion_type": {
+          "$ref": "#/$defs/criterion_type"
+        },
+
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+
+        "importance": {
+          "$ref": "#/$defs/criterion_importance"
+        },
+
+        "weight": {
+          "description": "Relative criterion weight between zero and one.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+
+        "mandatory": {
+          "type": "boolean"
+        },
+
+        "minimum_acceptable_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1,
+          "default": null
+        },
+
+        "task_constraint_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^constraint_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "task_success_criterion_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^criterion_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "knowledge_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "evaluation_method": {
+          "type": "string",
+          "enum": [
+            "binary",
+            "qualitative",
+            "numeric_score",
+            "weighted_score",
+            "threshold",
+            "expert_assessment"
+          ]
+        },
+
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 3000,
+          "default": null
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mandatory": {
+                "const": true
+              }
+            },
+            "required": [
+              "mandatory"
+            ]
+          },
+          "then": {
+            "required": [
+              "minimum_acceptable_score"
+            ],
+            "properties": {
+              "minimum_acceptable_score": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "criterion_evaluation": {
+      "title": "Criterion Evaluation",
+      "description": "Evaluation of one alternative against one decision criterion.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evaluation_id",
+        "criterion_id",
+        "score",
+        "result",
+        "reasoning"
+      ],
+      "properties": {
+        "evaluation_id": {
+          "type": "string",
+          "pattern": "^evaluation_[A-Za-z0-9_.:-]+$",
+          "minLength": 12,
+          "maxLength": 240
+        },
+
+        "criterion_id": {
+          "type": "string",
+          "pattern": "^dc_[A-Za-z0-9_.:-]+$",
+          "maxLength": 240
+        },
+
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+
+        "weighted_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1,
+          "default": null
+        },
+
+        "result": {
+          "$ref": "#/$defs/assessment_result"
+        },
+
+        "reasoning": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+
+        "evidence_assessment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ea_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "assumption_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^assumption_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "mandatory_criterion_met": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "default": null
+        },
+
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3000
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      }
+    },
+
+    "option_advantage": {
+      "title": "Option Advantage",
+      "description": "A material advantage associated with an alternative option.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advantage_id",
+        "description",
+        "importance"
+      ],
+      "properties": {
+        "advantage_id": {
+          "type": "string",
+          "pattern": "^advantage_[A-Za-z0-9_.:-]+$",
+          "minLength": 11,
+          "maxLength": 240
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+
+        "importance": {
+          "$ref": "#/$defs/criterion_importance"
+        },
+
+        "knowledge_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "evidence_assessment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ea_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      }
+    },
+
+    "option_disadvantage": {
+      "title": "Option Disadvantage",
+      "description": "A material disadvantage associated with an alternative option.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "disadvantage_id",
+        "description",
+        "severity"
+      ],
+      "properties": {
+        "disadvantage_id": {
+          "type": "string",
+          "pattern": "^disadvantage_[A-Za-z0-9_.:-]+$",
+          "minLength": 14,
+          "maxLength": 240
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+
+        "severity": {
+          "$ref": "./common.schema.json#/$defs/severity"
+        },
+
+        "knowledge_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "evidence_assessment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ea_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "mitigatable": {
+          "type": "boolean",
+          "default": true
+        },
+
+        "mitigation_summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mitigatable": {
+                "const": true
+              }
+            },
+            "required": [
+              "mitigatable"
+            ]
+          },
+          "then": {
+            "required": [
+              "mitigation_summary"
+            ],
+            "properties": {
+              "mitigation_summary": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "alternative_option": {
+      "title": "Alternative Option",
+      "description": "An alternative course of action, interpretation or direction evaluated by the Reasoning Engine.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "option_id",
+        "name",
+        "description",
+        "status",
+        "criterion_evaluations",
+        "advantages",
+        "disadvantages",
+        "overall_score",
+        "feasibility",
+        "confidence"
+      ],
+      "properties": {
+        "option_id": {
+          "type": "string",
+          "pattern": "^option_[A-Za-z0-9_.:-]+$",
+          "minLength": 8,
+          "maxLength": 240
+        },
+
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+
+        "status": {
+          "$ref": "#/$defs/option_status"
+        },
+
+        "option_type": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "baseline",
+            "current_state",
+            "alternative",
+            "fallback",
+            "do_nothing",
+            "hybrid",
+            "other"
+          ]
+        },
+
+        "criterion_evaluations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/criterion_evaluation"
+          },
+          "minItems": 1
+        },
+
+        "advantages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/option_advantage"
+          },
+          "default": []
+        },
+
+        "disadvantages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/option_disadvantage"
+          },
+          "default": []
+        },
+
+        "overall_score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+
+        "mandatory_criteria_met": {
+          "type": "boolean",
+          "default": true
+        },
+
+        "feasibility": {
+          "$ref": "./common.schema.json#/$defs/confidence"
+        },
+
+        "confidence": {
+          "$ref": "./common.schema.json#/$defs/confidence"
+        },
+
+        "risk_level": {
+          "$ref": "./common.schema.json#/$defs/risk_level"
+        },
+
+        "assumption_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^assumption_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "evidence_assessment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ea_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "knowledge_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "rejection_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 5000,
+          "default": null
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "preferred"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "mandatory_criteria_met": {
+                "const": true
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "viable_with_conditions"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "conditions": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "rejected"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rejection_reasons": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "mandatory_criteria_met": {
+                "const": false
+              }
+            },
+            "required": [
+              "mandatory_criteria_met"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_preferred",
+                  "rejected",
+                  "deferred",
+                  "insufficient_information"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+        "tradeoff_dimension": {
+      "title": "Trade-off Dimension",
+      "description": "A business dimension across which alternatives create competing benefits, costs or risks.",
+      "type": "string",
+      "enum": [
+        "quality_vs_speed",
+        "quality_vs_cost",
+        "accuracy_vs_creativity",
+        "consistency_vs_flexibility",
+        "reach_vs_relevance",
+        "short_term_vs_long_term",
+        "automation_vs_human_control",
+        "completeness_vs_efficiency",
+        "innovation_vs_risk",
+        "growth_vs_brand_control",
+        "customer_value_vs_operational_cost",
+        "reversibility_vs_commitment",
+        "authority_vs_freshness",
+        "standardisation_vs_customisation",
+        "business_value_vs_complexity",
+        "other"
+      ]
+    },
+
+    "tradeoff_position": {
+      "title": "Trade-off Position",
+      "description": "Direction selected when balancing competing business considerations.",
+      "type": "string",
+      "enum": [
+        "strongly_favour_first",
+        "favour_first",
+        "balanced",
+        "favour_second",
+        "strongly_favour_second",
+        "context_dependent",
+        "unresolved"
+      ]
+    },
+
+    "tradeoff_analysis": {
+      "title": "Trade-off Analysis",
+      "description": "Analysis of a material compromise between competing business considerations.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tradeoff_id",
+        "dimension",
+        "first_consideration",
+        "second_consideration",
+        "selected_position",
+        "reasoning",
+        "materiality"
+      ],
+      "properties": {
+        "tradeoff_id": {
+          "type": "string",
+          "pattern": "^tradeoff_[A-Za-z0-9_.:-]+$",
+          "minLength": 10,
+          "maxLength": 240
+        },
+
+        "dimension": {
+          "$ref": "#/$defs/tradeoff_dimension"
+        },
+
+        "first_consideration": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+
+        "second_consideration": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+
+        "selected_position": {
+          "$ref": "#/$defs/tradeoff_position"
+        },
+
+        "reasoning": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+
+        "materiality": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+
+        "affected_option_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^option_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+
+        "criterion_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^dc_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "evidence_assessment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ea_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "accepted_costs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "protected_values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "reconsideration_trigger": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        },
+
+        "confidence": {
+          "$ref": "./common.schema.json#/$defs/confidence"
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "selected_position": {
+                "const": "unresolved"
+              }
+            },
+            "required": [
+              "selected_position"
+            ]
+          },
+          "then": {
+            "required": [
+              "reconsideration_trigger"
+            ],
+            "properties": {
+              "reconsideration_trigger": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "materiality": {
+                "enum": [
+                  "high",
+                  "critical"
+                ]
+              }
+            },
+            "required": [
+              "materiality"
+            ]
+          },
+          "then": {
+            "properties": {
+              "protected_values": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "judgement_risk_type": {
+      "title": "Judgement Risk Type",
+      "description": "Category of risk associated with a judgement, recommendation or selected option.",
+      "type": "string",
+      "enum": [
+        "brand",
+        "product_accuracy",
+        "content_accuracy",
+        "customer",
+        "commercial",
+        "financial",
+        "legal",
+        "privacy",
+        "security",
+        "reputation",
+        "operational",
+        "technical",
+        "quality",
+        "governance",
+        "execution",
+        "dependency",
+        "assumption",
+        "timing",
+        "resource",
+        "strategic",
+        "other"
+      ]
+    },
+
+    "risk_probability": {
+      "title": "Risk Probability",
+      "description": "Estimated likelihood that a risk event will occur.",
+      "type": "string",
+      "enum": [
+        "rare",
+        "unlikely",
+        "possible",
+        "likely",
+        "almost_certain"
+      ]
+    },
+
+    "risk_impact": {
+      "title": "Risk Impact",
+      "description": "Estimated business impact if the risk event occurs.",
+      "type": "string",
+      "enum": [
+        "negligible",
+        "minor",
+        "moderate",
+        "major",
+        "severe"
+      ]
+    },
+
+    "risk_response": {
+      "title": "Risk Response",
+      "description": "Selected response strategy for a judgement risk.",
+      "type": "string",
+      "enum": [
+        "accept",
+        "avoid",
+        "reduce",
+        "transfer",
+        "monitor",
+        "escalate",
+        "request_approval",
+        "request_more_information"
+      ]
+    },
+
+    "risk_status": {
+      "title": "Risk Status",
+      "description": "Current lifecycle state of a judgement risk.",
+      "type": "string",
+      "enum": [
+        "identified",
+        "under_assessment",
+        "open",
+        "mitigated",
+        "accepted",
+        "escalated",
+        "closed",
+        "materialised"
+      ]
+    },
+
+    "risk_mitigation": {
+      "title": "Risk Mitigation",
+      "description": "A control or action intended to reduce the probability or impact of a risk.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mitigation_id",
+        "description",
+        "mitigation_type",
+        "required",
+        "status"
+      ],
+      "properties": {
+        "mitigation_id": {
+          "type": "string",
+          "pattern": "^mitigation_[A-Za-z0-9_.:-]+$",
+          "minLength": 12,
+          "maxLength": 240
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 6000
+        },
+
+        "mitigation_type": {
+          "type": "string",
+          "enum": [
+            "preventive",
+            "detective",
+            "corrective",
+            "approval_gate",
+            "quality_check",
+            "human_review",
+            "additional_retrieval",
+            "scope_reduction",
+            "fallback",
+            "monitoring",
+            "other"
+          ]
+        },
+
+        "required": {
+          "type": "boolean"
+        },
+
+        "status": {
+          "type": "string",
+          "enum": [
+            "proposed",
+            "planned",
+            "implemented",
+            "verified",
+            "failed",
+            "not_required"
+          ]
+        },
+
+        "owner": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "verification_method": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        },
+
+        "due_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "related_condition_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^condition_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "verification_method"
+            ],
+            "properties": {
+              "verification_method": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "required": {
+                "const": true
+              }
+            },
+            "required": [
+              "required"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "not": {
+                  "const": "not_required"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "judgement_risk": {
+      "title": "Judgement Risk",
+      "description": "A material uncertainty or potential adverse outcome associated with the judgement.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk_id",
+        "risk_type",
+        "description",
+        "cause",
+        "potential_impact",
+        "probability",
+        "impact",
+        "inherent_risk_level",
+        "response",
+        "status",
+        "mitigations",
+        "residual_risk_level"
+      ],
+      "properties": {
+        "risk_id": {
+          "type": "string",
+          "pattern": "^risk_[A-Za-z0-9_.:-]+$",
+          "minLength": 6,
+          "maxLength": 240
+        },
+
+        "risk_type": {
+          "$ref": "#/$defs/judgement_risk_type"
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 6000
+        },
+
+        "cause": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+
+        "potential_impact": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 6000
+        },
+
+        "probability": {
+          "$ref": "#/$defs/risk_probability"
+        },
+
+        "impact": {
+          "$ref": "#/$defs/risk_impact"
+        },
+
+        "inherent_risk_level": {
+          "$ref": "./common.schema.json#/$defs/risk_level"
+        },
+
+        "response": {
+          "$ref": "#/$defs/risk_response"
+        },
+
+        "status": {
+          "$ref": "#/$defs/risk_status"
+        },
+
+        "affected_option_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^option_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "affected_recommendation_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^recommendation_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "assumption_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^assumption_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "knowledge_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "mitigations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/risk_mitigation"
+          },
+          "default": []
+        },
+
+        "residual_risk_level": {
+          "$ref": "./common.schema.json#/$defs/risk_level"
+        },
+
+        "risk_owner": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "monitoring_indicator": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        },
+
+        "escalation_trigger": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        },
+
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "response": {
+                "enum": [
+                  "reduce",
+                  "avoid"
+                ]
+              }
+            },
+            "required": [
+              "response"
+            ]
+          },
+          "then": {
+            "properties": {
+              "mitigations": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "response": {
+                "const": "monitor"
+              }
+            },
+            "required": [
+              "response"
+            ]
+          },
+          "then": {
+            "required": [
+              "monitoring_indicator"
+            ],
+            "properties": {
+              "monitoring_indicator": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "response": {
+                "const": "escalate"
+              }
+            },
+            "required": [
+              "response"
+            ]
+          },
+          "then": {
+            "required": [
+              "escalation_trigger"
+            ],
+            "properties": {
+              "escalation_trigger": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "status": {
+                "enum": [
+                  "escalated",
+                  "closed"
+                ]
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "inherent_risk_level": {
+                "enum": [
+                  "high",
+                  "critical"
+                ]
+              }
+            },
+            "required": [
+              "inherent_risk_level"
+            ]
+          },
+          "then": {
+            "properties": {
+              "mitigations": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "risk_evaluation": {
+      "title": "Risk Evaluation",
+      "description": "Aggregate evaluation of risks associated with the Business Judgement.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overall_risk_level",
+        "risks",
+        "high_risk_count",
+        "critical_risk_count",
+        "unmitigated_risk_count",
+        "risk_acceptance_required",
+        "summary"
+      ],
+      "properties": {
+        "overall_risk_level": {
+          "$ref": "./common.schema.json#/$defs/risk_level"
+        },
+
+        "risks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/judgement_risk"
+          },
+          "default": []
+        },
+
+        "high_risk_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "critical_risk_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "unmitigated_risk_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "risk_acceptance_required": {
+          "type": "boolean"
+        },
+
+        "risk_accepted": {
+          "type": "boolean",
+          "default": false
+        },
+
+        "accepted_by": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "accepted_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 3000
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "risk_acceptance_required": {
+                "const": true
+              },
+              "risk_accepted": {
+                "const": true
+              }
+            },
+            "required": [
+              "risk_acceptance_required",
+              "risk_accepted"
+            ]
+          },
+          "then": {
+            "required": [
+              "accepted_by",
+              "accepted_at"
+            ],
+            "properties": {
+              "accepted_by": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "accepted_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "critical_risk_count": {
+                "minimum": 1
+              }
+            },
+            "required": [
+              "critical_risk_count"
+            ]
+          },
+          "then": {
+            "properties": {
+              "overall_risk_level": {
+                "const": "critical"
+              },
+              "risk_acceptance_required": {
+                "const": true
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "high_risk_count": {
+                "minimum": 1
+              },
+              "critical_risk_count": {
+                "const": 0
+              }
+            },
+            "required": [
+              "high_risk_count",
+              "critical_risk_count"
+            ]
+          },
+          "then": {
+            "properties": {
+              "overall_risk_level": {
+                "enum": [
+                  "high",
+                  "critical"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "condition_type": {
+      "title": "Condition Type",
+      "description": "Category of condition attached to a judgement or recommendation.",
+      "type": "string",
+      "enum": [
+        "approval",
+        "knowledge",
+        "evidence",
+        "quality",
+        "brand",
+        "product",
+        "content",
+        "legal",
+        "financial",
+        "technical",
+        "operational",
+        "timing",
+        "resource",
+        "dependency",
+        "monitoring",
+        "scope",
+        "other"
+      ]
+    },
+
+    "condition_status": {
+      "title": "Condition Status",
+      "description": "Current status of a judgement condition.",
+      "type": "string",
+      "enum": [
+        "open",
+        "in_progress",
+        "satisfied",
+        "waived",
+        "failed",
+        "not_applicable"
+      ]
+    },
+
+    "judgement_condition": {
+      "title": "Judgement Condition",
+      "description": "A condition that must be satisfied for the judgement or recommendation to remain valid or proceed.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "condition_id",
+        "condition_type",
+        "description",
+        "mandatory",
+        "status",
+        "verification_method"
+      ],
+      "properties": {
+        "condition_id": {
+          "type": "string",
+          "pattern": "^condition_[A-Za-z0-9_.:-]+$",
+          "minLength": 11,
+          "maxLength": 240
+        },
+
+        "condition_type": {
+          "$ref": "#/$defs/condition_type"
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 6000
+        },
+
+        "mandatory": {
+          "type": "boolean"
+        },
+
+        "status": {
+          "$ref": "#/$defs/condition_status"
+        },
+
+        "verification_method": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+
+        "owner": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "due_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "satisfied_by": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "satisfied_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "evidence_refs": {
+          "$ref": "./common.schema.json#/$defs/evidence_references"
+        },
+
+        "related_risk_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^risk_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "failure_effect": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 5000,
+          "default": null
+        },
+
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 3000,
+          "default": null
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "satisfied"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "satisfied_by",
+              "satisfied_at"
+            ],
+            "properties": {
+              "satisfied_by": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "satisfied_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "mandatory": {
+                "const": true
+              }
+            },
+            "required": [
+              "mandatory"
+            ]
+          },
+          "then": {
+            "required": [
+              "failure_effect"
+            ],
+            "properties": {
+              "failure_effect": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "recommendation_priority": {
+      "title": "Recommendation Priority",
+      "description": "Relative implementation priority of a recommendation.",
+      "type": "string",
+      "enum": [
+        "low",
+        "normal",
+        "high",
+        "urgent",
+        "mandatory"
+      ]
+    },
+
+    "recommendation_status": {
+      "title": "Recommendation Status",
+      "description": "Current lifecycle state of a recommendation.",
+      "type": "string",
+      "enum": [
+        "proposed",
+        "recommended",
+        "recommended_with_conditions",
+        "approved",
+        "rejected",
+        "deferred",
+        "superseded",
+        "implemented"
+      ]
+    },
+
+    "recommendation": {
+      "title": "Business Recommendation",
+      "description": "A reasoned recommendation produced from the Business Judgement.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recommendation_id",
+        "title",
+        "description",
+        "status",
+        "priority",
+        "recommended_action",
+        "rationale",
+        "option_ids",
+        "conditions",
+        "confidence"
+      ],
+      "properties": {
+        "recommendation_id": {
+          "type": "string",
+          "pattern": "^recommendation_[A-Za-z0-9_.:-]+$",
+          "minLength": 16,
+          "maxLength": 240
+        },
+
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+
+        "status": {
+          "$ref": "#/$defs/recommendation_status"
+        },
+
+        "priority": {
+          "$ref": "#/$defs/recommendation_priority"
+        },
+
+        "recommended_action": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+
+        "rationale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 12000
+        },
+
+        "option_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^option_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+
+        "criterion_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^dc_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "evidence_assessment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ea_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "assumption_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^assumption_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "risk_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^risk_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/judgement_condition"
+          },
+          "default": []
+        },
+
+        "expected_benefits": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "implementation_implications": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "non_recommended_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "reconsideration_triggers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "confidence": {
+          "$ref": "./common.schema.json#/$defs/confidence"
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "recommended_with_conditions"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "conditions": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "priority": {
+                "const": "mandatory"
+              }
+            },
+            "required": [
+              "priority"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "recommended",
+                  "recommended_with_conditions",
+                  "approved",
+                  "implemented"
+                ]
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "implemented"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "implementation_implications": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "decision": {
+      "title": "Business Decision",
+      "description": "The principal outcome selected by the Reasoning Engine.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "outcome_type",
+        "statement",
+        "selected_option_ids",
+        "rejected_option_ids",
+        "recommendation_ids",
+        "conditions",
+        "decision_basis",
+        "confidence"
+      ],
+      "properties": {
+        "decision_id": {
+          "type": "string",
+          "pattern": "^decision_[A-Za-z0-9_.:-]+$",
+          "minLength": 10,
+          "maxLength": 240
+        },
+
+        "outcome_type": {
+          "$ref": "#/$defs/judgement_outcome_type"
+        },
+
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+
+        "selected_option_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^option_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "rejected_option_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^option_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "deferred_option_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^option_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "recommendation_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^recommendation_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/judgement_condition"
+          },
+          "default": []
+        },
+
+        "decision_basis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 12000
+        },
+
+        "criterion_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^dc_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "tradeoff_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^tradeoff_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "risk_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^risk_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "assumption_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^assumption_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "evidence_assessment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ea_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "reversibility": {
+          "type": "string",
+          "enum": [
+            "fully_reversible",
+            "mostly_reversible",
+            "partially_reversible",
+            "difficult_to_reverse",
+            "irreversible",
+            "not_applicable"
+          ]
+        },
+
+        "valid_until": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+
+        "reconsideration_triggers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "confidence": {
+          "$ref": "./common.schema.json#/$defs/confidence"
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "outcome_type": {
+                "enum": [
+                  "select_option",
+                  "approve_direction",
+                  "proceed",
+                  "proceed_with_conditions",
+                  "prioritise"
+                ]
+              }
+            },
+            "required": [
+              "outcome_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "selected_option_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "outcome_type": {
+                "enum": [
+                  "reject_option",
+                  "reject_direction",
+                  "do_not_proceed",
+                  "deprioritise"
+                ]
+              }
+            },
+            "required": [
+              "outcome_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "rejected_option_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "outcome_type": {
+                "const": "proceed_with_conditions"
+              }
+            },
+            "required": [
+              "outcome_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "conditions": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "outcome_type": {
+                "const": "defer"
+              }
+            },
+            "required": [
+              "outcome_type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "deferred_option_ids": {
+                "minItems": 1
+              },
+              "reconsideration_triggers": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "reversibility": {
+                "enum": [
+                  "difficult_to_reverse",
+                  "irreversible"
+                ]
+              }
+            },
+            "required": [
+              "reversibility"
+            ]
+          },
+          "then": {
+            "properties": {
+              "risk_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "rationale_point_type": {
+      "title": "Rationale Point Type",
+      "description": "Functional role of a point in the business rationale.",
+      "type": "string",
+      "enum": [
+        "objective_alignment",
+        "evidence",
+        "criterion",
+        "constraint",
+        "advantage",
+        "disadvantage",
+        "tradeoff",
+        "risk",
+        "assumption",
+        "precedent",
+        "business_value",
+        "rejection_reason",
+        "condition",
+        "limitation",
+        "other"
+      ]
+    },
+
+    "rationale_point": {
+      "title": "Rationale Point",
+      "description": "A discrete reason supporting or qualifying the final judgement.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rationale_point_id",
+        "point_type",
+        "statement",
+        "importance"
+      ],
+      "properties": {
+        "rationale_point_id": {
+          "type": "string",
+          "pattern": "^rationale_[A-Za-z0-9_.:-]+$",
+          "minLength": 11,
+          "maxLength": 240
+        },
+
+        "point_type": {
+          "$ref": "#/$defs/rationale_point_type"
+        },
+
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+
+        "importance": {
+          "$ref": "#/$defs/criterion_importance"
+        },
+
+        "supports_decision": {
+          "type": "boolean",
+          "default": true
+        },
+
+        "knowledge_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "evidence_assessment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ea_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "criterion_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^dc_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "option_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^option_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "risk_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^risk_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "assumption_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^assumption_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      }
+    },
+
+    "business_rationale": {
+      "title": "Business Rationale",
+      "description": "Consolidated explanation of why the final judgement is appropriate.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "primary_reasons",
+        "rejected_alternative_summary",
+        "tradeoff_summary",
+        "risk_summary",
+        "limitations",
+        "confidence"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15000
+        },
+
+        "primary_reasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rationale_point"
+          },
+          "minItems": 1
+        },
+
+        "rejected_alternative_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+
+        "tradeoff_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+
+        "risk_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+
+        "assumption_summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 8000,
+          "default": null
+        },
+
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "confidence": {
+          "$ref": "./common.schema.json#/$defs/confidence"
+        }
+      }
+    },
+
+    "reasoning_step_type": {
+      "title": "Reasoning Step Type",
+      "description": "Functional category of a recorded reasoning step.",
+      "type": "string",
+      "enum": [
+        "frame_question",
+        "identify_constraints",
+        "identify_criteria",
+        "assess_evidence",
+        "identify_assumptions",
+        "generate_options",
+        "eliminate_option",
+        "compare_options",
+        "evaluate_tradeoffs",
+        "evaluate_risks",
+        "select_option",
+        "form_recommendation",
+        "validate_judgement",
+        "other"
+      ]
+    },
+
+    "reasoning_step": {
+      "title": "Reasoning Step",
+      "description": "A concise, auditable record of a reasoning operation without storing unrestricted internal chain-of-thought.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "step_id",
+        "sequence",
+        "step_type",
+        "input_summary",
+        "operation_summary",
+        "output_summary",
+        "status"
+      ],
+      "properties": {
+        "step_id": {
+          "type": "string",
+          "pattern": "^reasoning_step_[A-Za-z0-9_.:-]+$",
+          "minLength": 16,
+          "maxLength": 240
+        },
+
+        "sequence": {
+          "type": "integer",
+          "minimum": 1
+        },
+
+        "step_type": {
+          "$ref": "#/$defs/reasoning_step_type"
+        },
+
+        "input_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 6000
+        },
+
+        "operation_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 6000
+        },
+
+        "output_summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 6000
+        },
+
+        "status": {
+          "type": "string",
+          "enum": [
+            "completed",
+            "completed_with_limitations",
+            "blocked",
+            "failed",
+            "superseded"
+          ]
+        },
+
+        "knowledge_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^ki_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "option_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^option_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "criterion_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^dc_[A-Za-z0-9_.:-]+$",
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "exception_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^exception_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "exception_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "reasoning_process": {
+      "title": "Reasoning Process",
+      "description": "Structured audit summary of the reasoning methods and stages used to produce the judgement.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_mode",
+        "reasoning_methods",
+        "started_at",
+        "completed_at",
+        "steps",
+        "iterations",
+        "summary"
+      ],
+      "properties": {
+        "decision_mode": {
+          "$ref": "#/$defs/decision_mode"
+        },
+
+        "reasoning_methods": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reasoning_method"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+
+        "started_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+
+        "completed_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/reasoning_step"
+          },
+          "minItems": 1
+        },
+
+        "iterations": {
+          "type": "integer",
+          "minimum": 1
+        },
+
+        "alternatives_generated": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+
+        "alternatives_rejected": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+
+        "human_input_used": {
+          "type": "boolean",
+          "default": false
+        },
+
+        "human_input_source_refs": {
+          "$ref": "./common.schema.json#/$defs/source_references"
+        },
+
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000
+        },
+
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      }
+    },
+
+    "reasoning_summary": {
+      "title": "Reasoning Summary",
+      "description": "High-level, user-readable summary of the judgement logic.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_question",
+        "options_considered",
+        "preferred_option",
+        "primary_basis",
+        "key_tradeoffs",
+        "key_risks",
+        "conditions",
+        "conclusion"
+      ],
+      "properties": {
+        "decision_question": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+
+        "options_considered": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+
+        "preferred_option": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 1000,
+          "default": null
+        },
+
+        "primary_basis": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+
+        "key_tradeoffs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "key_risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "conclusion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+
+        "confidence_statement": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 4000,
+          "default": null
+        }
+      }
+    },
+
+    "judgement_validation_check": {
+      "title": "Judgement Validation Check",
+      "description": "A semantic, governance or cross-object validation check applied to the Business Judgement.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check_id",
+        "check_type",
+        "description",
+        "mandatory",
+        "status"
+      ],
+      "properties": {
+        "check_id": {
+          "type": "string",
+          "pattern": "^judgement_check_[A-Za-z0-9_.:-]+$",
+          "minLength": 17,
+          "maxLength": 240
+        },
+
+        "check_type": {
+          "type": "string",
+          "enum": [
+            "task_alignment",
+            "knowledge_traceability",
+            "evidence_sufficiency",
+            "authority_compliance",
+            "constraint_compliance",
+            "criterion_coverage",
+            "alternative_completeness",
+            "assumption_transparency",
+            "risk_completeness",
+            "tradeoff_transparency",
+            "recommendation_consistency",
+            "decision_consistency",
+            "approval_compliance",
+            "cross_object_reference",
+            "other"
+          ]
+        },
+
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 5000
+        },
+
+        "mandatory": {
+          "type": "boolean"
+        },
+
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_evaluated",
+            "passed",
+            "passed_with_warning",
+            "failed",
+            "not_applicable"
+          ]
+        },
+
+        "finding": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 6000,
+          "default": null
+        },
+
+        "related_object_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "./common.schema.json#/$defs/object_id"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "related_reference_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 240
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+
+        "recommended_resolution": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 6000,
+          "default": null
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "finding",
+              "recommended_resolution"
+            ],
+            "properties": {
+              "finding": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "recommended_resolution": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+
+    "judgement_validation_summary": {
+      "title": "Judgement Validation Summary",
+      "description": "Summary of non-structural checks applied to the Business Judgement.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "checks",
+        "mandatory_checks_passed",
+        "mandatory_checks_failed",
+        "warnings",
+        "validated_at",
+        "validated_by"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_validated",
+            "validation_pending",
+            "valid",
+            "valid_with_warnings",
+            "invalid"
+          ]
+        },
+
+        "checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/judgement_validation_check"
+          },
+          "default": []
+        },
+
+        "mandatory_checks_passed": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "mandatory_checks_failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "warnings": {
+          "type": "integer",
+          "minimum": 0
+        },
+
+        "validated_at": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+
+        "validated_by": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 6000,
+          "default": null
+        }
+      },
+
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "valid"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "mandatory_checks_failed": {
+                "const": 0
+              },
+              "warnings": {
+                "const": 0
+              },
+              "validated_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "validated_by": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "valid_with_warnings"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "mandatory_checks_failed": {
+                "const": 0
+              },
+              "warnings": {
+                "minimum": 1
+              },
+              "validated_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "validated_by": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "invalid"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "mandatory_checks_failed": {
+                "minimum": 1
+              },
+              "validated_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "validated_by": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_validated",
+                  "validation_pending"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "validated_at": {
+                "type": "null"
+              },
+              "validated_by": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    }
+      },
+
+  "required": [
+    "id",
+    "schema_name",
+    "schema_version",
+    "task_id",
+    "knowledge_package_id",
+    "execution_id",
+    "created_at",
+    "created_by",
+    "status",
+    "title",
+    "judgement_type",
+    "context",
+    "evidence_assessments",
+    "assumptions",
+    "decision_criteria",
+    "alternatives",
+    "tradeoffs",
+    "risk_evaluation",
+    "recommendations",
+    "decision",
+    "business_rationale",
+    "reasoning_process",
+    "reasoning_summary",
+    "confidence",
+    "approval",
+    "judgement_validation",
+    "validation"
+  ],
+
+  "properties": {
+    "id": {
+      "title": "Business Judgement Identifier",
+      "description": "Unique and immutable identifier of the Business Judgement.",
+      "type": "string",
+      "pattern": "^bj_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+
+    "schema_name": {
+      "title": "Schema Name",
+      "type": "string",
+      "const": "business_judgement"
+    },
+
+    "schema_version": {
+      "$ref": "./common.schema.json#/$defs/schema_version"
+    },
+
+    "task_id": {
+      "$ref": "./common.schema.json#/$defs/task_id"
+    },
+
+    "knowledge_package_id": {
+      "title": "Knowledge Package Identifier",
+      "description": "Identifier of the Knowledge Package used as the primary factual and standards basis for this judgement.",
+      "type": "string",
+      "pattern": "^kp_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+
+    "execution_id": {
+      "$ref": "./common.schema.json#/$defs/execution_id"
+    },
+
+    "workflow_id": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/workflow_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "parent_id": {
+      "title": "Parent Business Judgement Identifier",
+      "description": "Identifier of a previous Business Judgement that this object revises, extends or supersedes.",
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "created_at": {
+      "$ref": "./common.schema.json#/$defs/timestamp"
+    },
+
+    "updated_at": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "created_by": {
+      "$ref": "./common.schema.json#/$defs/actor_reference"
+    },
+
+    "updated_by": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+
+    "status": {
+      "$ref": "#/$defs/business_judgement_status"
+    },
+
+    "title": {
+      "$ref": "./common.schema.json#/$defs/title"
+    },
+
+    "judgement_type": {
+      "$ref": "#/$defs/judgement_type"
+    },
+
+    "context": {
+      "$ref": "#/$defs/judgement_context"
+    },
+
+    "evidence_assessments": {
+      "title": "Evidence Assessments",
+      "description": "Structured assessments of evidence and Knowledge Items used in the judgement.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence_assessment"
+      },
+      "default": []
+    },
+
+    "assumptions": {
+      "title": "Reasoning Assumptions",
+      "description": "Explicit assumptions introduced, accepted or validated during judgement formation.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/assumption"
+      },
+      "default": []
+    },
+
+    "decision_criteria": {
+      "title": "Decision Criteria",
+      "description": "Criteria used to evaluate the identified alternatives.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decision_criterion"
+      },
+      "minItems": 1
+    },
+
+    "alternatives": {
+      "title": "Alternative Options",
+      "description": "Options considered and evaluated before the final decision was formed.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/alternative_option"
+      },
+      "minItems": 1
+    },
+
+    "tradeoffs": {
+      "title": "Trade-off Analyses",
+      "description": "Material trade-offs identified while comparing alternatives.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/tradeoff_analysis"
+      },
+      "default": []
+    },
+
+    "risk_evaluation": {
+      "$ref": "#/$defs/risk_evaluation"
+    },
+
+    "recommendations": {
+      "title": "Business Recommendations",
+      "description": "Recommendations produced as a result of the judgement.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/recommendation"
+      },
+      "default": []
+    },
+
+    "decision": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/decision"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+
+    "business_rationale": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/business_rationale"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+
+    "reasoning_process": {
+      "$ref": "#/$defs/reasoning_process"
+    },
+
+    "reasoning_summary": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/reasoning_summary"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+
+    "confidence": {
+      "$ref": "./common.schema.json#/$defs/confidence"
+    },
+
+    "approval": {
+      "$ref": "./common.schema.json#/$defs/approval"
+    },
+
+    "risk_assessment": {
+      "$ref": "./common.schema.json#/$defs/risk_assessment"
+    },
+
+    "quality_state": {
+      "$ref": "./common.schema.json#/$defs/quality_state"
+    },
+
+    "judgement_validation": {
+      "$ref": "#/$defs/judgement_validation_summary"
+    },
+
+    "source_refs": {
+      "$ref": "./common.schema.json#/$defs/source_references"
+    },
+
+    "evidence_refs": {
+      "$ref": "./common.schema.json#/$defs/evidence_references"
+    },
+
+    "relationships": {
+      "$ref": "./common.schema.json#/$defs/object_relationships"
+    },
+
+    "revision": {
+      "$ref": "./common.schema.json#/$defs/revision"
+    },
+
+    "validation": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/validation_record"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+
+    "exception_ids": {
+      "title": "Related Exception Identifiers",
+      "description": "Exception Records associated with failed, blocked or incomplete reasoning.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^exception_[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+
+    "additional_knowledge_requirement_ids": {
+      "title": "Additional Knowledge Requirement Identifiers",
+      "description": "Knowledge requirements that must be satisfied before the judgement can be completed.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^kr_[A-Za-z0-9_.:-]+$",
+        "maxLength": 240
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+
+    "clarification_question_ids": {
+      "title": "Clarification Question Identifiers",
+      "description": "Task clarification questions that prevent completion of the judgement.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^question_[A-Za-z0-9_.:-]+$",
+        "maxLength": 240
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+
+    "execution_blueprint_ready": {
+      "title": "Execution Blueprint Readiness",
+      "description": "Indicates whether this Business Judgement is sufficiently complete and approved for downstream planning.",
+      "type": "boolean",
+      "default": false
+    },
+
+    "downstream_constraints": {
+      "title": "Downstream Planning Constraints",
+      "description": "Constraints that must be preserved when the Execution Blueprint is created.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 5000
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+
+    "tags": {
+      "$ref": "./common.schema.json#/$defs/tags"
+    },
+
+    "metadata": {
+      "$ref": "./common.schema.json#/$defs/metadata"
+    }
+  },
+
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "decision": {
+            "not": {
+              "type": "null"
+            }
+          },
+
+          "business_rationale": {
+            "not": {
+              "type": "null"
+            }
+          },
+
+          "reasoning_summary": {
+            "not": {
+              "type": "null"
+            }
+          },
+
+          "recommendations": {
+            "minItems": 1
+          },
+
+          "alternatives": {
+            "contains": {
+              "properties": {
+                "status": {
+                  "const": "preferred"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "minContains": 1,
+            "maxContains": 1
+          },
+
+          "risk_evaluation": {
+            "properties": {
+              "unmitigated_risk_count": {
+                "const": 0
+              }
+            },
+            "required": [
+              "unmitigated_risk_count"
+            ]
+          },
+
+          "judgement_validation": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "valid",
+                  "valid_with_warnings"
+                ]
+              },
+              "mandatory_checks_failed": {
+                "const": 0
+              }
+            },
+            "required": [
+              "status",
+              "mandatory_checks_failed"
+            ]
+          },
+
+          "reasoning_process": {
+            "properties": {
+              "completed_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "completed_at"
+            ]
+          },
+
+          "execution_blueprint_ready": {
+            "const": true
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed_with_conditions"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+         "decision": {
+  "allOf": [
+    {
+      "not": {
+        "type": "null"
+      }
+    },
+    {
+      "properties": {
+        "outcome_type": {
+          "const": "proceed_with_conditions"
+        },
+        "conditions": {
+          "minItems": 1
+        }
+      },
+      "required": [
+        "outcome_type",
+        "conditions"
+      ]
+    }
+  ]
+},
+          "business_rationale": {
+            "not": {
+              "type": "null"
+            }
+          },
+
+          "reasoning_summary": {
+            "not": {
+              "type": "null"
+            }
+          },
+
+          "recommendations": {
+            "contains": {
+              "properties": {
+                "status": {
+                  "const": "recommended_with_conditions"
+                },
+                "conditions": {
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "status",
+                "conditions"
+              ]
+            },
+            "minContains": 1
+          },
+          "reasoning_process": {
+            "properties": {
+              "completed_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "completed_at"
+            ]
+          },
+
+          "execution_blueprint_ready": {
+            "const": true
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "clarification_required"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "clarification_question_ids": {
+            "minItems": 1
+          },
+
+          "decision": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "properties": {
+                  "outcome_type": {
+                    "const": "request_clarification"
+                  }
+                },
+                "required": [
+                  "outcome_type"
+                ]
+              }
+            ]
+          },
+
+          "execution_blueprint_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "additional_knowledge_required"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "additional_knowledge_requirement_ids": {
+            "minItems": 1
+          },
+
+          "decision": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "properties": {
+                  "outcome_type": {
+                    "const": "request_more_knowledge"
+                  }
+                },
+                "required": [
+                  "outcome_type"
+                ]
+              }
+            ]
+          },
+
+          "execution_blueprint_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "approval_required"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "approval": {
+            "properties": {
+              "required": {
+                "const": true
+              },
+              "status": {
+                "const": "pending"
+              }
+            },
+            "required": [
+              "required",
+              "status"
+            ]
+          },
+
+          "execution_blueprint_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "validation_required"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "judgement_validation": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_validated",
+                  "validation_pending",
+                  "invalid"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+
+          "execution_blueprint_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "blocked"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "anyOf": [
+          {
+            "properties": {
+              "risk_evaluation": {
+                "properties": {
+                  "unmitigated_risk_count": {
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "unmitigated_risk_count"
+                ]
+              }
+            }
+          },
+
+          {
+            "properties": {
+              "assumptions": {
+                "contains": {
+                  "properties": {
+                    "materiality": {
+                      "enum": [
+                        "high",
+                        "critical"
+                      ]
+                    },
+                    "status": {
+                      "const": "requires_validation"
+                    }
+                  },
+                  "required": [
+                    "materiality",
+                    "status"
+                  ]
+                },
+                "minContains": 1
+              }
+            }
+          },
+
+          {
+            "properties": {
+              "tradeoffs": {
+                "contains": {
+                  "properties": {
+                    "materiality": {
+                      "enum": [
+                        "high",
+                        "critical"
+                      ]
+                    },
+                    "selected_position": {
+                      "const": "unresolved"
+                    }
+                  },
+                  "required": [
+                    "materiality",
+                    "selected_position"
+                  ]
+                },
+                "minContains": 1
+              }
+            }
+          },
+
+          {
+            "properties": {
+              "alternatives": {
+                "not": {
+                  "contains": {
+                    "properties": {
+                      "status": {
+                        "enum": [
+                          "viable",
+                          "viable_with_conditions",
+                          "preferred"
+                        ]
+                      },
+                      "mandatory_criteria_met": {
+                        "const": true
+                      }
+                    },
+                    "required": [
+                      "status",
+                      "mandatory_criteria_met"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ],
+
+        "properties": {
+          "execution_blueprint_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "failed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "exception_ids": {
+            "minItems": 1
+          },
+
+          "execution_blueprint_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+
+{
+  "if": {
+    "properties": {
+      "status": {
+        "const": "rejected"
+      }
+    },
+    "required": [
+      "status"
+    ]
+  },
+  "then": {
+    "properties": {
+      "decision": {
+        "allOf": [
+          {
+            "not": {
+              "type": "null"
+            }
+          },
+          {
+            "properties": {
+              "outcome_type": {
+                "enum": [
+                  "reject_option",
+                  "reject_direction",
+                  "do_not_proceed"
+                ]
+              }
+            },
+            "required": [
+              "outcome_type"
+            ]
+          }
+        ]
+      },
+
+      "execution_blueprint_ready": {
+        "const": false
+      }
+    }
+  }
+},
+
+    {
+      "if": {
+        "properties": {
+          "execution_blueprint_ready": {
+            "const": true
+          }
+        },
+        "required": [
+          "execution_blueprint_ready"
+        ]
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "enum": [
+              "completed",
+              "completed_with_conditions"
+            ]
+          },
+
+          "decision": {
+            "not": {
+              "type": "null"
+            }
+          },
+
+          "business_rationale": {
+            "not": {
+              "type": "null"
+            }
+          },
+
+          "reasoning_summary": {
+            "not": {
+              "type": "null"
+            }
+          },
+
+          "judgement_validation": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "valid",
+                  "valid_with_warnings"
+                ]
+              },
+              "mandatory_checks_failed": {
+                "const": 0
+              }
+            },
+            "required": [
+              "status",
+              "mandatory_checks_failed"
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "risk_evaluation": {
+            "properties": {
+              "risk_acceptance_required": {
+                "const": true
+              },
+              "risk_accepted": {
+                "const": false
+              }
+            },
+            "required": [
+              "risk_acceptance_required",
+              "risk_accepted"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "not": {
+              "const": "completed"
+            }
+          },
+
+          "execution_blueprint_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "risk_evaluation": {
+            "properties": {
+              "overall_risk_level": {
+                "const": "critical"
+              }
+            },
+            "required": [
+              "overall_risk_level"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approval": {
+            "properties": {
+              "required": {
+                "const": true
+              }
+            },
+            "required": [
+              "required"
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "assumptions": {
+            "contains": {
+              "properties": {
+                "materiality": {
+                  "const": "critical"
+                },
+                "status": {
+                  "enum": [
+                    "proposed",
+                    "requires_validation"
+                  ]
+                }
+              },
+              "required": [
+                "materiality",
+                "status"
+              ]
+            },
+            "minContains": 1
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "not": {
+              "enum": [
+                "completed",
+                "completed_with_conditions"
+              ]
+            }
+          },
+
+          "execution_blueprint_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "alternatives": {
+            "contains": {
+              "properties": {
+                "status": {
+                  "const": "preferred"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "minContains": 2
+          }
+        }
+      },
+      "then": false
+    },
+
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "outcome_type": {
+                "const": "proceed_with_conditions"
+              }
+            },
+            "required": [
+              "outcome_type"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "enum": [
+              "completed_with_conditions",
+              "approval_required",
+              "validation_required"
+            ]
+          },
+
+          "decision": {
+            "properties": {
+              "conditions": {
+                "minItems": 1
+              }
+            },
+            "required": [
+              "conditions"
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "outcome_type": {
+                "const": "request_clarification"
+              }
+            },
+            "required": [
+              "outcome_type"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "const": "clarification_required"
+          },
+
+          "clarification_question_ids": {
+            "minItems": 1
+          },
+
+          "execution_blueprint_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "outcome_type": {
+                "const": "request_more_knowledge"
+              }
+            },
+            "required": [
+              "outcome_type"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "status": {
+            "const": "additional_knowledge_required"
+          },
+
+          "additional_knowledge_requirement_ids": {
+            "minItems": 1
+          },
+
+          "execution_blueprint_ready": {
+            "const": false
+          }
+        }
+      }
+    },
+
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "properties": {
+              "outcome_type": {
+                "const": "escalate"
+              }
+            },
+            "required": [
+              "outcome_type"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "approval": {
+            "properties": {
+              "required": {
+                "const": true
+              }
+            },
+            "required": [
+              "required"
+            ]
+          },
+
+          "execution_blueprint_ready": {
+            "const": false
+          }
+        }
+      }
+    }
+  ],
+
+  "examples": [
+    {
+      "id": "bj_550e8400-e29b-41d4-a716-446655440020",
+      "schema_name": "business_judgement",
+      "schema_version": "1.0.0",
+
+      "task_id": "task_550e8400-e29b-41d4-a716-446655440000",
+      "knowledge_package_id": "kp_550e8400-e29b-41d4-a716-446655440010",
+      "execution_id": "exec_550e8400-e29b-41d4-a716-446655440001",
+      "workflow_id": "xiaohongshu_content_package.v1",
+      "parent_id": null,
+
+      "created_at": "2026-07-27T09:45:00Z",
+      "updated_at": null,
+
+      "created_by": {
+        "actor_type": "engine",
+        "actor_id": "reasoning_engine",
+        "display_name": "Scout Reasoning Engine",
+        "role": "business_reasoning",
+        "version": "1.0.0"
+      },
+
+      "updated_by": null,
+      "status": "completed",
+
+      "title": "Business Judgement for the Next Xiaohongshu Content Topic",
+      "judgement_type": "content",
+
+      "context": {
+        "task_objective": "Create a complete Xiaohongshu Content Package that extends the approved content strategy without repeating previously covered themes.",
+
+        "decision_question": "Which topic direction should be selected for the next Xiaohongshu Content Package?",
+
+        "judgement_scope": "task_specific",
+
+        "business_context": "The account positions BUXA PDMS as a high-end residential project delivery management system. Previous content has already covered project mistakes, rework costs, designer responsibility, delivery standards and the reasons for creating BUXA PDMS. The next topic should deepen the account's professional authority without repeating those themes.",
+
+        "knowledge_package_id": "kp_550e8400-e29b-41d4-a716-446655440010",
+
+        "task_constraint_ids": [
+          "constraint_no_topic_repetition",
+          "constraint_do_not_publish",
+          "constraint_use_approved_knowledge"
+        ],
+
+        "task_success_criterion_ids": [
+          "criterion_new_topic",
+          "criterion_six_page_structure",
+          "criterion_brand_compliance",
+          "criterion_quality_review"
+        ],
+
+        "context_factors": [
+          {
+            "factor_id": "context_previous_content",
+            "factor_type": "historical_context",
+            "description": "Previously published or approved content already covers common themes such as installation mistakes, rework cost, designer responsibility and project delivery control.",
+            "relevance": {
+              "level": "very_high",
+              "score": 0.98,
+              "basis": "The topic must extend rather than repeat the existing content strategy.",
+              "limitations": []
+            },
+            "knowledge_item_ids": [
+              "ki_covered_themes"
+            ],
+            "source_ids": [
+              "source_xhs_memory"
+            ],
+            "impact_summary": "Topics substantially overlapping with these existing themes should be rejected.",
+            "mandatory_consideration": true
+          },
+
+          {
+            "factor_id": "context_product_accuracy",
+            "factor_type": "product_context",
+            "description": "Any product-specific claims must remain within the approved Product Passport.",
+            "relevance": {
+              "level": "high",
+              "score": 0.93,
+              "basis": "The content may use HD03 as supporting material.",
+              "limitations": []
+            },
+            "knowledge_item_ids": [
+              "ki_hd03_product_identity"
+            ],
+            "source_ids": [
+              "source_hd03_passport"
+            ],
+            "impact_summary": "Product language must be controlled by the Product Passport.",
+            "mandatory_consideration": true
+          },
+
+          {
+            "factor_id": "context_content_standard",
+            "factor_type": "governance_context",
+            "description": "The output must follow the approved Xiaohongshu Content Standards and include a six-page content structure and formal QA.",
+            "relevance": {
+              "level": "very_high",
+              "score": 0.99,
+              "basis": "The standards govern the requested deliverable.",
+              "limitations": []
+            },
+            "knowledge_item_ids": [
+              "ki_content_standard"
+            ],
+            "source_ids": [
+              "source_xhs_content_standards"
+            ],
+            "impact_summary": "The selected topic must be suitable for a coherent six-page educational structure.",
+            "mandatory_consideration": true
+          }
+        ],
+
+        "known_limitations": [
+          "No current platform performance data was provided for the most recent posts.",
+          "The judgement evaluates strategic content fit rather than predicted engagement volume."
+        ],
+
+        "out_of_scope": [
+          "Publishing the content",
+          "Purchasing media",
+          "Changing Product Passport facts"
+        ]
+      },
+
+      "evidence_assessments": [
+        {
+          "assessment_id": "ea_content_history",
+          "knowledge_item_ids": [
+            "ki_covered_themes"
+          ],
+          "evidence_ids": [
+            "evidence_covered_themes"
+          ],
+          "source_ids": [
+            "source_xhs_memory"
+          ],
+          "evidence_role": "establishes_precedent",
+          "strength": "very_strong",
+          "reliability": "authoritative",
+          "assessment_result": "strongly_supports",
+          "reasoning": "The approved content memory provides a direct record of themes already covered and is sufficient to identify substantial repetition.",
+          "limitations": [
+            "The assessment does not include unpublished drafts that may exist outside the approved memory."
+          ],
+          "affected_option_ids": [
+            "option_installation_mistakes",
+            "option_material_selection_decision",
+            "option_delivery_invisible_work"
+          ],
+          "affected_criterion_ids": [
+            "dc_topic_differentiation"
+          ],
+          "confidence": {
+            "level": "very_high",
+            "score": 0.98,
+            "basis": "The evidence comes directly from approved historical content memory.",
+            "limitations": []
+          }
+        },
+
+        {
+          "assessment_id": "ea_content_standard",
+          "knowledge_item_ids": [
+            "ki_content_standard"
+          ],
+          "evidence_ids": [
+            "evidence_content_standard"
+          ],
+          "source_ids": [
+            "source_xhs_content_standards"
+          ],
+          "evidence_role": "establishes_rule",
+          "strength": "very_strong",
+          "reliability": "authoritative",
+          "assessment_result": "strongly_supports",
+          "reasoning": "The approved Content Standards directly define the required structure and QA expectations.",
+          "limitations": [],
+          "affected_option_ids": [
+            "option_material_selection_decision",
+            "option_delivery_invisible_work"
+          ],
+          "affected_criterion_ids": [
+            "dc_content_structure",
+            "dc_brand_alignment"
+          ],
+          "confidence": {
+            "level": "very_high",
+            "score": 0.99,
+            "basis": "The standards are the governing source for the requested deliverable.",
+            "limitations": []
+          }
+        },
+
+        {
+          "assessment_id": "ea_hd03_passport",
+          "knowledge_item_ids": [
+            "ki_hd03_product_identity"
+          ],
+          "evidence_ids": [
+            "evidence_hd03_passport"
+          ],
+          "source_ids": [
+            "source_hd03_passport"
+          ],
+          "evidence_role": "establishes_constraint",
+          "strength": "strong",
+          "reliability": "authoritative",
+          "assessment_result": "supports",
+          "reasoning": "The Product Passport can accurately support a topic discussing how product choice affects the final delivery result.",
+          "limitations": [
+            "The Product Passport alone does not support broad claims about all flooring products or all project types."
+          ],
+          "affected_option_ids": [
+            "option_material_selection_decision"
+          ],
+          "affected_criterion_ids": [
+            "dc_product_accuracy"
+          ],
+          "confidence": {
+            "level": "very_high",
+            "score": 0.97,
+            "basis": "The source is the approved Product Passport for HD03.",
+            "limitations": []
+          }
+        }
+      ],
+
+      "assumptions": [
+        {
+          "assumption_id": "assumption_audience_values_process",
+          "assumption_type": "customer",
+          "statement": "The target audience is more likely to value a topic that reveals professional decision logic than a basic product-promotion topic.",
+          "status": "accepted",
+          "materiality": "medium",
+          "basis": "The account strategy prioritises professional authority and delivery methodology rather than direct product promotion.",
+          "knowledge_item_ids": [
+            "ki_content_standard"
+          ],
+          "evidence_ids": [
+            "evidence_content_standard"
+          ],
+          "confidence": {
+            "level": "high",
+            "score": 0.84,
+            "basis": "The assumption is consistent with the approved account positioning and content standards.",
+            "limitations": [
+              "No recent audience survey or engagement test was provided."
+            ]
+          },
+          "validation_method": null,
+          "validation_owner": null,
+          "validation_due_at": null,
+          "impact_if_false": null,
+          "affected_option_ids": [
+            "option_material_selection_decision",
+            "option_delivery_invisible_work"
+          ],
+          "notes": null
+        }
+      ],
+
+      "decision_criteria": [
+        {
+          "criterion_id": "dc_topic_differentiation",
+          "criterion_type": "differentiation",
+          "name": "Topic differentiation",
+          "description": "The topic must extend the approved content strategy and avoid substantial repetition of previously covered themes.",
+          "importance": "critical",
+          "weight": 0.3,
+          "mandatory": true,
+          "minimum_acceptable_score": 0.75,
+          "task_constraint_ids": [
+            "constraint_no_topic_repetition"
+          ],
+          "task_success_criterion_ids": [
+            "criterion_new_topic"
+          ],
+          "knowledge_item_ids": [
+            "ki_covered_themes"
+          ],
+          "evaluation_method": "weighted_score",
+          "notes": null
+        },
+
+        {
+          "criterion_id": "dc_brand_alignment",
+          "criterion_type": "brand_alignment",
+          "name": "BUXA PDMS brand alignment",
+          "description": "The topic should reinforce BUXA PDMS as a professional project delivery management system rather than a generic renovation account.",
+          "importance": "critical",
+          "weight": 0.25,
+          "mandatory": true,
+          "minimum_acceptable_score": 0.8,
+          "task_constraint_ids": [],
+          "task_success_criterion_ids": [
+            "criterion_brand_compliance"
+          ],
+          "knowledge_item_ids": [
+            "ki_content_standard"
+          ],
+          "evaluation_method": "weighted_score",
+          "notes": null
+        },
+
+        {
+          "criterion_id": "dc_content_structure",
+          "criterion_type": "content_value",
+          "name": "Six-page content suitability",
+          "description": "The topic must support a clear six-page educational narrative with a strong cover, progressive explanation and practical conclusion.",
+          "importance": "high",
+          "weight": 0.2,
+          "mandatory": true,
+          "minimum_acceptable_score": 0.7,
+          "task_constraint_ids": [],
+          "task_success_criterion_ids": [
+            "criterion_six_page_structure"
+          ],
+          "knowledge_item_ids": [
+            "ki_content_standard"
+          ],
+          "evaluation_method": "weighted_score",
+          "notes": null
+        },
+
+        {
+          "criterion_id": "dc_product_accuracy",
+          "criterion_type": "product_accuracy",
+          "name": "Product claim accuracy",
+          "description": "Any product discussion must be fully supportable by approved Product Passports.",
+          "importance": "high",
+          "weight": 0.15,
+          "mandatory": true,
+          "minimum_acceptable_score": 0.8,
+          "task_constraint_ids": [
+            "constraint_use_approved_knowledge"
+          ],
+          "task_success_criterion_ids": [],
+          "knowledge_item_ids": [
+            "ki_hd03_product_identity"
+          ],
+          "evaluation_method": "threshold",
+          "notes": null
+        },
+
+        {
+          "criterion_id": "dc_execution_feasibility",
+          "criterion_type": "feasibility",
+          "name": "Execution feasibility",
+          "description": "The topic should be executable using the available knowledge without requiring unsupported research or unavailable project evidence.",
+          "importance": "medium",
+          "weight": 0.1,
+          "mandatory": false,
+          "minimum_acceptable_score": null,
+          "task_constraint_ids": [],
+          "task_success_criterion_ids": [
+            "criterion_quality_review"
+          ],
+          "knowledge_item_ids": [],
+          "evaluation_method": "weighted_score",
+          "notes": null
+        }
+      ],
+
+      "alternatives": [
+        {
+          "option_id": "option_installation_mistakes",
+          "name": "Common Installation Mistakes",
+          "description": "Create another post explaining common flooring installation mistakes and their consequences.",
+          "status": "rejected",
+          "option_type": "alternative",
+
+          "criterion_evaluations": [
+            {
+              "evaluation_id": "evaluation_installation_differentiation",
+              "criterion_id": "dc_topic_differentiation",
+              "score": 0.25,
+              "weighted_score": 0.075,
+              "result": "strongly_weakens",
+              "reasoning": "Installation mistakes have already been covered repeatedly in the approved content history.",
+              "evidence_assessment_ids": [
+                "ea_content_history"
+              ],
+              "assumption_ids": [],
+              "mandatory_criterion_met": false,
+              "limitations": []
+            },
+
+            {
+              "evaluation_id": "evaluation_installation_brand",
+              "criterion_id": "dc_brand_alignment",
+              "score": 0.7,
+              "weighted_score": 0.175,
+              "result": "supports",
+              "reasoning": "The topic relates to delivery quality, but repetition would weaken strategic value.",
+              "evidence_assessment_ids": [
+                "ea_content_history"
+              ],
+              "assumption_ids": [],
+              "mandatory_criterion_met": false,
+              "limitations": []
+            },
+
+            {
+              "evaluation_id": "evaluation_installation_structure",
+              "criterion_id": "dc_content_structure",
+              "score": 0.9,
+              "weighted_score": 0.18,
+              "result": "strongly_supports",
+              "reasoning": "The topic could easily support a six-page educational structure.",
+              "evidence_assessment_ids": [
+                "ea_content_standard"
+              ],
+              "assumption_ids": [],
+              "mandatory_criterion_met": true,
+              "limitations": []
+            },
+
+            {
+              "evaluation_id": "evaluation_installation_product",
+              "criterion_id": "dc_product_accuracy",
+              "score": 0.8,
+              "weighted_score": 0.12,
+              "result": "supports",
+              "reasoning": "The topic could be written without unsupported product claims.",
+              "evidence_assessment_ids": [],
+              "assumption_ids": [],
+              "mandatory_criterion_met": true,
+              "limitations": []
+            },
+
+            {
+              "evaluation_id": "evaluation_installation_feasibility",
+              "criterion_id": "dc_execution_feasibility",
+              "score": 0.9,
+              "weighted_score": 0.09,
+              "result": "strongly_supports",
+              "reasoning": "The topic is easy to execute using existing knowledge.",
+              "evidence_assessment_ids": [],
+              "assumption_ids": [],
+              "mandatory_criterion_met": null,
+              "limitations": []
+            }
+          ],
+
+          "advantages": [
+            {
+              "advantage_id": "advantage_installation_clear",
+              "description": "The topic is easy for homeowners and designers to understand.",
+              "importance": "medium",
+              "knowledge_item_ids": [],
+              "evidence_assessment_ids": []
+            }
+          ],
+
+          "disadvantages": [
+            {
+              "disadvantage_id": "disadvantage_installation_repetition",
+              "description": "The topic substantially repeats existing content themes.",
+              "severity": "high",
+              "knowledge_item_ids": [
+                "ki_covered_themes"
+              ],
+              "evidence_assessment_ids": [
+                "ea_content_history"
+              ],
+              "mitigatable": false,
+              "mitigation_summary": null
+            }
+          ],
+
+          "overall_score": 0.64,
+          "mandatory_criteria_met": false,
+
+          "feasibility": {
+            "level": "very_high",
+            "score": 0.93,
+            "basis": "The topic can be produced with existing internal knowledge.",
+            "limitations": []
+          },
+
+          "confidence": {
+            "level": "high",
+            "score": 0.91,
+            "basis": "The rejection is strongly supported by approved historical content records.",
+            "limitations": []
+          },
+
+          "risk_level": "medium",
+          "assumption_ids": [],
+          "evidence_assessment_ids": [
+            "ea_content_history"
+          ],
+          "knowledge_item_ids": [
+            "ki_covered_themes"
+          ],
+          "conditions": [],
+          "rejection_reasons": [
+            "Fails the mandatory topic-differentiation criterion.",
+            "Would not materially extend the current content strategy."
+          ],
+          "notes": null
+        },
+
+        {
+          "option_id": "option_delivery_invisible_work",
+          "name": "The Invisible Work Behind a High-End Delivery",
+          "description": "Explain the professional coordination and control work that homeowners do not directly see behind a high-end residential delivery.",
+          "status": "not_preferred",
+          "option_type": "alternative",
+
+          "criterion_evaluations": [
+            {
+              "evaluation_id": "evaluation_invisible_differentiation",
+              "criterion_id": "dc_topic_differentiation",
+              "score": 0.72,
+              "weighted_score": 0.216,
+              "result": "supports",
+              "reasoning": "The framing is relatively new, but it remains close to previously covered delivery-management themes.",
+              "evidence_assessment_ids": [
+                "ea_content_history"
+              ],
+              "assumption_ids": [],
+              "mandatory_criterion_met": false,
+              "limitations": []
+            },
+
+            {
+              "evaluation_id": "evaluation_invisible_brand",
+              "criterion_id": "dc_brand_alignment",
+              "score": 0.95,
+              "weighted_score": 0.2375,
+              "result": "strongly_supports",
+              "reasoning": "The topic strongly reinforces the professional delivery-management positioning.",
+              "evidence_assessment_ids": [
+                "ea_content_standard"
+              ],
+              "assumption_ids": [
+                "assumption_audience_values_process"
+              ],
+              "mandatory_criterion_met": true,
+              "limitations": []
+            },
+
+            {
+              "evaluation_id": "evaluation_invisible_structure",
+              "criterion_id": "dc_content_structure",
+              "score": 0.9,
+              "weighted_score": 0.18,
+              "result": "strongly_supports",
+              "reasoning": "The hidden-work concept can be divided into six clear stages or professional responsibilities.",
+              "evidence_assessment_ids": [
+                "ea_content_standard"
+              ],
+              "assumption_ids": [],
+              "mandatory_criterion_met": true,
+              "limitations": []
+            },
+
+            {
+              "evaluation_id": "evaluation_invisible_product",
+              "criterion_id": "dc_product_accuracy",
+              "score": 0.85,
+              "weighted_score": 0.1275,
+              "result": "supports",
+              "reasoning": "The topic can avoid detailed product claims and remain within approved knowledge.",
+              "evidence_assessment_ids": [],
+              "assumption_ids": [],
+              "mandatory_criterion_met": true,
+              "limitations": []
+            },
+
+            {
+              "evaluation_id": "evaluation_invisible_feasibility",
+              "criterion_id": "dc_execution_feasibility",
+              "score": 0.9,
+              "weighted_score": 0.09,
+              "result": "strongly_supports",
+              "reasoning": "The topic can be produced from approved PDMS and Content Standards.",
+              "evidence_assessment_ids": [],
+              "assumption_ids": [],
+              "mandatory_criterion_met": null,
+              "limitations": []
+            }
+          ],
+
+          "advantages": [
+            {
+              "advantage_id": "advantage_invisible_brand",
+              "description": "Strongly communicates the value of professional project delivery management.",
+              "importance": "high",
+              "knowledge_item_ids": [
+                "ki_content_standard"
+              ],
+              "evidence_assessment_ids": [
+                "ea_content_standard"
+              ]
+            }
+          ],
+
+          "disadvantages": [
+            {
+              "disadvantage_id": "disadvantage_invisible_overlap",
+              "description": "The topic remains close to existing delivery-control and project-management themes.",
+              "severity": "medium",
+              "knowledge_item_ids": [
+                "ki_covered_themes"
+              ],
+              "evidence_assessment_ids": [
+                "ea_content_history"
+              ],
+              "mitigatable": true,
+              "mitigation_summary": "Use a highly specific narrative angle focused on unseen coordination rather than general delivery control."
+            }
+          ],
+
+          "overall_score": 0.851,
+          "mandatory_criteria_met": false,
+
+          "feasibility": {
+            "level": "very_high",
+            "score": 0.92,
+            "basis": "The topic can be produced using available approved knowledge.",
+            "limitations": []
+          },
+
+          "confidence": {
+            "level": "high",
+            "score": 0.88,
+            "basis": "The topic's strengths are clear, although differentiation remains borderline.",
+            "limitations": [
+              "The degree of perceived repetition may depend on final framing."
+            ]
+          },
+
+          "risk_level": "low",
+          "assumption_ids": [
+            "assumption_audience_values_process"
+          ],
+          "evidence_assessment_ids": [
+            "ea_content_history",
+            "ea_content_standard"
+          ],
+          "knowledge_item_ids": [
+            "ki_covered_themes",
+            "ki_content_standard"
+          ],
+          "conditions": [],
+          "rejection_reasons": [],
+          "notes": "Retain as a future fallback topic after a greater interval from similar delivery-management posts."
+        },
+
+        {
+          "option_id": "option_material_selection_decision",
+          "name": "High-End Flooring Selection Is a Delivery Decision",
+          "description": "Explain why flooring selection in a high-end residence is not only a material or colour choice, but also a project-delivery decision involving specifications, site conditions, finishing interfaces and long-term performance expectations.",
+          "status": "preferred",
+          "option_type": "proposed",
+
+          "criterion_evaluations": [
+            {
+              "evaluation_id": "evaluation_material_differentiation",
+              "criterion_id": "dc_topic_differentiation",
+              "score": 0.94,
+              "weighted_score": 0.282,
+              "result": "strongly_supports",
+              "reasoning": "The topic connects product selection with delivery management in a way not substantially covered by previous topics.",
+              "evidence_assessment_ids": [
+                "ea_content_history",
+                "ea_hd03_passport"
+              ],
+              "assumption_ids": [
+                "assumption_audience_values_process"
+              ],
+              "mandatory_criterion_met": true,
+              "limitations": []
+            },
+
+            {
+              "evaluation_id": "evaluation_material_brand",
+              "criterion_id": "dc_brand_alignment",
+              "score": 0.97,
+              "weighted_score": 0.2425,
+              "result": "strongly_supports",
+              "reasoning": "The topic directly demonstrates how BUXA PDMS connects material decisions with project delivery outcomes.",
+              "evidence_assessment_ids": [
+                "ea_content_standard"
+              ],
+              "assumption_ids": [
+                "assumption_audience_values_process"
+              ],
+              "mandatory_criterion_met": true,
+              "limitations": []
+            },
+
+            {
+              "evaluation_id": "evaluation_material_structure",
+              "criterion_id": "dc_content_structure",
+              "score": 0.95,
+              "weighted_score": 0.19,
+              "result": "strongly_supports",
+              "reasoning": "The subject supports a clear six-page sequence from misconception to decision framework and conclusion.",
+              "evidence_assessment_ids": [
+                "ea_content_standard"
+              ],
+              "assumption_ids": [],
+              "mandatory_criterion_met": true,
+              "limitations": []
+            },
+
+            {
+              "evaluation_id": "evaluation_material_product",
+              "criterion_id": "dc_product_accuracy",
+              "score": 0.95,
+              "weighted_score": 0.1425,
+              "result": "strongly_supports",
+              "reasoning": "HD03 and other approved product facts may be used as controlled examples without exceeding Product Passport boundaries.",
+              "evidence_assessment_ids": [
+                "ea_hd03_passport"
+              ],
+              "assumption_ids": [],
+              "mandatory_criterion_met": true,
+              "limitations": []
+            },
+
+            {
+              "evaluation_id": "evaluation_material_feasibility",
+              "criterion_id": "dc_execution_feasibility",
+              "score": 0.91,
+              "weighted_score": 0.091,
+              "result": "strongly_supports",
+              "reasoning": "The topic can be produced from the retrieved Product Passport, Content Standards and approved content memory.",
+              "evidence_assessment_ids": [
+                "ea_content_standard",
+                "ea_hd03_passport"
+              ],
+              "assumption_ids": [],
+              "mandatory_criterion_met": null,
+              "limitations": []
+            }
+          ],
+
+          "advantages": [
+            {
+              "advantage_id": "advantage_material_strategy",
+              "description": "Creates a new bridge between BUXA flooring expertise and the PDMS delivery-management positioning.",
+              "importance": "critical",
+              "knowledge_item_ids": [
+                "ki_hd03_product_identity",
+                "ki_content_standard"
+              ],
+              "evidence_assessment_ids": [
+                "ea_hd03_passport",
+                "ea_content_standard"
+              ]
+            },
+
+            {
+              "advantage_id": "advantage_material_education",
+              "description": "Provides practical professional value to designers by reframing flooring selection as a coordinated project decision.",
+              "importance": "high",
+              "knowledge_item_ids": [],
+              "evidence_assessment_ids": []
+            }
+          ],
+
+          "disadvantages": [
+            {
+              "disadvantage_id": "disadvantage_material_claim_control",
+              "description": "The content could become inaccurate if it introduces technical or performance claims not contained in approved Product Passports or Standards.",
+              "severity": "medium",
+              "knowledge_item_ids": [
+                "ki_hd03_product_identity"
+              ],
+              "evidence_assessment_ids": [
+                "ea_hd03_passport"
+              ],
+              "mitigatable": true,
+              "mitigation_summary": "Require every product-specific statement to trace back to an approved Product Passport or Product Standard."
+            }
+          ],
+
+          "overall_score": 0.948,
+          "mandatory_criteria_met": true,
+
+          "feasibility": {
+            "level": "very_high",
+            "score": 0.93,
+            "basis": "All essential content elements can be supported by approved internal knowledge.",
+            "limitations": [
+              "Detailed performance claims must remain within Product Passport boundaries."
+            ]
+          },
+
+          "confidence": {
+            "level": "very_high",
+            "score": 0.95,
+            "basis": "The option performs strongly across every mandatory criterion and has clear strategic differentiation.",
+            "limitations": [
+              "Final copy must be checked for unsupported generalisations."
+            ]
+          },
+
+          "risk_level": "low",
+
+          "assumption_ids": [
+            "assumption_audience_values_process"
+          ],
+
+          "evidence_assessment_ids": [
+            "ea_content_history",
+            "ea_content_standard",
+            "ea_hd03_passport"
+          ],
+
+          "knowledge_item_ids": [
+            "ki_covered_themes",
+            "ki_content_standard",
+            "ki_hd03_product_identity"
+          ],
+
+          "conditions": [
+            "All product facts must be validated against approved Product Passports.",
+            "The post must remain educational rather than becoming a direct product advertisement.",
+            "The final Content Package must pass Brand, Product and Content Standards QA."
+          ],
+
+          "rejection_reasons": [],
+          "notes": null
+        }
+      ],
+
+      "tradeoffs": [
+        {
+          "tradeoff_id": "tradeoff_product_vs_methodology",
+          "dimension": "business_value_vs_complexity",
+          "first_consideration": "Use product-specific content to make the post concrete and commercially relevant.",
+          "second_consideration": "Keep the post focused on PDMS methodology rather than turning it into direct product promotion.",
+          "selected_position": "balanced",
+          "reasoning": "The preferred topic should use flooring as a practical example of delivery decision-making while keeping the primary lesson focused on project coordination, specification control and delivery quality.",
+          "materiality": "high",
+          "affected_option_ids": [
+            "option_material_selection_decision"
+          ],
+          "criterion_ids": [
+            "dc_brand_alignment",
+            "dc_product_accuracy"
+          ],
+          "evidence_assessment_ids": [
+            "ea_content_standard",
+            "ea_hd03_passport"
+          ],
+          "accepted_costs": [
+            "The post may be less directly promotional than a conventional product post."
+          ],
+          "protected_values": [
+            "Professional authority",
+            "Product accuracy",
+            "BUXA PDMS positioning"
+          ],
+          "reconsideration_trigger": null,
+          "confidence": {
+            "level": "high",
+            "score": 0.91,
+            "basis": "The balance is consistent with the account strategy and approved knowledge.",
+            "limitations": []
+          }
+        }
+      ],
+
+      "risk_evaluation": {
+        "overall_risk_level": "low",
+
+        "risks": [
+          {
+            "risk_id": "risk_unsupported_product_claim",
+            "risk_type": "product_accuracy",
+            "description": "The final content may introduce product or technical claims not supported by the approved Product Passport.",
+            "cause": "The topic combines product selection with broader project-delivery reasoning.",
+            "potential_impact": "Unsupported claims could reduce product accuracy, create inconsistency with the knowledge base and fail Product Standards QA.",
+            "probability": "possible",
+            "impact": "moderate",
+            "inherent_risk_level": "medium",
+            "response": "reduce",
+            "status": "mitigated",
+            "affected_option_ids": [
+              "option_material_selection_decision"
+            ],
+            "affected_recommendation_ids": [
+              "recommendation_select_material_decision_topic"
+            ],
+            "assumption_ids": [],
+            "knowledge_item_ids": [
+              "ki_hd03_product_identity"
+            ],
+
+            "mitigations": [
+              {
+                "mitigation_id": "mitigation_passport_traceability",
+                "description": "Trace every product-specific claim to an approved Product Passport or Product Standard before final approval.",
+                "mitigation_type": "quality_check",
+                "required": true,
+                "status": "planned",
+                "owner": {
+                  "actor_type": "engine",
+                  "actor_id": "quality_engine",
+                  "display_name": "Scout Quality Engine",
+                  "role": "quality_review",
+                  "version": "1.0.0"
+                },
+                "verification_method": "Perform claim-level Product Standards validation during Quality Review.",
+                "due_at": null,
+                "related_condition_ids": [
+                  "condition_product_claim_validation"
+                ]
+              }
+            ],
+
+            "residual_risk_level": "low",
+
+            "risk_owner": {
+              "actor_type": "engine",
+              "actor_id": "quality_engine",
+              "display_name": "Scout Quality Engine",
+              "role": "quality_review",
+              "version": "1.0.0"
+            },
+
+            "monitoring_indicator": null,
+            "escalation_trigger": null,
+            "notes": null
+          },
+
+          {
+            "risk_id": "risk_topic_becomes_advertisement",
+            "risk_type": "brand",
+            "description": "The final post may become overly promotional and weaken the professional PDMS positioning.",
+            "cause": "The preferred topic uses flooring selection as its central example.",
+            "potential_impact": "The account may appear to be presenting conventional product advertising rather than project-delivery expertise.",
+            "probability": "unlikely",
+            "impact": "moderate",
+            "inherent_risk_level": "low",
+            "response": "reduce",
+            "status": "mitigated",
+            "affected_option_ids": [
+              "option_material_selection_decision"
+            ],
+            "affected_recommendation_ids": [
+              "recommendation_select_material_decision_topic"
+            ],
+            "assumption_ids": [
+              "assumption_audience_values_process"
+            ],
+            "knowledge_item_ids": [
+              "ki_content_standard"
+            ],
+
+            "mitigations": [
+              {
+                "mitigation_id": "mitigation_methodology_first",
+                "description": "Keep the post's primary narrative focused on delivery decision logic, with products used only as supporting examples.",
+                "mitigation_type": "scope_reduction",
+                "required": true,
+                "status": "planned",
+                "owner": {
+                  "actor_type": "engine",
+                  "actor_id": "planning_engine",
+                  "display_name": "Scout Planning Engine",
+                  "role": "execution_planning",
+                  "version": "1.0.0"
+                },
+                "verification_method": "Confirm that the six-page structure teaches a decision framework rather than presenting a product catalogue.",
+                "due_at": null,
+                "related_condition_ids": [
+                  "condition_methodology_first"
+                ]
+              }
+            ],
+
+            "residual_risk_level": "low",
+
+            "risk_owner": {
+              "actor_type": "engine",
+              "actor_id": "planning_engine",
+              "display_name": "Scout Planning Engine",
+              "role": "execution_planning",
+              "version": "1.0.0"
+            },
+
+            "monitoring_indicator": null,
+            "escalation_trigger": null,
+            "notes": null
+          }
+        ],
+
+        "high_risk_count": 0,
+        "critical_risk_count": 0,
+        "unmitigated_risk_count": 0,
+        "risk_acceptance_required": false,
+        "risk_accepted": false,
+        "accepted_by": null,
+        "accepted_at": null,
+
+        "summary": "The preferred direction carries limited and controllable risks. The principal risks concern unsupported product claims and excessive promotional framing; both can be reduced through Product Passport traceability and methodology-first content planning.",
+
+        "limitations": [
+          "Risk evaluation does not estimate future platform engagement performance."
+        ]
+      },
+
+      "recommendations": [
+        {
+          "recommendation_id": "recommendation_select_material_decision_topic",
+          "title": "Select the Material Selection as Delivery Decision Topic",
+
+          "description": "Use the topic High-End Flooring Selection Is a Delivery Decision as the strategic direction for the next Xiaohongshu Content Package.",
+
+          "status": "recommended",
+          "priority": "high",
+
+          "recommended_action": "Proceed to Execution Blueprint planning for a six-page Xiaohongshu post that explains how flooring selection affects specification coordination, interfaces, installation readiness, final visual consistency and project delivery quality.",
+
+          "rationale": "This direction provides the strongest combination of topic differentiation, BUXA PDMS brand alignment, practical designer value, six-page narrative suitability and product accuracy. It extends the existing content strategy by connecting material choice with delivery management rather than repeating common installation or project-control themes.",
+
+          "option_ids": [
+            "option_material_selection_decision"
+          ],
+
+          "criterion_ids": [
+            "dc_topic_differentiation",
+            "dc_brand_alignment",
+            "dc_content_structure",
+            "dc_product_accuracy",
+            "dc_execution_feasibility"
+          ],
+
+          "evidence_assessment_ids": [
+            "ea_content_history",
+            "ea_content_standard",
+            "ea_hd03_passport"
+          ],
+
+          "assumption_ids": [
+            "assumption_audience_values_process"
+          ],
+
+          "risk_ids": [
+            "risk_unsupported_product_claim",
+            "risk_topic_becomes_advertisement"
+          ],
+
+          "conditions": [
+            {
+              "condition_id": "condition_product_claim_validation",
+              "condition_type": "product",
+              "description": "All product-specific facts must be traceable to an approved Product Passport or Product Standard.",
+              "mandatory": true,
+              "status": "open",
+              "verification_method": "Perform claim-level Product Standards QA before the Content Package is approved.",
+              "owner": {
+                "actor_type": "engine",
+                "actor_id": "quality_engine",
+                "display_name": "Scout Quality Engine",
+                "role": "quality_review",
+                "version": "1.0.0"
+              },
+              "due_at": null,
+              "satisfied_by": null,
+              "satisfied_at": null,
+              "evidence_refs": [],
+              "related_risk_ids": [
+                "risk_unsupported_product_claim"
+              ],
+              "failure_effect": "The Content Package must not be approved or published.",
+              "notes": null
+            },
+
+            {
+              "condition_id": "condition_methodology_first",
+              "condition_type": "brand",
+              "description": "The content must remain primarily educational and methodology-led, with product references used only as supporting examples.",
+              "mandatory": true,
+              "status": "open",
+              "verification_method": "Review the six-page structure and final copy against Brand and Content Standards.",
+              "owner": {
+                "actor_type": "engine",
+                "actor_id": "quality_engine",
+                "display_name": "Scout Quality Engine",
+                "role": "quality_review",
+                "version": "1.0.0"
+              },
+              "due_at": null,
+              "satisfied_by": null,
+              "satisfied_at": null,
+              "evidence_refs": [],
+              "related_risk_ids": [
+                "risk_topic_becomes_advertisement"
+              ],
+              "failure_effect": "The package must be revised before approval.",
+              "notes": null
+            }
+          ],
+
+          "expected_benefits": [
+            "Extends the approved content strategy with a distinct professional topic.",
+            "Strengthens the connection between BUXA flooring expertise and BUXA PDMS.",
+            "Provides practical decision value to interior designers.",
+            "Supports a coherent six-page educational structure."
+          ],
+
+          "implementation_implications": [
+            "The Execution Blueprint must include Product Passport retrieval and claim-level QA.",
+            "The image plan should communicate decision logic and project interfaces rather than conventional product advertising.",
+            "The final package must remain unpublished until human approval."
+          ],
+
+          "non_recommended_actions": [
+            "Do not frame the post as a direct HD03 sales promotion.",
+            "Do not add unsupported technical performance claims.",
+            "Do not repeat a generic installation-mistakes structure."
+          ],
+
+          "reconsideration_triggers": [
+            "A newly approved post is found to have already covered the same material-selection framing.",
+            "Required Product Passport facts are unavailable or conflicted.",
+            "Brand Standards are updated to prohibit the proposed framing."
+          ],
+
+          "confidence": {
+            "level": "very_high",
+            "score": 0.95,
+            "basis": "The recommendation is supported by the option's superior score across all mandatory criteria.",
+            "limitations": [
+              "No platform-level performance forecast is included."
+            ]
+          }
+        }
+      ],
+
+      "decision": {
+        "decision_id": "decision_select_material_topic",
+        "outcome_type": "select_option",
+
+        "statement": "Select High-End Flooring Selection Is a Delivery Decision as the direction for the next Xiaohongshu Content Package.",
+
+        "selected_option_ids": [
+          "option_material_selection_decision"
+        ],
+
+        "rejected_option_ids": [
+          "option_installation_mistakes"
+        ],
+
+        "deferred_option_ids": [
+          "option_delivery_invisible_work"
+        ],
+
+        "recommendation_ids": [
+          "recommendation_select_material_decision_topic"
+        ],
+
+        "conditions": [],
+
+        "decision_basis": "The selected option is the only alternative that meets every mandatory criterion and receives the highest overall score. It is substantially differentiated from previous topics, strongly reinforces the BUXA PDMS positioning, supports a clear six-page structure and can be grounded in approved Product Passports and Content Standards.",
+
+        "criterion_ids": [
+          "dc_topic_differentiation",
+          "dc_brand_alignment",
+          "dc_content_structure",
+          "dc_product_accuracy",
+          "dc_execution_feasibility"
+        ],
+
+        "tradeoff_ids": [
+          "tradeoff_product_vs_methodology"
+        ],
+
+        "risk_ids": [
+          "risk_unsupported_product_claim",
+          "risk_topic_becomes_advertisement"
+        ],
+
+        "assumption_ids": [
+          "assumption_audience_values_process"
+        ],
+
+        "evidence_assessment_ids": [
+          "ea_content_history",
+          "ea_content_standard",
+          "ea_hd03_passport"
+        ],
+
+        "reversibility": "fully_reversible",
+        "valid_until": null,
+
+        "reconsideration_triggers": [
+          "New approved content substantially overlaps with the selected topic.",
+          "The Product Passport or Content Standards are superseded.",
+          "Required product claims cannot be verified."
+        ],
+
+        "confidence": {
+          "level": "very_high",
+          "score": 0.95,
+          "basis": "The selected option clearly outperforms alternatives and satisfies all mandatory criteria.",
+          "limitations": [
+            "The decision evaluates strategic suitability, not guaranteed audience performance."
+          ]
+        }
+      },
+
+      "business_rationale": {
+        "summary": "The selected topic provides the strongest strategic extension of the existing Xiaohongshu content system. It connects BUXA's flooring expertise with the PDMS delivery-management proposition, while avoiding repetition of previously covered installation and project-control themes.",
+
+        "primary_reasons": [
+          {
+            "rationale_point_id": "rationale_differentiated_topic",
+            "point_type": "objective_alignment",
+            "statement": "The topic introduces a distinct decision-management perspective instead of repeating common installation or rework themes.",
+            "importance": "critical",
+            "supports_decision": true,
+            "knowledge_item_ids": [
+              "ki_covered_themes"
+            ],
+            "evidence_assessment_ids": [
+              "ea_content_history"
+            ],
+            "criterion_ids": [
+              "dc_topic_differentiation"
+            ],
+            "option_ids": [
+              "option_material_selection_decision"
+            ],
+            "risk_ids": [],
+            "assumption_ids": []
+          },
+
+          {
+            "rationale_point_id": "rationale_pdms_alignment",
+            "point_type": "business_value",
+            "statement": "The topic demonstrates that high-end material selection is part of delivery management and therefore reinforces the BUXA PDMS positioning.",
+            "importance": "critical",
+            "supports_decision": true,
+            "knowledge_item_ids": [
+              "ki_content_standard"
+            ],
+            "evidence_assessment_ids": [
+              "ea_content_standard"
+            ],
+            "criterion_ids": [
+              "dc_brand_alignment"
+            ],
+            "option_ids": [
+              "option_material_selection_decision"
+            ],
+            "risk_ids": [],
+            "assumption_ids": [
+              "assumption_audience_values_process"
+            ]
+          },
+
+          {
+            "rationale_point_id": "rationale_product_grounding",
+            "point_type": "evidence",
+            "statement": "The content can use approved Product Passport facts to make the methodology concrete without relying on unsupported claims.",
+            "importance": "high",
+            "supports_decision": true,
+            "knowledge_item_ids": [
+              "ki_hd03_product_identity"
+            ],
+            "evidence_assessment_ids": [
+              "ea_hd03_passport"
+            ],
+            "criterion_ids": [
+              "dc_product_accuracy"
+            ],
+            "option_ids": [
+              "option_material_selection_decision"
+            ],
+            "risk_ids": [
+              "risk_unsupported_product_claim"
+            ],
+            "assumption_ids": []
+          },
+
+          {
+            "rationale_point_id": "rationale_quality_condition",
+            "point_type": "condition",
+            "statement": "The preferred direction remains valid only when product claims are traceable and the post stays methodology-led.",
+            "importance": "high",
+            "supports_decision": true,
+            "knowledge_item_ids": [
+              "ki_content_standard",
+              "ki_hd03_product_identity"
+            ],
+            "evidence_assessment_ids": [
+              "ea_content_standard",
+              "ea_hd03_passport"
+            ],
+            "criterion_ids": [
+              "dc_brand_alignment",
+              "dc_product_accuracy"
+            ],
+            "option_ids": [
+              "option_material_selection_decision"
+            ],
+            "risk_ids": [
+              "risk_unsupported_product_claim",
+              "risk_topic_becomes_advertisement"
+            ],
+            "assumption_ids": []
+          }
+        ],
+
+        "rejected_alternative_summary": "The installation-mistakes option was rejected because it fails the mandatory differentiation requirement. The invisible-work option remains strategically relevant but was deferred because it overlaps more closely with previously covered delivery-management themes.",
+
+        "tradeoff_summary": "The judgement balances commercial product relevance with the need to preserve BUXA PDMS as a methodology-led professional brand. Product content is accepted only as evidence and illustration of delivery decision logic.",
+
+        "risk_summary": "The principal risks are unsupported product claims and overly promotional framing. Both are low after applying Product Passport traceability and methodology-first quality controls.",
+
+        "assumption_summary": "The judgement assumes the target audience values professional decision frameworks more than generic product promotion. This assumption is consistent with the approved account strategy but has not been validated through a recent audience study.",
+
+        "limitations": [
+          "No recent engagement data was used to forecast platform performance.",
+          "The judgement does not determine the final wording or image composition.",
+          "The judgement remains dependent on current Product Passports and Content Standards."
+        ],
+
+        "confidence": {
+          "level": "very_high",
+          "score": 0.94,
+          "basis": "The rationale is supported by approved internal memory, Product Passport knowledge and Content Standards.",
+          "limitations": [
+            "Audience-performance assumptions have not been tested with current campaign data."
+          ]
+        }
+      },
+
+      "reasoning_process": {
+        "decision_mode": "hybrid",
+
+        "reasoning_methods": [
+          "constraint_analysis",
+          "comparative_analysis",
+          "weighted_scoring",
+          "tradeoff_analysis",
+          "risk_analysis",
+          "principle_application"
+        ],
+
+        "started_at": "2026-07-27T09:36:00Z",
+        "completed_at": "2026-07-27T09:45:00Z",
+
+        "steps": [
+          {
+            "step_id": "reasoning_step_frame_question",
+            "sequence": 1,
+            "step_type": "frame_question",
+            "input_summary": "Task objective, deliverables and Knowledge Package.",
+            "operation_summary": "Converted the Task objective into a topic-selection decision question.",
+            "output_summary": "The judgement must identify the strongest new Xiaohongshu topic direction.",
+            "status": "completed",
+            "knowledge_item_ids": [],
+            "option_ids": [],
+            "criterion_ids": [],
+            "exception_ids": []
+          },
+
+          {
+            "step_id": "reasoning_step_identify_constraints",
+            "sequence": 2,
+            "step_type": "identify_constraints",
+            "input_summary": "Task constraints and approved content history.",
+            "operation_summary": "Identified topic differentiation, approved-source use and no-publication requirements as mandatory constraints.",
+            "output_summary": "Any repeated topic or unsupported content direction must be rejected.",
+            "status": "completed",
+            "knowledge_item_ids": [
+              "ki_covered_themes",
+              "ki_content_standard"
+            ],
+            "option_ids": [],
+            "criterion_ids": [
+              "dc_topic_differentiation",
+              "dc_product_accuracy"
+            ],
+            "exception_ids": []
+          },
+
+          {
+            "step_id": "reasoning_step_generate_options",
+            "sequence": 3,
+            "step_type": "generate_options",
+            "input_summary": "Approved content history, brand positioning and available product knowledge.",
+            "operation_summary": "Generated three candidate topic directions with different relationships to existing themes.",
+            "output_summary": "Three alternatives were selected for structured evaluation.",
+            "status": "completed",
+            "knowledge_item_ids": [
+              "ki_covered_themes",
+              "ki_hd03_product_identity",
+              "ki_content_standard"
+            ],
+            "option_ids": [
+              "option_installation_mistakes",
+              "option_delivery_invisible_work",
+              "option_material_selection_decision"
+            ],
+            "criterion_ids": [],
+            "exception_ids": []
+          },
+
+          {
+            "step_id": "reasoning_step_compare_options",
+            "sequence": 4,
+            "step_type": "compare_options",
+            "input_summary": "Three alternatives and five weighted decision criteria.",
+            "operation_summary": "Evaluated each option for differentiation, brand alignment, content structure, product accuracy and feasibility.",
+            "output_summary": "The material-selection decision topic received the highest score and met all mandatory criteria.",
+            "status": "completed",
+            "knowledge_item_ids": [
+              "ki_covered_themes",
+              "ki_hd03_product_identity",
+              "ki_content_standard"
+            ],
+            "option_ids": [
+              "option_installation_mistakes",
+              "option_delivery_invisible_work",
+              "option_material_selection_decision"
+            ],
+            "criterion_ids": [
+              "dc_topic_differentiation",
+              "dc_brand_alignment",
+              "dc_content_structure",
+              "dc_product_accuracy",
+              "dc_execution_feasibility"
+            ],
+            "exception_ids": []
+          },
+
+          {
+            "step_id": "reasoning_step_evaluate_tradeoffs",
+            "sequence": 5,
+            "step_type": "evaluate_tradeoffs",
+            "input_summary": "Preferred option and risks of product-led framing.",
+            "operation_summary": "Balanced product relevance against methodology-led brand positioning.",
+            "output_summary": "Use flooring as a practical example while keeping project-delivery logic as the principal lesson.",
+            "status": "completed",
+            "knowledge_item_ids": [
+              "ki_hd03_product_identity",
+              "ki_content_standard"
+            ],
+            "option_ids": [
+              "option_material_selection_decision"
+            ],
+            "criterion_ids": [
+              "dc_brand_alignment",
+              "dc_product_accuracy"
+            ],
+            "exception_ids": []
+          },
+
+          {
+            "step_id": "reasoning_step_evaluate_risks",
+            "sequence": 6,
+            "step_type": "evaluate_risks",
+            "input_summary": "Preferred option, assumptions and trade-off analysis.",
+            "operation_summary": "Identified product-accuracy and promotional-framing risks and defined mitigations.",
+            "output_summary": "Residual risk is low when Product Passport traceability and methodology-first QA are applied.",
+            "status": "completed",
+            "knowledge_item_ids": [
+              "ki_hd03_product_identity",
+              "ki_content_standard"
+            ],
+            "option_ids": [
+              "option_material_selection_decision"
+            ],
+            "criterion_ids": [
+              "dc_brand_alignment",
+              "dc_product_accuracy"
+            ],
+            "exception_ids": []
+          },
+
+          {
+            "step_id": "reasoning_step_select_option",
+            "sequence": 7,
+            "step_type": "select_option",
+            "input_summary": "Option scores, mandatory-criterion results, trade-offs and residual risks.",
+            "operation_summary": "Selected the highest-scoring option that satisfied every mandatory criterion.",
+            "output_summary": "High-End Flooring Selection Is a Delivery Decision was selected.",
+            "status": "completed",
+            "knowledge_item_ids": [
+              "ki_covered_themes",
+              "ki_hd03_product_identity",
+              "ki_content_standard"
+            ],
+            "option_ids": [
+              "option_material_selection_decision"
+            ],
+            "criterion_ids": [
+              "dc_topic_differentiation",
+              "dc_brand_alignment",
+              "dc_content_structure",
+              "dc_product_accuracy",
+              "dc_execution_feasibility"
+            ],
+            "exception_ids": []
+          },
+
+          {
+            "step_id": "reasoning_step_validate_judgement",
+            "sequence": 8,
+            "step_type": "validate_judgement",
+            "input_summary": "Final decision, recommendation, rationale and related evidence.",
+            "operation_summary": "Checked task alignment, traceability, criterion coverage, assumption transparency, risk completeness and internal consistency.",
+            "output_summary": "The judgement passed all mandatory validation checks.",
+            "status": "completed",
+            "knowledge_item_ids": [
+              "ki_covered_themes",
+              "ki_hd03_product_identity",
+              "ki_content_standard"
+            ],
+            "option_ids": [
+              "option_material_selection_decision"
+            ],
+            "criterion_ids": [
+              "dc_topic_differentiation",
+              "dc_brand_alignment",
+              "dc_content_structure",
+              "dc_product_accuracy",
+              "dc_execution_feasibility"
+            ],
+            "exception_ids": []
+          }
+        ],
+
+        "iterations": 1,
+        "alternatives_generated": 3,
+        "alternatives_rejected": 1,
+        "human_input_used": false,
+        "human_input_source_refs": [],
+
+        "summary": "The Reasoning Engine framed the decision, converted Task requirements into weighted criteria, evaluated three topic directions, assessed material trade-offs and risks, and selected the only option that met all mandatory criteria.",
+
+        "limitations": [
+          "The reasoning process does not predict future audience engagement.",
+          "The reasoning process does not define final page-level copy."
+        ]
+      },
+
+      "reasoning_summary": {
+        "decision_question": "Which topic direction should be selected for the next Xiaohongshu Content Package?",
+
+        "options_considered": [
+          "Common Installation Mistakes",
+          "The Invisible Work Behind a High-End Delivery",
+          "High-End Flooring Selection Is a Delivery Decision"
+        ],
+
+        "preferred_option": "High-End Flooring Selection Is a Delivery Decision",
+
+        "primary_basis": [
+          "It is substantially more differentiated from previously covered themes.",
+          "It reinforces BUXA PDMS as a delivery-management system.",
+          "It supports a clear six-page educational structure.",
+          "It can be grounded in approved Product Passports and Content Standards.",
+          "It meets every mandatory decision criterion."
+        ],
+
+        "key_tradeoffs": [
+          "Use flooring content to provide practical relevance without turning the post into conventional product advertising."
+        ],
+
+        "key_risks": [
+          "Unsupported product claims",
+          "Overly promotional framing"
+        ],
+
+        "conditions": [
+          "Validate every product-specific claim against an approved Product Passport or Product Standard.",
+          "Keep the narrative methodology-led.",
+          "Complete Brand, Product and Content Standards QA before approval."
+        ],
+
+        "conclusion": "Proceed to Execution Blueprint planning using the selected topic. The Blueprint should preserve the product-accuracy and methodology-first conditions identified by this judgement.",
+
+        "confidence_statement": "Confidence is very high because the preferred option clearly outperforms the alternatives and satisfies all mandatory criteria."
+      },
+
+      "confidence": {
+        "level": "very_high",
+        "score": 0.95,
+        "basis": "The judgement is supported by approved content history, Product Passport knowledge and Content Standards, and the preferred option satisfies all mandatory criteria.",
+        "limitations": [
+          "No current engagement-performance data was included."
+        ]
+      },
+
+      "approval": {
+        "required": false,
+        "status": "not_required",
+        "required_role": null,
+        "requested_from": null,
+        "requested_at": null,
+        "decided_by": null,
+        "decided_at": null,
+        "expires_at": null,
+        "notes": "Approval is not required for internal topic selection. Publication remains prohibited by the Task authority."
+      },
+
+      "risk_assessment": {
+        "overall_level": "low",
+        "categories": [
+          "brand",
+          "product_accuracy",
+          "content_accuracy"
+        ],
+        "summary": "The judgement has low residual risk after applying Product Passport traceability and methodology-first content controls.",
+        "requires_approval": false,
+        "requires_human_review": false,
+        "mitigation_required": true,
+        "mitigation_summary": "Apply claim-level Product Standards review and Brand Standards review during downstream Quality Review."
+      },
+
+      "quality_state": {
+        "status": "not_reviewed",
+        "latest_report_id": null,
+        "reviewed_at": null,
+        "summary": null
+      },
+
+      "judgement_validation": {
+        "status": "valid",
+
+        "checks": [
+          {
+            "check_id": "judgement_check_task_alignment",
+            "check_type": "task_alignment",
+            "description": "Confirm that the selected decision directly supports the Task objective.",
+            "mandatory": true,
+            "status": "passed",
+            "finding": "The selected topic directly supports the requirement to create a differentiated Xiaohongshu Content Package.",
+            "related_object_ids": [
+              "task_550e8400-e29b-41d4-a716-446655440000"
+            ],
+            "related_reference_ids": [
+              "decision_select_material_topic"
+            ],
+            "recommended_resolution": null
+          },
+
+          {
+            "check_id": "judgement_check_traceability",
+            "check_type": "knowledge_traceability",
+            "description": "Confirm that material judgement claims are traceable to the Knowledge Package.",
+            "mandatory": true,
+            "status": "passed",
+            "finding": "The decision and recommendation reference approved Knowledge Items and Evidence Assessments.",
+            "related_object_ids": [
+              "kp_550e8400-e29b-41d4-a716-446655440010"
+            ],
+            "related_reference_ids": [
+              "ea_content_history",
+              "ea_content_standard",
+              "ea_hd03_passport"
+            ],
+            "recommended_resolution": null
+          },
+
+          {
+            "check_id": "judgement_check_criterion_coverage",
+            "check_type": "criterion_coverage",
+            "description": "Confirm that every alternative was evaluated against all required decision criteria.",
+            "mandatory": true,
+            "status": "passed",
+            "finding": "Each alternative contains evaluations for all five decision criteria.",
+            "related_object_ids": [],
+            "related_reference_ids": [
+              "dc_topic_differentiation",
+              "dc_brand_alignment",
+              "dc_content_structure",
+              "dc_product_accuracy",
+              "dc_execution_feasibility"
+            ],
+            "recommended_resolution": null
+          },
+
+          {
+            "check_id": "judgement_check_assumption_transparency",
+            "check_type": "assumption_transparency",
+            "description": "Confirm that material assumptions are explicit and include confidence and impact information.",
+            "mandatory": true,
+            "status": "passed",
+            "finding": "The audience-value assumption is explicitly recorded with its basis, confidence and limitations.",
+            "related_object_ids": [],
+            "related_reference_ids": [
+              "assumption_audience_values_process"
+            ],
+            "recommended_resolution": null
+          },
+
+          {
+            "check_id": "judgement_check_risk_completeness",
+            "check_type": "risk_completeness",
+            "description": "Confirm that material risks and mitigations are documented.",
+            "mandatory": true,
+            "status": "passed",
+            "finding": "Product-accuracy and brand-framing risks have defined mitigations and low residual risk.",
+            "related_object_ids": [],
+            "related_reference_ids": [
+              "risk_unsupported_product_claim",
+              "risk_topic_becomes_advertisement"
+            ],
+            "recommended_resolution": null
+          },
+
+          {
+            "check_id": "judgement_check_decision_consistency",
+            "check_type": "decision_consistency",
+            "description": "Confirm that the preferred option, recommendation and decision are internally consistent.",
+            "mandatory": true,
+            "status": "passed",
+            "finding": "The preferred option, recommendation and final decision all identify the same topic direction.",
+            "related_object_ids": [],
+            "related_reference_ids": [
+              "option_material_selection_decision",
+              "recommendation_select_material_decision_topic",
+              "decision_select_material_topic"
+            ],
+            "recommended_resolution": null
+          }
+        ],
+
+        "mandatory_checks_passed": 6,
+        "mandatory_checks_failed": 0,
+        "warnings": 0,
+
+        "validated_at": "2026-07-27T09:44:30Z",
+
+        "validated_by": {
+          "actor_type": "engine",
+          "actor_id": "judgement_validation_engine",
+          "display_name": "Scout Judgement Validation Engine",
+          "role": "judgement_validation",
+          "version": "1.0.0"
+        },
+
+        "summary": "The Business Judgement passed all mandatory semantic, traceability, risk and consistency checks."
+      },
+
+      "source_refs": [
+        {
+          "source_id": "source_xhs_memory",
+          "source_type": "runtime_memory",
+          "source_location": "12_AI_Agents/Scout/BOS/Xiaohongshu_Content_Memory.md",
+          "title": "Approved Xiaohongshu Content Memory",
+          "version": "1.0.0",
+          "authority_level": "validated_memory",
+          "retrieved_at": "2026-07-27T09:31:20Z",
+          "content_hash": null,
+          "notes": null
+        },
+
+        {
+          "source_id": "source_hd03_passport",
+          "source_type": "product_passport",
+          "source_location": "02_Products/01_Flooring/HD03_Product_Passport.md",
+          "title": "HD03 Product Passport",
+          "version": "1.2.0",
+          "authority_level": "approved_internal",
+          "retrieved_at": "2026-07-27T09:32:20Z",
+          "content_hash": null,
+          "notes": null
+        },
+
+        {
+          "source_id": "source_xhs_content_standards",
+          "source_type": "repository_document",
+          "source_location": "12_AI_Agents/Scout/BOS/Xiaohongshu_Content_Standards.md",
+          "title": "Xiaohongshu Content Standards",
+          "version": "1.0.0",
+          "authority_level": "approved_internal",
+          "retrieved_at": "2026-07-27T09:33:20Z",
+          "content_hash": null,
+          "notes": null
+        }
+      ],
+
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence_covered_themes",
+          "source_id": "source_xhs_memory",
+          "evidence_type": "direct",
+          "description": "The approved content-memory topic list identifies previously covered themes.",
+          "locator": "Approved topic index",
+          "claim_ids": [
+            "claim_previously_covered_topics"
+          ],
+          "verified": true,
+          "verified_by": {
+            "actor_type": "engine",
+            "actor_id": "retrieval_engine",
+            "display_name": "Scout Retrieval Engine",
+            "role": "retrieval",
+            "version": "1.0.0"
+          },
+          "verified_at": "2026-07-27T09:34:00Z"
+        },
+
+        {
+          "evidence_id": "evidence_hd03_passport",
+          "source_id": "source_hd03_passport",
+          "evidence_type": "direct",
+          "description": "The approved Product Passport is the governing source for HD03 product claims.",
+          "locator": "Entire approved Product Passport",
+          "claim_ids": [
+            "claim_hd03_product_identity"
+          ],
+          "verified": true,
+          "verified_by": {
+            "actor_type": "engine",
+            "actor_id": "retrieval_engine",
+            "display_name": "Scout Retrieval Engine",
+            "role": "retrieval",
+            "version": "1.0.0"
+          },
+          "verified_at": "2026-07-27T09:34:10Z"
+        },
+
+        {
+          "evidence_id": "evidence_content_standard",
+          "source_id": "source_xhs_content_standards",
+          "evidence_type": "direct",
+          "description": "The approved standards define mandatory requirements for the Xiaohongshu Content Package.",
+          "locator": "Content Package and QA sections",
+          "claim_ids": [
+            "claim_content_package_requirements"
+          ],
+          "verified": true,
+          "verified_by": {
+            "actor_type": "engine",
+            "actor_id": "retrieval_engine",
+            "display_name": "Scout Retrieval Engine",
+            "role": "retrieval",
+            "version": "1.0.0"
+          },
+          "verified_at": "2026-07-27T09:34:20Z"
+        }
+      ],
+
+      "relationships": [
+        {
+          "relationship_type": "derived_from",
+          "target_object_id": "task_550e8400-e29b-41d4-a716-446655440000",
+          "description": "The judgement was produced to resolve the principal decision required by this Task."
+        },
+
+        {
+          "relationship_type": "uses",
+          "target_object_id": "kp_550e8400-e29b-41d4-a716-446655440010",
+          "description": "The judgement uses this Knowledge Package as its factual and governance basis."
+        }
+      ],
+
+      "revision": {
+        "revision_number": 1,
+        "supersedes_id": null,
+        "change_summary": null,
+        "revision_notes": null,
+        "revised_by": null,
+        "revised_at": null
+      },
+
+      "validation": {
+        "status": "valid",
+        "validated_at": "2026-07-27T09:45:00Z",
+
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "schema_validation_engine",
+          "display_name": "Scout Schema Validation Engine",
+          "role": "schema_validation",
+          "version": "1.0.0"
+        },
+
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+
+      "exception_ids": [],
+      "additional_knowledge_requirement_ids": [],
+      "clarification_question_ids": [],
+
+      "execution_blueprint_ready": true,
+
+      "downstream_constraints": [
+        "Do not publish the Content Package.",
+        "Use only approved Product Passport claims.",
+        "Preserve the methodology-first content framing.",
+        "Complete Brand, Product and Content Standards QA."
+      ],
+
+      "tags": [
+        "business_judgement",
+        "xiaohongshu",
+        "topic_selection",
+        "content_strategy",
+        "hd03"
+      ],
+
+      "metadata": {
+        "downstream_object": "execution_blueprint",
+        "preferred_option_id": "option_material_selection_decision",
+        "reasoning_policy": "evidence_weighted_and_constraint_driven"
+      }
+    }
+  ]
+}

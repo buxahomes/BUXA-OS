@@ -1,0 +1,2681 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://buxa.local/scout/runtime/schemas/quality_report.schema.json",
+  "title": "Scout Runtime Quality Report",
+  "description": "Defines the standardized quality evaluation produced for one or more Scout runtime outputs. A Quality Report records the applicable standards, checks performed, findings, scores, blocking issues, corrective actions, approval readiness, and the final quality disposition. It evaluates outputs but does not replace the Execution Result.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_name",
+    "schema_version",
+    "task_id",
+    "execution_id",
+    "execution_blueprint_id",
+    "created_at",
+    "created_by",
+    "status",
+    "subject",
+    "evaluation_scope",
+    "standards",
+    "checks",
+    "findings",
+    "scorecard",
+    "disposition",
+    "quality_state",
+    "validation"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "./common.schema.json#/$defs/object_id"
+    },
+    "schema_name": {
+      "const": "quality_report"
+    },
+    "schema_version": {
+      "$ref": "./common.schema.json#/$defs/schema_version"
+    },
+    "task_id": {
+      "$ref": "./common.schema.json#/$defs/task_id"
+    },
+    "execution_id": {
+      "$ref": "./common.schema.json#/$defs/execution_id"
+    },
+    "workflow_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/workflow_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "execution_blueprint_id": {
+      "$ref": "./common.schema.json#/$defs/object_id"
+    },
+    "business_judgement_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "knowledge_package_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "parent_id": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "created_at": {
+      "$ref": "./common.schema.json#/$defs/timestamp"
+    },
+    "updated_at": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "created_by": {
+      "$ref": "./common.schema.json#/$defs/actor_reference"
+    },
+    "updated_by": {
+      "anyOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "evaluation_pending",
+        "evaluating",
+        "clarification_required",
+        "human_review_required",
+        "completed",
+        "completed_with_warnings",
+        "blocked",
+        "failed",
+        "cancelled",
+        "superseded",
+        "archived"
+      ]
+    },
+    "title": {
+      "$ref": "./common.schema.json#/$defs/title"
+    },
+    "subject": {
+      "$ref": "#/$defs/quality_subject"
+    },
+    "evaluation_scope": {
+      "$ref": "#/$defs/evaluation_scope"
+    },
+    "standards": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/standard"
+      }
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/quality_check"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      },
+      "default": []
+    },
+    "scorecard": {
+      "$ref": "#/$defs/scorecard"
+    },
+    "disposition": {
+      "$ref": "#/$defs/disposition"
+    },
+    "corrective_actions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/corrective_action"
+      },
+      "default": []
+    },
+    "evidence_assessment": {
+      "$ref": "#/$defs/evidence_assessment"
+    },
+    "consistency_assessment": {
+      "$ref": "#/$defs/consistency_assessment"
+    },
+    "completeness_assessment": {
+      "$ref": "#/$defs/completeness_assessment"
+    },
+    "risk_assessment": {
+      "$ref": "#/$defs/risk_assessment"
+    },
+    "human_review": {
+      "$ref": "#/$defs/human_review"
+    },
+    "execution": {
+      "$ref": "#/$defs/evaluation_execution"
+    },
+    "approval": {
+      "$ref": "./common.schema.json#/$defs/approval"
+    },
+    "confidence": {
+      "$ref": "./common.schema.json#/$defs/confidence"
+    },
+    "quality_state": {
+      "$ref": "./common.schema.json#/$defs/quality_state"
+    },
+    "source_refs": {
+      "$ref": "./common.schema.json#/$defs/source_references"
+    },
+    "evidence_refs": {
+      "$ref": "./common.schema.json#/$defs/evidence_references"
+    },
+    "relationships": {
+      "$ref": "./common.schema.json#/$defs/relationships"
+    },
+    "revision": {
+      "$ref": "./common.schema.json#/$defs/revision"
+    },
+    "validation": {
+      "$ref": "./common.schema.json#/$defs/validation_record"
+    },
+    "exception_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "./common.schema.json#/$defs/object_id"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "tags": {
+      "$ref": "./common.schema.json#/$defs/tags"
+    },
+    "metadata": {
+      "$ref": "./common.schema.json#/$defs/metadata"
+    }
+  },
+  "$defs": {
+    "non_empty_string": {
+      "type": "string",
+      "minLength": 1
+    },
+    "nullable_string": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_\\-]{2,127}$"
+    },
+    "quality_subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject_type",
+        "subject_ids",
+        "primary_subject_id"
+      ],
+      "properties": {
+        "subject_type": {
+          "type": "string",
+          "enum": [
+            "skill_output",
+            "multiple_skill_outputs",
+            "artifact",
+            "message",
+            "data_output",
+            "decision_output",
+            "execution_step",
+            "execution",
+            "custom"
+          ]
+        },
+        "subject_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "uniqueItems": true
+        },
+        "primary_subject_id": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "subject_schema_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "subject_summary": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "evaluation_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_type",
+        "included",
+        "excluded",
+        "evaluation_depth"
+      ],
+      "properties": {
+        "scope_type": {
+          "type": "string",
+          "enum": [
+            "full",
+            "targeted",
+            "incremental",
+            "re_evaluation",
+            "pre_publish",
+            "post_execution"
+          ]
+        },
+        "included": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          }
+        },
+        "excluded": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "evaluation_depth": {
+          "type": "string",
+          "enum": [
+            "basic",
+            "standard",
+            "enhanced",
+            "critical"
+          ]
+        },
+        "sampling_applied": {
+          "type": "boolean",
+          "default": false
+        },
+        "sample_description": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "sampling_applied": {
+                "const": true
+              }
+            },
+            "required": [
+              "sampling_applied"
+            ]
+          },
+          "then": {
+            "properties": {
+              "sample_description": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "sample_description"
+            ]
+          }
+        }
+      ]
+    },
+    "standard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "standard_id",
+        "standard_name",
+        "standard_type",
+        "authority_level",
+        "applicability",
+        "application_status"
+      ],
+      "properties": {
+        "standard_id": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "standard_name": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "standard_type": {
+          "type": "string",
+          "enum": [
+            "product_standard",
+            "brand_standard",
+            "content_standard",
+            "business_rule",
+            "legal_requirement",
+            "regulatory_requirement",
+            "technical_standard",
+            "schema_contract",
+            "workflow_standard",
+            "security_policy",
+            "privacy_policy",
+            "custom"
+          ]
+        },
+        "version": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "source_ref": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "authority_level": {
+          "$ref": "./common.schema.json#/$defs/authority_level"
+        },
+        "applicability": {
+          "type": "string",
+          "enum": [
+            "required",
+            "conditional",
+            "recommended",
+            "not_applicable"
+          ]
+        },
+        "application_status": {
+          "type": "string",
+          "enum": [
+            "applied",
+            "partially_applied",
+            "not_applied",
+            "not_applicable",
+            "unavailable"
+          ]
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/standard_requirement"
+          },
+          "default": []
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "applicability": {
+                "const": "required"
+              }
+            },
+            "required": [
+              "applicability"
+            ]
+          },
+          "then": {
+            "properties": {
+              "application_status": {
+                "enum": [
+                  "applied",
+                  "partially_applied"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "standard_requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirement_id",
+        "description",
+        "required"
+      ],
+      "properties": {
+        "requirement_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "description": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "severity_if_failed": {
+          "$ref": "./common.schema.json#/$defs/severity"
+        },
+        "check_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      }
+    },
+    "quality_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check_id",
+        "name",
+        "check_type",
+        "standard_ids",
+        "required",
+        "status",
+        "evaluation_method",
+        "result"
+      ],
+      "properties": {
+        "check_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "description": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "check_type": {
+          "type": "string",
+          "enum": [
+            "schema_validation",
+            "content_standard",
+            "brand_standard",
+            "product_standard",
+            "business_rule",
+            "factual_accuracy",
+            "source_grounding",
+            "completeness",
+            "consistency",
+            "formatting",
+            "tone",
+            "safety",
+            "privacy",
+            "legal",
+            "human_review",
+            "custom"
+          ]
+        },
+        "standard_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "uniqueItems": true
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "subject_paths": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "blocking": {
+          "type": "boolean",
+          "default": false
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "running",
+            "passed",
+            "passed_with_warnings",
+            "failed",
+            "not_applicable",
+            "not_evaluated"
+          ]
+        },
+        "evaluation_method": {
+          "type": "string",
+          "enum": [
+            "schema_validator",
+            "rule_engine",
+            "source_comparison",
+            "semantic_review",
+            "metric_threshold",
+            "human_review",
+            "hybrid",
+            "custom"
+          ]
+        },
+        "result": {
+          "$ref": "#/$defs/check_result"
+        },
+        "finding_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "evidence_refs": {
+          "$ref": "./common.schema.json#/$defs/evidence_references"
+        },
+        "evaluated_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "evaluated_by": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "failed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "finding_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "passed",
+                  "passed_with_warnings",
+                  "failed",
+                  "not_applicable"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "evaluated_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "evaluated_by": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "evaluated_at",
+              "evaluated_by"
+            ]
+          }
+        }
+      ]
+    },
+    "check_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passed",
+        "score",
+        "summary"
+      ],
+      "properties": {
+        "passed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "summary": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "expected": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "actual": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "threshold": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "details": {
+          "type": "object",
+          "additionalProperties": true,
+          "default": {}
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "finding_id",
+        "finding_type",
+        "severity",
+        "title",
+        "description",
+        "subject_path",
+        "blocking",
+        "status"
+      ],
+      "properties": {
+        "finding_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "finding_type": {
+          "type": "string",
+          "enum": [
+            "error",
+            "warning",
+            "observation",
+            "improvement",
+            "exception",
+            "non_conformance",
+            "risk"
+          ]
+        },
+        "severity": {
+          "$ref": "./common.schema.json#/$defs/severity"
+        },
+        "title": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "description": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "subject_id": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "subject_path": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "check_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "standard_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "requirement_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "open",
+            "acknowledged",
+            "corrected",
+            "accepted_risk",
+            "false_positive",
+            "deferred"
+          ]
+        },
+        "expected": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "actual": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "recommendation": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "evidence_refs": {
+          "$ref": "./common.schema.json#/$defs/evidence_references"
+        },
+        "corrective_action_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "detected_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        "detected_by": {
+          "$ref": "./common.schema.json#/$defs/actor_reference"
+        },
+        "resolved_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "resolved_by": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "resolution_notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "corrected",
+                  "accepted_risk",
+                  "false_positive"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "resolved_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "resolved_by": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "resolution_notes": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "resolved_at",
+              "resolved_by",
+              "resolution_notes"
+            ]
+          }
+        }
+      ]
+    },
+    "scorecard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scoring_method",
+        "overall_score",
+        "maximum_score",
+        "passing_score",
+        "passed",
+        "dimensions",
+        "counts"
+      ],
+      "properties": {
+        "scoring_method": {
+          "type": "string",
+          "enum": [
+            "weighted_average",
+            "all_required_checks",
+            "minimum_dimension_scores",
+            "hybrid",
+            "custom"
+          ]
+        },
+        "overall_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "maximum_score": {
+          "type": "number",
+          "const": 1
+        },
+        "passing_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "passed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "dimensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/score_dimension"
+          },
+          "default": []
+        },
+        "counts": {
+          "$ref": "#/$defs/check_counts"
+        },
+        "calculation_notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "score_dimension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dimension_id",
+        "name",
+        "weight",
+        "score",
+        "passed"
+      ],
+      "properties": {
+        "dimension_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "passing_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "passed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "check_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "summary": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "check_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total",
+        "passed",
+        "passed_with_warnings",
+        "failed",
+        "not_applicable",
+        "not_evaluated",
+        "blocking_failures"
+      ],
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "passed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "passed_with_warnings": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "not_applicable": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "not_evaluated": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "blocking_failures": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "disposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "result",
+        "execution_may_continue",
+        "requires_correction",
+        "requires_human_review",
+        "publish_ready",
+        "summary"
+      ],
+      "properties": {
+        "result": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "pass_with_warnings",
+            "conditional_pass",
+            "fail",
+            "blocked",
+            "not_evaluated"
+          ]
+        },
+        "execution_may_continue": {
+          "type": "boolean"
+        },
+        "requires_correction": {
+          "type": "boolean"
+        },
+        "requires_human_review": {
+          "type": "boolean"
+        },
+        "publish_ready": {
+          "type": "boolean"
+        },
+        "return_to_step_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "recommended_next_action": {
+          "type": "string",
+          "enum": [
+            "continue_execution",
+            "return_to_step",
+            "apply_corrections",
+            "request_human_review",
+            "request_approval",
+            "stop_execution",
+            "archive",
+            "none"
+          ]
+        },
+        "summary": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "recommended_next_action": {
+                "const": "return_to_step"
+              }
+            },
+            "required": [
+              "recommended_next_action"
+            ]
+          },
+          "then": {
+            "properties": {
+              "return_to_step_id": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "return_to_step_id"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "const": "conditional_pass"
+              }
+            },
+            "required": [
+              "result"
+            ]
+          },
+          "then": {
+            "properties": {
+              "conditions": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "corrective_action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "corrective_action_id",
+        "finding_ids",
+        "action_type",
+        "instruction",
+        "priority",
+        "required",
+        "status"
+      ],
+      "properties": {
+        "corrective_action_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "finding_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true
+        },
+        "action_type": {
+          "type": "string",
+          "enum": [
+            "revise_content",
+            "correct_fact",
+            "add_evidence",
+            "remove_claim",
+            "change_format",
+            "apply_standard",
+            "request_clarification",
+            "request_human_review",
+            "regenerate_output",
+            "update_schema",
+            "custom"
+          ]
+        },
+        "instruction": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "open",
+            "in_progress",
+            "completed",
+            "waived",
+            "cancelled"
+          ]
+        },
+        "owner": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target_step_id": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "due_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verification_check_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "completed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "completed_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "completed_at"
+            ]
+          }
+        }
+      ]
+    },
+    "evidence_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "coverage_score",
+        "unsupported_claims",
+        "weakly_supported_claims",
+        "status"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "coverage_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "supported_claims": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "unsupported_claims": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "weakly_supported_claims": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "conflicting_claims": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 0
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "sufficient",
+            "sufficient_with_warnings",
+            "insufficient",
+            "not_required",
+            "not_evaluated"
+          ]
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "consistency_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "internal_conflicts",
+        "cross_object_conflicts"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "consistent",
+            "consistent_with_warnings",
+            "inconsistent",
+            "not_evaluated"
+          ]
+        },
+        "internal_conflicts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cross_object_conflicts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "conflict_finding_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "completeness_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expected_items",
+        "produced_items",
+        "missing_required_items",
+        "completion_score",
+        "status"
+      ],
+      "properties": {
+        "expected_items": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "produced_items": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "missing_required_items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "uniqueItems": true
+        },
+        "completion_score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "complete_with_warnings",
+            "incomplete",
+            "not_evaluated"
+          ]
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "risk_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "overall_risk",
+        "risks"
+      ],
+      "properties": {
+        "overall_risk": {
+          "type": "string",
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "critical",
+            "unknown"
+          ]
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/risk"
+          },
+          "default": []
+        },
+        "notes": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "risk_id",
+        "category",
+        "description",
+        "likelihood",
+        "impact",
+        "level",
+        "blocking"
+      ],
+      "properties": {
+        "risk_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "factual",
+            "brand",
+            "product",
+            "legal",
+            "regulatory",
+            "privacy",
+            "security",
+            "reputational",
+            "operational",
+            "financial",
+            "customer",
+            "technical",
+            "other"
+          ]
+        },
+        "description": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "likelihood": {
+          "type": "string",
+          "enum": [
+            "rare",
+            "unlikely",
+            "possible",
+            "likely",
+            "almost_certain"
+          ]
+        },
+        "impact": {
+          "type": "string",
+          "enum": [
+            "negligible",
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "level": {
+          "type": "string",
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "blocking": {
+          "type": "boolean"
+        },
+        "mitigation": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "finding_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      }
+    },
+    "human_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "status"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_required",
+            "pending",
+            "in_progress",
+            "approved",
+            "approved_with_conditions",
+            "rejected"
+          ]
+        },
+        "reviewer": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/actor_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "requested_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "completed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "comments": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "default": []
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "required": {
+                "const": false
+              }
+            },
+            "required": [
+              "required"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "not_required"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "approved",
+                  "approved_with_conditions",
+                  "rejected"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reviewer": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "completed_at": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            },
+            "required": [
+              "reviewer",
+              "completed_at"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "approved_with_conditions"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "conditions": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "evaluation_execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "started_at",
+        "completed_at",
+        "duration_ms",
+        "evaluation_engine",
+        "attempt_number"
+      ],
+      "properties": {
+        "started_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        "completed_at": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/timestamp"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "duration_ms": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "evaluation_engine": {
+          "$ref": "#/$defs/non_empty_string"
+        },
+        "engine_version": {
+          "$ref": "#/$defs/nullable_string"
+        },
+        "attempt_number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "re_evaluation_of_report_id": {
+          "anyOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/object_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tools_used": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "models_used": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/non_empty_string"
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "logs_ref": {
+          "$ref": "#/$defs/nullable_string"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "disposition": {
+            "properties": {
+              "result": {
+                "const": "pass"
+              },
+              "execution_may_continue": {
+                "const": true
+              },
+              "requires_correction": {
+                "const": false
+              }
+            },
+            "required": [
+              "result",
+              "execution_may_continue",
+              "requires_correction"
+            ]
+          },
+          "scorecard": {
+            "properties": {
+              "passed": {
+                "const": true
+              },
+              "counts": {
+                "properties": {
+                  "blocking_failures": {
+                    "const": 0
+                  }
+                },
+                "required": [
+                  "blocking_failures"
+                ]
+              }
+            },
+            "required": [
+              "passed",
+              "counts"
+            ]
+          },
+          "execution": {
+            "properties": {
+              "completed_at": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "duration_ms": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "completed_at",
+              "duration_ms"
+            ]
+          },
+          "validation": {
+            "properties": {
+              "is_valid": {
+                "const": true
+              }
+            },
+            "required": [
+              "is_valid"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "completed_with_warnings"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "disposition": {
+            "properties": {
+              "result": {
+                "enum": [
+                  "pass_with_warnings",
+                  "conditional_pass"
+                ]
+              },
+              "execution_may_continue": {
+                "const": true
+              }
+            },
+            "required": [
+              "result",
+              "execution_may_continue"
+            ]
+          },
+          "scorecard": {
+            "properties": {
+              "passed": {
+                "const": true
+              },
+              "counts": {
+                "properties": {
+                  "passed_with_warnings": {
+                    "minimum": 1
+                  },
+                  "blocking_failures": {
+                    "const": 0
+                  }
+                },
+                "required": [
+                  "passed_with_warnings",
+                  "blocking_failures"
+                ]
+              }
+            },
+            "required": [
+              "passed",
+              "counts"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "human_review_required"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "human_review": {
+            "properties": {
+              "required": {
+                "const": true
+              },
+              "status": {
+                "enum": [
+                  "pending",
+                  "in_progress"
+                ]
+              }
+            },
+            "required": [
+              "required",
+              "status"
+            ]
+          },
+          "disposition": {
+            "properties": {
+              "requires_human_review": {
+                "const": true
+              }
+            },
+            "required": [
+              "requires_human_review"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "blocked"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "disposition": {
+            "properties": {
+              "result": {
+                "const": "blocked"
+              },
+              "execution_may_continue": {
+                "const": false
+              }
+            },
+            "required": [
+              "result",
+              "execution_may_continue"
+            ]
+          },
+          "scorecard": {
+            "properties": {
+              "counts": {
+                "properties": {
+                  "blocking_failures": {
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "blocking_failures"
+                ]
+              }
+            },
+            "required": [
+              "counts"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "failed"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "exception_ids": {
+            "minItems": 1
+          },
+          "disposition": {
+            "properties": {
+              "result": {
+                "enum": [
+                  "fail",
+                  "blocked"
+                ]
+              },
+              "execution_may_continue": {
+                "const": false
+              }
+            },
+            "required": [
+              "result",
+              "execution_may_continue"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "scorecard": {
+            "properties": {
+              "counts": {
+                "properties": {
+                  "blocking_failures": {
+                    "minimum": 1
+                  }
+                },
+                "required": [
+                  "blocking_failures"
+                ]
+              }
+            },
+            "required": [
+              "counts"
+            ]
+          }
+        },
+        "required": [
+          "scorecard"
+        ]
+      },
+      "then": {
+        "properties": {
+          "disposition": {
+            "properties": {
+              "execution_may_continue": {
+                "const": false
+              },
+              "publish_ready": {
+                "const": false
+              }
+            },
+            "required": [
+              "execution_may_continue",
+              "publish_ready"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "disposition": {
+            "properties": {
+              "publish_ready": {
+                "const": true
+              }
+            },
+            "required": [
+              "publish_ready"
+            ]
+          }
+        },
+        "required": [
+          "disposition"
+        ]
+      },
+      "then": {
+        "properties": {
+          "disposition": {
+            "properties": {
+              "result": {
+                "enum": [
+                  "pass",
+                  "pass_with_warnings",
+                  "conditional_pass"
+                ]
+              },
+              "execution_may_continue": {
+                "const": true
+              }
+            },
+            "required": [
+              "result",
+              "execution_may_continue"
+            ]
+          },
+          "scorecard": {
+            "properties": {
+              "passed": {
+                "const": true
+              },
+              "counts": {
+                "properties": {
+                  "blocking_failures": {
+                    "const": 0
+                  }
+                },
+                "required": [
+                  "blocking_failures"
+                ]
+              }
+            },
+            "required": [
+              "passed",
+              "counts"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "disposition": {
+            "properties": {
+              "requires_correction": {
+                "const": true
+              }
+            },
+            "required": [
+              "requires_correction"
+            ]
+          }
+        },
+        "required": [
+          "disposition"
+        ]
+      },
+      "then": {
+        "properties": {
+          "corrective_actions": {
+            "contains": {
+              "properties": {
+                "required": {
+                  "const": true
+                },
+                "status": {
+                  "enum": [
+                    "open",
+                    "in_progress"
+                  ]
+                }
+              },
+              "required": [
+                "required",
+                "status"
+              ]
+            },
+            "minContains": 1
+          }
+        }
+      }
+    }
+  ],
+  "examples": [
+    {
+      "id": "qr_01JSCOUTXHSQUALITY00000001",
+      "schema_name": "quality_report",
+      "schema_version": "1.0.0",
+      "task_id": "task_01JSCOUTNEXTXHS000000001",
+      "execution_id": "exec_01JSCOUTNEXTXHS000000001",
+      "workflow_id": "wf_xiaohongshu_content_package",
+      "execution_blueprint_id": "eb_01JSCOUTNEXTXHS00000000001",
+      "business_judgement_id": "bj_01JSCOUTNEXTXHS000000001",
+      "knowledge_package_id": "kp_01JSCOUTNEXTXHS000000001",
+      "parent_id": null,
+      "created_at": "2026-07-27T20:30:00+08:00",
+      "updated_at": null,
+      "created_by": {
+        "actor_type": "workflow",
+        "actor_id": "quality_engine",
+        "display_name": "Scout Quality Engine"
+      },
+      "updated_by": null,
+      "status": "completed",
+      "title": "Xiaohongshu Content Package Quality Report",
+      "subject": {
+        "subject_type": "skill_output",
+        "subject_ids": [
+          "so_01JSCOUTXHSOUTPUT000000001"
+        ],
+        "primary_subject_id": "so_01JSCOUTXHSOUTPUT000000001",
+        "subject_schema_refs": [
+          "./skill_output.schema.json"
+        ],
+        "subject_summary": "Six-page Xiaohongshu content package."
+      },
+      "evaluation_scope": {
+        "scope_type": "full",
+        "included": [
+          "Topic originality",
+          "Product claims",
+          "Brand positioning",
+          "Content structure",
+          "Factual grounding",
+          "Deliverable completeness"
+        ],
+        "excluded": [
+          "Image rendering quality",
+          "Publishing performance"
+        ],
+        "evaluation_depth": "enhanced",
+        "sampling_applied": false,
+        "sample_description": null,
+        "limitations": []
+      },
+      "standards": [
+        {
+          "standard_id": "product_standards",
+          "standard_name": "BUXA Product Standards",
+          "standard_type": "product_standard",
+          "version": "current",
+          "source_ref": "Knowledge Package",
+          "authority_level": "authoritative",
+          "applicability": "required",
+          "application_status": "applied",
+          "requirements": [
+            {
+              "requirement_id": "product_claims_approved",
+              "description": "All product and process claims must be supported by approved knowledge.",
+              "required": true,
+              "severity_if_failed": "high",
+              "check_ids": [
+                "check_product_standard"
+              ]
+            }
+          ],
+          "notes": null
+        },
+        {
+          "standard_id": "brand_standards",
+          "standard_name": "BUXA Brand Standards",
+          "standard_type": "brand_standard",
+          "version": "current",
+          "source_ref": "Knowledge Package",
+          "authority_level": "authoritative",
+          "applicability": "required",
+          "application_status": "applied",
+          "requirements": [
+            {
+              "requirement_id": "brand_positioning_consistent",
+              "description": "The package must remain consistent with BUXA PDMS positioning.",
+              "required": true,
+              "severity_if_failed": "high",
+              "check_ids": [
+                "check_brand_standard"
+              ]
+            }
+          ],
+          "notes": null
+        },
+        {
+          "standard_id": "content_standards",
+          "standard_name": "Xiaohongshu Content Standards",
+          "standard_type": "content_standard",
+          "version": "current",
+          "source_ref": "Knowledge Package",
+          "authority_level": "authoritative",
+          "applicability": "required",
+          "application_status": "applied",
+          "requirements": [
+            {
+              "requirement_id": "six_page_structure",
+              "description": "The package must include six image pages and all requested copy elements.",
+              "required": true,
+              "severity_if_failed": "medium",
+              "check_ids": [
+                "check_content_standard",
+                "check_completeness"
+              ]
+            }
+          ],
+          "notes": null
+        }
+      ],
+      "checks": [
+        {
+          "check_id": "check_product_standard",
+          "name": "Product Standards Compliance",
+          "description": "Validate all product and process claims against approved knowledge.",
+          "check_type": "product_standard",
+          "standard_ids": [
+            "product_standards"
+          ],
+          "requirement_ids": [
+            "product_claims_approved"
+          ],
+          "subject_paths": [
+            "$.payload.content"
+          ],
+          "required": true,
+          "blocking": true,
+          "weight": 0.3,
+          "status": "passed",
+          "evaluation_method": "source_comparison",
+          "result": {
+            "passed": true,
+            "score": 1,
+            "summary": "All product and process claims are supported by approved knowledge.",
+            "expected": "No unsupported product claims",
+            "actual": "No unsupported product claims detected",
+            "threshold": 1,
+            "details": {}
+          },
+          "finding_ids": [],
+          "evidence_refs": [],
+          "evaluated_at": "2026-07-27T20:29:00+08:00",
+          "evaluated_by": {
+            "actor_type": "workflow",
+            "actor_id": "quality_engine",
+            "display_name": "Scout Quality Engine"
+          }
+        },
+        {
+          "check_id": "check_brand_standard",
+          "name": "Brand Standards Compliance",
+          "description": "Validate positioning, language, and brand boundaries.",
+          "check_type": "brand_standard",
+          "standard_ids": [
+            "brand_standards"
+          ],
+          "requirement_ids": [
+            "brand_positioning_consistent"
+          ],
+          "subject_paths": [
+            "$.payload.content"
+          ],
+          "required": true,
+          "blocking": true,
+          "weight": 0.25,
+          "status": "passed",
+          "evaluation_method": "semantic_review",
+          "result": {
+            "passed": true,
+            "score": 1,
+            "summary": "The package is consistent with BUXA PDMS positioning.",
+            "expected": "Consistent brand positioning",
+            "actual": "Consistent brand positioning",
+            "threshold": 1,
+            "details": {}
+          },
+          "finding_ids": [],
+          "evidence_refs": [],
+          "evaluated_at": "2026-07-27T20:29:10+08:00",
+          "evaluated_by": {
+            "actor_type": "workflow",
+            "actor_id": "quality_engine",
+            "display_name": "Scout Quality Engine"
+          }
+        },
+        {
+          "check_id": "check_content_standard",
+          "name": "Content Standards Compliance",
+          "description": "Validate page structure, copy format, and requested content components.",
+          "check_type": "content_standard",
+          "standard_ids": [
+            "content_standards"
+          ],
+          "requirement_ids": [
+            "six_page_structure"
+          ],
+          "subject_paths": [
+            "$.payload.content.image_plan",
+            "$.payload.content.copy"
+          ],
+          "required": true,
+          "blocking": true,
+          "weight": 0.25,
+          "status": "passed",
+          "evaluation_method": "hybrid",
+          "result": {
+            "passed": true,
+            "score": 1,
+            "summary": "The package contains all required content components.",
+            "expected": "Six pages, prompts, title, copy, and hashtags",
+            "actual": "All requested components are present",
+            "threshold": 1,
+            "details": {
+              "page_count": 6
+            }
+          },
+          "finding_ids": [],
+          "evidence_refs": [],
+          "evaluated_at": "2026-07-27T20:29:20+08:00",
+          "evaluated_by": {
+            "actor_type": "workflow",
+            "actor_id": "quality_engine",
+            "display_name": "Scout Quality Engine"
+          }
+        },
+        {
+          "check_id": "check_completeness",
+          "name": "Deliverable Completeness",
+          "description": "Verify every required deliverable has been produced.",
+          "check_type": "completeness",
+          "standard_ids": [
+            "content_standards"
+          ],
+          "requirement_ids": [
+            "six_page_structure"
+          ],
+          "subject_paths": [
+            "$"
+          ],
+          "required": true,
+          "blocking": true,
+          "weight": 0.2,
+          "status": "passed",
+          "evaluation_method": "schema_validator",
+          "result": {
+            "passed": true,
+            "score": 1,
+            "summary": "All expected deliverables are complete.",
+            "expected": "Five deliverable groups",
+            "actual": "Five deliverable groups",
+            "threshold": 1,
+            "details": {}
+          },
+          "finding_ids": [],
+          "evidence_refs": [],
+          "evaluated_at": "2026-07-27T20:29:30+08:00",
+          "evaluated_by": {
+            "actor_type": "system",
+            "actor_id": "schema_validator",
+            "display_name": "Schema Validator"
+          }
+        }
+      ],
+      "findings": [],
+      "scorecard": {
+        "scoring_method": "hybrid",
+        "overall_score": 1,
+        "maximum_score": 1,
+        "passing_score": 0.9,
+        "passed": true,
+        "dimensions": [
+          {
+            "dimension_id": "product_quality",
+            "name": "Product Accuracy",
+            "weight": 0.3,
+            "score": 1,
+            "passing_score": 0.9,
+            "passed": true,
+            "check_ids": [
+              "check_product_standard"
+            ],
+            "summary": "All product claims passed."
+          },
+          {
+            "dimension_id": "brand_quality",
+            "name": "Brand Compliance",
+            "weight": 0.25,
+            "score": 1,
+            "passing_score": 0.9,
+            "passed": true,
+            "check_ids": [
+              "check_brand_standard"
+            ],
+            "summary": "Brand positioning passed."
+          },
+          {
+            "dimension_id": "content_quality",
+            "name": "Content Compliance",
+            "weight": 0.45,
+            "score": 1,
+            "passing_score": 0.9,
+            "passed": true,
+            "check_ids": [
+              "check_content_standard",
+              "check_completeness"
+            ],
+            "summary": "Content and completeness passed."
+          }
+        ],
+        "counts": {
+          "total": 4,
+          "passed": 4,
+          "passed_with_warnings": 0,
+          "failed": 0,
+          "not_applicable": 0,
+          "not_evaluated": 0,
+          "blocking_failures": 0
+        },
+        "calculation_notes": "All required checks passed."
+      },
+      "disposition": {
+        "result": "pass",
+        "execution_may_continue": true,
+        "requires_correction": false,
+        "requires_human_review": false,
+        "publish_ready": false,
+        "return_to_step_id": null,
+        "recommended_next_action": "continue_execution",
+        "summary": "The content package passes all blocking quality checks and may proceed to final execution result assembly.",
+        "conditions": []
+      },
+      "corrective_actions": [],
+      "evidence_assessment": {
+        "required": true,
+        "coverage_score": 1,
+        "supported_claims": 8,
+        "unsupported_claims": 0,
+        "weakly_supported_claims": 0,
+        "conflicting_claims": 0,
+        "status": "sufficient",
+        "notes": null
+      },
+      "consistency_assessment": {
+        "status": "consistent",
+        "internal_conflicts": 0,
+        "cross_object_conflicts": 0,
+        "conflict_finding_ids": [],
+        "notes": null
+      },
+      "completeness_assessment": {
+        "expected_items": 5,
+        "produced_items": 5,
+        "missing_required_items": [],
+        "completion_score": 1,
+        "status": "complete",
+        "notes": null
+      },
+      "risk_assessment": {
+        "overall_risk": "low",
+        "risks": [],
+        "notes": "The package is not configured for automatic publishing."
+      },
+      "human_review": {
+        "required": false,
+        "status": "not_required",
+        "reviewer": null,
+        "requested_at": null,
+        "completed_at": null,
+        "comments": null,
+        "conditions": []
+      },
+      "execution": {
+        "started_at": "2026-07-27T20:25:00+08:00",
+        "completed_at": "2026-07-27T20:30:00+08:00",
+        "duration_ms": 300000,
+        "evaluation_engine": "quality_engine",
+        "engine_version": "1.0.0",
+        "attempt_number": 1,
+        "re_evaluation_of_report_id": null,
+        "tools_used": [
+          "schema_validator",
+          "standards_comparator"
+        ],
+        "models_used": [
+          "GPT"
+        ],
+        "logs_ref": "Runtime/logs/exec_01JSCOUTNEXTXHS000000001/quality"
+      },
+      "approval": {
+        "status": "not_required",
+        "required": false,
+        "approved_by": null,
+        "approved_at": null,
+        "notes": "Quality evaluation does not publish the content."
+      },
+      "confidence": 0.98,
+      "quality_state": {
+        "status": "passed",
+        "score": 1,
+        "blocking_issues": 0,
+        "warnings": 0,
+        "notes": "All required checks passed."
+      },
+      "source_refs": [],
+      "evidence_refs": [],
+      "relationships": [],
+      "revision": {
+        "revision_number": 1,
+        "supersedes_id": null,
+        "change_summary": "Initial quality evaluation."
+      },
+      "validation": {
+        "is_valid": true,
+        "validated_at": "2026-07-27T20:30:00+08:00",
+        "validator": {
+          "actor_type": "system",
+          "actor_id": "schema_validator",
+          "display_name": "Schema Validator"
+        },
+        "errors": [],
+        "warnings": []
+      },
+      "exception_ids": [],
+      "tags": [
+        "quality_report",
+        "xiaohongshu",
+        "content_package"
+      ],
+      "metadata": {}
+    }
+  ]
+}
