@@ -338,15 +338,23 @@ Alternative controlled paths may include waiting, approval, blocked, exception, 
 - `rollback_completed`
 - `manual_intervention_required`
 
-### 8.10 Terminal States
+### 8.10 Completion State
 
 - `workflow_completed`
+
+`workflow_completed` is non-terminal. It records successful functional completion and permits only the governed transition to `workflow_closed` after closure requirements pass.
+
+### 8.11 Terminal States
+
 - `workflow_closed`
 - `cancelled`
 - `timed_out`
 - `failed_terminal`
 - `rejected_terminal`
 - `superseded`
+
+### 8.12 Administrative States
+
 - `archived`
 
 ---
@@ -542,6 +550,13 @@ A registry entry SHOULD define:
 ```
 
 Unregistered transitions are prohibited unless an approved migration or emergency rule applies.
+
+The canonical post-completion transitions are:
+
+- `workflow_completed → workflow_closed` after final records, observability completion, retention assignment, and unresolved issue review pass;
+- `workflow_closed → archived` only as an explicitly governed administrative transition.
+
+`workflow_closed` is the only permitted transition from `workflow_completed`. `archived` MUST NOT be entered directly from `workflow_completed` or used to bypass workflow closure.
 
 ---
 
@@ -888,14 +903,15 @@ Terminal states:
 - `timed_out`;
 - `failed_terminal`;
 - `rejected_terminal`;
-- `superseded`;
-- `archived`.
+- `superseded`.
 
-`workflow_completed` indicates successful functional completion but MAY still allow administrative closure actions.
+`workflow_completed` is non-terminal. It indicates successful functional completion while mandatory administrative closure actions remain.
 
 `workflow_closed` is the normal successful terminal state.
 
-No transition may leave a terminal state except an explicitly governed administrative transition such as `workflow_closed → archived`.
+`archived` is an administrative state entered only after closure. It is not a substitute for `workflow_closed`.
+
+No transition may leave a terminal state except the explicitly governed administrative transition `workflow_closed → archived`.
 
 ---
 
@@ -915,6 +931,8 @@ A stage completion MUST NOT be treated as workflow completion.
 Workflow completion requires all mandatory stages, quality gates, approvals, and required outputs.
 
 Workflow closure additionally requires final records, observability completion, retention assignment, and unresolved issue review.
+
+Therefore, `workflow_completed` is non-terminal and may transition only to `workflow_closed`. Archival MUST occur only after `workflow_closed` through the governed administrative transition.
 
 ---
 
@@ -1290,6 +1308,9 @@ A production State Model implementation is acceptable only when:
 - [ ] Every state has one semantic definition.
 - [ ] Every transition is registered.
 - [ ] Every terminal state is identified.
+- [ ] `workflow_completed` is treated as non-terminal and transitions only to `workflow_closed`.
+- [ ] `workflow_closed` remains the normal successful terminal state.
+- [ ] Archival cannot bypass workflow closure.
 
 ### Authority
 
@@ -1338,6 +1359,8 @@ The following are prohibited:
 - treating waiting as success;
 - treating blocked as terminal without policy;
 - treating stage completion as workflow closure;
+- treating `workflow_completed` as terminal;
+- transitioning directly from `workflow_completed` to `archived`;
 - deleting state history;
 - reusing stale state without validation;
 - retrying non-idempotent side effects without protection;
