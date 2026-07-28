@@ -8,6 +8,7 @@
 **Contract Type:** Mandatory Runtime Standard  
 **Runtime State Dependency:** `state_model.md` version `1.0.0`
 **Engine Context Dependency:** `engine_context.md` version `1.0.0`
+**Engine Result Schema:** `../../schemas/engine_result.schema.json` version `1.0.0`
 
 ---
 
@@ -342,81 +343,174 @@ Engine Context acceptance, validation, use, and any proposed changes MUST follow
 
 Every Engine returns one Engine Result.
 
-An Engine Result is a structured execution record, not a raw response.
+An Engine Result is the universal structured response envelope for one Engine invocation, not a raw response or a Runtime State.
 
-### 8.1 Required Result Categories
+This contract is the normative owner of Engine Result semantics. `../../schemas/engine_result.schema.json` version `1.0.0` is the machine-readable authority for the Engine Result payload.
+
+### 8.1 Required Engine Result Fields
 
 The Engine Result MUST include:
 
-- result identity;
-- Engine identity and version;
-- terminal status;
-- primary output;
-- secondary outputs;
-- decision summary;
-- confidence;
-- warnings;
-- blocking issues;
-- events;
-- metrics;
-- timing;
-- state transition proposal;
-- side effects;
-- validation result;
-- retry or recovery information;
-- approval information where applicable.
+- `id`;
+- `schema_name`;
+- `schema_version`;
+- `engine_id`;
+- `engine_version`;
+- `contract_version`;
+- `task_id`;
+- `execution_id`;
+- `invocation_id`;
+- `created_at`;
+- `created_by`;
+- `status`;
+- `primary_output`;
+- `secondary_outputs`;
+- `decision_ref`;
+- `confidence`;
+- `warnings`;
+- `blocking_issues`;
+- `events`;
+- `metrics`;
+- `timing`;
+- `state_transition`;
+- `side_effects`;
+- `approval`;
+- `recovery`;
+- `failure`;
+- `validation`;
+- `extensions`.
 
-### 8.2 Recommended Logical Structure
+`primary_output` is the sole canonical field for the main Engine Result payload. The fields `output` and `primary output` MUST NOT be used as alternate machine-readable property names.
+
+`confidence` is represented exactly once in an Engine Result as a top-level structured Confidence Assessment conforming to `../../schemas/common.schema.json#/$defs/confidence`, or `null` when no material confidence assessment applies. A referenced Decision MUST NOT be redefined inside Engine Result; `decision_ref` identifies the authoritative Decision and carries only its identity, version, and reviewable summary.
+
+### 8.2 Canonical Engine Result Example
 
 ```json
 {
-  "result_id": "engres_...",
+  "id": "engine_result_550e8400-e29b-41d4-a716-446655440000",
+  "schema_name": "engine_result",
+  "schema_version": "1.0.0",
   "engine_id": "retrieval_engine",
   "engine_version": "1.0.0",
   "contract_version": "1.0.0",
-  "execution_id": "exec_...",
+  "task_id": "task_550e8400-e29b-41d4-a716-446655440001",
+  "execution_id": "exec_550e8400-e29b-41d4-a716-446655440002",
+  "invocation_id": "invocation_retrieval_001",
+  "created_at": "2026-07-28T10:00:01Z",
+  "created_by": {
+    "actor_type": "engine",
+    "actor_id": "retrieval_engine",
+    "display_name": "Retrieval Engine",
+    "role": "retrieval",
+    "version": "1.0.0"
+  },
   "status": "succeeded",
-  "primary_output": {},
+  "primary_output": {
+    "output_kind": "runtime_object_reference",
+    "summary": "Knowledge Package created and validated.",
+    "object_ref": {
+      "object_id": "knowledge_package_550e8400-e29b-41d4-a716-446655440003",
+      "object_type": "knowledge_package",
+      "schema_name": "knowledge_package",
+      "schema_version": "1.0.0"
+    },
+    "value": null
+  },
   "secondary_outputs": [],
-  "decision": {
-    "summary": "",
-    "confidence": 0.0,
-    "evidence_refs": [],
-    "policy_refs": []
+  "decision_ref": {
+    "decision_id": "decision_550e8400-e29b-41d4-a716-446655440004",
+    "decision_version": 1,
+    "summary": "The retrieved package satisfies the required knowledge scope."
+  },
+  "confidence": {
+    "level": "high",
+    "score": 0.9,
+    "basis": "Required authoritative sources were retrieved and validated.",
+    "limitations": []
   },
   "warnings": [],
   "blocking_issues": [],
-  "events": [],
-  "metrics": {},
-  "timing": {},
-  "state_transition": {},
+  "events": [
+    {
+      "event_id": "event_engine_completed_001",
+      "event_type": "engine_execution_completed",
+      "timestamp": "2026-07-28T10:00:01Z"
+    }
+  ],
+  "metrics": {
+    "duration_ms": 1000,
+    "output_count": 1
+  },
+  "timing": {
+    "started_at": "2026-07-28T10:00:00Z",
+    "returned_at": "2026-07-28T10:00:01Z",
+    "duration_ms": 1000
+  },
+  "state_transition": {
+    "transition_id": "transition_retrieval_ready_001"
+  },
   "side_effects": [],
-  "approval": {},
-  "recovery": {},
-  "validation": {}
+  "approval": {
+    "required": false,
+    "status": "not_required"
+  },
+  "recovery": null,
+  "failure": null,
+  "validation": {
+    "status": "valid",
+    "validated_at": "2026-07-28T10:00:01Z",
+    "validator": {
+      "actor_type": "engine",
+      "actor_id": "retrieval_engine",
+      "display_name": "Retrieval Engine",
+      "role": "retrieval",
+      "version": "1.0.0"
+    },
+    "schema_version_validated": "1.0.0",
+    "errors": [],
+    "warnings": []
+  },
+  "extensions": {}
 }
 ```
 
 ### 8.3 Result Completeness
 
-A successful Engine Result MUST NOT omit:
+A `succeeded` Engine Result MUST:
 
-- status;
-- output;
-- decision summary;
-- confidence;
-- validation;
-- timing;
-- events;
-- state transition.
+- contain a non-empty `primary_output` whose `output_kind` is not `none`;
+- reference the material Decision through `decision_ref` where a material Decision exists;
+- contain top-level `confidence` where a material confidence assessment applies;
+- pass Engine Result schema validation;
+- include timing, events, and the State Model-governed transition proposal or reference where applicable.
+
+A `partial_success` Engine Result MUST contain:
+
+- a non-empty `primary_output` for the completed scope;
+- the incomplete scope, limitation, and follow-up action in structured warnings or blocking issues;
+- risk and recovery information where applicable;
+- schema-valid validation, timing, events, and transition information.
 
 A failed or blocked Engine Result MUST NOT omit:
 
-- failure category;
-- severity;
-- failure summary;
-- recovery recommendation;
-- exception reference or exception creation instruction.
+- `failure.category`;
+- `failure.severity`;
+- `failure.summary`;
+- `failure.recovery_recommendation`;
+- `failure.exception_ref`, using `null` only when the Exception Record has been requested but does not yet exist;
+- at least one `blocking_issues` entry.
+
+For `waiting`, `cancelled`, or `timeout`, `primary_output.output_kind` MAY be `none`. The status remains an Engine invocation status and MUST NOT be used as Runtime State.
+
+### 8.4 Engine Result and Execution Result
+
+Engine Result and Execution Result are distinct objects.
+
+- **Engine Result** is the universal response envelope returned by every Engine invocation and is governed by this contract and `../../schemas/engine_result.schema.json`.
+- **Execution Result** is a Runtime Object produced by the Execution Engine and is governed by `../../schemas/execution_result.schema.json`.
+
+An Engine Result MAY reference an Execution Result through `primary_output.object_ref` or carry a schema-valid Execution Result through an embedded `primary_output.value`. The two objects MUST NOT be treated as interchangeable, and an Execution Result MUST NOT replace the Engine Result envelope.
 
 ---
 
@@ -661,7 +755,7 @@ If a mandatory precondition fails:
 
 After successful execution, every Engine MUST guarantee:
 
-- the primary output exists;
+- `primary_output` exists;
 - all created Runtime Objects validate against their schemas;
 - required provenance exists;
 - confidence is assigned;

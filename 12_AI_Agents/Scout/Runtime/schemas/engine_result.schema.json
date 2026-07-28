@@ -1,0 +1,776 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://buxa.local/scout/runtime/schemas/engine_result.schema.json",
+  "title": "Scout Runtime Engine Result",
+  "description": "Defines the universal invocation response envelope returned by every Scout Runtime Engine. An Engine Result reports one Engine invocation; it is distinct from an Execution Result Runtime Object.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_name",
+    "schema_version",
+    "engine_id",
+    "engine_version",
+    "contract_version",
+    "task_id",
+    "execution_id",
+    "invocation_id",
+    "created_at",
+    "created_by",
+    "status",
+    "primary_output",
+    "secondary_outputs",
+    "decision_ref",
+    "confidence",
+    "warnings",
+    "blocking_issues",
+    "events",
+    "metrics",
+    "timing",
+    "state_transition",
+    "side_effects",
+    "approval",
+    "recovery",
+    "failure",
+    "validation",
+    "extensions"
+  ],
+  "properties": {
+    "id": {
+      "$ref": "./common.schema.json#/$defs/object_id"
+    },
+    "schema_name": {
+      "const": "engine_result"
+    },
+    "schema_version": {
+      "$ref": "./common.schema.json#/$defs/schema_version"
+    },
+    "engine_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "engine_version": {
+      "$ref": "./common.schema.json#/$defs/schema_version"
+    },
+    "contract_version": {
+      "$ref": "./common.schema.json#/$defs/schema_version"
+    },
+    "task_id": {
+      "$ref": "./common.schema.json#/$defs/task_id"
+    },
+    "execution_id": {
+      "$ref": "./common.schema.json#/$defs/execution_id"
+    },
+    "invocation_id": {
+      "$ref": "#/$defs/identifier"
+    },
+    "created_at": {
+      "$ref": "./common.schema.json#/$defs/timestamp"
+    },
+    "created_by": {
+      "$ref": "./common.schema.json#/$defs/actor_reference"
+    },
+    "status": {
+      "$ref": "#/$defs/engine_result_status"
+    },
+    "primary_output": {
+      "$ref": "#/$defs/output_value"
+    },
+    "secondary_outputs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/output_value"
+      },
+      "default": []
+    },
+    "decision_ref": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/decision_reference"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "confidence": {
+      "oneOf": [
+        {
+          "$ref": "./common.schema.json#/$defs/confidence"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/result_issue"
+      },
+      "default": []
+    },
+    "blocking_issues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/result_issue"
+      },
+      "default": []
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event_reference"
+      },
+      "default": []
+    },
+    "metrics": {
+      "$ref": "#/$defs/metrics"
+    },
+    "timing": {
+      "$ref": "#/$defs/timing"
+    },
+    "state_transition": {
+      "description": "State Transition proposal or reference governed exclusively by state_model.md; null when no transition is proposed.",
+      "anyOf": [
+        {
+          "$ref": "#/$defs/json_value"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "side_effects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/side_effect"
+      },
+      "default": []
+    },
+    "approval": {
+      "$ref": "./common.schema.json#/$defs/approval"
+    },
+    "recovery": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/recovery"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "failure": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/failure"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "validation": {
+      "$ref": "./common.schema.json#/$defs/validation_record"
+    },
+    "extensions": {
+      "$ref": "./common.schema.json#/$defs/metadata"
+    }
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200,
+      "pattern": "^[a-z][a-z0-9_.:-]*$"
+    },
+    "engine_result_status": {
+      "description": "Terminal or waiting status of one Engine invocation. This is not Runtime State.",
+      "type": "string",
+      "enum": [
+        "waiting",
+        "succeeded",
+        "partial_success",
+        "failed",
+        "blocked",
+        "cancelled",
+        "timeout"
+      ]
+    },
+    "json_value": {
+      "description": "Any valid JSON value.",
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/json_value"
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/json_value"
+          }
+        }
+      ]
+    },
+    "runtime_object_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_id",
+        "object_type",
+        "schema_name",
+        "schema_version"
+      ],
+      "properties": {
+        "object_id": {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        "object_type": {
+          "$ref": "#/$defs/identifier"
+        },
+        "schema_name": {
+          "$ref": "#/$defs/identifier"
+        },
+        "schema_version": {
+          "$ref": "./common.schema.json#/$defs/schema_version"
+        }
+      }
+    },
+    "output_value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "output_kind",
+        "summary",
+        "object_ref",
+        "value"
+      ],
+      "properties": {
+        "output_kind": {
+          "type": "string",
+          "enum": [
+            "runtime_object_reference",
+            "embedded_runtime_object",
+            "data",
+            "message",
+            "none"
+          ]
+        },
+        "summary": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "object_ref": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/runtime_object_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "value": {
+          "$ref": "#/$defs/json_value"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "output_kind": {
+                "const": "runtime_object_reference"
+              }
+            },
+            "required": [
+              "output_kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "object_ref": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "value": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "output_kind": {
+                "const": "embedded_runtime_object"
+              }
+            },
+            "required": [
+              "output_kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "object_ref": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "value": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "output_kind": {
+                "const": "none"
+              }
+            },
+            "required": [
+              "output_kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "summary": {
+                "type": "null"
+              },
+              "object_ref": {
+                "type": "null"
+              },
+              "value": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "decision_reference": {
+      "description": "Reference to the authoritative structured Decision; this does not redefine the Decision Model.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "decision_version",
+        "summary"
+      ],
+      "properties": {
+        "decision_id": {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        "decision_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "summary": {
+          "$ref": "./common.schema.json#/$defs/non_empty_string"
+        }
+      }
+    },
+    "result_issue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "severity",
+        "summary"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/identifier"
+        },
+        "severity": {
+          "$ref": "./common.schema.json#/$defs/severity"
+        },
+        "summary": {
+          "$ref": "./common.schema.json#/$defs/non_empty_string"
+        },
+        "related_object_id": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/object_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "event_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "event_type",
+        "timestamp"
+      ],
+      "properties": {
+        "event_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "event_type": {
+          "$ref": "#/$defs/identifier"
+        },
+        "timestamp": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_]*$"
+      },
+      "additionalProperties": {
+        "type": [
+          "number",
+          "integer",
+          "boolean",
+          "null"
+        ]
+      }
+    },
+    "timing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "started_at",
+        "returned_at",
+        "duration_ms"
+      ],
+      "properties": {
+        "started_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        "returned_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "side_effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "side_effect_id",
+        "action",
+        "status"
+      ],
+      "properties": {
+        "side_effect_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "action": {
+          "$ref": "./common.schema.json#/$defs/non_empty_string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "planned",
+            "completed",
+            "failed",
+            "compensated",
+            "unknown"
+          ]
+        },
+        "idempotency_key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "recovery": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "recoverable",
+        "recommendation"
+      ],
+      "properties": {
+        "recoverable": {
+          "type": "boolean"
+        },
+        "recommendation": {
+          "$ref": "./common.schema.json#/$defs/non_empty_string"
+        },
+        "retry_eligible": {
+          "type": "boolean",
+          "default": false
+        },
+        "resume_reference": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 300
+        }
+      }
+    },
+    "failure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "category",
+        "severity",
+        "summary",
+        "recovery_recommendation",
+        "exception_ref"
+      ],
+      "properties": {
+        "category": {
+          "$ref": "#/$defs/identifier"
+        },
+        "severity": {
+          "$ref": "./common.schema.json#/$defs/severity"
+        },
+        "summary": {
+          "$ref": "./common.schema.json#/$defs/non_empty_string"
+        },
+        "recovery_recommendation": {
+          "$ref": "./common.schema.json#/$defs/non_empty_string"
+        },
+        "exception_ref": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/object_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "succeeded",
+              "partial_success"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "primary_output": {
+            "properties": {
+              "output_kind": {
+                "not": {
+                  "const": "none"
+                }
+              }
+            }
+          },
+          "failure": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "partial_success"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "anyOf": [
+          {
+            "properties": {
+              "warnings": {
+                "minItems": 1
+              }
+            }
+          },
+          {
+            "properties": {
+              "blocking_issues": {
+                "minItems": 1
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "failed",
+              "blocked"
+            ]
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "then": {
+        "properties": {
+          "blocking_issues": {
+            "minItems": 1
+          },
+          "failure": {
+            "not": {
+              "type": "null"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision_ref": {
+            "type": "object"
+          }
+        },
+        "required": [
+          "decision_ref"
+        ]
+      },
+      "then": {
+        "properties": {
+          "confidence": {
+            "not": {
+              "type": "null"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "examples": [
+    {
+      "id": "engine_result_550e8400-e29b-41d4-a716-446655440000",
+      "schema_name": "engine_result",
+      "schema_version": "1.0.0",
+      "engine_id": "retrieval_engine",
+      "engine_version": "1.0.0",
+      "contract_version": "1.0.0",
+      "task_id": "task_550e8400-e29b-41d4-a716-446655440001",
+      "execution_id": "exec_550e8400-e29b-41d4-a716-446655440002",
+      "invocation_id": "invocation_retrieval_001",
+      "created_at": "2026-07-28T10:00:01Z",
+      "created_by": {
+        "actor_type": "engine",
+        "actor_id": "retrieval_engine",
+        "display_name": "Retrieval Engine",
+        "role": "retrieval",
+        "version": "1.0.0"
+      },
+      "status": "succeeded",
+      "primary_output": {
+        "output_kind": "runtime_object_reference",
+        "summary": "Knowledge Package created and validated.",
+        "object_ref": {
+          "object_id": "knowledge_package_550e8400-e29b-41d4-a716-446655440003",
+          "object_type": "knowledge_package",
+          "schema_name": "knowledge_package",
+          "schema_version": "1.0.0"
+        },
+        "value": null
+      },
+      "secondary_outputs": [],
+      "decision_ref": {
+        "decision_id": "decision_550e8400-e29b-41d4-a716-446655440004",
+        "decision_version": 1,
+        "summary": "The retrieved package satisfies the required knowledge scope."
+      },
+      "confidence": {
+        "level": "high",
+        "score": 0.9,
+        "basis": "Required authoritative sources were retrieved and validated.",
+        "limitations": []
+      },
+      "warnings": [],
+      "blocking_issues": [],
+      "events": [
+        {
+          "event_id": "event_engine_completed_001",
+          "event_type": "engine_execution_completed",
+          "timestamp": "2026-07-28T10:00:01Z"
+        }
+      ],
+      "metrics": {
+        "duration_ms": 1000,
+        "output_count": 1
+      },
+      "timing": {
+        "started_at": "2026-07-28T10:00:00Z",
+        "returned_at": "2026-07-28T10:00:01Z",
+        "duration_ms": 1000
+      },
+      "state_transition": {
+        "transition_id": "transition_retrieval_ready_001"
+      },
+      "side_effects": [],
+      "approval": {
+        "required": false,
+        "status": "not_required"
+      },
+      "recovery": null,
+      "failure": null,
+      "validation": {
+        "status": "valid",
+        "validated_at": "2026-07-28T10:00:01Z",
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "retrieval_engine",
+          "display_name": "Retrieval Engine",
+          "role": "retrieval",
+          "version": "1.0.0"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+      "extensions": {}
+    }
+  ]
+}

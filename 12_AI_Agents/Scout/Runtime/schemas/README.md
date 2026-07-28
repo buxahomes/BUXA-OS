@@ -78,6 +78,8 @@ Memory Record
 
 Schemas define the contracts between these stages.
 
+Every Engine invocation returns an Engine Result envelope around its invocation outcome. The lifecycle diagram shows the Runtime Objects carried or referenced by those envelopes rather than repeating Engine Result between every stage.
+
 They do not define business policy.
 
 Business authority remains with:
@@ -126,6 +128,7 @@ Runtime/
 └── schemas/
     ├── README.md
     ├── common.schema.json
+    ├── engine_result.schema.json
     ├── task.schema.json
     ├── knowledge_package.schema.json
     ├── business_judgement.schema.json
@@ -154,6 +157,29 @@ New schemas should only be introduced when a stable operational need has been de
 ---
 
 # Core Runtime Objects
+
+## Engine Result
+
+Represents the universal response envelope returned by every Runtime Engine invocation.
+
+An Engine Result contains:
+
+- Engine, Task, execution and invocation identity
+- Engine invocation status
+- canonical `primary_output`
+- secondary outputs
+- Decision reference and top-level confidence
+- warnings and blocking issues
+- events, metrics and timing
+- State Transition proposal or reference
+- side effects, approval, recovery and failure information
+- validation and extensions
+
+`engine_result.schema.json` is the machine-readable authority for this envelope. Engine invocation status is not Runtime State.
+
+Engine Result and Execution Result are distinct. An Engine Result may reference an Execution Result through `primary_output.object_ref` or carry a schema-valid Execution Result through an embedded `primary_output.value`; an Execution Result does not replace the Engine Result envelope.
+
+---
 
 ## Task
 
@@ -275,7 +301,7 @@ A Quality Report may approve, conditionally approve, reject or return an object 
 
 ## Execution Result
 
-Represents the final outcome of an execution cycle or execution step.
+Represents the final Runtime Object produced by the Execution Engine for an execution cycle or execution step.
 
 An Execution Result contains:
 
@@ -288,7 +314,7 @@ An Execution Result contains:
 - limitations
 - follow-up actions
 
-An Execution Result records what was actually completed rather than what was planned.
+An Execution Result records what was actually completed rather than what was planned. It is governed by `execution_result.schema.json` and is not the universal invocation envelope governed by `engine_result.schema.json`.
 
 ---
 
@@ -1246,25 +1272,27 @@ The Schema System should be implemented in the following order.
 ```text
 1. common.schema.json
 
-2. task.schema.json
+2. engine_result.schema.json
 
-3. knowledge_package.schema.json
+3. task.schema.json
 
-4. business_judgement.schema.json
+4. knowledge_package.schema.json
 
-5. execution_blueprint.schema.json
+5. business_judgement.schema.json
 
-6. skill_output.schema.json
+6. execution_blueprint.schema.json
 
-7. quality_report.schema.json
+7. skill_output.schema.json
 
-8. execution_result.schema.json
+8. quality_report.schema.json
 
-9. exception_record.schema.json
+9. execution_result.schema.json
 
-10. learning_candidate.schema.json
+10. exception_record.schema.json
 
-11. memory_record.schema.json
+11. learning_candidate.schema.json
+
+12. memory_record.schema.json
 ```
 
 This order follows the Runtime lifecycle and reduces circular dependencies.
