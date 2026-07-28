@@ -5,7 +5,7 @@
 **Status:** `Approved`  
 **Owner:** `Scout Runtime`  
 **Applies To:** Runtime Orchestrator and all Runtime Engines  
-**Dependencies:** `engine_contract.md`, `engine_context.md`, `state_model.md`, Runtime schemas  
+**Dependencies:** `engine_contract.md`, `engine_context.md` version `1.0.0`, `state_model.md`, Runtime schemas
 **Specification Type:** Mandatory Shared Foundation Standard  
 
 ---
@@ -173,7 +173,7 @@ A Decision begins when an Engine or the Runtime Orchestrator must select, classi
 
 ### 6.2 Decision Context
 
-Decision Context is assembled from Engine Context. It MUST include the minimum authorised information required to decide safely.
+Decision formation MUST use only the authorised Engine Context defined by `engine_context.md` version `1.0.0` and MUST use the minimum authorised information required to decide safely. This Decision Model does not define a separate Runtime context structure.
 
 ### 6.3 Evidence and Assumptions
 
@@ -433,28 +433,11 @@ Every output MUST identify whether it is final, proposed, conditional, blocked, 
 
 ## 12. Decision Context
 
-Decision Context is the subset of Engine Context used to form a Decision.
+`engine_context.md` version `1.0.0` is the sole normative authority for Runtime Engine Context, including Context structure, metadata, lifecycle, ownership, integrity, and validation.
 
-Decision Context MUST preserve:
+For Decision formation, an Engine MUST select required authorised information from its Engine Context. This selection does not create a separate Context type and MUST NOT extend, override, or redefine Engine Context.
 
-- Context ID;
-- Context version;
-- receiving Engine;
-- execution identity;
-- current Runtime State;
-- applicable Runtime Objects;
-- source references;
-- evidence references;
-- applicable policies;
-- approval status;
-- security and privacy constraints;
-- resource limits;
-- freshness status;
-- integrity status;
-- relevant configuration;
-- actor authority.
-
-An Engine MUST NOT use hidden prompt memory, private state, unregistered cache entries, or undocumented external knowledge as authoritative Decision Context.
+An Engine MUST NOT use hidden prompt memory, private state, unregistered cache entries, or undocumented external knowledge as authoritative Decision input.
 
 ---
 
@@ -1162,26 +1145,11 @@ An Engine MUST validate its Decision before returning success.
 
 ## 37. Engine Context Integration
 
-The Engine Context is the only authorised Decision input envelope.
+The Engine Context defined by `engine_context.md` version `1.0.0` is the only authorised Decision input envelope.
 
-A Decision MUST record or reference:
+A Decision MUST record or reference the Context identity and authorised dependencies required by `engine_context.md` and this Decision Model's traceability rules. Context validity, freshness, integrity, lifecycle, and rebuilding requirements are governed exclusively by `engine_context.md`.
 
-- `context_id`;
-- `context_version`;
-- receiving Engine;
-- execution identity;
-- visible Runtime Objects used;
-- Knowledge Package references;
-- Memory Record references;
-- policy references;
-- approval context;
-- security and privacy context;
-- freshness;
-- integrity;
-- configuration;
-- limits.
-
-If a Context is stale, expired, revoked, invalid, or integrity-mismatched, material Decision formation MUST stop or request Context rebuilding.
+If Engine Context fails any mandatory Context validation or use requirement, material Decision formation MUST follow the blocking or rebuilding behaviour required by `engine_context.md`.
 
 ---
 
@@ -1269,14 +1237,7 @@ Freshness MAY become stale because:
 - dependency changed;
 - Task scope changed.
 
-Freshness statuses SHOULD align with Engine Context values:
-
-- `current`;
-- `aging`;
-- `stale`;
-- `expired`;
-- `unknown`;
-- `not_applicable`.
+Decision freshness statuses SHOULD align with the applicable values and rules owned by `engine_context.md`; this Decision Model does not enumerate or redefine Engine Context freshness.
 
 Stale material Decisions MUST be revalidated before execution continues.
 
@@ -1329,13 +1290,7 @@ A replayable Decision MUST preserve or reference:
 - checksums;
 - source snapshots where required.
 
-Replay modes SHOULD align with Engine Context replay modes:
-
-- `exact`;
-- `compatible`;
-- `diagnostic`;
-- `historical`;
-- `simulation`.
+Decision replay modes SHOULD align with the applicable modes and rules owned by `engine_context.md`; this Decision Model does not enumerate or redefine them.
 
 Every substitution during compatible replay MUST be recorded.
 

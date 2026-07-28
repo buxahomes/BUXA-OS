@@ -7,6 +7,7 @@
 **Applies To:** All Runtime Engines  
 **Contract Type:** Mandatory Runtime Standard  
 **Runtime State Dependency:** `state_model.md` version `1.0.0`
+**Engine Context Dependency:** `engine_context.md` version `1.0.0`
 
 ---
 
@@ -327,83 +328,13 @@ Every Engine MUST:
 
 ---
 
-## 7. Universal Engine Context
+## 7. Engine Context Dependency
 
-Every Engine receives one Engine Context.
+`engine_context.md` version `1.0.0` is the sole normative authority for Runtime Engine Context, including Context structure, metadata, lifecycle, ownership, integrity, and validation.
 
-The Engine Context is an immutable execution envelope containing all information the Engine is authorised to use.
+Every Engine MUST receive and use an Engine Context that conforms to that specification. This Engine Contract MUST NOT define, extend, or override Engine Context semantics.
 
-### 7.1 Required Context Categories
-
-The Engine Context MUST support the following categories:
-
-```text
-engine identity
-execution identity
-task
-current runtime state
-input runtime objects
-knowledge
-memory
-configuration
-policies
-approval context
-security context
-privacy context
-observability context
-resource limits
-time limits
-actor context
-environment
-```
-
-### 7.2 Recommended Logical Structure
-
-```json
-{
-  "context_id": "ctx_...",
-  "engine": {
-    "engine_id": "retrieval_engine",
-    "engine_version": "1.0.0",
-    "contract_version": "1.0.0"
-  },
-  "execution": {
-    "execution_id": "exec_...",
-    "task_id": "task_...",
-    "workflow_id": "wf_...",
-    "trace_id": "trace_...",
-    "attempt": 1
-  },
-  "runtime_state": {},
-  "inputs": {},
-  "knowledge": {},
-  "memory": {},
-  "configuration": {},
-  "policies": {},
-  "approval": {},
-  "security": {},
-  "privacy": {},
-  "observability": {},
-  "limits": {},
-  "actor": {},
-  "environment": {}
-}
-```
-
-### 7.3 Context Immutability
-
-An Engine MUST treat Engine Context as immutable.
-
-If new state is required, the Engine MUST produce it through Engine Result.
-
-The Engine MUST NOT:
-
-- rewrite input Runtime Objects;
-- alter approval evidence;
-- modify policy inputs;
-- delete provenance;
-- replace source references;
-- change the execution identity.
+Engine Context acceptance, validation, use, and any proposed changes MUST follow `engine_context.md`.
 
 ---
 

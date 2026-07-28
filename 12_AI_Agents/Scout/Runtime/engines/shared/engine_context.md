@@ -14,6 +14,10 @@
 
 This document defines the universal **Engine Context** used by every Scout Runtime Engine.
 
+`engine_context.md` is the sole normative authority for Runtime Engine Context, including its structure, metadata, lifecycle, ownership, integrity, and validation.
+
+Other Shared Foundation specifications MAY require or reference Engine Context, but they MUST NOT define, extend, or override its semantics.
+
 The Engine Context is the only authorised execution envelope delivered to an Engine. It provides a governed, immutable, versioned, traceable, and replayable view of the Runtime world required for one Engine invocation.
 
 It standardises context identity, receiving Engine identity, execution identity, Task information, Runtime State, visible Runtime Objects, Knowledge Package access, Memory Record access, configuration, policy, approval, security, privacy, actor, environment, resource limits, observability, references, snapshots, freshness, integrity, priority, evolution, and visibility.
