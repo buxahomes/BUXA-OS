@@ -144,7 +144,6 @@ Canonical logical structure:
   "state_owner": "runtime_orchestrator",
   "allowed_transitions": [
     "business_judgement_running",
-    "blocked",
     "cancelled"
   ],
   "is_terminal": false,
