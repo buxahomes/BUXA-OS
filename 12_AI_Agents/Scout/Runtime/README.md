@@ -188,6 +188,7 @@ Runtime/
 ├── memory/
 ├── workflows/
 ├── schemas/
+├── registry/
 ├── prompts/
 ├── quality/
 ├── logs/
@@ -463,6 +464,20 @@ Schemas make Runtime behaviour:
 - easier to validate
 
 Runtime components should exchange structured objects rather than ungoverned free-form text whenever practical.
+
+---
+
+## Registry
+
+`registry/` contains governed machine-readable registries used by Runtime components.
+
+For Runtime Objects:
+
+- `engines/shared/runtime_objects.md` is the normative governance authority;
+- `registry/runtime_objects.json` is the complete machine-readable registry data;
+- `schemas/runtime_object_registry.schema.json` is the machine validation authority.
+
+`runtime_objects.json` is registry data, not a JSON Schema. Registry entries reference their normative owners and authoritative schemas without replacing them.
 
 ---
 

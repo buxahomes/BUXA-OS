@@ -128,6 +128,7 @@ Runtime/
 └── schemas/
     ├── README.md
     ├── common.schema.json
+    ├── runtime_object_registry.schema.json
     ├── engine_result.schema.json
     ├── task.schema.json
     ├── knowledge_package.schema.json
@@ -153,6 +154,22 @@ execution_record.schema.json
 ```
 
 New schemas should only be introduced when a stable operational need has been demonstrated.
+
+---
+
+# Runtime Object Registry Schema
+
+`runtime_object_registry.schema.json` validates the complete machine-readable Runtime Object Registry stored at `../registry/runtime_objects.json`.
+
+Authority is separated as follows:
+
+- `../engines/shared/runtime_objects.md` is the normative governance authority;
+- `../registry/runtime_objects.json` is registry data and is not a JSON Schema;
+- `runtime_object_registry.schema.json` is the machine validation authority for that data.
+
+The registry schema validates structure and controlled values. Additional semantic validation enforces unique object types and canonical names, existing owner and schema paths, resolved object relationships, recognised authorities, and metadata counts.
+
+This architectural validation schema is not a Runtime Object schema and is therefore outside the lifecycle-based Initial Development Order.
 
 ---
 

@@ -1,0 +1,1770 @@
+{
+  "registry": {
+    "registry_id": "scout_runtime_object_registry",
+    "version": "1.0.0",
+    "status": "approved",
+    "owner": "Scout Runtime",
+    "normative_document": "engines/shared/runtime_objects.md",
+    "schema": "schemas/runtime_object_registry.schema.json",
+    "last_updated": "2026-07-28",
+    "recognised_authorities": [
+      "Runtime Orchestrator",
+      "Input Engine",
+      "Retrieval Engine",
+      "Business Judgement Engine",
+      "Planning Engine",
+      "Execution Engine",
+      "Quality Engine",
+      "Exception Engine",
+      "Learning Engine",
+      "Memory Engine",
+      "Approval Engine",
+      "Policy Engine",
+      "Authorised Human Authority"
+    ],
+    "classification_count": 16,
+    "object_count": 29
+  },
+  "classifications": [
+    "input_object",
+    "knowledge_object",
+    "judgement_object",
+    "planning_object",
+    "execution_object",
+    "quality_object",
+    "learning_object",
+    "memory_object",
+    "exception_object",
+    "governance_object",
+    "control_object",
+    "context_envelope",
+    "invocation_envelope",
+    "event_object",
+    "snapshot_object",
+    "reference_object"
+  ],
+  "objects": [
+    {
+      "owner_version": "1.0.0",
+      "schema": "schemas/task.schema.json",
+      "schema_version": "1.0.0",
+      "schema_status": "authoritative",
+      "producing_authority": [
+        "Input Engine",
+        "Runtime Orchestrator",
+        "Authorised Human Authority"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Input Engine",
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Execution Engine",
+        "Quality Engine",
+        "Exception Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Approval Engine",
+        "Policy Engine"
+      ],
+      "lifecycle_stage": "intake",
+      "mutability": "controlled_lifecycle",
+      "identity_field": "id",
+      "version_field": "schema_version",
+      "status_field": "status",
+      "state_relationship": "Initiates and is traced across the Runtime State lifecycle; it is not Runtime State.",
+      "decision_relationship": "Constrains Decisions through objective, scope, authority, risk, and approval requirements.",
+      "context_relationship": "Referenced or embedded as authorised Task information in Engine Context.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Structured Task"
+      ],
+      "prohibited_aliases": [
+        "Engine Context",
+        "Runtime State"
+      ],
+      "related_objects": [
+        "engine_context",
+        "knowledge_package",
+        "decision",
+        "runtime_state"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "task",
+      "canonical_name": "Task",
+      "description": "Structured business request accepted as the root input object for a Runtime execution.",
+      "classification": "input_object",
+      "normative_owner": "schemas/task.schema.json"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "deferred",
+      "producing_authority": [
+        "Runtime Orchestrator"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Input Engine",
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Execution Engine",
+        "Quality Engine",
+        "Exception Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Approval Engine",
+        "Policy Engine"
+      ],
+      "lifecycle_stage": "context_assembly",
+      "mutability": "immutable_snapshot",
+      "identity_field": "context_id",
+      "version_field": "context_version",
+      "status_field": "context_status",
+      "state_relationship": "Contains a point-in-time view of committed Runtime State but does not own or commit State.",
+      "decision_relationship": "Supplies the only authorised input envelope for Decision formation; it is not Decision Context as a separate object.",
+      "context_relationship": "Is the sole canonical Runtime Engine Context.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Runtime Engine Context"
+      ],
+      "prohibited_aliases": [
+        "Decision Context",
+        "Global State",
+        "Memory"
+      ],
+      "related_objects": [
+        "task",
+        "engine_result",
+        "runtime_state",
+        "context_snapshot",
+        "context_reference"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "engine_context",
+      "canonical_name": "Engine Context",
+      "description": "Immutable, governed execution envelope delivered to one Engine invocation.",
+      "classification": "context_envelope",
+      "normative_owner": "engines/shared/engine_context.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": "schemas/engine_result.schema.json",
+      "schema_version": "1.0.0",
+      "schema_status": "authoritative",
+      "producing_authority": [
+        "Runtime Orchestrator",
+        "Input Engine",
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Execution Engine",
+        "Quality Engine",
+        "Exception Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Approval Engine",
+        "Policy Engine"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator"
+      ],
+      "lifecycle_stage": "cross_lifecycle",
+      "mutability": "immutable",
+      "identity_field": "id",
+      "version_field": "schema_version",
+      "status_field": "status",
+      "state_relationship": "Carries a State Transition proposal or reference; its invocation status is not Runtime State.",
+      "decision_relationship": "References the authoritative Decision through decision_ref and carries one top-level confidence assessment.",
+      "context_relationship": "Returned in response to exactly one Engine Context and does not mutate that Context.",
+      "containment_rules": [
+        "May reference or embed a produced Runtime Object through primary_output.",
+        "An embedded object remains governed by its own schema and normative owner."
+      ],
+      "reference_rules": [
+        "primary_output.object_ref identifies a produced Runtime Object without making it interchangeable with the envelope."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Engine Invocation Result"
+      ],
+      "prohibited_aliases": [
+        "Execution Result",
+        "Runtime State",
+        "Raw Response"
+      ],
+      "related_objects": [
+        "engine_context",
+        "execution_result",
+        "decision",
+        "state_transition",
+        "runtime_event"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "engine_result",
+      "canonical_name": "Engine Result",
+      "description": "Universal structured response envelope returned by every Engine invocation.",
+      "classification": "invocation_envelope",
+      "normative_owner": "engines/shared/engine_contract.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": "schemas/knowledge_package.schema.json",
+      "schema_version": "1.0.0",
+      "schema_status": "authoritative",
+      "producing_authority": [
+        "Retrieval Engine"
+      ],
+      "consuming_authorities": [
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Quality Engine"
+      ],
+      "lifecycle_stage": "retrieval",
+      "mutability": "controlled_lifecycle",
+      "identity_field": "id",
+      "version_field": "schema_version",
+      "status_field": "status",
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Retrieval Package"
+      ],
+      "prohibited_aliases": [
+        "Engine Context",
+        "Memory Record"
+      ],
+      "related_objects": [
+        "task",
+        "business_judgement",
+        "engine_result",
+        "memory_record"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "knowledge_package",
+      "canonical_name": "Knowledge Package",
+      "description": "Verified, task-specific knowledge assembled by the Retrieval Engine for downstream judgement.",
+      "classification": "knowledge_object",
+      "normative_owner": "schemas/knowledge_package.schema.json"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": "schemas/business_judgement.schema.json",
+      "schema_version": "1.0.0",
+      "schema_status": "authoritative",
+      "producing_authority": [
+        "Business Judgement Engine"
+      ],
+      "consuming_authorities": [
+        "Planning Engine",
+        "Quality Engine",
+        "Runtime Orchestrator"
+      ],
+      "lifecycle_stage": "judgement",
+      "mutability": "controlled_lifecycle",
+      "identity_field": "id",
+      "version_field": "schema_version",
+      "status_field": "status",
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "Contains a governed Decision but is not interchangeable with the generic Decision payload.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Reasoning Output"
+      ],
+      "prohibited_aliases": [
+        "Decision",
+        "Decision Record"
+      ],
+      "related_objects": [
+        "knowledge_package",
+        "decision",
+        "execution_blueprint",
+        "engine_result"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "business_judgement",
+      "canonical_name": "Business Judgement",
+      "description": "Structured evidence-based judgement produced from an authorised Knowledge Package.",
+      "classification": "judgement_object",
+      "normative_owner": "schemas/business_judgement.schema.json"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": "schemas/execution_blueprint.schema.json",
+      "schema_version": "1.0.0",
+      "schema_status": "authoritative",
+      "producing_authority": [
+        "Planning Engine"
+      ],
+      "consuming_authorities": [
+        "Execution Engine",
+        "Quality Engine",
+        "Runtime Orchestrator"
+      ],
+      "lifecycle_stage": "planning",
+      "mutability": "controlled_lifecycle",
+      "identity_field": "id",
+      "version_field": "schema_version",
+      "status_field": "status",
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Execution Plan"
+      ],
+      "prohibited_aliases": [
+        "Execution Result",
+        "Workflow State"
+      ],
+      "related_objects": [
+        "business_judgement",
+        "skill_output",
+        "execution_result",
+        "engine_result"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "execution_blueprint",
+      "canonical_name": "Execution Blueprint",
+      "description": "Executable plan produced by the Planning Engine from approved judgement.",
+      "classification": "planning_object",
+      "normative_owner": "schemas/execution_blueprint.schema.json"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": "schemas/skill_output.schema.json",
+      "schema_version": "1.0.0",
+      "schema_status": "authoritative",
+      "producing_authority": [
+        "Execution Engine"
+      ],
+      "consuming_authorities": [
+        "Quality Engine",
+        "Execution Engine",
+        "Runtime Orchestrator"
+      ],
+      "lifecycle_stage": "execution",
+      "mutability": "controlled_lifecycle",
+      "identity_field": "id",
+      "version_field": "schema_version",
+      "status_field": "status",
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Skill Result"
+      ],
+      "prohibited_aliases": [
+        "Engine Result",
+        "Execution Result"
+      ],
+      "related_objects": [
+        "execution_blueprint",
+        "quality_report",
+        "execution_result",
+        "engine_result"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "skill_output",
+      "canonical_name": "Skill Output",
+      "description": "Structured output produced during execution of a specialised Skill under the Execution Engine.",
+      "classification": "execution_object",
+      "normative_owner": "schemas/skill_output.schema.json"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": "schemas/quality_report.schema.json",
+      "schema_version": "1.0.0",
+      "schema_status": "authoritative",
+      "producing_authority": [
+        "Quality Engine"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Execution Engine",
+        "Learning Engine"
+      ],
+      "lifecycle_stage": "quality",
+      "mutability": "controlled_lifecycle",
+      "identity_field": "id",
+      "version_field": "schema_version",
+      "status_field": "status",
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "QA Report"
+      ],
+      "prohibited_aliases": [
+        "Approval Decision",
+        "Execution Result"
+      ],
+      "related_objects": [
+        "skill_output",
+        "execution_result",
+        "decision",
+        "engine_result"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "quality_report",
+      "canonical_name": "Quality Report",
+      "description": "Formal evaluation of one or more Runtime outputs against applicable standards and gates.",
+      "classification": "quality_object",
+      "normative_owner": "schemas/quality_report.schema.json"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": "schemas/execution_result.schema.json",
+      "schema_version": "1.0.0",
+      "schema_status": "authoritative",
+      "producing_authority": [
+        "Execution Engine"
+      ],
+      "consuming_authorities": [
+        "Quality Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Runtime Orchestrator"
+      ],
+      "lifecycle_stage": "execution",
+      "mutability": "controlled_lifecycle",
+      "identity_field": "id",
+      "version_field": "schema_version",
+      "status_field": "status",
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "May be referenced or embedded by Engine Result primary_output.",
+        "Does not contain or replace the Engine Result invocation envelope."
+      ],
+      "reference_rules": [
+        "References MUST use execution_result identity and schema metadata."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Execution Outcome"
+      ],
+      "prohibited_aliases": [
+        "Engine Result",
+        "Engine Invocation Result"
+      ],
+      "related_objects": [
+        "engine_result",
+        "execution_blueprint",
+        "skill_output",
+        "quality_report",
+        "learning_candidate"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "execution_result",
+      "canonical_name": "Execution Result",
+      "description": "Final Runtime Object produced by the Execution Engine recording what an execution cycle or step actually completed.",
+      "classification": "execution_object",
+      "normative_owner": "schemas/execution_result.schema.json"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": "schemas/learning_candidate.schema.json",
+      "schema_version": "1.0.0",
+      "schema_status": "authoritative",
+      "producing_authority": [
+        "Learning Engine"
+      ],
+      "consuming_authorities": [
+        "Memory Engine",
+        "Quality Engine",
+        "Runtime Orchestrator",
+        "Authorised Human Authority"
+      ],
+      "lifecycle_stage": "learning",
+      "mutability": "controlled_lifecycle",
+      "identity_field": "id",
+      "version_field": "schema_version",
+      "status_field": "status",
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Candidate Learning"
+      ],
+      "prohibited_aliases": [
+        "Memory Record",
+        "Approved Memory"
+      ],
+      "related_objects": [
+        "execution_result",
+        "exception_record",
+        "memory_record",
+        "decision"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "learning_candidate",
+      "canonical_name": "Learning Candidate",
+      "description": "Evidence-backed proposal for durable organisational learning that has not yet become approved memory.",
+      "classification": "learning_object",
+      "normative_owner": "schemas/learning_candidate.schema.json"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": "schemas/memory_record.schema.json",
+      "schema_version": "1.0.0",
+      "schema_status": "authoritative",
+      "producing_authority": [
+        "Memory Engine"
+      ],
+      "consuming_authorities": [
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Quality Engine"
+      ],
+      "lifecycle_stage": "memory",
+      "mutability": "versioned",
+      "identity_field": "id",
+      "version_field": "schema_version",
+      "status_field": "status",
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Approved Runtime Memory"
+      ],
+      "prohibited_aliases": [
+        "Learning Candidate",
+        "Conversation Memory"
+      ],
+      "related_objects": [
+        "learning_candidate",
+        "knowledge_package",
+        "engine_context",
+        "decision"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "memory_record",
+      "canonical_name": "Memory Record",
+      "description": "Validated, governed and reusable organisational memory admitted by the Memory Engine.",
+      "classification": "memory_object",
+      "normative_owner": "schemas/memory_record.schema.json"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": "schemas/exception_record.schema.json",
+      "schema_version": "1.0.0",
+      "schema_status": "authoritative",
+      "producing_authority": [
+        "Exception Engine",
+        "Runtime Orchestrator"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Quality Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Authorised Human Authority"
+      ],
+      "lifecycle_stage": "exception",
+      "mutability": "append_only",
+      "identity_field": "id",
+      "version_field": "schema_version",
+      "status_field": "status",
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Runtime Exception Record"
+      ],
+      "prohibited_aliases": [
+        "Log Entry",
+        "Failure Status"
+      ],
+      "related_objects": [
+        "engine_result",
+        "runtime_state",
+        "learning_candidate",
+        "decision"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "exception_record",
+      "canonical_name": "Exception Record",
+      "description": "Structured record of a material Runtime exception, its impact, handling, recovery and learning.",
+      "classification": "exception_object",
+      "normative_owner": "schemas/exception_record.schema.json"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "not_applicable",
+      "producing_authority": [
+        "Runtime Orchestrator",
+        "Input Engine",
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Execution Engine",
+        "Quality Engine",
+        "Exception Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Approval Engine",
+        "Policy Engine",
+        "Authorised Human Authority"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Input Engine",
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Execution Engine",
+        "Quality Engine",
+        "Exception Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Approval Engine",
+        "Policy Engine",
+        "Authorised Human Authority"
+      ],
+      "lifecycle_stage": "cross_lifecycle",
+      "mutability": "versioned",
+      "identity_field": "decision_id",
+      "version_field": "decision_version",
+      "status_field": "status",
+      "state_relationship": "May propose or guard State Transition; only the Runtime Orchestrator commits Runtime State.",
+      "decision_relationship": "Is the canonical generic Decision payload or record and may be embedded in or referenced by owning objects.",
+      "context_relationship": "Must be formed from authorised Engine Context; Decision Context is not a separate Runtime object.",
+      "containment_rules": [
+        "May be contained by an owning Runtime Object or referenced by Engine Result, State Transition, or audit record.",
+        "Containment does not transfer authority beyond the owning object."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Runtime Decision"
+      ],
+      "prohibited_aliases": [
+        "Business Judgement",
+        "Runtime State",
+        "Decision Context"
+      ],
+      "related_objects": [
+        "business_judgement",
+        "approval_decision",
+        "policy_decision",
+        "engine_result",
+        "state_transition",
+        "decision_snapshot"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "decision",
+      "canonical_name": "Decision",
+      "description": "Governed structured selection, classification, approval, routing, recovery or other material outcome.",
+      "classification": "governance_object",
+      "normative_owner": "engines/shared/decision_model.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "deferred",
+      "producing_authority": [
+        "Approval Engine",
+        "Authorised Human Authority"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Policy Engine",
+        "Execution Engine",
+        "Quality Engine"
+      ],
+      "lifecycle_stage": "governance",
+      "mutability": "versioned",
+      "identity_field": "decision_id",
+      "version_field": "decision_version",
+      "status_field": "status",
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [],
+      "prohibited_aliases": [
+        "Approval Record",
+        "Approval Request"
+      ],
+      "related_objects": [
+        "decision",
+        "approval_record",
+        "approval_request",
+        "runtime_state"
+      ],
+      "registry_status": "conflict",
+      "notes": "The Decision Model and Engine Contract use Approval Decision, while Engine Context lists Approval Record. Their containment and persistence relationship is unresolved.",
+      "object_type": "approval_decision",
+      "canonical_name": "Approval Decision",
+      "description": "Decision produced by the Approval Engine or authorised human authority to approve, reject, revise, defer or condition governed action.",
+      "classification": "governance_object",
+      "normative_owner": "engines/shared/decision_model.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "deferred",
+      "producing_authority": [
+        "Approval Engine",
+        "Authorised Human Authority"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Execution Engine",
+        "Quality Engine"
+      ],
+      "lifecycle_stage": "governance",
+      "mutability": "append_only",
+      "identity_field": null,
+      "version_field": null,
+      "status_field": null,
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [],
+      "prohibited_aliases": [
+        "Approval Decision",
+        "Approval Request"
+      ],
+      "related_objects": [
+        "approval_decision",
+        "approval_request",
+        "engine_context"
+      ],
+      "registry_status": "conflict",
+      "notes": "Engine Context recognises Approval Record but does not define identity, schema, owner fields, or whether it persists an Approval Decision.",
+      "object_type": "approval_record",
+      "canonical_name": "Approval Record",
+      "description": "Persisted approval information named by Engine Context; its exact relationship to Approval Decision is unresolved.",
+      "classification": "governance_object",
+      "normative_owner": "engines/shared/engine_context.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "deferred",
+      "producing_authority": [
+        "Runtime Orchestrator"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Input Engine",
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Execution Engine",
+        "Quality Engine",
+        "Exception Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Approval Engine",
+        "Policy Engine"
+      ],
+      "lifecycle_stage": "control",
+      "mutability": "versioned",
+      "identity_field": "state_id",
+      "version_field": "state_version",
+      "status_field": null,
+      "state_relationship": "Is the sole committed top-level Runtime State and owns canonical state names and categories.",
+      "decision_relationship": "State changes require governed transition Decisions but State is not a Decision.",
+      "context_relationship": "Engine Context contains only an authorised point-in-time view of Runtime State.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Committed Runtime State"
+      ],
+      "prohibited_aliases": [
+        "Engine Status",
+        "Invocation Status",
+        "Decision Status"
+      ],
+      "related_objects": [
+        "state_transition",
+        "state_snapshot",
+        "checkpoint",
+        "engine_context",
+        "engine_result"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "runtime_state",
+      "canonical_name": "Runtime State",
+      "description": "Single committed top-level execution state owned by the Runtime Orchestrator.",
+      "classification": "control_object",
+      "normative_owner": "engines/shared/state_model.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "deferred",
+      "producing_authority": [
+        "Runtime Orchestrator"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Input Engine",
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Execution Engine",
+        "Quality Engine",
+        "Exception Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Approval Engine",
+        "Policy Engine"
+      ],
+      "lifecycle_stage": "control",
+      "mutability": "immutable",
+      "identity_field": "transition_id",
+      "version_field": "schema_version",
+      "status_field": "commit_status",
+      "state_relationship": "References source and target Runtime State; only the Runtime Orchestrator may commit it.",
+      "decision_relationship": "May be proposed by an Engine Decision and committed only after guard Decisions pass.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [],
+      "prohibited_aliases": [],
+      "related_objects": [
+        "runtime_state",
+        "engine_result",
+        "decision",
+        "runtime_event",
+        "state_snapshot"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "state_transition",
+      "canonical_name": "State Transition",
+      "description": "Immutable proposal or committed record of movement between canonical Runtime states.",
+      "classification": "control_object",
+      "normative_owner": "engines/shared/state_model.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "deferred",
+      "producing_authority": [
+        "Runtime Orchestrator"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Exception Engine",
+        "Quality Engine"
+      ],
+      "lifecycle_stage": "control",
+      "mutability": "immutable_snapshot",
+      "identity_field": "snapshot_id",
+      "version_field": "state_version",
+      "status_field": null,
+      "state_relationship": "Captures committed State without becoming the current Runtime State.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [],
+      "prohibited_aliases": [
+        "Runtime State",
+        "Context Snapshot",
+        "Checkpoint"
+      ],
+      "related_objects": [
+        "runtime_state",
+        "state_transition",
+        "checkpoint",
+        "context_snapshot"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "state_snapshot",
+      "canonical_name": "State Snapshot",
+      "description": "Immutable representation of committed Runtime State at one point in time.",
+      "classification": "snapshot_object",
+      "normative_owner": "engines/shared/state_model.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "deferred",
+      "producing_authority": [
+        "Runtime Orchestrator"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Exception Engine"
+      ],
+      "lifecycle_stage": "control",
+      "mutability": "immutable_snapshot",
+      "identity_field": "checkpoint_id",
+      "version_field": null,
+      "status_field": null,
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Runtime Checkpoint"
+      ],
+      "prohibited_aliases": [
+        "State Snapshot",
+        "Runtime State"
+      ],
+      "related_objects": [
+        "runtime_state",
+        "state_snapshot",
+        "context_snapshot"
+      ],
+      "registry_status": "provisional",
+      "notes": "Checkpoint is required by recovery and rollback rules but lacks a complete standalone object contract and schema.",
+      "object_type": "checkpoint",
+      "canonical_name": "Checkpoint",
+      "description": "Governed recovery reference to a previously valid execution position or snapshot.",
+      "classification": "snapshot_object",
+      "normative_owner": "engines/shared/state_model.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "deferred",
+      "producing_authority": [
+        "Policy Engine"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Approval Engine",
+        "Execution Engine",
+        "Quality Engine"
+      ],
+      "lifecycle_stage": "governance",
+      "mutability": "versioned",
+      "identity_field": "decision_id",
+      "version_field": "decision_version",
+      "status_field": "status",
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [],
+      "prohibited_aliases": [
+        "Policy",
+        "Approval Decision",
+        "Security Decision"
+      ],
+      "related_objects": [
+        "decision",
+        "approval_decision",
+        "runtime_state",
+        "engine_context"
+      ],
+      "registry_status": "provisional",
+      "notes": "Policy Decision semantics are defined, but no standalone schema or definitive containment contract exists.",
+      "object_type": "policy_decision",
+      "canonical_name": "Policy Decision",
+      "description": "Governed Decision applying existing policy to the current authorised Engine Context.",
+      "classification": "governance_object",
+      "normative_owner": "engines/shared/decision_model.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "deferred",
+      "producing_authority": [
+        "Runtime Orchestrator",
+        "Input Engine",
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Execution Engine",
+        "Quality Engine",
+        "Exception Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Approval Engine",
+        "Policy Engine"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Quality Engine",
+        "Exception Engine"
+      ],
+      "lifecycle_stage": "observability",
+      "mutability": "append_only",
+      "identity_field": "event_id",
+      "version_field": null,
+      "status_field": null,
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May reference a Decision but does not replace its structured record.",
+      "context_relationship": "Must be correlatable to the Engine Context that authorised the emitting invocation.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Engine Event"
+      ],
+      "prohibited_aliases": [
+        "Log Entry",
+        "Runtime State"
+      ],
+      "related_objects": [
+        "engine_result",
+        "state_transition",
+        "decision",
+        "engine_context"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "runtime_event",
+      "canonical_name": "Runtime Event",
+      "description": "Structured observable event emitted for Engine invocations and committed State Transitions.",
+      "classification": "event_object",
+      "normative_owner": "engines/shared/engine_contract.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "deferred",
+      "producing_authority": [
+        "Runtime Orchestrator"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Exception Engine",
+        "Quality Engine"
+      ],
+      "lifecycle_stage": "context_assembly",
+      "mutability": "immutable_snapshot",
+      "identity_field": "snapshot_id",
+      "version_field": "context_version",
+      "status_field": null,
+      "state_relationship": "May preserve a Runtime State view but does not own or commit State.",
+      "decision_relationship": "May support replay and audit of Decisions without becoming a Decision.",
+      "context_relationship": "Snapshots one delivered Engine Context and remains distinct from the live Context.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [],
+      "prohibited_aliases": [
+        "Engine Context",
+        "State Snapshot",
+        "Decision Snapshot"
+      ],
+      "related_objects": [
+        "engine_context",
+        "state_snapshot",
+        "decision_snapshot",
+        "checkpoint"
+      ],
+      "registry_status": "approved",
+      "notes": null,
+      "object_type": "context_snapshot",
+      "canonical_name": "Context Snapshot",
+      "description": "Persistent immutable representation of a delivered Engine Context.",
+      "classification": "snapshot_object",
+      "normative_owner": "engines/shared/engine_context.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "deferred",
+      "producing_authority": [
+        "Runtime Orchestrator",
+        "Input Engine",
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Execution Engine",
+        "Quality Engine",
+        "Exception Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Approval Engine",
+        "Policy Engine",
+        "Authorised Human Authority"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Quality Engine",
+        "Learning Engine",
+        "Authorised Human Authority"
+      ],
+      "lifecycle_stage": "governance",
+      "mutability": "immutable_snapshot",
+      "identity_field": "snapshot_id",
+      "version_field": "decision_version",
+      "status_field": null,
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "Captures a Decision version but does not replace the authoritative Decision history.",
+      "context_relationship": "References the Engine Context used for the captured Decision.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [],
+      "prohibited_aliases": [
+        "Decision",
+        "Context Snapshot",
+        "State Snapshot"
+      ],
+      "related_objects": [
+        "decision",
+        "context_snapshot",
+        "state_snapshot"
+      ],
+      "registry_status": "provisional",
+      "notes": "Defined by the Decision Model, but no standalone schema exists.",
+      "object_type": "decision_snapshot",
+      "canonical_name": "Decision Snapshot",
+      "description": "Immutable point-in-time representation of a material Decision for audit and replay.",
+      "classification": "snapshot_object",
+      "normative_owner": "engines/shared/decision_model.md"
+    },
+    {
+      "owner_version": "1.0.0",
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "deferred",
+      "producing_authority": [
+        "Runtime Orchestrator"
+      ],
+      "consuming_authorities": [
+        "Runtime Orchestrator",
+        "Input Engine",
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Execution Engine",
+        "Quality Engine",
+        "Exception Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Approval Engine",
+        "Policy Engine"
+      ],
+      "lifecycle_stage": "context_assembly",
+      "mutability": "immutable",
+      "identity_field": "reference_id",
+      "version_field": "object_version",
+      "status_field": "availability",
+      "state_relationship": "May point to State-related objects but is never Runtime State.",
+      "decision_relationship": "May point to Decision-related objects but is never a Decision.",
+      "context_relationship": "Belongs to the Engine Context reference model and does not imply containment.",
+      "containment_rules": [
+        "May be contained within Engine Context references.",
+        "The referenced object remains external unless explicitly embedded."
+      ],
+      "reference_rules": [
+        "Must preserve object identity, type, version, location, hash, classification, availability, and immutability metadata where required."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Engine Context Reference"
+      ],
+      "prohibited_aliases": [
+        "Runtime Object",
+        "Embedded Object"
+      ],
+      "related_objects": [
+        "engine_context"
+      ],
+      "registry_status": "provisional",
+      "notes": "The logical reference model is defined, but no standalone schema exists.",
+      "object_type": "context_reference",
+      "canonical_name": "Context Reference",
+      "description": "Structured reference used by Engine Context to identify an external Runtime Object without copying it.",
+      "classification": "reference_object",
+      "normative_owner": "engines/shared/engine_context.md"
+    },
+    {
+      "owner_version": null,
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "planned",
+      "producing_authority": [
+        "Runtime Orchestrator",
+        "Input Engine",
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Execution Engine",
+        "Quality Engine",
+        "Exception Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Approval Engine",
+        "Policy Engine"
+      ],
+      "consuming_authorities": [
+        "Approval Engine",
+        "Authorised Human Authority",
+        "Runtime Orchestrator"
+      ],
+      "lifecycle_stage": "governance",
+      "mutability": "controlled_lifecycle",
+      "identity_field": null,
+      "version_field": null,
+      "status_field": null,
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [],
+      "prohibited_aliases": [
+        "Approval Decision",
+        "Approval Record"
+      ],
+      "related_objects": [
+        "approval_decision",
+        "approval_record",
+        "decision"
+      ],
+      "registry_status": "planned",
+      "notes": "Named as a possible Core object and future schema; identity and full contract are not yet defined.",
+      "object_type": "approval_request",
+      "canonical_name": "Approval Request",
+      "description": "Request for authorised approval before a governed action may continue.",
+      "classification": "governance_object",
+      "normative_owner": "README.md"
+    },
+    {
+      "owner_version": null,
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "planned",
+      "producing_authority": [
+        "Learning Engine"
+      ],
+      "consuming_authorities": [
+        "Learning Engine",
+        "Memory Engine",
+        "Quality Engine"
+      ],
+      "lifecycle_stage": "learning",
+      "mutability": "controlled_lifecycle",
+      "identity_field": null,
+      "version_field": null,
+      "status_field": null,
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Structured Feedback"
+      ],
+      "prohibited_aliases": [
+        "Learning Candidate",
+        "Execution Result"
+      ],
+      "related_objects": [
+        "execution_result",
+        "learning_candidate"
+      ],
+      "registry_status": "provisional",
+      "notes": "Runtime README recognises Feedback Record, but the current shared architecture uses Learning Candidate as the schema-backed learning proposal.",
+      "object_type": "feedback_record",
+      "canonical_name": "Feedback Record",
+      "description": "Structured record of execution feedback named by the Runtime architecture.",
+      "classification": "learning_object",
+      "normative_owner": "README.md"
+    },
+    {
+      "owner_version": null,
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "planned",
+      "producing_authority": [
+        "Runtime Orchestrator",
+        "Execution Engine"
+      ],
+      "consuming_authorities": [
+        "Quality Engine",
+        "Learning Engine",
+        "Memory Engine"
+      ],
+      "lifecycle_stage": "execution",
+      "mutability": "controlled_lifecycle",
+      "identity_field": null,
+      "version_field": null,
+      "status_field": null,
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [
+        "Execution History Record"
+      ],
+      "prohibited_aliases": [
+        "Execution Result",
+        "Engine Result"
+      ],
+      "related_objects": [
+        "execution_result",
+        "engine_result",
+        "runtime_event"
+      ],
+      "registry_status": "provisional",
+      "notes": "Recognised by Runtime documentation, but identity, boundary, and relationship to Execution Result remain incomplete.",
+      "object_type": "execution_record",
+      "canonical_name": "Execution Record",
+      "description": "Historical execution record named by the Runtime Core and audit model.",
+      "classification": "execution_object",
+      "normative_owner": "README.md"
+    },
+    {
+      "owner_version": null,
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "planned",
+      "producing_authority": [
+        "Execution Engine"
+      ],
+      "consuming_authorities": [
+        "Execution Engine"
+      ],
+      "lifecycle_stage": "execution",
+      "mutability": "controlled_lifecycle",
+      "identity_field": null,
+      "version_field": null,
+      "status_field": null,
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [],
+      "prohibited_aliases": [
+        "Approval Request",
+        "Skill Output"
+      ],
+      "related_objects": [
+        "tool_result",
+        "skill_output",
+        "engine_result"
+      ],
+      "registry_status": "planned",
+      "notes": "Listed only as a future schema; not approved as a current production Runtime Object.",
+      "object_type": "tool_request",
+      "canonical_name": "Tool Request",
+      "description": "Planned structured request for a Runtime tool invocation.",
+      "classification": "execution_object",
+      "normative_owner": "schemas/README.md"
+    },
+    {
+      "owner_version": null,
+      "schema": null,
+      "schema_version": null,
+      "schema_status": "planned",
+      "producing_authority": [
+        "Execution Engine"
+      ],
+      "consuming_authorities": [
+        "Execution Engine",
+        "Quality Engine"
+      ],
+      "lifecycle_stage": "execution",
+      "mutability": "controlled_lifecycle",
+      "identity_field": null,
+      "version_field": null,
+      "status_field": null,
+      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
+      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
+      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "containment_rules": [
+        "Containment MUST be explicit in the containing schema or normative specification.",
+        "A reference to this object does not imply that the object is contained."
+      ],
+      "reference_rules": [
+        "References MUST preserve canonical object_type and object identity.",
+        "Similar names MUST NOT be used as substitutes."
+      ],
+      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "integrity_requirements": [
+        "Preserve provenance and source authority.",
+        "Validate integrity according to the normative owner and authoritative schema where one exists."
+      ],
+      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "aliases": [],
+      "prohibited_aliases": [
+        "Skill Output",
+        "Engine Result",
+        "Execution Result"
+      ],
+      "related_objects": [
+        "tool_request",
+        "skill_output",
+        "engine_result"
+      ],
+      "registry_status": "planned",
+      "notes": "Listed only as a future schema and audit input; not approved as a current production Runtime Object.",
+      "object_type": "tool_result",
+      "canonical_name": "Tool Result",
+      "description": "Planned structured result of a Runtime tool invocation.",
+      "classification": "execution_object",
+      "normative_owner": "schemas/README.md"
+    }
+  ]
+}

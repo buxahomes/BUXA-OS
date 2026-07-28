@@ -1,0 +1,464 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://buxa.local/scout/runtime/schemas/runtime_object_registry.schema.json",
+  "title": "Scout Runtime Object Registry",
+  "description": "Validates the authoritative machine-readable registry of recognised Scout Runtime Objects.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "registry",
+    "classifications",
+    "objects"
+  ],
+  "properties": {
+    "registry": {
+      "$ref": "#/$defs/registry_metadata"
+    },
+    "classifications": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/classification"
+      }
+    },
+    "objects": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/registry_entry"
+      }
+    }
+  },
+  "$defs": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "path": {
+      "type": "string",
+      "pattern": "^(README\\.md|(engines/shared|schemas|registry)/.+\\.(md|json))$",
+      "minLength": 5,
+      "maxLength": 500
+    },
+    "authority": {
+      "type": "string",
+      "enum": [
+        "Runtime Orchestrator",
+        "Input Engine",
+        "Retrieval Engine",
+        "Business Judgement Engine",
+        "Planning Engine",
+        "Execution Engine",
+        "Quality Engine",
+        "Exception Engine",
+        "Learning Engine",
+        "Memory Engine",
+        "Approval Engine",
+        "Policy Engine",
+        "Authorised Human Authority"
+      ]
+    },
+    "classification": {
+      "type": "string",
+      "enum": [
+        "input_object",
+        "knowledge_object",
+        "judgement_object",
+        "planning_object",
+        "execution_object",
+        "quality_object",
+        "learning_object",
+        "memory_object",
+        "exception_object",
+        "governance_object",
+        "control_object",
+        "context_envelope",
+        "invocation_envelope",
+        "event_object",
+        "snapshot_object",
+        "reference_object"
+      ]
+    },
+    "schema_status": {
+      "type": "string",
+      "enum": [
+        "authoritative",
+        "planned",
+        "deferred",
+        "not_applicable"
+      ]
+    },
+    "registry_status": {
+      "type": "string",
+      "enum": [
+        "approved",
+        "provisional",
+        "conflict",
+        "deprecated",
+        "planned"
+      ]
+    },
+    "mutability": {
+      "type": "string",
+      "enum": [
+        "immutable",
+        "append_only",
+        "versioned",
+        "controlled_lifecycle",
+        "immutable_snapshot"
+      ]
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": [
+        "intake",
+        "context_assembly",
+        "retrieval",
+        "judgement",
+        "planning",
+        "execution",
+        "quality",
+        "governance",
+        "exception",
+        "learning",
+        "memory",
+        "control",
+        "observability",
+        "cross_lifecycle"
+      ]
+    },
+    "nullable_identifier": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/identifier"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nullable_path": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/path"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nullable_version": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/version"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "string_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000
+      }
+    },
+    "identifier_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/identifier"
+      }
+    },
+    "authority_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/authority"
+      }
+    },
+    "registry_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "registry_id",
+        "version",
+        "status",
+        "owner",
+        "normative_document",
+        "schema",
+        "last_updated",
+        "recognised_authorities",
+        "classification_count",
+        "object_count"
+      ],
+      "properties": {
+        "registry_id": {
+          "const": "scout_runtime_object_registry"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        },
+        "status": {
+          "const": "approved"
+        },
+        "owner": {
+          "const": "Scout Runtime"
+        },
+        "normative_document": {
+          "const": "engines/shared/runtime_objects.md"
+        },
+        "schema": {
+          "const": "schemas/runtime_object_registry.schema.json"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date"
+        },
+        "recognised_authorities": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/authority"
+          }
+        },
+        "classification_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "object_count": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "registry_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_type",
+        "canonical_name",
+        "description",
+        "classification",
+        "normative_owner",
+        "owner_version",
+        "schema",
+        "schema_version",
+        "schema_status",
+        "producing_authority",
+        "consuming_authorities",
+        "lifecycle_stage",
+        "mutability",
+        "identity_field",
+        "version_field",
+        "status_field",
+        "state_relationship",
+        "decision_relationship",
+        "context_relationship",
+        "containment_rules",
+        "reference_rules",
+        "retention_authority",
+        "integrity_requirements",
+        "compatibility_policy",
+        "aliases",
+        "prohibited_aliases",
+        "related_objects",
+        "registry_status",
+        "notes"
+      ],
+      "properties": {
+        "object_type": {
+          "$ref": "#/$defs/identifier"
+        },
+        "canonical_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "classification": {
+          "$ref": "#/$defs/classification"
+        },
+        "normative_owner": {
+          "$ref": "#/$defs/path"
+        },
+        "owner_version": {
+          "$ref": "#/$defs/nullable_version"
+        },
+        "schema": {
+          "$ref": "#/$defs/nullable_path"
+        },
+        "schema_version": {
+          "$ref": "#/$defs/nullable_version"
+        },
+        "schema_status": {
+          "$ref": "#/$defs/schema_status"
+        },
+        "producing_authority": {
+          "$ref": "#/$defs/authority_list"
+        },
+        "consuming_authorities": {
+          "$ref": "#/$defs/authority_list"
+        },
+        "lifecycle_stage": {
+          "$ref": "#/$defs/lifecycle_stage"
+        },
+        "mutability": {
+          "$ref": "#/$defs/mutability"
+        },
+        "identity_field": {
+          "$ref": "#/$defs/nullable_identifier"
+        },
+        "version_field": {
+          "$ref": "#/$defs/nullable_identifier"
+        },
+        "status_field": {
+          "$ref": "#/$defs/nullable_identifier"
+        },
+        "state_relationship": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "decision_relationship": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "context_relationship": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "containment_rules": {
+          "$ref": "#/$defs/string_list"
+        },
+        "reference_rules": {
+          "$ref": "#/$defs/string_list"
+        },
+        "retention_authority": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "integrity_requirements": {
+          "$ref": "#/$defs/string_list"
+        },
+        "compatibility_policy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "aliases": {
+          "$ref": "#/$defs/string_list"
+        },
+        "prohibited_aliases": {
+          "$ref": "#/$defs/string_list"
+        },
+        "related_objects": {
+          "$ref": "#/$defs/identifier_list"
+        },
+        "registry_status": {
+          "$ref": "#/$defs/registry_status"
+        },
+        "notes": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4000
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "schema_status": {
+                "const": "authoritative"
+              }
+            },
+            "required": [
+              "schema_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "schema": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "schema_version": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "schema_status": {
+                "const": "not_applicable"
+              }
+            },
+            "required": [
+              "schema_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "schema": {
+                "type": "null"
+              },
+              "schema_version": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "registry_status": {
+                "const": "conflict"
+              }
+            },
+            "required": [
+              "registry_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "notes": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
