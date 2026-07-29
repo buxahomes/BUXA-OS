@@ -1,0 +1,13 @@
+{
+  "capability_schema_version": "1.0.0", "capability_id": "scout.capability.retrieval.retrieval_verification", "capability_version": "1.0.0",
+  "name": "Retrieval Verification", "description": "Validates provenance, freshness, coverage, contradiction handling and retrieval completeness before hand-off.", "engine_type": "retrieval",
+  "input_object_types": ["task", "engine_context", "knowledge_package"], "output_object_types": ["knowledge_package", "engine_result", "runtime_event"],
+  "required_context": {"engine_context_required": true, "required_sections": ["task", "knowledge", "governance", "quality", "security", "privacy", "source_references"]},
+  "valid_current_states": ["retrieval_running"], "entry_states": ["retrieval_running"], "proposed_next_states": ["knowledge_ready", "knowledge_incomplete", "retrieval_failed", "exception_detected", "cancelled", "timed_out"], "dynamic_target_mechanisms": [],
+  "decision_types": {"produces": ["scout.decision.proceed", "scout.decision.proceed_with_conditions", "scout.decision.request_more_knowledge", "scout.decision.escalate"], "consumes": ["scout.decision.cancel"], "required_before_action": [], "required_before_transition": []},
+  "quality_requirements": ["validate source authority and freshness", "detect duplicates and contradictions", "report coverage and requested-source fidelity", "do not equate retrieval with truth"],
+  "approval_requirements": {"mode": "not_required", "decision_types": []}, "policy_requirements": {"mode": "conditional", "decision_types": ["scout.decision.policy"]}, "tool_requirements": [],
+  "permissions": ["read_internal", "read_restricted"], "side_effect_level": "none", "idempotency": {"required": true, "strategy": "Apply the same validation rules to immutable evidence and source versions."},
+  "retry_profile": {"supported": false, "maximum_attempts": 0, "requires_retry_decision": false}, "timeout_profile": {"maximum_seconds": 60, "on_timeout": "return_timeout_engine_result"}, "dependencies": [], "deprecation": null,
+  "metadata": {"owner": "Scout Runtime Retrieval Engine", "immutable": true, "documentation": "../retrieval_engine_specification.md"}
+}

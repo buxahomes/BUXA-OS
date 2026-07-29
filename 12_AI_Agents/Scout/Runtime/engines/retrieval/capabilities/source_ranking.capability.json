@@ -1,0 +1,13 @@
+{
+  "capability_schema_version": "1.0.0", "capability_id": "scout.capability.retrieval.source_ranking", "capability_version": "1.0.0",
+  "name": "Source Ranking", "description": "Ranks retrieved sources by authority, relevance, freshness and requested-source fidelity without changing source authority.", "engine_type": "retrieval",
+  "input_object_types": ["task", "engine_context", "knowledge_package"], "output_object_types": ["knowledge_package", "engine_result", "runtime_event"],
+  "required_context": {"engine_context_required": true, "required_sections": ["task", "knowledge", "governance", "source_references"]},
+  "valid_current_states": ["retrieval_running"], "entry_states": ["retrieval_running"], "proposed_next_states": ["knowledge_ready", "knowledge_incomplete", "retrieval_failed", "exception_detected", "cancelled", "timed_out"], "dynamic_target_mechanisms": [],
+  "decision_types": {"produces": ["scout.decision.selection", "scout.decision.prioritisation"], "consumes": ["scout.decision.cancel"], "required_before_action": [], "required_before_transition": []},
+  "quality_requirements": ["authority precedes convenience", "ranking rationale is traceable", "source authority is never upgraded"],
+  "approval_requirements": {"mode": "not_required", "decision_types": []}, "policy_requirements": {"mode": "conditional", "decision_types": ["scout.decision.policy"]}, "tool_requirements": [],
+  "permissions": ["read_internal"], "side_effect_level": "none", "idempotency": {"required": true, "strategy": "Rank identical source evidence deterministically under the same criteria version."},
+  "retry_profile": {"supported": false, "maximum_attempts": 0, "requires_retry_decision": false}, "timeout_profile": {"maximum_seconds": 30, "on_timeout": "return_timeout_engine_result"}, "dependencies": [], "deprecation": null,
+  "metadata": {"owner": "Scout Runtime Retrieval Engine", "immutable": true, "documentation": "../retrieval_engine_specification.md"}
+}

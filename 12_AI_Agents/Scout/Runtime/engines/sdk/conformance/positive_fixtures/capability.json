@@ -1,0 +1,1 @@
+{"fixture_id":"positive.capability","fixture_type":"document","target":"../../example_capability.json","schema":"../../engine_capability.schema.json","expected_result":"pass"}

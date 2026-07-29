@@ -1,0 +1,13 @@
+{
+  "capability_schema_version": "1.0.0", "capability_id": "scout.capability.retrieval.evidence_extraction", "capability_version": "1.0.0",
+  "name": "Evidence Extraction", "description": "Extracts claim-linked evidence with precise source locators and preserves limitations and contradictions.", "engine_type": "retrieval",
+  "input_object_types": ["task", "engine_context", "knowledge_package"], "output_object_types": ["knowledge_package", "engine_result", "runtime_event"],
+  "required_context": {"engine_context_required": true, "required_sections": ["task", "knowledge", "security", "privacy", "source_references"]},
+  "valid_current_states": ["retrieval_running"], "entry_states": ["retrieval_running"], "proposed_next_states": ["knowledge_ready", "knowledge_incomplete", "retrieval_failed", "exception_detected", "cancelled", "timed_out"], "dynamic_target_mechanisms": [],
+  "decision_types": {"produces": ["scout.decision.selection", "scout.decision.request_more_knowledge", "scout.decision.escalate"], "consumes": ["scout.decision.cancel"], "required_before_action": [], "required_before_transition": []},
+  "quality_requirements": ["every material claim maps to evidence", "locators preserve exact source identity", "unsupported inference remains explicit"],
+  "approval_requirements": {"mode": "conditional", "decision_types": ["scout.decision.approval"]}, "policy_requirements": {"mode": "conditional", "decision_types": ["scout.decision.policy"]}, "tool_requirements": [],
+  "permissions": ["read_internal", "read_restricted"], "side_effect_level": "none", "idempotency": {"required": true, "strategy": "Extract from immutable source versions using stable evidence identifiers."},
+  "retry_profile": {"supported": false, "maximum_attempts": 0, "requires_retry_decision": false}, "timeout_profile": {"maximum_seconds": 60, "on_timeout": "return_timeout_engine_result"}, "dependencies": [], "deprecation": null,
+  "metadata": {"owner": "Scout Runtime Retrieval Engine", "immutable": true, "documentation": "../retrieval_engine_specification.md"}
+}

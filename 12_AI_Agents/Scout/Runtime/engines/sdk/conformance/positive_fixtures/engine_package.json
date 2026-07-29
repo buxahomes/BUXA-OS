@@ -1,0 +1,1 @@
+{"fixture_id":"positive.engine_package","fixture_type":"package","manifest":"../../example_manifest.json","capabilities":["../../example_capability.json"],"expected_result":"pass","required_checks":["manifest","capabilities","cross_references","permissions","states","objects","decisions","conformance"]}

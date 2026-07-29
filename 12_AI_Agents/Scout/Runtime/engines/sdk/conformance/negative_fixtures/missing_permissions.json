@@ -1,0 +1,1 @@
+{"fixture_id":"negative.missing_permissions","base_fixture":"../../example_manifest.json","mutation":{"operation":"remove","path":"/permissions"},"expected_validator_error":"required property permissions is missing","error_category":"permission.required","recommended_remediation":"Declare the Manifest permission ceiling.","expected_result":"fail"}

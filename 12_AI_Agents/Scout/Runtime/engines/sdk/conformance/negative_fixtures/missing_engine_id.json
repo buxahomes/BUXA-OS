@@ -1,0 +1,1 @@
+{"fixture_id":"negative.missing_engine_id","base_fixture":"../../example_manifest.json","mutation":{"operation":"remove","path":"/engine_id"},"expected_validator_error":"required property engine_id is missing","error_category":"manifest.required","recommended_remediation":"Add the stable ADR-01 engine_id.","expected_result":"fail"}

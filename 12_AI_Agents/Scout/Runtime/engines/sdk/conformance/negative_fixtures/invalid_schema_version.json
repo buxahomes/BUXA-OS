@@ -1,0 +1,1 @@
+{"fixture_id":"negative.invalid_schema_version","base_fixture":"../../example_manifest.json","mutation":{"operation":"replace","path":"/manifest_schema_version","value":"2.0.0"},"expected_validator_error":"unsupported Manifest schema version","error_category":"compatibility.schema","recommended_remediation":"Use manifest_schema_version 1.0.0.","expected_result":"fail"}

@@ -1,0 +1,1 @@
+{"fixture_id":"retrieval.negative.invalid_engine_id","base_fixture":"../../engine_manifest.json","mutation":{"operation":"replace","path":"/engine_id","value":"retrieval.default"},"expected_validator_error":"engine_id does not match ADR-01","error_category":"manifest.identity","recommended_remediation":"Use scout.engine.retrieval.default.","expected_result":"fail"}

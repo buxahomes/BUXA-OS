@@ -1,0 +1,1 @@
+{"fixture_id":"negative.missing_conformance_section","base_fixture":"../../example_manifest.json","mutation":{"operation":"remove","path":"/conformance"},"expected_validator_error":"required property conformance is missing","error_category":"conformance.required","recommended_remediation":"Declare result profile, suite, fixtures, and evidence path.","expected_result":"fail"}

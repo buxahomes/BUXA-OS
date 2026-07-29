@@ -1,0 +1,32 @@
+{
+  "manifest_schema_version": "1.0.0",
+  "engine_id": "scout.engine.retrieval.template",
+  "engine_type": "retrieval",
+  "canonical_name": "Retrieval Engine",
+  "display_name": "Replace with Implementation Name",
+  "engine_version": "0.1.0",
+  "foundation_version": "runtime-foundation-v1.0.0",
+  "sdk_version": "1.0.0",
+  "owner": "Replace with Engine owner",
+  "entrypoint": {"adapter_type": "library", "package_path": "src/engine"},
+  "engine_profile": {
+    "execution": {"deterministic_mode_supported": true, "idempotency_supported": true, "concurrency_model": "single_invocation"},
+    "quality": {"local_validation_required": true, "quality_engine_handoff": "conditional"},
+    "security": {"default_deny": true, "secret_provider_required": false},
+    "memory": {"read_allowed": true, "proposal_allowed": false, "direct_write_allowed": false},
+    "recovery": {"retry_supported": true, "recovery_supported": false, "rollback_supported": false, "checkpoint_supported": false},
+    "observability": {"runtime_events_required": true, "trace_correlation_required": true, "metrics_required": true},
+    "tools": {"declared_only": true, "tool_ids": []}
+  },
+  "capabilities": [{"capability_id": "scout.capability.retrieval.template", "capability_version": "0.1.0", "capability_file": "capability_template.json", "content_hash": null}],
+  "permissions": ["read_internal"],
+  "side_effect_level": "none",
+  "decision_types": {"produces": ["scout.decision.selection"], "consumes": [], "required_before_action": [], "required_before_transition": []},
+  "runtime_objects": {"consumes": ["task", "engine_context"], "produces": ["engine_result", "knowledge_package"], "updates": [], "references": ["runtime_state", "runtime_event"], "experimental_references": []},
+  "supported_states": {"valid_current_states": ["retrieval_pending", "retrieval_running"], "entry_states": ["retrieval_pending"], "proposed_next_states": ["retrieval_running", "retrieval_waiting", "knowledge_ready", "knowledge_incomplete", "retrieval_failed"], "dynamic_target_mechanisms": []},
+  "quality_requirements": ["Validate all produced Runtime Objects."],
+  "security_requirements": ["Default deny all undeclared access."],
+  "observability": {"required_event_types": ["engine_started", "engine_completed"], "metrics": ["duration_ms"], "trace_required": true, "audit_required": true},
+  "conformance": {"required_result_profile": "runtime_execution_evidence_v1", "test_suite_version": "1.0.0", "positive_fixtures": ["tests/positive"], "negative_fixtures": ["tests/negative"], "evidence_path": "conformance/evidence.json"},
+  "metadata": {"description": "Replace with a stable implementation description.", "documentation": "README.md", "maintainers": ["Replace with maintainer"], "immutable": true, "deprecation": null}
+}

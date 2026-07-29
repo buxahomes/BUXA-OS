@@ -1,0 +1,1 @@
+{"fixture_id":"retrieval.positive.valid_manifest","fixture_type":"document","target":"../../engine_manifest.json","schema":"../../../sdk/engine_manifest.schema.json","expected_result":"pass"}

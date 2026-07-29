@@ -1,0 +1,15 @@
+{
+  "capability_schema_version": "1.0.0", "capability_id": "scout.capability.retrieval.source_discovery", "capability_version": "1.0.0",
+  "name": "Source Discovery", "description": "Discovers candidate sources within the authorised retrieval scope without treating discovery as verification.", "engine_type": "retrieval",
+  "input_object_types": ["task", "engine_context"], "output_object_types": ["knowledge_package", "engine_result", "runtime_event"],
+  "required_context": {"engine_context_required": true, "required_sections": ["task", "knowledge", "security", "privacy", "source_references"]},
+  "valid_current_states": ["retrieval_pending", "retrieval_running", "retrieval_waiting"], "entry_states": ["retrieval_pending", "retrieval_running"],
+  "proposed_next_states": ["retrieval_running", "retrieval_waiting", "knowledge_incomplete", "retrieval_failed", "exception_detected", "cancelled", "timed_out"], "dynamic_target_mechanisms": ["retry_target"],
+  "decision_types": {"produces": ["scout.decision.selection", "scout.decision.request_more_knowledge"], "consumes": ["scout.decision.approval", "scout.decision.policy", "scout.decision.retry", "scout.decision.cancel"], "required_before_action": [], "required_before_transition": []},
+  "quality_requirements": ["honour retrieval scope", "preserve candidate source origin", "distinguish discovered from retrieved"],
+  "approval_requirements": {"mode": "conditional", "decision_types": ["scout.decision.approval"]}, "policy_requirements": {"mode": "conditional", "decision_types": ["scout.decision.policy"]},
+  "tool_requirements": [{"tool_id": "scout.tool.source_search_adapter", "tool_type": "source_search_adapter", "interface_version": "1.0.0", "required": false, "permissions": ["invoke_tool", "network_access"], "side_effect_level": "none", "input_contract": "https://buxa.ai/scout/tools/source-search/input/1.0.0", "output_contract": "https://buxa.ai/scout/tools/source-search/output/1.0.0", "timeout": 30, "retry_policy": {"maximum_attempts": 1, "backoff": "fixed", "requires_idempotency": true}}],
+  "permissions": ["read_internal", "read_restricted", "invoke_tool", "network_access"], "side_effect_level": "none", "idempotency": {"required": true, "strategy": "Use stable query and scope identifiers; repeated discovery creates no persistent side effect."},
+  "retry_profile": {"supported": true, "maximum_attempts": 2, "requires_retry_decision": true}, "timeout_profile": {"maximum_seconds": 120, "on_timeout": "return_timeout_engine_result"}, "dependencies": [], "deprecation": null,
+  "metadata": {"owner": "Scout Runtime Retrieval Engine", "immutable": true, "documentation": "../retrieval_engine_specification.md"}
+}

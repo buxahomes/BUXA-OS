@@ -1,0 +1,1 @@
+{"fixture_id":"positive.registry","fixture_type":"document","target":"../../engine_registry.json","schema":"../../engine_registry.schema.json","expected_result":"pass"}

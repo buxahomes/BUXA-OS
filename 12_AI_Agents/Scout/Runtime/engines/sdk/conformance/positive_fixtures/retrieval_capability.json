@@ -1,0 +1,1 @@
+{"fixture_id":"positive.retrieval_capability","fixture_type":"document","target":"../../example_capability.json","schema":"../../engine_capability.schema.json","expected_result":"pass","semantic_checks":["engine_type_correlation","approved_runtime_objects","registered_states"]}

@@ -1,0 +1,47 @@
+{
+  "registry_id": "scout.runtime.engine_registry",
+  "registry_schema_version": "1.0.0",
+  "registry_version": "1.0.0",
+  "foundation_version": "runtime-foundation-v1.0.0",
+  "sdk_version": "1.0.0",
+  "owner": "Scout Runtime Engine Layer Governance",
+  "engine_types": [
+    {"engine_type": "input", "canonical_name": "Input Engine", "implementations": [], "default_implementation": null},
+    {"engine_type": "retrieval", "canonical_name": "Retrieval Engine", "implementations": [
+      {
+        "engine_id": "scout.engine.retrieval.default",
+        "engine_version": "1.0.0",
+        "manifest_file": "../retrieval/engine_manifest.json",
+        "manifest_hash": "sha256:d2d47946a419792660691fbc4eaaa63fb904d404ef76c2507fadd451020e4458",
+        "status": "validated",
+        "certification": {"status": "conformant", "evidence_file": "../retrieval/certification/conformance_evidence.json"},
+        "compatibility": {"foundation_version": "runtime-foundation-v1.0.0", "foundation_commit": "2eb52d62d877dd8b5c5736721423dc1b2d5b5d36", "sdk_version": "1.0.0", "compatible": true},
+        "activation_eligible": false,
+        "selection_priority": null,
+        "capabilities": [
+          {"capability_id": "scout.capability.retrieval.authoritative_retrieval", "capability_version": "1.0.0"},
+          {"capability_id": "scout.capability.retrieval.source_discovery", "capability_version": "1.0.0"},
+          {"capability_id": "scout.capability.retrieval.source_ranking", "capability_version": "1.0.0"},
+          {"capability_id": "scout.capability.retrieval.evidence_extraction", "capability_version": "1.0.0"},
+          {"capability_id": "scout.capability.retrieval.retrieval_verification", "capability_version": "1.0.0"}
+        ],
+        "deprecation": null
+      }
+    ], "default_implementation": null},
+    {"engine_type": "business_judgement", "canonical_name": "Business Judgement Engine", "implementations": [], "default_implementation": null},
+    {"engine_type": "planning", "canonical_name": "Planning Engine", "implementations": [], "default_implementation": null},
+    {"engine_type": "execution", "canonical_name": "Execution Engine", "implementations": [], "default_implementation": null},
+    {"engine_type": "quality", "canonical_name": "Quality Engine", "implementations": [], "default_implementation": null},
+    {"engine_type": "learning", "canonical_name": "Learning Engine", "implementations": [], "default_implementation": null},
+    {"engine_type": "memory", "canonical_name": "Memory Engine", "implementations": [], "default_implementation": null},
+    {"engine_type": "exception", "canonical_name": "Exception Engine", "implementations": [], "default_implementation": null},
+    {"engine_type": "approval", "canonical_name": "Approval Engine", "implementations": [], "default_implementation": null},
+    {"engine_type": "policy", "canonical_name": "Policy Engine", "implementations": [], "default_implementation": null}
+  ],
+  "metadata": {
+    "engine_type_count": 11,
+    "implementation_count": 1,
+    "generated": false,
+    "notes": "The validated, conformant Retrieval Engine v1 package is registered as a non-active candidate. No implementation is selected as default."
+  }
+}

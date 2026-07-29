@@ -1,0 +1,11 @@
+{
+  "example_type": "canonical_decision_reference",
+  "decision_type_id": "scout.decision.retry",
+  "foundation_category": "retry_decision",
+  "decision_reference": {"decision_id": "decision_550e8400-e29b-41d4-a716-446655440020", "decision_version": 1, "summary": "Retry the retrieval operation once after the transient source adapter failure."},
+  "transition_mechanism": "retry_target",
+  "dynamic_target": {"target_field": "retry_target", "target_state": "retrieval_running"},
+  "retry_reference": {"reference_id": "decision_550e8400-e29b-41d4-a716-446655440020", "object_type": "decision", "version": 1},
+  "origin_context": {"origin_state": "retrieval_running", "context_id": "engine_context_550e8400-e29b-41d4-a716-446655440021", "context_version": 1, "recorded_at": "2026-07-29T08:05:00Z", "origin_transition_id": "transition_retrieval_failed_001"},
+  "note": "This example is a typed reference only. decision_model.md owns the Decision structure and retry semantics."
+}

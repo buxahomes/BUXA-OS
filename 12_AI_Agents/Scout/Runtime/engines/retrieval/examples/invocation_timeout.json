@@ -1,0 +1,270 @@
+{
+  "id": "engine_result_550e8400-e29b-41d4-a716-446655440016",
+  "schema_name": "engine_result",
+  "schema_version": "1.0.0",
+  "engine_id": "scout.engine.retrieval.default",
+  "engine_version": "1.0.0",
+  "contract_version": "1.0.0",
+  "task_id": "task_550e8400-e29b-41d4-a716-446655440002",
+  "execution_id": "exec_550e8400-e29b-41d4-a716-446655440003",
+  "invocation_id": "invocation_retrieval_timeout_001",
+  "created_at": "2026-07-29T08:00:01Z",
+  "created_by": {
+    "actor_type": "engine",
+    "actor_id": "scout.engine.retrieval.default",
+    "display_name": "Scout Retrieval Engine Default",
+    "role": "retrieval",
+    "version": "1.0.0"
+  },
+  "status": "timeout",
+  "primary_output": {
+    "output_kind": "none",
+    "summary": null,
+    "object_ref": null,
+    "value": null
+  },
+  "secondary_outputs": [],
+  "decision_ref": null,
+  "confidence": null,
+  "warnings": [],
+  "blocking_issues": [
+    {
+      "code": "retrieval_timeout",
+      "severity": "high",
+      "summary": "The invocation exceeded its declared timeout.",
+      "related_object_id": null
+    }
+  ],
+  "events": [
+    {
+      "event_id": "event_retrieval_success_001",
+      "event_type": "engine_completed",
+      "timestamp": "2026-07-29T08:00:01Z"
+    },
+    {
+      "event_id": "event_retrieval_transition_001",
+      "event_type": "engine_state_transition_proposed",
+      "timestamp": "2026-07-29T08:00:01Z"
+    },
+    {
+      "event_id": "event_retrieval_timeout_001",
+      "event_type": "engine_timeout",
+      "timestamp": "2026-07-29T08:00:01Z"
+    }
+  ],
+  "metrics": {
+    "duration_ms": 1000,
+    "output_count": 1,
+    "sources_retrieved": 3
+  },
+  "timing": {
+    "started_at": "2026-07-29T08:00:00Z",
+    "returned_at": "2026-07-29T08:00:01Z",
+    "duration_ms": 1000
+  },
+  "state_transition": {
+    "transition_id": "transition_retrieval_timeout_001",
+    "from_state": "retrieval_running",
+    "to_state": "timed_out",
+    "triggering_engine_id": "scout.engine.retrieval.default",
+    "triggering_result_id": "engine_result_550e8400-e29b-41d4-a716-446655440016",
+    "proposed_by": {
+      "actor_type": "engine",
+      "actor_id": "scout.engine.retrieval.default",
+      "display_name": "Scout Retrieval Engine Default",
+      "role": "retrieval",
+      "version": "1.0.0"
+    },
+    "proposed_at": "2026-07-29T08:00:01Z",
+    "reason_code": "retrieval_timed_out",
+    "validation_outcome": "passed",
+    "approval_required": false,
+    "rollback_state": null,
+    "transition_mechanism": "static",
+    "dynamic_target": null,
+    "decision_id": "decision_550e8400-e29b-41d4-a716-446655440005",
+    "approval_reference": null,
+    "policy_reference": null,
+    "checkpoint_reference": null,
+    "retry_reference": null,
+    "recovery_reference": null,
+    "rollback_reference": null,
+    "origin_context": null
+  },
+  "side_effects": [],
+  "approval": {
+    "required": false,
+    "status": "not_required"
+  },
+  "recovery": {
+    "recoverable": true,
+    "recommendation": "Evaluate a bounded Retry Decision.",
+    "retry_eligible": true,
+    "resume_reference": "exception_record_550e8400-e29b-41d4-a716-446655440017"
+  },
+  "failure": {
+    "category": "timeout",
+    "severity": "high",
+    "summary": "Retrieval invocation timed out.",
+    "recovery_recommendation": "Classify the timeout before any governed retry.",
+    "exception_ref": "exception_record_550e8400-e29b-41d4-a716-446655440017"
+  },
+  "validation": {
+    "status": "valid",
+    "validated_at": "2026-07-29T08:00:01Z",
+    "validator": {
+      "actor_type": "engine",
+      "actor_id": "scout.engine.retrieval.default",
+      "display_name": "Scout Retrieval Engine Default",
+      "role": "retrieval",
+      "version": "1.0.0"
+    },
+    "schema_version_validated": "1.0.0",
+    "errors": [],
+    "warnings": []
+  },
+  "extensions": {},
+  "evidence_profile": "runtime_execution_evidence_v1",
+  "runtime_execution_evidence": {
+    "invocation_identity": {
+      "engine_id": "scout.engine.retrieval.default",
+      "engine_version": "1.0.0",
+      "contract_version": "1.0.0",
+      "task_id": "task_550e8400-e29b-41d4-a716-446655440002",
+      "execution_id": "exec_550e8400-e29b-41d4-a716-446655440003",
+      "invocation_id": "invocation_retrieval_timeout_001"
+    },
+    "decision_evidence": {
+      "authority": "../engines/shared/decision_model.md",
+      "decision_ref": null,
+      "evidence_refs": [
+        {
+          "reference_id": "exception_record_550e8400-e29b-41d4-a716-446655440017",
+          "object_type": "exception_record",
+          "version": 1
+        }
+      ]
+    },
+    "runtime_state_transition_evidence": {
+      "authority": "../engines/shared/state_model.md",
+      "proposal": {
+        "transition_id": "transition_retrieval_timeout_001",
+        "from_state": "retrieval_running",
+        "to_state": "timed_out",
+        "triggering_engine_id": "scout.engine.retrieval.default",
+        "triggering_result_id": "engine_result_550e8400-e29b-41d4-a716-446655440016",
+        "proposed_by": {
+          "actor_type": "engine",
+          "actor_id": "scout.engine.retrieval.default",
+          "display_name": "Scout Retrieval Engine Default",
+          "role": "retrieval",
+          "version": "1.0.0"
+        },
+        "proposed_at": "2026-07-29T08:00:01Z",
+        "reason_code": "retrieval_timed_out",
+        "validation_outcome": "passed",
+        "approval_required": false,
+        "rollback_state": null,
+        "transition_mechanism": "static",
+        "dynamic_target": null,
+        "decision_id": "decision_550e8400-e29b-41d4-a716-446655440005",
+        "approval_reference": null,
+        "policy_reference": null,
+        "checkpoint_reference": null,
+        "retry_reference": null,
+        "recovery_reference": null,
+        "rollback_reference": null,
+        "origin_context": null
+      },
+      "orchestrator_validation": {
+        "status": "valid",
+        "validated_at": "2026-07-29T08:00:01Z",
+        "validator": {
+          "actor_type": "runtime",
+          "actor_id": "runtime_orchestrator"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+      "commit_status": "pending"
+    },
+    "runtime_events": {
+      "event_refs": [
+        {
+          "event_id": "event_retrieval_success_001",
+          "event_type": "engine_completed",
+          "timestamp": "2026-07-29T08:00:01Z"
+        }
+      ],
+      "correlation_complete": true
+    },
+    "evidence_collection": {
+      "evidence_refs": [
+        {
+          "reference_id": "exception_record_550e8400-e29b-41d4-a716-446655440017",
+          "object_type": "exception_record",
+          "version": 1
+        }
+      ],
+      "collection_complete": true
+    },
+    "validation_results": {
+      "schema_validation": {
+        "status": "valid",
+        "validated_at": "2026-07-29T08:00:01Z",
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "scout.engine.retrieval.default"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+      "decision_validation": {
+        "status": "valid",
+        "validated_at": "2026-07-29T08:00:01Z",
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "scout.engine.retrieval.default"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+      "state_transition_validation": {
+        "status": "valid",
+        "validated_at": "2026-07-29T08:00:01Z",
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "scout.engine.retrieval.default"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+      "event_validation": {
+        "status": "valid",
+        "validated_at": "2026-07-29T08:00:01Z",
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "scout.engine.retrieval.default"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+      "evidence_validation": {
+        "status": "valid",
+        "validated_at": "2026-07-29T08:00:01Z",
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "scout.engine.retrieval.default"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      }
+    }
+  }
+}

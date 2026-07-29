@@ -1,0 +1,1 @@
+{"fixture_id":"positive.manifest","fixture_type":"document","target":"../../example_manifest.json","schema":"../../engine_manifest.schema.json","expected_result":"pass"}

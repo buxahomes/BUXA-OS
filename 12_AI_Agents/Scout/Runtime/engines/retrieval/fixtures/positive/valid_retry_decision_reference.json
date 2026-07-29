@@ -1,0 +1,1 @@
+{"fixture_id":"retrieval.positive.valid_retry_decision_reference","fixture_type":"semantic_reference","target":"../../examples/retry_decision.json","check":"ADR-03 Decision mapping, retry_target, registered target, Decision reference, and origin context","expected_result":"pass"}

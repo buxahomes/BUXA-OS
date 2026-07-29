@@ -1,0 +1,60 @@
+{
+  "manifest_schema_version": "1.0.0",
+  "engine_id": "scout.engine.retrieval.default",
+  "engine_type": "retrieval",
+  "canonical_name": "Retrieval Engine",
+  "display_name": "Scout Retrieval Engine Default",
+  "engine_version": "1.0.0",
+  "foundation_version": "runtime-foundation-v1.0.0",
+  "sdk_version": "1.0.0",
+  "owner": "Scout Runtime Retrieval Engine",
+  "entrypoint": {"adapter_type": "library", "package_path": "implementation-not-included"},
+  "engine_profile": {
+    "execution": {"deterministic_mode_supported": true, "idempotency_supported": true, "concurrency_model": "bounded_parallel"},
+    "quality": {"local_validation_required": true, "quality_engine_handoff": "conditional"},
+    "security": {"default_deny": true, "secret_provider_required": false},
+    "memory": {"read_allowed": true, "proposal_allowed": false, "direct_write_allowed": false},
+    "recovery": {"retry_supported": true, "recovery_supported": false, "rollback_supported": false, "checkpoint_supported": false},
+    "observability": {"runtime_events_required": true, "trace_correlation_required": true, "metrics_required": true},
+    "tools": {"declared_only": true, "tool_ids": ["scout.tool.repository_reader", "scout.tool.source_search_adapter"]}
+  },
+  "capabilities": [
+    {"capability_id": "scout.capability.retrieval.authoritative_retrieval", "capability_version": "1.0.0", "capability_file": "capabilities/authoritative_retrieval.capability.json", "content_hash": "sha256:75fb69794615d58a9cfd5c9ef3d773d635b489b4c2b96c29eab13e9a6ac57e66"},
+    {"capability_id": "scout.capability.retrieval.source_discovery", "capability_version": "1.0.0", "capability_file": "capabilities/source_discovery.capability.json", "content_hash": "sha256:9c3ebc46c5dc34e1f835290555b3bf7e6c9c9173da7a83d6376c542b4da2be7b"},
+    {"capability_id": "scout.capability.retrieval.source_ranking", "capability_version": "1.0.0", "capability_file": "capabilities/source_ranking.capability.json", "content_hash": "sha256:82882a5d8ea12af83a09744464cee6e2e8a7a016764c76b74e69927d8a549a26"},
+    {"capability_id": "scout.capability.retrieval.evidence_extraction", "capability_version": "1.0.0", "capability_file": "capabilities/evidence_extraction.capability.json", "content_hash": "sha256:e490104e3c95971de92b7a75d478d8b8c00d8b1e4ba5b253957574fc67d6b144"},
+    {"capability_id": "scout.capability.retrieval.retrieval_verification", "capability_version": "1.0.0", "capability_file": "capabilities/retrieval_verification.capability.json", "content_hash": "sha256:1b4b0bab27d26ce3d1ac72aefd1d26606600575c1e768df26eba2df5b5477cdc"}
+  ],
+  "permissions": ["read_internal", "read_restricted", "invoke_tool", "network_access"],
+  "side_effect_level": "none",
+  "decision_types": {
+    "produces": ["scout.decision.selection", "scout.decision.prioritisation", "scout.decision.proceed", "scout.decision.proceed_with_conditions", "scout.decision.request_more_knowledge", "scout.decision.escalate"],
+    "consumes": ["scout.decision.approval", "scout.decision.policy", "scout.decision.retry", "scout.decision.cancel"],
+    "required_before_action": [],
+    "required_before_transition": []
+  },
+  "runtime_objects": {
+    "consumes": ["task", "engine_context", "knowledge_package", "approval_decision", "approval_record"],
+    "produces": ["knowledge_package", "engine_result", "runtime_event"],
+    "updates": [],
+    "references": ["decision", "runtime_state", "state_transition", "context_snapshot", "exception_record", "quality_report"],
+    "experimental_references": ["policy_decision"]
+  },
+  "supported_states": {
+    "valid_current_states": ["retrieval_pending", "retrieval_running", "retrieval_waiting"],
+    "entry_states": ["retrieval_pending", "retrieval_running"],
+    "proposed_next_states": ["retrieval_running", "retrieval_waiting", "knowledge_ready", "knowledge_incomplete", "retrieval_failed", "exception_detected", "retry_pending", "cancelled", "timed_out"],
+    "dynamic_target_mechanisms": ["retry_target"]
+  },
+  "quality_requirements": ["source authority and exact identity", "provenance and citation integrity", "freshness and scope compliance", "coverage, duplication and contradiction assessment", "unsupported inference detection", "requested-source fidelity"],
+  "security_requirements": ["default deny", "Context-scoped source access", "conditional approval for restricted retrieval", "conditional policy evaluation", "no credentials or endpoint configuration in package", "no source authority upgrade"],
+  "observability": {"required_event_types": ["engine_started", "engine_completed", "engine_state_transition_proposed"], "metrics": ["retrieval_duration_ms", "sources_retrieved", "sources_included", "coverage_score"], "trace_required": true, "audit_required": true},
+  "conformance": {
+    "required_result_profile": "runtime_execution_evidence_v1",
+    "test_suite_version": "1.0.0",
+    "positive_fixtures": ["fixtures/positive/valid_manifest.json", "fixtures/positive/valid_authoritative_capability.json", "fixtures/positive/valid_knowledge_package_declaration.json", "fixtures/positive/valid_success_engine_result.json", "fixtures/positive/valid_waiting_engine_result.json", "fixtures/positive/valid_incomplete_engine_result.json", "fixtures/positive/valid_retry_decision_reference.json", "fixtures/positive/valid_registry_candidate.json"],
+    "negative_fixtures": ["fixtures/negative/invalid_engine_id.json", "fixtures/negative/deprecated_engine_alias.json", "fixtures/negative/unapproved_runtime_object_output.json", "fixtures/negative/unregistered_runtime_state.json", "fixtures/negative/invalid_static_transition.json", "fixtures/negative/undeclared_capability.json", "fixtures/negative/capability_permission_escalation.json", "fixtures/negative/missing_foundation_pin.json", "fixtures/negative/invalid_decision_identifier.json", "fixtures/negative/missing_provenance.json", "fixtures/negative/success_without_validation.json", "fixtures/negative/direct_state_commit.json", "fixtures/negative/planned_tool_result_output.json", "fixtures/negative/undeclared_external_side_effect.json", "fixtures/negative/restricted_without_governance.json"],
+    "evidence_path": "certification/conformance_evidence.json"
+  },
+  "metadata": {"description": "Declarative, non-production Retrieval Engine v1 package for authorised knowledge retrieval and evidence assembly.", "documentation": "README.md", "maintainers": ["Scout Runtime Retrieval Engine"], "immutable": true, "deprecation": null}
+}

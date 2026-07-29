@@ -1,0 +1,1 @@
+{"fixture_id":"negative.invalid_semantic_version","base_fixture":"../../example_manifest.json","mutation":{"operation":"replace","path":"/engine_version","value":"version-one"},"expected_validator_error":"engine_version is not semantic version","error_category":"version.semver","recommended_remediation":"Use MAJOR.MINOR.PATCH semantic version syntax.","expected_result":"fail"}

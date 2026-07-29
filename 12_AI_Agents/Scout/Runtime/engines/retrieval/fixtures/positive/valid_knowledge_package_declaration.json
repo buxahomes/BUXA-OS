@@ -1,0 +1,1 @@
+{"fixture_id":"retrieval.positive.valid_knowledge_package_declaration","fixture_type":"semantic_reference","target":"../../engine_manifest.json","check":"knowledge_package is an approved produced Runtime Object and every producing capability declares it","expected_result":"pass"}

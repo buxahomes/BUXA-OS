@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://buxa.ai/scout/runtime/engines/sdk/schemas/engine_capability.schema.json",
+  "title": "Scout Runtime Engine Capability",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "capability_schema_version", "capability_id", "capability_version", "name",
+    "description", "engine_type", "input_object_types", "output_object_types",
+    "required_context", "valid_current_states", "entry_states", "proposed_next_states",
+    "dynamic_target_mechanisms", "decision_types", "quality_requirements",
+    "approval_requirements", "policy_requirements", "tool_requirements", "permissions",
+    "side_effect_level", "idempotency", "retry_profile", "timeout_profile",
+    "dependencies", "deprecation", "metadata"
+  ],
+  "properties": {
+    "capability_schema_version": {"const": "1.0.0"},
+    "capability_id": {"type": "string", "pattern": "^scout\\.capability\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"},
+    "capability_version": {"$ref": "#/$defs/semver"},
+    "name": {"type": "string", "minLength": 1},
+    "description": {"type": "string", "minLength": 1},
+    "engine_type": {"$ref": "#/$defs/engine_type"},
+    "input_object_types": {"$ref": "#/$defs/object_types"},
+    "output_object_types": {"$ref": "#/$defs/object_types"},
+    "required_context": {
+      "type": "object", "additionalProperties": false,
+      "required": ["engine_context_required", "required_sections"],
+      "properties": {
+        "engine_context_required": {"const": true},
+        "required_sections": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+      }
+    },
+    "valid_current_states": {"$ref": "#/$defs/states"},
+    "entry_states": {"$ref": "#/$defs/states"},
+    "proposed_next_states": {"$ref": "#/$defs/states"},
+    "dynamic_target_mechanisms": {
+      "type": "array", "uniqueItems": true,
+      "items": {"enum": ["approval_resume_target", "policy_resume_target", "checkpoint_resume_target", "retry_target", "recovery_target", "rollback_target", "revision_target"]}
+    },
+    "decision_types": {"$ref": "#/$defs/decision_types"},
+    "quality_requirements": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1, "uniqueItems": true},
+    "approval_requirements": {"$ref": "#/$defs/governance_requirement"},
+    "policy_requirements": {"$ref": "#/$defs/governance_requirement"},
+    "tool_requirements": {"type": "array", "items": {"$ref": "#/$defs/tool_requirement"}},
+    "permissions": {"$ref": "#/$defs/permissions"},
+    "side_effect_level": {"$ref": "#/$defs/side_effect"},
+    "idempotency": {
+      "type": "object", "additionalProperties": false,
+      "required": ["required", "strategy"],
+      "properties": {
+        "required": {"type": "boolean"},
+        "strategy": {"type": ["string", "null"], "minLength": 1}
+      }
+    },
+    "retry_profile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["supported", "maximum_attempts", "requires_retry_decision"],
+      "properties": {
+        "supported": {"type": "boolean"},
+        "maximum_attempts": {"type": "integer", "minimum": 0},
+        "requires_retry_decision": {"type": "boolean"}
+      }
+    },
+    "timeout_profile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["maximum_seconds", "on_timeout"],
+      "properties": {
+        "maximum_seconds": {"type": "integer", "minimum": 1},
+        "on_timeout": {"const": "return_timeout_engine_result"}
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["capability_id", "capability_version", "engine_id", "required", "failure_behaviour"],
+        "properties": {
+          "capability_id": {"type": "string", "pattern": "^scout\\.capability\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"},
+          "capability_version": {"$ref": "#/$defs/semver"},
+          "engine_id": {"anyOf": [{"$ref": "#/$defs/engine_id"}, {"type": "null"}]},
+          "required": {"type": "boolean"},
+          "failure_behaviour": {"enum": ["block", "fail", "declared_fallback"]}
+        }
+      }
+    },
+    "deprecation": {
+      "anyOf": [
+        {"type": "null"},
+        {
+          "type": "object", "additionalProperties": false,
+          "required": ["deprecated_at", "replacement_capability_id", "minimum_replacement_version", "support_until", "migration_guidance"],
+          "properties": {
+            "deprecated_at": {"type": "string", "format": "date-time"},
+            "replacement_capability_id": {"type": ["string", "null"], "pattern": "^scout\\.capability\\."},
+            "minimum_replacement_version": {"anyOf": [{"$ref": "#/$defs/semver"}, {"type": "null"}]},
+            "support_until": {"type": ["string", "null"], "format": "date-time"},
+            "migration_guidance": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "type": "object", "additionalProperties": false,
+      "required": ["owner", "immutable", "documentation"],
+      "properties": {
+        "owner": {"type": "string", "minLength": 1},
+        "immutable": {"const": true},
+        "documentation": {"type": ["string", "null"]}
+      }
+    }
+  },
+  "$defs": {
+    "semver": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"},
+    "engine_type": {"enum": ["input", "retrieval", "business_judgement", "planning", "execution", "quality", "learning", "memory", "exception", "approval", "policy"]},
+    "engine_id": {"type": "string", "pattern": "^scout\\.engine\\.(input|retrieval|business_judgement|planning|execution|quality|learning|memory|exception|approval|policy)\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"},
+    "object_type": {"enum": ["task", "engine_context", "engine_result", "knowledge_package", "business_judgement", "execution_blueprint", "skill_output", "quality_report", "execution_result", "learning_candidate", "memory_record", "exception_record", "decision", "approval_decision", "approval_record", "runtime_state", "state_transition", "state_snapshot", "runtime_event", "context_snapshot"]},
+    "object_types": {"type": "array", "items": {"$ref": "#/$defs/object_type"}, "uniqueItems": true},
+    "state": {"enum": ["task_received", "task_validating", "task_validated", "context_building", "context_validating", "context_ready", "retrieval_pending", "retrieval_running", "retrieval_waiting", "knowledge_ready", "knowledge_incomplete", "retrieval_failed", "business_judgement_pending", "business_judgement_running", "business_judgement_ready", "business_judgement_blocked", "business_judgement_failed", "planning_pending", "planning_running", "execution_blueprint_ready", "planning_blocked", "planning_failed", "execution_pending", "execution_running", "execution_waiting", "execution_paused", "execution_result_ready", "execution_failed", "quality_pending", "quality_running", "quality_passed", "quality_failed", "quality_revision_required", "quality_waiver_pending", "quality_waived", "learning_pending", "learning_running", "learning_evaluated", "learning_rejected", "memory_pending", "memory_running", "memory_updated", "memory_rejected", "memory_deferred", "approval_pending", "approval_granted", "approval_denied", "approval_expired", "policy_evaluation_pending", "policy_evaluation_running", "policy_passed", "policy_blocked", "exception_detected", "exception_classifying", "retry_pending", "retrying", "recovery_pending", "recovering", "rollback_pending", "rolling_back", "rollback_completed", "manual_intervention_required", "workflow_completed", "workflow_closed", "cancelled", "timed_out", "failed_terminal", "rejected_terminal", "superseded", "archived"]},
+    "states": {"type": "array", "items": {"$ref": "#/$defs/state"}, "uniqueItems": true},
+    "decision_type": {"enum": ["scout.decision.classification", "scout.decision.selection", "scout.decision.prioritisation", "scout.decision.routing", "scout.decision.proceed", "scout.decision.proceed_with_conditions", "scout.decision.do_not_proceed", "scout.decision.request_clarification", "scout.decision.request_more_knowledge", "scout.decision.approve", "scout.decision.reject", "scout.decision.revise", "scout.decision.waive", "scout.decision.block", "scout.decision.defer", "scout.decision.retry", "scout.decision.fallback", "scout.decision.recover", "scout.decision.recovery", "scout.decision.rollback", "scout.decision.revision", "scout.decision.approval", "scout.decision.policy", "scout.decision.cancel", "scout.decision.escalate", "scout.decision.commit_transition", "scout.decision.record_learning", "scout.decision.admit_memory", "scout.decision.reject_memory"]},
+    "decision_types": {
+      "type": "object", "additionalProperties": false,
+      "required": ["produces", "consumes", "required_before_action", "required_before_transition"],
+      "properties": {
+        "produces": {"type": "array", "items": {"$ref": "#/$defs/decision_type"}, "uniqueItems": true},
+        "consumes": {"type": "array", "items": {"$ref": "#/$defs/decision_type"}, "uniqueItems": true},
+        "required_before_action": {"type": "array", "items": {"$ref": "#/$defs/decision_type"}, "uniqueItems": true},
+        "required_before_transition": {"type": "array", "items": {"$ref": "#/$defs/decision_type"}, "uniqueItems": true}
+      }
+    },
+    "permission": {"enum": ["read_internal", "write_internal", "read_restricted", "write_external", "publish_external", "communicate_external", "invoke_tool", "network_access", "repository_modify", "secret_access", "irreversible_side_effect"]},
+    "permissions": {"type": "array", "items": {"$ref": "#/$defs/permission"}, "uniqueItems": true},
+    "side_effect": {"enum": ["none", "internal_reversible", "internal_persistent", "external_reversible", "external_irreversible"]},
+    "governance_requirement": {
+      "type": "object", "additionalProperties": false,
+      "required": ["mode", "decision_types"],
+      "properties": {
+        "mode": {"enum": ["not_required", "conditional", "required"]},
+        "decision_types": {"type": "array", "items": {"$ref": "#/$defs/decision_type"}, "uniqueItems": true}
+      }
+    },
+    "tool_requirement": {
+      "type": "object", "additionalProperties": false,
+      "required": ["tool_id", "tool_type", "interface_version", "required", "permissions", "side_effect_level", "input_contract", "output_contract", "timeout", "retry_policy"],
+      "properties": {
+        "tool_id": {"type": "string", "pattern": "^scout\\.tool\\.[a-z][a-z0-9]*(?:[._][a-z0-9]+)*$"},
+        "tool_type": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "interface_version": {"$ref": "#/$defs/semver"},
+        "required": {"type": "boolean"},
+        "permissions": {"$ref": "#/$defs/permissions"},
+        "side_effect_level": {"$ref": "#/$defs/side_effect"},
+        "input_contract": {"type": "string", "format": "uri"},
+        "output_contract": {"type": "string", "format": "uri"},
+        "timeout": {"type": "integer", "minimum": 1},
+        "retry_policy": {
+          "type": "object", "additionalProperties": false,
+          "required": ["maximum_attempts", "backoff", "requires_idempotency"],
+          "properties": {
+            "maximum_attempts": {"type": "integer", "minimum": 0},
+            "backoff": {"enum": ["none", "fixed", "exponential"]},
+            "requires_idempotency": {"type": "boolean"}
+          }
+        }
+      }
+    }
+  }
+}

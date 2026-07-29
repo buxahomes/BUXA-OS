@@ -1,0 +1,1 @@
+{"fixture_id":"retrieval.positive.valid_waiting_engine_result","fixture_type":"document","target":"../../examples/invocation_waiting.json","schema":"../../../../schemas/engine_result.schema.json","expected_result":"pass"}

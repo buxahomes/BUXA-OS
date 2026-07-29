@@ -1,0 +1,1 @@
+{"fixture_id":"retrieval.negative.missing_foundation_pin","base_fixture":"../../engine_manifest.json","mutation":{"operation":"remove","path":"/foundation_version"},"expected_validator_error":"required property foundation_version is missing","error_category":"compatibility.foundation","recommended_remediation":"Pin runtime-foundation-v1.0.0.","expected_result":"fail"}

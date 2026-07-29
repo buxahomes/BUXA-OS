@@ -1,0 +1,1 @@
+{"fixture_id":"positive.retrieval_manifest","fixture_type":"document","target":"../../example_manifest.json","schema":"../../engine_manifest.schema.json","expected_result":"pass","semantic_checks":["engine_type_correlation","capability_reference","foundation_compatibility"]}

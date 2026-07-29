@@ -1,0 +1,1 @@
+{"fixture_id":"positive.registry_entry","fixture_type":"schema_fragment","target":"registry_entry_subject.json","schema":"../../engine_registry.schema.json#/$defs/implementation","expected_result":"pass"}

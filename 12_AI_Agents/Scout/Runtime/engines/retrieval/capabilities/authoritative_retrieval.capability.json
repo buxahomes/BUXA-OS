@@ -1,0 +1,30 @@
+{
+  "capability_schema_version": "1.0.0",
+  "capability_id": "scout.capability.retrieval.authoritative_retrieval",
+  "capability_version": "1.0.0",
+  "name": "Authoritative Retrieval",
+  "description": "Retrieves authorised knowledge in authority order while preserving exact source identity and provenance.",
+  "engine_type": "retrieval",
+  "input_object_types": ["task", "engine_context", "approval_decision", "approval_record"],
+  "output_object_types": ["knowledge_package", "engine_result", "runtime_event"],
+  "required_context": {"engine_context_required": true, "required_sections": ["task", "knowledge", "governance", "security", "privacy", "source_references"]},
+  "valid_current_states": ["retrieval_pending", "retrieval_running", "retrieval_waiting"],
+  "entry_states": ["retrieval_pending", "retrieval_running"],
+  "proposed_next_states": ["retrieval_running", "retrieval_waiting", "knowledge_ready", "knowledge_incomplete", "retrieval_failed", "exception_detected", "cancelled", "timed_out"],
+  "dynamic_target_mechanisms": ["retry_target"],
+  "decision_types": {"produces": ["scout.decision.selection", "scout.decision.request_more_knowledge", "scout.decision.escalate"], "consumes": ["scout.decision.approval", "scout.decision.policy", "scout.decision.retry", "scout.decision.cancel"], "required_before_action": [], "required_before_transition": []},
+  "quality_requirements": ["preserve exact source identity", "rank by canonical authority", "record provenance", "report completeness and conflicts"],
+  "approval_requirements": {"mode": "conditional", "decision_types": ["scout.decision.approval"]},
+  "policy_requirements": {"mode": "conditional", "decision_types": ["scout.decision.policy"]},
+  "tool_requirements": [
+    {"tool_id": "scout.tool.repository_reader", "tool_type": "repository_reader", "interface_version": "1.0.0", "required": true, "permissions": ["read_internal", "invoke_tool"], "side_effect_level": "none", "input_contract": "https://buxa.ai/scout/tools/repository-reader/input/1.0.0", "output_contract": "https://buxa.ai/scout/tools/repository-reader/output/1.0.0", "timeout": 30, "retry_policy": {"maximum_attempts": 2, "backoff": "fixed", "requires_idempotency": true}}
+  ],
+  "permissions": ["read_internal", "read_restricted", "invoke_tool"],
+  "side_effect_level": "none",
+  "idempotency": {"required": true, "strategy": "Repeat retrieval against the same immutable source versions and scope without persistent mutation."},
+  "retry_profile": {"supported": true, "maximum_attempts": 2, "requires_retry_decision": true},
+  "timeout_profile": {"maximum_seconds": 120, "on_timeout": "return_timeout_engine_result"},
+  "dependencies": [],
+  "deprecation": null,
+  "metadata": {"owner": "Scout Runtime Retrieval Engine", "immutable": true, "documentation": "../retrieval_engine_specification.md"}
+}

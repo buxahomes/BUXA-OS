@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://buxa.ai/scout/runtime/engines/sdk/schemas/engine_registry.schema.json",
+  "title": "Scout Runtime Engine Registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["registry_id", "registry_schema_version", "registry_version", "foundation_version", "sdk_version", "owner", "engine_types", "metadata"],
+  "properties": {
+    "registry_id": {"const": "scout.runtime.engine_registry"},
+    "registry_schema_version": {"const": "1.0.0"},
+    "registry_version": {"$ref": "#/$defs/semver"},
+    "foundation_version": {"const": "runtime-foundation-v1.0.0"},
+    "sdk_version": {"const": "1.0.0"},
+    "owner": {"const": "Scout Runtime Engine Layer Governance"},
+    "engine_types": {
+      "type": "array", "minItems": 11, "maxItems": 11,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["engine_type", "canonical_name", "implementations", "default_implementation"],
+        "properties": {
+          "engine_type": {"$ref": "#/$defs/engine_type"},
+          "canonical_name": {"$ref": "#/$defs/canonical_name"},
+          "implementations": {"type": "array", "items": {"$ref": "#/$defs/implementation"}},
+          "default_implementation": {
+            "anyOf": [
+              {"type": "null"},
+              {"type": "object", "additionalProperties": false, "required": ["engine_id", "engine_version"], "properties": {"engine_id": {"$ref": "#/$defs/engine_id"}, "engine_version": {"$ref": "#/$defs/semver"}}}
+            ]
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object", "additionalProperties": false,
+      "required": ["engine_type_count", "implementation_count", "generated", "notes"],
+      "properties": {
+        "engine_type_count": {"const": 11},
+        "implementation_count": {"type": "integer", "minimum": 0},
+        "generated": {"const": false},
+        "notes": {"type": ["string", "null"]}
+      }
+    }
+  },
+  "$defs": {
+    "semver": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"},
+    "engine_type": {"enum": ["input", "retrieval", "business_judgement", "planning", "execution", "quality", "learning", "memory", "exception", "approval", "policy"]},
+    "canonical_name": {"enum": ["Input Engine", "Retrieval Engine", "Business Judgement Engine", "Planning Engine", "Execution Engine", "Quality Engine", "Learning Engine", "Memory Engine", "Exception Engine", "Approval Engine", "Policy Engine"]},
+    "engine_id": {"type": "string", "pattern": "^scout\\.engine\\.(input|retrieval|business_judgement|planning|execution|quality|learning|memory|exception|approval|policy)\\.[a-z][a-z0-9]*(?:_[a-z0-9]+)*$"},
+    "implementation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["engine_id", "engine_version", "manifest_file", "manifest_hash", "status", "certification", "compatibility", "activation_eligible", "selection_priority", "capabilities", "deprecation"],
+      "properties": {
+        "engine_id": {"$ref": "#/$defs/engine_id"},
+        "engine_version": {"$ref": "#/$defs/semver"},
+        "manifest_file": {"type": "string", "minLength": 1},
+        "manifest_hash": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+        "status": {"enum": ["proposed", "draft", "validated", "registered", "active", "deprecated", "retired"]},
+        "certification": {
+          "type": "object", "additionalProperties": false,
+          "required": ["status", "evidence_file"],
+          "properties": {
+            "status": {"enum": ["experimental", "conformant", "certified", "deprecated", "revoked"]},
+            "evidence_file": {"type": ["string", "null"]}
+          }
+        },
+        "compatibility": {
+          "type": "object", "additionalProperties": false,
+          "required": ["foundation_version", "foundation_commit", "sdk_version", "compatible"],
+          "properties": {
+            "foundation_version": {"const": "runtime-foundation-v1.0.0"},
+            "foundation_commit": {"const": "2eb52d62d877dd8b5c5736721423dc1b2d5b5d36"},
+            "sdk_version": {"const": "1.0.0"},
+            "compatible": {"type": "boolean"}
+          }
+        },
+        "activation_eligible": {"type": "boolean"},
+        "selection_priority": {"type": ["integer", "null"], "minimum": 0},
+        "capabilities": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["capability_id", "capability_version"], "properties": {"capability_id": {"type": "string", "pattern": "^scout\\.capability\\."}, "capability_version": {"$ref": "#/$defs/semver"}}}},
+        "deprecation": {"type": ["object", "null"]}
+      },
+      "allOf": [
+        {"if": {"properties": {"status": {"const": "active"}}}, "then": {"properties": {"certification": {"properties": {"status": {"const": "certified"}}}, "activation_eligible": {"const": true}}}},
+        {"if": {"properties": {"status": {"const": "retired"}}}, "then": {"properties": {"activation_eligible": {"const": false}}}}
+      ]
+    }
+  }
+}

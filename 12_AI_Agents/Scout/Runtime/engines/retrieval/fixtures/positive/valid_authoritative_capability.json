@@ -1,0 +1,1 @@
+{"fixture_id":"retrieval.positive.valid_authoritative_capability","fixture_type":"document","target":"../../capabilities/authoritative_retrieval.capability.json","schema":"../../../sdk/engine_capability.schema.json","expected_result":"pass"}

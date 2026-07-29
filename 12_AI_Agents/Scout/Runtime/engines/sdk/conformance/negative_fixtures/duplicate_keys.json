@@ -1,0 +1,1 @@
+{"fixture_id":"negative.duplicate_keys","expected_validator_error":"duplicate JSON key engine_id","error_category":"json.duplicate_key","recommended_remediation":"Remove the duplicate property and preserve one authoritative value.","expected_result":"fail","engine_id":"scout.engine.retrieval.default","engine_id":"scout.engine.retrieval.duplicate"}

@@ -1,0 +1,1 @@
+{"fixture_id":"retrieval.positive.valid_registry_candidate","fixture_type":"registry_lookup","target":"../../../sdk/engine_registry.json","engine_id":"scout.engine.retrieval.default","expected_status":"validated","expected_certification":"conformant","expected_result":"pass"}

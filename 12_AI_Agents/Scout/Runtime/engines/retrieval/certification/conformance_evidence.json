@@ -1,0 +1,33 @@
+{
+  "evidence_version": "1.0.0",
+  "engine_id": "scout.engine.retrieval.default",
+  "engine_version": "1.0.0",
+  "package_lifecycle": "validated",
+  "conformance_status": "conformant",
+  "foundation_version": "runtime-foundation-v1.0.0",
+  "foundation_commit": "2eb52d62d877dd8b5c5736721423dc1b2d5b5d36",
+  "sdk_version": "1.0.0",
+  "schema_versions": {"manifest": "1.0.0", "capability": "1.0.0", "registry": "1.0.0", "engine_result": "1.0.0"},
+  "validator": {"validator_id": "scout.sdk.conformance.local", "validator_version": "1.0.0", "validation_timestamp": "2026-07-29T09:00:00+08:00"},
+  "certification_timestamp": null,
+  "certification_authority": null,
+  "hash_algorithm": "sha256",
+  "manifest": {"path": "../engine_manifest.json", "content_hash": "d2d47946a419792660691fbc4eaaa63fb904d404ef76c2507fadd451020e4458"},
+  "capabilities": [
+    {"path": "../capabilities/authoritative_retrieval.capability.json", "content_hash": "75fb69794615d58a9cfd5c9ef3d773d635b489b4c2b96c29eab13e9a6ac57e66"},
+    {"path": "../capabilities/source_discovery.capability.json", "content_hash": "9c3ebc46c5dc34e1f835290555b3bf7e6c9c9173da7a83d6376c542b4da2be7b"},
+    {"path": "../capabilities/source_ranking.capability.json", "content_hash": "82882a5d8ea12af83a09744464cee6e2e8a7a016764c76b74e69927d8a549a26"},
+    {"path": "../capabilities/evidence_extraction.capability.json", "content_hash": "e490104e3c95971de92b7a75d478d8b8c00d8b1e4ba5b253957574fc67d6b144"},
+    {"path": "../capabilities/retrieval_verification.capability.json", "content_hash": "1b4b0bab27d26ce3d1ac72aefd1d26606600575c1e768df26eba2df5b5477cdc"}
+  ],
+  "package_input_digest": "e6b5d9358cc92ba6ec7d17b376e0686ddc6ff493772cb038ea43314e0f33fc65",
+  "validation_results": {
+    "strict_json": "pass", "duplicate_keys": "pass", "manifest_schema": "pass", "capability_schema": "pass", "engine_result_schema": "pass", "registry_schema": "pass",
+    "runtime_state_registry": "pass", "static_transitions": "pass", "dynamic_mechanisms": "pass", "runtime_object_registry": "pass", "approved_output_policy": "pass",
+    "decision_mapping": "pass", "permission_inheritance": "pass", "side_effect_ceiling": "pass", "markdown": "pass", "local_references": "pass"
+  },
+  "fixture_summary": {"positive_total": 8, "positive_passed": 8, "negative_total": 15, "negative_expected_failures": 15, "unexpected_results": 0},
+  "registry_result": {"registered": true, "status": "validated", "certification": "conformant", "activation_eligible": false, "default": false},
+  "overall_result": "pass",
+  "certification_claim": "Automated SDK conformance only; no external signature, governance certification, production activation, or deployment approval is claimed."
+}
