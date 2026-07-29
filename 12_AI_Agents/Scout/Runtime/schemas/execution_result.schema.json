@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://buxa.local/scout/runtime/schemas/execution_result.schema.json",
+  "$id": "https://buxa.ai/scout/runtime/schemas/execution_result.schema.json",
   "title": "Scout Runtime Execution Result",
   "description": "Defines the final runtime ledger for a Scout execution. An Execution Result consolidates the execution outcome, objective completion, deliverables, produced runtime objects, step results, quality decisions, approvals, exceptions, statistics, resource usage, publication readiness, learning candidates, memory outcomes, trace data, and recommended next actions.",
   "type": "object",
@@ -239,7 +239,7 @@
       "$ref": "./common.schema.json#/$defs/evidence_references"
     },
     "relationships": {
-      "$ref": "./common.schema.json#/$defs/relationships"
+      "$ref": "./common.schema.json#/$defs/object_relationships"
     },
     "revision": {
       "$ref": "./common.schema.json#/$defs/revision"
@@ -2329,12 +2329,12 @@
           },
           "validation": {
             "properties": {
-              "is_valid": {
-                "const": true
+              "status": {
+                "const": "valid"
               }
             },
             "required": [
-              "is_valid"
+              "status"
             ]
           }
         }
@@ -2794,15 +2794,15 @@
   ],
   "examples": [
     {
-      "id": "er_01JSCOUTNEXTXHS000000001",
+      "id": "er_ea176386-6064-5795-9bfa-7105853948c9",
       "schema_name": "execution_result",
       "schema_version": "1.0.0",
-      "task_id": "task_01JSCOUTNEXTXHS000000001",
-      "execution_id": "exec_01JSCOUTNEXTXHS000000001",
+      "task_id": "task_a3f50608-133b-51c2-9746-c18a97d6463b",
+      "execution_id": "exec_96e9f3ba-e7ff-57e0-8eb1-58a45efac562",
       "workflow_id": "wf_xiaohongshu_content_package",
-      "execution_blueprint_id": "eb_01JSCOUTNEXTXHS00000000001",
-      "business_judgement_id": "bj_01JSCOUTNEXTXHS000000001",
-      "knowledge_package_id": "kp_01JSCOUTNEXTXHS000000001",
+      "execution_blueprint_id": "eb_a9e6daac-9e90-5c0c-8569-437a118e3174",
+      "business_judgement_id": "bj_c142bc1b-fa1c-5146-9b16-2a131cec78ce",
+      "knowledge_package_id": "kp_71eef098-92e0-5ae8-9b7c-504f5cadfa89",
       "parent_id": null,
       "created_at": "2026-07-27T20:35:00+08:00",
       "updated_at": null,
@@ -2858,7 +2858,7 @@
           "required": true,
           "status": "produced",
           "source_object_ids": [
-            "so_01JSCOUTXHSOUTPUT000000001"
+            "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c"
           ],
           "artifact_ids": [],
           "location_type": "runtime_path",
@@ -2877,7 +2877,7 @@
           "required": true,
           "status": "produced",
           "source_object_ids": [
-            "qr_01JSCOUTXHSQUALITY00000001"
+            "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65"
           ],
           "artifact_ids": [],
           "location_type": "runtime_path",
@@ -2891,7 +2891,7 @@
       ],
       "produced_objects": [
         {
-          "object_id": "so_01JSCOUTXHSOUTPUT000000001",
+          "object_id": "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c",
           "object_type": "skill_output",
           "schema_ref": "./skill_output.schema.json",
           "status": "completed",
@@ -2907,7 +2907,7 @@
           "summary": "Complete Xiaohongshu content package."
         },
         {
-          "object_id": "qr_01JSCOUTXHSQUALITY00000001",
+          "object_id": "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65",
           "object_type": "quality_report",
           "schema_ref": "./quality_report.schema.json",
           "status": "completed",
@@ -2935,7 +2935,7 @@
           "attempts": 1,
           "retry_count": 0,
           "executor": {
-            "actor_type": "agent",
+            "actor_type": "engine",
             "actor_id": "scout",
             "display_name": "Scout"
           },
@@ -2967,7 +2967,7 @@
           ],
           "tool_ids": [],
           "output_object_ids": [
-            "so_01JSCOUTXHSOUTPUT000000001"
+            "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c"
           ],
           "quality_gate_status": "not_evaluated",
           "approval_gate_status": "not_required",
@@ -2997,7 +2997,7 @@
             "standards_comparator"
           ],
           "output_object_ids": [
-            "qr_01JSCOUTXHSQUALITY00000001"
+            "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65"
           ],
           "quality_gate_status": "passed",
           "approval_gate_status": "not_required",
@@ -3013,15 +3013,15 @@
         "failed": 0,
         "blocked": 0,
         "object_ids": [
-          "so_01JSCOUTXHSOUTPUT000000001"
+          "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c"
         ],
-        "primary_output_id": "so_01JSCOUTXHSOUTPUT000000001"
+        "primary_output_id": "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c"
       },
       "quality_summary": {
         "overall_status": "passed",
         "overall_score": 1,
         "quality_report_ids": [
-          "qr_01JSCOUTXHSQUALITY00000001"
+          "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65"
         ],
         "checks_total": 4,
         "checks_passed": 4,
@@ -3159,8 +3159,8 @@
         "notes": "The execution policy did not allow memory writes."
       },
       "trace": {
-        "trace_id": "trace_01JSCOUTNEXTXHS000000001",
-        "root_span_id": "span_root_01JSCOUTNEXTXHS0001",
+        "trace_id": "trace_5dfb4579-c322-53ed-940b-cb42168cc359",
+        "root_span_id": "span_root_cd3505b9-8b59-5dc7-8e25-2e9943e672b8",
         "events": [
           {
             "event_id": "event_execution_started",
@@ -3186,7 +3186,7 @@
               "display_name": "Scout Quality Engine"
             },
             "step_id": "step_quality_check",
-            "object_id": "qr_01JSCOUTXHSQUALITY00000001",
+            "object_id": "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65",
             "summary": "Quality evaluation passed.",
             "details": {
               "score": 1
@@ -3202,27 +3202,27 @@
               "display_name": "Scout Runtime"
             },
             "step_id": null,
-            "object_id": "er_01JSCOUTNEXTXHS000000001",
+            "object_id": "er_ea176386-6064-5795-9bfa-7105853948c9",
             "summary": "Execution completed successfully.",
             "details": {}
           }
         ],
         "object_lineage": [
           {
-            "from_object_id": "eb_01JSCOUTNEXTXHS00000000001",
-            "to_object_id": "so_01JSCOUTXHSOUTPUT000000001",
+            "from_object_id": "eb_a9e6daac-9e90-5c0c-8569-437a118e3174",
+            "to_object_id": "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c",
             "relationship": "generated_from",
             "notes": null
           },
           {
-            "from_object_id": "so_01JSCOUTXHSOUTPUT000000001",
-            "to_object_id": "qr_01JSCOUTXHSQUALITY00000001",
+            "from_object_id": "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c",
+            "to_object_id": "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65",
             "relationship": "validated_by",
             "notes": null
           },
           {
-            "from_object_id": "qr_01JSCOUTXHSQUALITY00000001",
-            "to_object_id": "er_01JSCOUTNEXTXHS000000001",
+            "from_object_id": "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65",
+            "to_object_id": "er_ea176386-6064-5795-9bfa-7105853948c9",
             "relationship": "consumed_by",
             "notes": null
           }
@@ -3267,25 +3267,25 @@
           "status": "not_started",
           "due_at": null,
           "related_object_ids": [
-            "so_01JSCOUTXHSOUTPUT000000001",
-            "qr_01JSCOUTXHSQUALITY00000001"
+            "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c",
+            "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65"
           ]
         }
       ],
       "approval": {
-        "status": "not_required",
         "required": false,
-        "approved_by": null,
-        "approved_at": null,
+        "status": "not_required",
         "notes": "No external action or publishing was performed."
       },
-      "confidence": 0.98,
+      "confidence": {
+        "level": "very_high",
+        "score": 0.98,
+        "basis": "Supported by the referenced Runtime evidence and validation results.",
+        "limitations": []
+      },
       "quality_state": {
         "status": "passed",
-        "score": 1,
-        "blocking_issues": 0,
-        "warnings": 0,
-        "notes": "Execution completed successfully."
+        "summary": "Execution completed successfully."
       },
       "source_refs": [],
       "evidence_refs": [],
@@ -3296,13 +3296,14 @@
         "change_summary": "Initial execution result."
       },
       "validation": {
-        "is_valid": true,
+        "status": "valid",
         "validated_at": "2026-07-27T20:35:00+08:00",
         "validator": {
           "actor_type": "system",
           "actor_id": "schema_validator",
           "display_name": "Schema Validator"
         },
+        "schema_version_validated": "1.0.0",
         "errors": [],
         "warnings": []
       },

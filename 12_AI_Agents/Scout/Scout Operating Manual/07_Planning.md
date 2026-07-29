@@ -229,7 +229,7 @@ A planning cycle is successful when:
 
 # Relationship with Other Engines
 
-The Planning Engine receives structured business judgement from the Reasoning Engine.
+The Planning Engine receives structured business judgement from the Business Judgement Engine.
 
 Its output is an Execution Blueprint that guides the Execution Engine.
 

@@ -34,6 +34,8 @@ It defines operational behaviour rather than implementation.
 
 Future Runtime implementations—including Codex, OpenAI Agents, Claude Code, LangGraph or other execution frameworks—must implement the behaviours defined in this manual.
 
+Canonical Runtime Engine identities are governed exclusively by `../Runtime/engines/shared/engine_contract.md`. This manual maps technology-independent behaviours onto that taxonomy. Reasoning Engine is a deprecated behavioural alias for Business Judgement Engine, and Feedback Engine is a deprecated behavioural alias for Learning Engine; neither alias is a separate machine authority.
+
 ---
 
 # Operating Model
@@ -80,7 +82,7 @@ Update Memory
 
 Continuous Improvement
 
-```text
+```
 
 Every execution cycle should increase organisational knowledge, improve decision quality and strengthen future business performance.
 

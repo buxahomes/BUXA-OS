@@ -1,12 +1,12 @@
 # State Model
 
-**Document ID:** `SCOUT-RUNTIME-STATE-MODEL`  
-**Version:** `1.0.0`  
-**Status:** `Approved`  
-**Owner:** `Scout Runtime`  
-**Applies To:** Runtime Orchestrator and all registered Runtime Engines  
-**Dependencies:** `engine_contract.md`, `engine_context.md`  
-**Specification Type:** Mandatory Shared Foundation Standard  
+**Document ID:** `SCOUT-RUNTIME-STATE-MODEL`
+**Version:** `1.0.0`
+**Status:** `Approved`
+**Owner:** `Scout Runtime`
+**Applies To:** Runtime Orchestrator and all registered Runtime Engines
+**Dependencies:** `engine_contract.md`, `engine_context.md`
+**Specification Type:** Mandatory Shared Foundation Standard
 
 ---
 
@@ -207,33 +207,53 @@ The following diagram illustrates the normal successful path. It is not the tran
 ```text
 task_received
 ↓
+task_validating
+↓
+task_validated
+↓
 context_building
 ↓
+context_validating
+↓
 context_ready
+↓
+retrieval_pending
 ↓
 retrieval_running
 ↓
 knowledge_ready
 ↓
+business_judgement_pending
+↓
 business_judgement_running
 ↓
 business_judgement_ready
+↓
+planning_pending
 ↓
 planning_running
 ↓
 execution_blueprint_ready
 ↓
+execution_pending
+↓
 execution_running
 ↓
 execution_result_ready
+↓
+quality_pending
 ↓
 quality_running
 ↓
 quality_passed
 ↓
+learning_pending
+↓
 learning_running
 ↓
 learning_evaluated
+↓
+memory_pending
 ↓
 memory_running
 ↓
@@ -2890,11 +2910,11 @@ quality_pending
 ↓
 quality_running
 ├── quality_passed
-├── quality_failed
 ├── quality_revision_required
-└── quality_waiver_pending
-    ├── quality_waived
-    └── quality_failed
+└── quality_failed
+    └── quality_waiver_pending
+        ├── quality_waived
+        └── quality_failed
 ```
 
 A Quality Report MUST support every quality transition.
@@ -2912,6 +2932,8 @@ Conditional retry illustration:
 
 ```text
 exception_detected
+↓
+exception_classifying
 ↓
 retry_pending
 ↓
@@ -3164,17 +3186,38 @@ The following JSON is a non-normative history illustration.
     },
     {
       "state_version": 2,
-      "state": "context_building",
+      "state": "task_validating",
       "entered_at": "2026-07-28T09:00:01Z",
-      "exited_at": "2026-07-28T09:00:03Z",
+      "exited_at": "2026-07-28T09:00:02Z",
       "transition_id": "tr_002"
     },
     {
       "state_version": 3,
-      "state": "context_ready",
-      "entered_at": "2026-07-28T09:00:03Z",
-      "exited_at": null,
+      "state": "task_validated",
+      "entered_at": "2026-07-28T09:00:02Z",
+      "exited_at": "2026-07-28T09:00:03Z",
       "transition_id": "tr_003"
+    },
+    {
+      "state_version": 4,
+      "state": "context_building",
+      "entered_at": "2026-07-28T09:00:03Z",
+      "exited_at": "2026-07-28T09:00:05Z",
+      "transition_id": "tr_004"
+    },
+    {
+      "state_version": 5,
+      "state": "context_validating",
+      "entered_at": "2026-07-28T09:00:05Z",
+      "exited_at": "2026-07-28T09:00:07Z",
+      "transition_id": "tr_005"
+    },
+    {
+      "state_version": 6,
+      "state": "context_ready",
+      "entered_at": "2026-07-28T09:00:07Z",
+      "exited_at": null,
+      "transition_id": "tr_006"
     }
   ]
 }
@@ -3401,13 +3444,13 @@ The following JSON is a conditional example whose source and target are authoriz
   "workflow_id": "wf_content_001",
   "expected_state_version": 8,
   "from_state": "execution_blueprint_ready",
-  "to_state": "execution_running",
+  "to_state": "execution_pending",
   "proposed_by": {
     "actor_type": "runtime",
     "actor_id": "runtime_orchestrator"
   },
   "proposed_at": "2026-07-28T10:15:00Z",
-  "reason_code": "execution_started",
+  "reason_code": "execution_queued",
   "context_id": "ctx_exec_001_execution_009",
   "guards": [
     {

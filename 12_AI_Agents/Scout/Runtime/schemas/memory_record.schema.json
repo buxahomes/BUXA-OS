@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://buxa.local/scout/runtime/schemas/memory_record.schema.json",
+  "$id": "https://buxa.ai/scout/runtime/schemas/memory_record.schema.json",
   "title": "Scout Runtime Memory Record",
   "description": "Defines an authoritative, governed, retrievable memory object accepted by Scout Runtime. A Memory Record stores durable knowledge that may be reused by future retrieval, reasoning, planning, quality assurance, and execution. It includes provenance, authority, applicability, retrieval metadata, lifecycle, review, versioning, usage statistics, effectiveness, conflicts, supersession, and cross-field validation.",
   "type": "object",
@@ -243,7 +243,7 @@
       "$ref": "./common.schema.json#/$defs/evidence_references"
     },
     "relationships": {
-      "$ref": "./common.schema.json#/$defs/relationships"
+      "$ref": "./common.schema.json#/$defs/object_relationships"
     },
     "revision": {
       "$ref": "./common.schema.json#/$defs/revision"
@@ -3100,17 +3100,17 @@
   ],
   "examples": [
     {
-      "id": "mem_01JSCOUTEVIDENCECLAIMS0001",
+      "id": "mem_8da3a0fa-bbde-5bad-b9f3-8f4cc3ce77b2",
       "schema_name": "memory_record",
       "schema_version": "1.0.0",
-      "task_id": "task_01JSCOUTNEXTXHS000000001",
-      "execution_id": "exec_01JSCOUTNEXTXHS000000001",
+      "task_id": "task_a3f50608-133b-51c2-9746-c18a97d6463b",
+      "execution_id": "exec_96e9f3ba-e7ff-57e0-8eb1-58a45efac562",
       "workflow_id": "wf_xiaohongshu_content_package",
-      "learning_candidate_id": "lc_01JSCOUTCLAIMGUARDRAIL0001",
-      "execution_result_id": "er_01JSCOUTNEXTXHS000000001",
-      "exception_record_id": "ex_01JSCOUTQUALITYFAIL00000001",
-      "quality_report_id": "qr_01JSCOUTXHSQUALITY00000001",
-      "knowledge_package_id": "kp_01JSCOUTNEXTXHS000000001",
+      "learning_candidate_id": "lc_807e6e68-dd4a-5bb7-b721-1eb3b23ddc57",
+      "execution_result_id": "er_ea176386-6064-5795-9bfa-7105853948c9",
+      "exception_record_id": "ex_b92456d9-da04-5ad5-a24f-319775422aac",
+      "quality_report_id": "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65",
+      "knowledge_package_id": "kp_71eef098-92e0-5ae8-9b7c-504f5cadfa89",
       "created_at": "2026-07-27T21:20:00+08:00",
       "updated_at": "2026-07-27T21:25:00+08:00",
       "created_by": {
@@ -3371,15 +3371,15 @@
       "provenance": {
         "origin_type": "learning_candidate",
         "origin_ids": [
-          "lc_01JSCOUTCLAIMGUARDRAIL0001",
-          "ex_01JSCOUTQUALITYFAIL00000001",
-          "qr_01JSCOUTXHSQUALITY00000001"
+          "lc_807e6e68-dd4a-5bb7-b721-1eb3b23ddc57",
+          "ex_b92456d9-da04-5ad5-a24f-319775422aac",
+          "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65"
         ],
         "source_chain": [
           {
             "sequence": 1,
             "object_type": "exception_record",
-            "object_id": "ex_01JSCOUTQUALITYFAIL00000001",
+            "object_id": "ex_b92456d9-da04-5ad5-a24f-319775422aac",
             "relationship": "derived_from",
             "authority": "strong",
             "notes": "Documents the unsupported product claim."
@@ -3387,7 +3387,7 @@
           {
             "sequence": 2,
             "object_type": "quality_report",
-            "object_id": "qr_01JSCOUTXHSQUALITY00000001",
+            "object_id": "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65",
             "relationship": "supported_by",
             "authority": "authoritative",
             "notes": "Confirms the Product Standards failure."
@@ -3395,7 +3395,7 @@
           {
             "sequence": 3,
             "object_type": "learning_candidate",
-            "object_id": "lc_01JSCOUTCLAIMGUARDRAIL0001",
+            "object_id": "lc_807e6e68-dd4a-5bb7-b721-1eb3b23ddc57",
             "relationship": "approved_from",
             "authority": "controlling",
             "notes": "Contains evaluation, implementation, and verification."
@@ -3586,23 +3586,25 @@
         }
       ],
       "approval": {
-        "status": "approved",
         "required": true,
-        "approved_by": {
+        "status": "approved",
+        "decided_by": {
           "actor_type": "human",
           "actor_id": "buxa_content_owner",
           "display_name": "BUXA Content Owner"
         },
-        "approved_at": "2026-07-27T21:18:00+08:00",
+        "decided_at": "2026-07-27T21:18:00+08:00",
         "notes": "Approved as an authoritative BUXA content memory."
       },
-      "confidence": 0.96,
+      "confidence": {
+        "level": "very_high",
+        "score": 0.96,
+        "basis": "Supported by the referenced Runtime evidence and validation results.",
+        "limitations": []
+      },
       "quality_state": {
         "status": "passed",
-        "score": 0.96,
-        "blocking_issues": 0,
-        "warnings": 0,
-        "notes": "The memory is active, approved, traceable, and retrieval-ready."
+        "summary": "The memory is active, approved, traceable, and retrieval-ready."
       },
       "source_refs": [],
       "evidence_refs": [],
@@ -3613,13 +3615,14 @@
         "change_summary": "Initial Memory Record."
       },
       "validation": {
-        "is_valid": true,
+        "status": "valid",
         "validated_at": "2026-07-27T21:25:00+08:00",
         "validator": {
           "actor_type": "system",
           "actor_id": "schema_validator",
           "display_name": "Schema Validator"
         },
+        "schema_version_validated": "1.0.0",
         "errors": [],
         "warnings": []
       },

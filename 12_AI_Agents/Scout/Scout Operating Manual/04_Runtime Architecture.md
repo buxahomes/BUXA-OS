@@ -12,7 +12,7 @@ It is independent of any specific implementation technology and serves as the ar
 
 # Runtime Overview
 
-Scout Runtime consists of seven cooperating engines.
+Scout Runtime consists of eleven cooperating canonical Engines. Their identities are governed by `../Runtime/engines/shared/engine_contract.md`.
 
 ```
 
@@ -28,7 +28,7 @@ Retrieval Engine
 
 ↓
 
-Reasoning Engine
+Business Judgement Engine
 
 ↓
 
@@ -40,13 +40,23 @@ Execution Engine
 
 ↓
 
+Quality Engine
+
+↓
+
 Learning Engine
+
+↓
+
+Memory Engine
+
+The Exception, Approval, and Policy Engines govern conditional routes across this primary flow.
 
 ↓
 
 Knowledge Improvement
 
-```text
+```
 
 Each engine has a single responsibility.
 
@@ -141,7 +151,7 @@ A verified knowledge package.
 
 ---
 
-# Engine 3 — Reasoning Engine
+# Engine 3 — Business Judgement Engine
 
 ## Responsibility
 
@@ -156,7 +166,7 @@ Activities include:
 - recognising uncertainty
 - generating conclusions
 
-The Reasoning Engine produces judgement rather than execution.
+The Business Judgement Engine produces judgement rather than execution. Reasoning Engine is a deprecated behavioural alias only.
 
 Output:
 
@@ -210,7 +220,15 @@ Business execution results.
 
 ---
 
-# Engine 6 — Learning Engine
+# Engine 6 — Quality Engine
+
+## Responsibility
+
+The Quality Engine evaluates Runtime outputs against applicable standards and produces governed Quality Decisions and Quality Reports.
+
+---
+
+# Engine 7 — Learning Engine
 
 ## Responsibility
 
@@ -232,7 +250,7 @@ Validated organisational insights.
 
 ---
 
-# Engine 7 — Memory Engine
+# Engine 8 — Memory Engine
 
 ## Responsibility
 
@@ -250,6 +268,30 @@ Memory should contain only validated organisational knowledge.
 Output:
 
 Updated organisational memory.
+
+---
+
+# Engine 9 — Exception Engine
+
+## Responsibility
+
+The Exception Engine classifies Runtime deviations and produces governed retry, recovery, rollback, escalation, or terminal-routing Decisions and Exception Records.
+
+---
+
+# Engine 10 — Approval Engine
+
+## Responsibility
+
+The Approval Engine coordinates approval evaluation within human and policy authority and produces canonical Approval Decisions and immutable Approval Records.
+
+---
+
+# Engine 11 — Policy Engine
+
+## Responsibility
+
+The Policy Engine evaluates applicable policy, precedence, conflicts, and enforcement requirements and produces governed Policy Decisions.
 
 ---
 
@@ -289,7 +331,7 @@ Remember
 
 Better Retrieval
 
-```text
+```
 
 Every completed cycle increases the capability of future cycles.
 

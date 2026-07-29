@@ -207,6 +207,8 @@ Lifecycle role does not create Runtime State. Canonical Runtime State names, tra
 
 Every producer and consumer MUST be a registered Engine, the Runtime Orchestrator, or Authorised Human Authority.
 
+Canonical Engine identities are owned exclusively by `engine_contract.md`. Producer and consumer authority fields MUST use that canonical taxonomy. Deprecated behavioural aliases such as Reasoning Engine and Feedback Engine MUST NOT appear as new machine authority values.
+
 Production authority does not grant:
 
 - schema ownership;
@@ -215,7 +217,7 @@ Production authority does not grant:
 - authority to mutate another owner's object;
 - authority to create unregistered object types.
 
-Exception Handling and Human Governance are frameworks, not Engines, and therefore are not registered producing authorities.
+Exception Engine, Approval Engine, and Policy Engine are canonical governed Engines. Broader exception-handling and human-governance practices remain frameworks, but that does not remove these Engines' registered production authority.
 
 ---
 
@@ -259,7 +261,7 @@ The canonical Engine Invocation Status enum is `waiting`, `succeeded`, `partial_
 
 Similar spelling does not create equivalence. For example, Engine Result `status: cancelled` may support a proposal to Runtime State `cancelled`, but only the Runtime Orchestrator may validate and commit that transition.
 
-The registry does not resolve existing State Model findings H-03 or H-04.
+Runtime State names, categories, transitions, dynamic-target mechanisms, and terminal semantics remain governed exclusively by `state_model.md`.
 
 ---
 
@@ -267,7 +269,7 @@ The registry does not resolve existing State Model findings H-03 or H-04.
 
 Decision and Business Judgement are distinct:
 
-- **Decision** is a governed structured selection or outcome defined by `decision_model.md`.
+- **Decision** is a governed structured selection or outcome defined exclusively by `decision_model.md`, the sole normative Decision authority.
 - **Business Judgement** is a schema-backed judgement object that may contain or reference a Decision.
 
 Approval Decision and Policy Decision are specialised Decisions. A Decision may be embedded in an owning Runtime Object, referenced by Engine Result, linked to a State Transition, or retained in audit history. Those relationships do not make the containing object a Decision.
@@ -288,7 +290,7 @@ Context Snapshot is an immutable snapshot of a delivered Engine Context. Context
 
 Engine Result and Execution Result are distinct:
 
-- **Engine Result** is the invocation envelope returned by every Engine and validated by `../../schemas/engine_result.schema.json`.
+- **Engine Result** is the backward-compatible invocation envelope and canonical Runtime Execution Evidence object returned by every Engine and validated by `../../schemas/engine_result.schema.json`.
 - **Execution Result** is the Runtime Object produced by the Execution Engine and validated by `../../schemas/execution_result.schema.json`.
 
 An Engine Result MAY reference or embed an Execution Result. An Execution Result MUST NOT replace the Engine Result envelope.
@@ -302,9 +304,14 @@ Invocation lifecycle
 Engine Result
 ├── final Engine Invocation Status
 ├── produced Runtime Object or reference
-├── Decision reference
-├── failure, recovery, and Exception Record reference where required
-└── optional State Transition proposal or reference
+├── Alpha-compatible envelope fields
+└── optional runtime_execution_evidence_v1 profile
+    ├── invocation identity
+    ├── Decision evidence reference
+    ├── Runtime State Transition evidence
+    ├── Runtime Events
+    ├── evidence collection
+    └── validation results
         ↓
 Runtime Orchestrator validation
         ↓
@@ -314,6 +321,8 @@ Runtime State
 ```
 
 An Engine Result status MUST NOT commit or guarantee its proposed Runtime State. `succeeded` MUST NOT imply workflow completion, and `failed`, `blocked`, `cancelled`, or `timeout` MUST NOT automatically imply a terminal Runtime State.
+
+The `runtime_execution_evidence_v1` profile is the canonical structured evidence representation defined by `engine_contract.md`. It correlates invocation identity, authoritative Decision references, State Transition evidence, Runtime Events, collected evidence, and validation results without changing ownership of those concepts. Alpha-compatible Engine Results remain valid when the profile is omitted. A governed dynamic-target proposal MUST use the profile, and the Runtime Orchestrator MUST validate correlation between profile evidence and compatibility fields.
 
 ---
 
@@ -446,8 +455,8 @@ The registry MUST NOT:
 | `memory_record` | Memory Record | memory | `memory_record.schema.json` | authoritative | approved |
 | `exception_record` | Exception Record | exception | `exception_record.schema.json` | authoritative | approved |
 | `decision` | Decision | governance | `decision_model.md` | not applicable | approved |
-| `approval_decision` | Approval Decision | governance | `decision_model.md` | deferred | conflict |
-| `approval_record` | Approval Record | governance | `engine_context.md` | deferred | conflict |
+| `approval_decision` | Approval Decision | governance | `decision_model.md` | deferred | approved |
+| `approval_record` | Approval Record | governance | `engine_context.md` | deferred | approved |
 | `runtime_state` | Runtime State | control | `state_model.md` | deferred | approved |
 | `state_transition` | State Transition | control | `state_model.md` | deferred | approved |
 | `state_snapshot` | State Snapshot | snapshot | `state_model.md` | deferred | approved |
@@ -467,13 +476,18 @@ The table is a concise view. `../../registry/runtime_objects.json` is authoritat
 
 ---
 
-## 28. Registry Conflicts and Deferred Decisions
+## 28. Registry Boundaries and Deferred Decisions
 
 ### 28.1 Approval Decision and Approval Record
 
-`engine_contract.md` and `decision_model.md` use **Approval Decision**. `engine_context.md` lists **Approval Record**. The repository does not define whether Approval Record contains, persists, supersedes, or merely references Approval Decision.
+Approval Decision and Approval Record are separate approved Runtime Objects.
 
-Both entries are registered with `conflict` status. Neither term may be used as an alias for the other until an approved architecture decision resolves identity, schema, ownership, containment, and lifecycle.
+- **Approval Decision** is a specialised Decision owned normatively by `decision_model.md`. Its identity is `decision_id` plus `decision_version`. It expresses approval outcome, authority, scope, conditions, validity, and rationale. A governed State Transition Proposal and Engine Result `approval_reference` MUST reference this object.
+- **Approval Record** is an immutable persisted governance record owned normatively by `engine_context.md` for its Context use and record contract. Its identity is `approval_record_id` plus `record_version`. It records the request and process, participants, evidence, timestamps, and exactly one `approval_decision_ref`.
+
+The reference direction is Approval Record → Approval Decision. An Approval Record MUST NOT duplicate or redefine Decision fields. Correction or supersession creates a new immutable Approval Record with an explicit supersedes reference; retained records are never overwritten. Engine Context may carry or reference Approval Records for audit and replay. Engine Result and State Transition Proposal reference Approval Decision directly, never Approval Record.
+
+Both standalone schemas remain deferred because their normative document contracts are sufficient for current registration. Their approved registry status does not imply that a schema exists.
 
 ### 28.2 Approval Request
 
@@ -533,7 +547,7 @@ The following are prohibited:
 - using Engine invocation status as Runtime State;
 - using Decision Context as a second Context object;
 - treating Business Judgement as generic Decision;
-- treating Approval Decision and Approval Record as resolved;
+- treating Approval Decision and Approval Record as aliases or reversing their canonical reference direction;
 - citing a missing schema as authoritative;
 - changing object meaning without versioning and registry amendment;
 - deleting deprecated or conflicting identity history;

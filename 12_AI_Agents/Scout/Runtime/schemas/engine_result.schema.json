@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://buxa.local/scout/runtime/schemas/engine_result.schema.json",
+  "$id": "https://buxa.ai/scout/runtime/schemas/engine_result.schema.json",
   "title": "Scout Runtime Engine Result",
   "description": "Defines the universal invocation response envelope returned by every Scout Runtime Engine. An Engine Result reports one Engine invocation; it is distinct from an Execution Result Runtime Object.",
   "type": "object",
@@ -189,6 +189,25 @@
     },
     "extensions": {
       "$ref": "./common.schema.json#/$defs/metadata"
+    },
+    "evidence_profile": {
+      "description": "Optional compatibility discriminator. Omission preserves the Alpha Engine Result contract; runtime_execution_evidence_v1 selects the canonical Runtime Execution Evidence profile.",
+      "type": "string",
+      "enum": [
+        "alpha_legacy",
+        "runtime_execution_evidence_v1"
+      ]
+    },
+    "runtime_execution_evidence": {
+      "description": "Canonical structured execution evidence for the invocation. Required when evidence_profile is runtime_execution_evidence_v1 and for every dynamic-target transition proposal.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/runtime_execution_evidence"
+        },
+        {
+          "type": "null"
+        }
+      ]
     }
   },
   "$defs": {
@@ -225,7 +244,7 @@
       }
     },
     "state_transition_proposal": {
-      "description": "Engine proposal for a State Model-authorised transition. This object never represents a committed Runtime State change.",
+      "description": "Engine proposal for a State Model-authorised transition. Legacy Alpha proposals remain valid; canonical evidence proposals also carry mechanism, target, Decision, governance reference, and origin evidence. This object never represents a committed Runtime State change.",
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -281,6 +300,99 @@
           "oneOf": [
             {
               "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "transition_mechanism": {
+          "$ref": "#/$defs/transition_mechanism"
+        },
+        "dynamic_target": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/dynamic_target"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "decision_id": {
+          "oneOf": [
+            {
+              "$ref": "./common.schema.json#/$defs/object_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "approval_reference": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/runtime_evidence_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "policy_reference": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/runtime_evidence_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "checkpoint_reference": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/runtime_evidence_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "retry_reference": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/runtime_evidence_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "recovery_reference": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/runtime_evidence_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "rollback_reference": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/runtime_evidence_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "origin_context": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/origin_context"
             },
             {
               "type": "null"
@@ -512,6 +624,102 @@
         }
       }
     },
+    "transition_mechanism": {
+      "description": "Transition-selection mechanism registered by state_model.md. static denotes a literal allowed_to_states edge; all other values are governed dynamic-target mechanisms.",
+      "type": "string",
+      "enum": [
+        "static",
+        "approval_resume_target",
+        "policy_resume_target",
+        "checkpoint_resume_target",
+        "retry_target",
+        "recovery_target",
+        "rollback_target",
+        "revision_target"
+      ]
+    },
+    "dynamic_target": {
+      "description": "Typed target selected under the State Model dynamic_target_model. The field name and target state must match the selected transition mechanism registry entry.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_field",
+        "target_state"
+      ],
+      "properties": {
+        "target_field": {
+          "type": "string",
+          "enum": [
+            "resume_target",
+            "retry_target",
+            "recovery_target",
+            "rollback_target",
+            "revision_target"
+          ]
+        },
+        "target_state": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "runtime_evidence_reference": {
+      "description": "Reference to a Runtime Object that supplies transition or execution evidence. object_type must resolve in the canonical Runtime Object Registry.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_id",
+        "object_type",
+        "version"
+      ],
+      "properties": {
+        "reference_id": {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        "object_type": {
+          "$ref": "#/$defs/identifier"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "origin_context": {
+      "description": "Preserved context identifying the lifecycle origin from which a governed detour, retry, recovery, rollback, or revision was entered.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "origin_state",
+        "context_id",
+        "context_version",
+        "recorded_at"
+      ],
+      "properties": {
+        "origin_state": {
+          "$ref": "#/$defs/identifier"
+        },
+        "context_id": {
+          "$ref": "./common.schema.json#/$defs/object_id"
+        },
+        "context_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "recorded_at": {
+          "$ref": "./common.schema.json#/$defs/timestamp"
+        },
+        "origin_transition_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/identifier"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
     "event_reference": {
       "type": "object",
       "additionalProperties": false,
@@ -662,6 +870,667 @@
               "type": "null"
             }
           ]
+        }
+      }
+    },
+    "canonical_state_transition_proposal": {
+      "description": "Complete Runtime State transition evidence profile. Dynamic-target semantics remain normatively owned by state_model.md.",
+      "allOf": [
+        {
+          "$ref": "#/$defs/state_transition_proposal"
+        },
+        {
+          "required": [
+            "transition_mechanism",
+            "dynamic_target",
+            "decision_id",
+            "approval_reference",
+            "policy_reference",
+            "checkpoint_reference",
+            "retry_reference",
+            "recovery_reference",
+            "rollback_reference",
+            "origin_context"
+          ]
+        },
+        {
+          "if": {
+            "properties": {
+              "transition_mechanism": {
+                "const": "static"
+              }
+            },
+            "required": [
+              "transition_mechanism"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dynamic_target": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transition_mechanism": {
+                "const": "approval_resume_target"
+              }
+            },
+            "required": [
+              "transition_mechanism"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dynamic_target": {
+                "allOf": [
+                  {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  {
+                    "properties": {
+                      "target_field": {
+                        "const": "resume_target"
+                      }
+                    },
+                    "required": [
+                      "target_field"
+                    ]
+                  }
+                ]
+              },
+              "decision_id": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "origin_context": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "approval_reference": {
+                "allOf": [
+                  {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  {
+                    "properties": {
+                      "object_type": {
+                        "const": "approval_decision"
+                      }
+                    },
+                    "required": [
+                      "object_type"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transition_mechanism": {
+                "const": "policy_resume_target"
+              }
+            },
+            "required": [
+              "transition_mechanism"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dynamic_target": {
+                "allOf": [
+                  {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  {
+                    "properties": {
+                      "target_field": {
+                        "const": "resume_target"
+                      }
+                    },
+                    "required": [
+                      "target_field"
+                    ]
+                  }
+                ]
+              },
+              "decision_id": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "origin_context": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "policy_reference": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transition_mechanism": {
+                "const": "checkpoint_resume_target"
+              }
+            },
+            "required": [
+              "transition_mechanism"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dynamic_target": {
+                "allOf": [
+                  {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  {
+                    "properties": {
+                      "target_field": {
+                        "const": "resume_target"
+                      }
+                    },
+                    "required": [
+                      "target_field"
+                    ]
+                  }
+                ]
+              },
+              "decision_id": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "origin_context": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "checkpoint_reference": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transition_mechanism": {
+                "const": "retry_target"
+              }
+            },
+            "required": [
+              "transition_mechanism"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dynamic_target": {
+                "allOf": [
+                  {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  {
+                    "properties": {
+                      "target_field": {
+                        "const": "retry_target"
+                      }
+                    },
+                    "required": [
+                      "target_field"
+                    ]
+                  }
+                ]
+              },
+              "decision_id": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "origin_context": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "retry_reference": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transition_mechanism": {
+                "const": "recovery_target"
+              }
+            },
+            "required": [
+              "transition_mechanism"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dynamic_target": {
+                "allOf": [
+                  {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  {
+                    "properties": {
+                      "target_field": {
+                        "const": "recovery_target"
+                      }
+                    },
+                    "required": [
+                      "target_field"
+                    ]
+                  }
+                ]
+              },
+              "decision_id": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "origin_context": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "recovery_reference": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transition_mechanism": {
+                "const": "rollback_target"
+              }
+            },
+            "required": [
+              "transition_mechanism"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dynamic_target": {
+                "allOf": [
+                  {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  {
+                    "properties": {
+                      "target_field": {
+                        "const": "rollback_target"
+                      }
+                    },
+                    "required": [
+                      "target_field"
+                    ]
+                  }
+                ]
+              },
+              "decision_id": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "origin_context": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "rollback_reference": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "checkpoint_reference": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "transition_mechanism": {
+                "const": "revision_target"
+              }
+            },
+            "required": [
+              "transition_mechanism"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dynamic_target": {
+                "allOf": [
+                  {
+                    "not": {
+                      "type": "null"
+                    }
+                  },
+                  {
+                    "properties": {
+                      "target_field": {
+                        "const": "revision_target"
+                      }
+                    },
+                    "required": [
+                      "target_field"
+                    ]
+                  }
+                ]
+              },
+              "decision_id": {
+                "not": {
+                  "type": "null"
+                }
+              },
+              "origin_context": {
+                "not": {
+                  "type": "null"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "examples": [
+        {
+          "transition_id": "transition_retry_execution_001",
+          "from_state": "retrying",
+          "to_state": "execution_running",
+          "triggering_engine_id": "execution_engine",
+          "triggering_result_id": "engine_result_550e8400-e29b-41d4-a716-446655440020",
+          "proposed_by": {
+            "actor_type": "engine",
+            "actor_id": "execution_engine",
+            "display_name": "Execution Engine",
+            "role": "execution",
+            "version": "1.0.0"
+          },
+          "proposed_at": "2026-07-28T10:05:00Z",
+          "reason_code": "retry_authorised",
+          "validation_outcome": "passed",
+          "approval_required": false,
+          "rollback_state": null,
+          "transition_mechanism": "retry_target",
+          "dynamic_target": {
+            "target_field": "retry_target",
+            "target_state": "execution_running"
+          },
+          "decision_id": "decision_550e8400-e29b-41d4-a716-446655440021",
+          "approval_reference": null,
+          "policy_reference": null,
+          "checkpoint_reference": null,
+          "retry_reference": {
+            "reference_id": "decision_550e8400-e29b-41d4-a716-446655440021",
+            "object_type": "decision",
+            "version": 1
+          },
+          "recovery_reference": null,
+          "rollback_reference": null,
+          "origin_context": {
+            "origin_state": "execution_running",
+            "context_id": "engine_context_550e8400-e29b-41d4-a716-446655440022",
+            "context_version": 1,
+            "recorded_at": "2026-07-28T10:04:00Z",
+            "origin_transition_id": "transition_execution_failed_001"
+          }
+        }
+      ]
+    },
+    "invocation_identity": {
+      "description": "Identity of the invocation whose execution evidence this Engine Result records.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "engine_id",
+        "engine_version",
+        "contract_version",
+        "task_id",
+        "execution_id",
+        "invocation_id"
+      ],
+      "properties": {
+        "engine_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "engine_version": {
+          "$ref": "./common.schema.json#/$defs/schema_version"
+        },
+        "contract_version": {
+          "$ref": "./common.schema.json#/$defs/schema_version"
+        },
+        "task_id": {
+          "$ref": "./common.schema.json#/$defs/task_id"
+        },
+        "execution_id": {
+          "$ref": "./common.schema.json#/$defs/execution_id"
+        },
+        "invocation_id": {
+          "$ref": "#/$defs/identifier"
+        }
+      }
+    },
+    "decision_evidence": {
+      "description": "Evidence linkage to the canonical Decision Model. This section references a Decision and does not duplicate Decision semantics.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority",
+        "decision_ref",
+        "evidence_refs"
+      ],
+      "properties": {
+        "authority": {
+          "type": "string",
+          "const": "../engines/shared/decision_model.md"
+        },
+        "decision_ref": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/decision_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/runtime_evidence_reference"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "runtime_state_transition_evidence": {
+      "description": "State Transition proposal evidence governed by state_model.md. The Runtime Orchestrator alone validates and commits or rejects the proposal.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority",
+        "proposal",
+        "orchestrator_validation",
+        "commit_status"
+      ],
+      "properties": {
+        "authority": {
+          "type": "string",
+          "const": "../engines/shared/state_model.md"
+        },
+        "proposal": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/canonical_state_transition_proposal"
+            },
+            {
+              "$ref": "#/$defs/state_transition_reference"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "orchestrator_validation": {
+          "$ref": "./common.schema.json#/$defs/validation_record"
+        },
+        "commit_status": {
+          "type": "string",
+          "enum": [
+            "not_proposed",
+            "pending",
+            "committed",
+            "rejected"
+          ]
+        }
+      }
+    },
+    "runtime_events_evidence": {
+      "description": "Runtime Events emitted or referenced as evidence for this invocation.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_refs",
+        "correlation_complete"
+      ],
+      "properties": {
+        "event_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/event_reference"
+          }
+        },
+        "correlation_complete": {
+          "type": "boolean"
+        }
+      }
+    },
+    "evidence_collection": {
+      "description": "Runtime Object references collected as execution, governance, approval, policy, checkpoint, or recovery evidence.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_refs",
+        "collection_complete"
+      ],
+      "properties": {
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/runtime_evidence_reference"
+          },
+          "uniqueItems": true
+        },
+        "collection_complete": {
+          "type": "boolean"
+        }
+      }
+    },
+    "validation_results": {
+      "description": "Structured validation records for the result envelope and its cross-object governance evidence.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_validation",
+        "decision_validation",
+        "state_transition_validation",
+        "event_validation",
+        "evidence_validation"
+      ],
+      "properties": {
+        "schema_validation": {
+          "$ref": "./common.schema.json#/$defs/validation_record"
+        },
+        "decision_validation": {
+          "$ref": "./common.schema.json#/$defs/validation_record"
+        },
+        "state_transition_validation": {
+          "$ref": "./common.schema.json#/$defs/validation_record"
+        },
+        "event_validation": {
+          "$ref": "./common.schema.json#/$defs/validation_record"
+        },
+        "evidence_validation": {
+          "$ref": "./common.schema.json#/$defs/validation_record"
+        }
+      }
+    },
+    "runtime_execution_evidence": {
+      "description": "Canonical Runtime Execution Evidence assembled for one Engine invocation.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "invocation_identity",
+        "decision_evidence",
+        "runtime_state_transition_evidence",
+        "runtime_events",
+        "evidence_collection",
+        "validation_results"
+      ],
+      "properties": {
+        "invocation_identity": {
+          "$ref": "#/$defs/invocation_identity"
+        },
+        "decision_evidence": {
+          "$ref": "#/$defs/decision_evidence"
+        },
+        "runtime_state_transition_evidence": {
+          "$ref": "#/$defs/runtime_state_transition_evidence"
+        },
+        "runtime_events": {
+          "$ref": "#/$defs/runtime_events_evidence"
+        },
+        "evidence_collection": {
+          "$ref": "#/$defs/evidence_collection"
+        },
+        "validation_results": {
+          "$ref": "#/$defs/validation_results"
         }
       }
     }
@@ -878,6 +1747,74 @@
           }
         }
       }
+    },
+    {
+      "if": {
+        "properties": {
+          "evidence_profile": {
+            "const": "runtime_execution_evidence_v1"
+          }
+        },
+        "required": [
+          "evidence_profile"
+        ]
+      },
+      "then": {
+        "required": [
+          "runtime_execution_evidence"
+        ],
+        "properties": {
+          "runtime_execution_evidence": {
+            "not": {
+              "type": "null"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "state_transition": {
+            "type": "object",
+            "required": [
+              "transition_mechanism"
+            ],
+            "properties": {
+              "transition_mechanism": {
+                "enum": [
+                  "approval_resume_target",
+                  "policy_resume_target",
+                  "checkpoint_resume_target",
+                  "retry_target",
+                  "recovery_target",
+                  "rollback_target",
+                  "revision_target"
+                ]
+              }
+            }
+          }
+        },
+        "required": [
+          "state_transition"
+        ]
+      },
+      "then": {
+        "required": [
+          "evidence_profile",
+          "runtime_execution_evidence"
+        ],
+        "properties": {
+          "evidence_profile": {
+            "const": "runtime_execution_evidence_v1"
+          },
+          "runtime_execution_evidence": {
+            "not": {
+              "type": "null"
+            }
+          }
+        }
+      }
     }
   ],
   "examples": [
@@ -963,7 +1900,17 @@
         "reason_code": "knowledge_package_ready",
         "validation_outcome": "passed",
         "approval_required": false,
-        "rollback_state": null
+        "rollback_state": null,
+        "transition_mechanism": "static",
+        "dynamic_target": null,
+        "decision_id": "decision_550e8400-e29b-41d4-a716-446655440004",
+        "approval_reference": null,
+        "policy_reference": null,
+        "checkpoint_reference": null,
+        "retry_reference": null,
+        "recovery_reference": null,
+        "rollback_reference": null,
+        "origin_context": null
       },
       "side_effects": [],
       "approval": {
@@ -986,7 +1933,177 @@
         "errors": [],
         "warnings": []
       },
-      "extensions": {}
+      "extensions": {},
+      "evidence_profile": "runtime_execution_evidence_v1",
+      "runtime_execution_evidence": {
+        "invocation_identity": {
+          "engine_id": "retrieval_engine",
+          "engine_version": "1.0.0",
+          "contract_version": "1.0.0",
+          "task_id": "task_550e8400-e29b-41d4-a716-446655440001",
+          "execution_id": "exec_550e8400-e29b-41d4-a716-446655440002",
+          "invocation_id": "invocation_retrieval_001"
+        },
+        "decision_evidence": {
+          "authority": "../engines/shared/decision_model.md",
+          "decision_ref": {
+            "decision_id": "decision_550e8400-e29b-41d4-a716-446655440004",
+            "decision_version": 1,
+            "summary": "The retrieved package satisfies the required knowledge scope."
+          },
+          "evidence_refs": [
+            {
+              "reference_id": "knowledge_package_550e8400-e29b-41d4-a716-446655440003",
+              "object_type": "knowledge_package",
+              "version": 1
+            }
+          ]
+        },
+        "runtime_state_transition_evidence": {
+          "authority": "../engines/shared/state_model.md",
+          "proposal": {
+            "transition_id": "transition_retrieval_ready_001",
+            "from_state": "retrieval_running",
+            "to_state": "knowledge_ready",
+            "triggering_engine_id": "retrieval_engine",
+            "triggering_result_id": "engine_result_550e8400-e29b-41d4-a716-446655440000",
+            "proposed_by": {
+              "actor_type": "engine",
+              "actor_id": "retrieval_engine",
+              "display_name": "Retrieval Engine",
+              "role": "retrieval",
+              "version": "1.0.0"
+            },
+            "proposed_at": "2026-07-28T10:00:01Z",
+            "reason_code": "knowledge_package_ready",
+            "validation_outcome": "passed",
+            "approval_required": false,
+            "rollback_state": null,
+            "transition_mechanism": "static",
+            "dynamic_target": null,
+            "decision_id": "decision_550e8400-e29b-41d4-a716-446655440004",
+            "approval_reference": null,
+            "policy_reference": null,
+            "checkpoint_reference": null,
+            "retry_reference": null,
+            "recovery_reference": null,
+            "rollback_reference": null,
+            "origin_context": null
+          },
+          "orchestrator_validation": {
+            "status": "valid",
+            "validated_at": "2026-07-28T10:00:01Z",
+            "validator": {
+              "actor_type": "runtime",
+              "actor_id": "runtime_orchestrator",
+              "display_name": "Runtime Orchestrator",
+              "role": "orchestration",
+              "version": "1.0.0"
+            },
+            "schema_version_validated": "1.0.0",
+            "errors": [],
+            "warnings": []
+          },
+          "commit_status": "pending"
+        },
+        "runtime_events": {
+          "event_refs": [
+            {
+              "event_id": "event_engine_completed_001",
+              "event_type": "engine_completed",
+              "timestamp": "2026-07-28T10:00:01Z"
+            },
+            {
+              "event_id": "event_state_transition_proposed_001",
+              "event_type": "engine_state_transition_proposed",
+              "timestamp": "2026-07-28T10:00:01Z"
+            }
+          ],
+          "correlation_complete": true
+        },
+        "evidence_collection": {
+          "evidence_refs": [
+            {
+              "reference_id": "knowledge_package_550e8400-e29b-41d4-a716-446655440003",
+              "object_type": "knowledge_package",
+              "version": 1
+            }
+          ],
+          "collection_complete": true
+        },
+        "validation_results": {
+          "schema_validation": {
+            "status": "valid",
+            "validated_at": "2026-07-28T10:00:01Z",
+            "validator": {
+              "actor_type": "engine",
+              "actor_id": "retrieval_engine",
+              "display_name": "Retrieval Engine",
+              "role": "retrieval",
+              "version": "1.0.0"
+            },
+            "schema_version_validated": "1.0.0",
+            "errors": [],
+            "warnings": []
+          },
+          "decision_validation": {
+            "status": "valid",
+            "validated_at": "2026-07-28T10:00:01Z",
+            "validator": {
+              "actor_type": "engine",
+              "actor_id": "retrieval_engine",
+              "display_name": "Retrieval Engine",
+              "role": "retrieval",
+              "version": "1.0.0"
+            },
+            "schema_version_validated": "1.0.0",
+            "errors": [],
+            "warnings": []
+          },
+          "state_transition_validation": {
+            "status": "valid",
+            "validated_at": "2026-07-28T10:00:01Z",
+            "validator": {
+              "actor_type": "engine",
+              "actor_id": "retrieval_engine",
+              "display_name": "Retrieval Engine",
+              "role": "retrieval",
+              "version": "1.0.0"
+            },
+            "schema_version_validated": "1.0.0",
+            "errors": [],
+            "warnings": []
+          },
+          "event_validation": {
+            "status": "valid",
+            "validated_at": "2026-07-28T10:00:01Z",
+            "validator": {
+              "actor_type": "engine",
+              "actor_id": "retrieval_engine",
+              "display_name": "Retrieval Engine",
+              "role": "retrieval",
+              "version": "1.0.0"
+            },
+            "schema_version_validated": "1.0.0",
+            "errors": [],
+            "warnings": []
+          },
+          "evidence_validation": {
+            "status": "valid",
+            "validated_at": "2026-07-28T10:00:01Z",
+            "validator": {
+              "actor_type": "engine",
+              "actor_id": "retrieval_engine",
+              "display_name": "Retrieval Engine",
+              "role": "retrieval",
+              "version": "1.0.0"
+            },
+            "schema_version_validated": "1.0.0",
+            "errors": [],
+            "warnings": []
+          }
+        }
+      }
     }
   ]
 }

@@ -240,7 +240,7 @@
       "notes": null,
       "object_type": "engine_result",
       "canonical_name": "Engine Result",
-      "description": "Universal structured response envelope returned by every Engine invocation.",
+  "description": "Backward-compatible invocation envelope and canonical Runtime Execution Evidence object returned by every Engine invocation; runtime_execution_evidence_v1 correlates invocation identity, Decision evidence, Runtime State Transition evidence, Runtime Events, evidence collection, and validation results.",
       "classification": "invocation_envelope",
       "normative_owner": "engines/shared/engine_contract.md"
     },
@@ -855,18 +855,18 @@
       "identity_field": "decision_id",
       "version_field": "decision_version",
       "status_field": "status",
-      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
-      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
-      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "state_relationship": "Is referenced by governed approval State Transition Proposals; it does not commit Runtime State.",
+      "decision_relationship": "Is the canonical specialised Decision that expresses approval outcome, authority, scope, conditions, validity, and rationale.",
+      "context_relationship": "May be referenced by Engine Context directly or through its persisted Approval Record; it is not the audit record.",
       "containment_rules": [
-        "Containment MUST be explicit in the containing schema or normative specification.",
-        "A reference to this object does not imply that the object is contained."
+        "May be referenced by exactly one or more immutable Approval Records.",
+        "Containment in an Approval Record MUST be by canonical decision reference and MUST NOT duplicate Decision fields."
       ],
       "reference_rules": [
-        "References MUST preserve canonical object_type and object identity.",
-        "Similar names MUST NOT be used as substitutes."
+        "State Transition Proposal approval_reference MUST identify this Approval Decision, never an Approval Record.",
+        "References MUST preserve decision_id, decision_version, and object_type approval_decision."
       ],
-      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "retention_authority": "Decision Model retention and applicable organisational governance; superseded Decisions remain auditable.",
       "integrity_requirements": [
         "Preserve provenance and source authority.",
         "Validate integrity according to the normative owner and authoritative schema where one exists."
@@ -883,8 +883,8 @@
         "approval_request",
         "runtime_state"
       ],
-      "registry_status": "conflict",
-      "notes": "The Decision Model and Engine Contract use Approval Decision, while Engine Context lists Approval Record. Their containment and persistence relationship is unresolved.",
+      "registry_status": "approved",
+      "notes": "Separate from Approval Record. Schema remains deferred because Decision Model is the normative structured-payload authority.",
       "object_type": "approval_decision",
       "canonical_name": "Approval Decision",
       "description": "Decision produced by the Approval Engine or authorised human authority to approve, reject, revise, defer or condition governed action.",
@@ -906,27 +906,27 @@
         "Quality Engine"
       ],
       "lifecycle_stage": "governance",
-      "mutability": "append_only",
-      "identity_field": null,
-      "version_field": null,
-      "status_field": null,
-      "state_relationship": "May be associated with Runtime State but does not define or replace it.",
-      "decision_relationship": "May carry or reference Decisions but is not interchangeable with a Decision.",
-      "context_relationship": "May be supplied through or referenced by Engine Context; a reference does not imply containment.",
+      "mutability": "immutable",
+      "identity_field": "approval_record_id",
+      "version_field": "record_version",
+      "status_field": "process_status",
+      "state_relationship": "Persists approval-process evidence associated with governed Runtime State activity but never authorises or commits a transition.",
+      "decision_relationship": "MUST reference exactly one canonical Approval Decision by decision_id and decision_version and MUST NOT duplicate its normative fields.",
+      "context_relationship": "May be carried or referenced by Engine Context for audit and replay; Context does not transfer ownership or mutability.",
       "containment_rules": [
-        "Containment MUST be explicit in the containing schema or normative specification.",
-        "A reference to this object does not imply that the object is contained."
+        "Contains immutable request/process metadata, participants, evidence references, timestamps, and exactly one Approval Decision reference.",
+        "MUST NOT embed or redefine the Approval Decision normative fields."
       ],
       "reference_rules": [
-        "References MUST preserve canonical object_type and object identity.",
-        "Similar names MUST NOT be used as substitutes."
+        "approval_decision_ref points from Approval Record to exactly one canonical Approval Decision.",
+        "Engine Result and State Transition Proposal MUST reference Approval Decision directly, not Approval Record."
       ],
-      "retention_authority": "Applicable Runtime retention configuration and organisational governance.",
+      "retention_authority": "Applicable approval, audit, privacy, and organisational retention policy; records remain immutable for their retained lifetime.",
       "integrity_requirements": [
         "Preserve provenance and source authority.",
         "Validate integrity according to the normative owner and authoritative schema where one exists."
       ],
-      "compatibility_policy": "Breaking identity or semantic changes require a new version, migration guidance, and registry amendment.",
+      "compatibility_policy": "Correction or supersession creates a new Approval Record with a new identity and an explicit supersedes reference; retained records are never overwritten.",
       "aliases": [],
       "prohibited_aliases": [
         "Approval Decision",
@@ -937,11 +937,11 @@
         "approval_request",
         "engine_context"
       ],
-      "registry_status": "conflict",
-      "notes": "Engine Context recognises Approval Record but does not define identity, schema, owner fields, or whether it persists an Approval Decision.",
+      "registry_status": "approved",
+      "notes": "Immutable persisted process and audit record. Its standalone schema remains deferred; Engine Context owns its context-use contract.",
       "object_type": "approval_record",
       "canonical_name": "Approval Record",
-      "description": "Persisted approval information named by Engine Context; its exact relationship to Approval Decision is unresolved.",
+      "description": "Immutable persisted record of an approval request and process, participants, evidence, timestamps, and exactly one final Approval Decision reference.",
       "classification": "governance_object",
       "normative_owner": "engines/shared/engine_context.md"
     },

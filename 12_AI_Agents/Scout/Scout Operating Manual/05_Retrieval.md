@@ -86,9 +86,9 @@ Assemble Knowledge Package
 
 ↓
 
-Deliver to Reasoning Engine
+Deliver to Business Judgement Engine
 
-```text
+```
 
 ---
 
@@ -253,7 +253,7 @@ A retrieval cycle is successful when:
 
 The Retrieval Engine receives tasks from the Input Engine.
 
-Its output becomes the sole input to the Reasoning Engine.
+Its output becomes the sole input to the Business Judgement Engine.
 
 The quality of reasoning depends directly on the quality of retrieval.
 

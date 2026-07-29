@@ -1,12 +1,12 @@
 # Engine Context
 
-**Document ID:** `SCOUT-RUNTIME-ENGINE-CONTEXT`  
-**Version:** `1.0.0`  
-**Status:** `Approved`  
-**Owner:** `Scout Runtime`  
-**Applies To:** All Runtime Engines  
-**Contract Dependency:** `engine_contract.md`  
-**Specification Type:** Mandatory Shared Foundation Standard  
+**Document ID:** `SCOUT-RUNTIME-ENGINE-CONTEXT`
+**Version:** `1.0.0`
+**Status:** `Approved`
+**Owner:** `Scout Runtime`
+**Applies To:** All Runtime Engines
+**Contract Dependency:** `engine_contract.md`
+**Specification Type:** Mandatory Shared Foundation Standard
 
 ---
 
@@ -295,6 +295,24 @@ The section may contain:
 - Context Snapshot.
 
 Each entry MUST identify object ID, object type, schema version, object version, lifecycle status, owner, source Engine, creation time, integrity metadata, visibility classification, and embedded value or reference.
+
+### 12.1 Approval Record Contract
+
+Approval Record is the immutable persisted governance record for one approval request and process. Its canonical identity is `approval_record_id` plus `record_version`; its process lifecycle is recorded through `process_status` without replacing Runtime State.
+
+An Approval Record MUST contain or reference:
+
+- request and process identity;
+- participants and their authorities;
+- evidence references;
+- request, response, expiry, and persistence timestamps where applicable;
+- exactly one `approval_decision_ref` containing the canonical Approval Decision identity and version;
+- integrity and retention metadata;
+- an explicit supersedes reference when a correction or later record replaces it.
+
+The referenced Approval Decision is owned exclusively by `decision_model.md`. Approval Record MUST NOT copy or redefine the Decision's outcome, authority, scope, conditions, validity, confidence, evidence, or rationale as competing normative fields.
+
+Approval Records are immutable. Correction or supersession creates a new record with a new `approval_record_id`; the prior record remains retained according to approval, audit, privacy, and organisational retention policy. Engine Context MAY carry an Approval Record or a reference to it for audit and replay. State Transition Proposals and Engine Results MUST reference Approval Decision directly, not Approval Record.
 
 Draft, expired, superseded, or restricted objects MUST be excluded unless explicitly required and authorised.
 

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://buxa.ai/scout/runtime/schemas/business_judgement.schema.json",
   "title": "Scout Runtime Business Judgement",
-  "description": "Defines the structured business judgement produced by the Scout Reasoning Engine. A Business Judgement interprets a validated Knowledge Package, evaluates alternatives, identifies risks and trade-offs, and produces a reasoned recommendation for downstream planning.",
+  "description": "Defines the structured business judgement produced by the Scout Business Judgement Engine. A Business Judgement interprets a validated Knowledge Package, evaluates alternatives, identifies risks and trade-offs, and produces a reasoned recommendation for downstream planning.",
   "type": "object",
   "additionalProperties": false,
 
@@ -1214,7 +1214,7 @@
 
     "alternative_option": {
       "title": "Alternative Option",
-      "description": "An alternative course of action, interpretation or direction evaluated by the Reasoning Engine.",
+      "description": "An alternative course of action, interpretation or direction evaluated by the Business Judgement Engine.",
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -2876,7 +2876,7 @@
 
     "decision": {
       "title": "Business Decision",
-      "description": "The principal outcome selected by the Reasoning Engine.",
+      "description": "The principal outcome selected by the Business Judgement Engine.",
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -5296,8 +5296,8 @@
 
       "created_by": {
         "actor_type": "engine",
-        "actor_id": "reasoning_engine",
-        "display_name": "Scout Reasoning Engine",
+        "actor_id": "business_judgement_engine",
+        "display_name": "Scout Business Judgement Engine",
         "role": "business_reasoning",
         "version": "1.0.0"
       },
@@ -6822,7 +6822,7 @@
         "human_input_used": false,
         "human_input_source_refs": [],
 
-        "summary": "The Reasoning Engine framed the decision, converted Task requirements into weighted criteria, evaluated three topic directions, assessed material trade-offs and risks, and selected the only option that met all mandatory criteria.",
+        "summary": "The Business Judgement Engine framed the decision, converted Task requirements into weighted criteria, evaluated three topic directions, assessed material trade-offs and risks, and selected the only option that met all mandatory criteria.",
 
         "limitations": [
           "The reasoning process does not predict future audience engagement.",
@@ -6891,17 +6891,17 @@
       },
 
       "risk_assessment": {
-        "overall_level": "low",
-        "categories": [
+        "level": "low",
+        "summary": "The judgement has low residual risk after applying Product Passport traceability and methodology-first content controls.",
+        "risk_categories": [
           "brand",
           "product_accuracy",
-          "content_accuracy"
+          "content"
         ],
-        "summary": "The judgement has low residual risk after applying Product Passport traceability and methodology-first content controls.",
-        "requires_approval": false,
-        "requires_human_review": false,
-        "mitigation_required": true,
-        "mitigation_summary": "Apply claim-level Product Standards review and Brand Standards review during downstream Quality Review."
+        "mitigations": [
+          "Apply claim-level Product Standards review and Brand Standards review during downstream Quality Review."
+        ],
+        "residual_risk_level": "low"
       },
 
       "quality_state": {
@@ -7138,7 +7138,7 @@
         },
 
         {
-          "relationship_type": "uses",
+          "relationship_type": "depends_on",
           "target_object_id": "kp_550e8400-e29b-41d4-a716-446655440010",
           "description": "The judgement uses this Knowledge Package as its factual and governance basis."
         }

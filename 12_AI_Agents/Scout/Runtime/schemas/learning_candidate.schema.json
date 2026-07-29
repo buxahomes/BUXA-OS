@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://buxa.local/scout/runtime/schemas/learning_candidate.schema.json",
+  "$id": "https://buxa.ai/scout/runtime/schemas/learning_candidate.schema.json",
   "title": "Scout Runtime Learning Candidate",
   "description": "Defines a governed proposal for durable runtime learning. A Learning Candidate is evidence-backed but is not accepted truth until evaluated, approved, implemented, verified, and optionally converted into a Memory Record.",
   "type": "object",
@@ -242,7 +242,7 @@
       "$ref": "./common.schema.json#/$defs/evidence_references"
     },
     "relationships": {
-      "$ref": "./common.schema.json#/$defs/relationships"
+      "$ref": "./common.schema.json#/$defs/object_relationships"
     },
     "revision": {
       "$ref": "./common.schema.json#/$defs/revision"
@@ -3306,18 +3306,18 @@
   ],
   "examples": [
     {
-      "id": "lc_01JSCOUTCLAIMGUARDRAIL0001",
+      "id": "lc_807e6e68-dd4a-5bb7-b721-1eb3b23ddc57",
       "schema_name": "learning_candidate",
       "schema_version": "1.0.0",
-      "task_id": "task_01JSCOUTNEXTXHS000000001",
-      "execution_id": "exec_01JSCOUTNEXTXHS000000001",
+      "task_id": "task_a3f50608-133b-51c2-9746-c18a97d6463b",
+      "execution_id": "exec_96e9f3ba-e7ff-57e0-8eb1-58a45efac562",
       "workflow_id": "wf_xiaohongshu_content_package",
-      "execution_result_id": "er_01JSCOUTNEXTXHS000000001",
-      "exception_record_id": "ex_01JSCOUTQUALITYFAIL00000001",
-      "quality_report_id": "qr_01JSCOUTXHSQUALITY00000001",
-      "skill_output_id": "so_01JSCOUTXHSOUTPUT000000001",
-      "business_judgement_id": "bj_01JSCOUTNEXTXHS000000001",
-      "knowledge_package_id": "kp_01JSCOUTNEXTXHS000000001",
+      "execution_result_id": "er_ea176386-6064-5795-9bfa-7105853948c9",
+      "exception_record_id": "ex_b92456d9-da04-5ad5-a24f-319775422aac",
+      "quality_report_id": "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65",
+      "skill_output_id": "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c",
+      "business_judgement_id": "bj_c142bc1b-fa1c-5146-9b16-2a131cec78ce",
+      "knowledge_package_id": "kp_71eef098-92e0-5ae8-9b7c-504f5cadfa89",
       "created_at": "2026-07-27T20:40:00+08:00",
       "updated_at": "2026-07-27T21:10:00+08:00",
       "created_by": {
@@ -3353,13 +3353,13 @@
           "display_name": "Scout Quality Engine"
         },
         "trigger_ids": [
-          "ex_01JSCOUTQUALITYFAIL00000001",
-          "qr_01JSCOUTXHSQUALITY00000001"
+          "ex_b92456d9-da04-5ad5-a24f-319775422aac",
+          "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65"
         ],
         "trigger_count": 1,
         "first_observed_at": "2026-07-27T20:25:00+08:00",
         "last_observed_at": "2026-07-27T20:25:00+08:00",
-        "correlation_id": "corr_01JSCOUTNEXTXHS000001",
+        "correlation_id": "corr_b7c7c57d-6f22-56da-b9ee-55b18f901e59",
         "notes": null
       },
       "learning_statement": {
@@ -3388,7 +3388,7 @@
             "evidence_type": "exception_record",
             "direction": "supporting",
             "description": "The exception documents an unsupported claim and correction.",
-            "source_object_id": "ex_01JSCOUTQUALITYFAIL00000001",
+            "source_object_id": "ex_b92456d9-da04-5ad5-a24f-319775422aac",
             "source_location": "Runtime/exceptions/ex_01JSCOUTQUALITYFAIL00000001.json",
             "reliability": "authoritative",
             "relevance": 1,
@@ -3402,7 +3402,7 @@
             "evidence_type": "quality_finding",
             "direction": "supporting",
             "description": "The quality report classified the claim as a blocking failure.",
-            "source_object_id": "qr_01JSCOUTXHSQUALITY00000001",
+            "source_object_id": "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65",
             "source_location": "Runtime/quality/qr_01JSCOUTXHSQUALITY00000001.json",
             "reliability": "authoritative",
             "relevance": 1,
@@ -3416,7 +3416,7 @@
             "evidence_type": "test_result",
             "direction": "supporting",
             "description": "A replay with the guardrail produced zero unsupported claims.",
-            "source_object_id": "test_01JSCOUTCLAIMGUARDRAIL01",
+            "source_object_id": "test_a96f6969-6135-5d91-a4c0-d8270ac67bab",
             "source_location": "Runtime/tests/results/test_01JSCOUTCLAIMGUARDRAIL01.json",
             "reliability": "high",
             "relevance": 0.95,
@@ -3619,7 +3619,7 @@
       "implementation": {
         "implementation_required": true,
         "status": "completed",
-        "implementation_id": "impl_01JSCOUTCLAIMGUARDRAIL01",
+        "implementation_id": "impl_e95da2bc-e0cc-567b-a5d8-0c9b04b39505",
         "steps": [
           {
             "step_id": "impl_update_prompt",
@@ -3645,7 +3645,7 @@
           "display_name": "Runtime Configuration Manager"
         },
         "changed_object_ids": [
-          "prompt_xiaohongshu_content_generation_v1_2_0"
+          "prompt_f051e39c-90a8-53c3-ab3f-005b206ad128"
         ],
         "repository_changes": [
           {
@@ -3758,19 +3758,19 @@
         }
       ],
       "approval": {
-        "status": "not_required",
         "required": false,
-        "approved_by": null,
-        "approved_at": null,
+        "status": "not_required",
         "notes": "Within runtime authority."
       },
-      "confidence": 0.94,
+      "confidence": {
+        "level": "very_high",
+        "score": 0.94,
+        "basis": "Supported by the referenced Runtime evidence and validation results.",
+        "limitations": []
+      },
       "quality_state": {
         "status": "passed",
-        "score": 0.96,
-        "blocking_issues": 0,
-        "warnings": 0,
-        "notes": "Evidence-supported, implemented, and verified."
+        "summary": "Evidence-supported, implemented, and verified."
       },
       "source_refs": [],
       "evidence_refs": [],
@@ -3781,13 +3781,14 @@
         "change_summary": "Initial learning candidate."
       },
       "validation": {
-        "is_valid": true,
+        "status": "valid",
         "validated_at": "2026-07-27T21:10:00+08:00",
         "validator": {
           "actor_type": "system",
           "actor_id": "schema_validator",
           "display_name": "Schema Validator"
         },
+        "schema_version_validated": "1.0.0",
         "errors": [],
         "warnings": []
       },

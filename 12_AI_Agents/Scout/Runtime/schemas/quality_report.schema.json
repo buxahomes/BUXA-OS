@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://buxa.local/scout/runtime/schemas/quality_report.schema.json",
+  "$id": "https://buxa.ai/scout/runtime/schemas/quality_report.schema.json",
   "title": "Scout Runtime Quality Report",
   "description": "Defines the standardized quality evaluation produced for one or more Scout runtime outputs. A Quality Report records the applicable standards, checks performed, findings, scores, blocking issues, corrective actions, approval readiness, and the final quality disposition. It evaluates outputs but does not replace the Execution Result.",
   "type": "object",
@@ -210,7 +210,7 @@
       "$ref": "./common.schema.json#/$defs/evidence_references"
     },
     "relationships": {
-      "$ref": "./common.schema.json#/$defs/relationships"
+      "$ref": "./common.schema.json#/$defs/object_relationships"
     },
     "revision": {
       "$ref": "./common.schema.json#/$defs/revision"
@@ -1891,12 +1891,12 @@
           },
           "validation": {
             "properties": {
-              "is_valid": {
-                "const": true
+              "status": {
+                "const": "valid"
               }
             },
             "required": [
-              "is_valid"
+              "status"
             ]
           }
         }
@@ -2238,15 +2238,15 @@
   ],
   "examples": [
     {
-      "id": "qr_01JSCOUTXHSQUALITY00000001",
+      "id": "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65",
       "schema_name": "quality_report",
       "schema_version": "1.0.0",
-      "task_id": "task_01JSCOUTNEXTXHS000000001",
-      "execution_id": "exec_01JSCOUTNEXTXHS000000001",
+      "task_id": "task_a3f50608-133b-51c2-9746-c18a97d6463b",
+      "execution_id": "exec_96e9f3ba-e7ff-57e0-8eb1-58a45efac562",
       "workflow_id": "wf_xiaohongshu_content_package",
-      "execution_blueprint_id": "eb_01JSCOUTNEXTXHS00000000001",
-      "business_judgement_id": "bj_01JSCOUTNEXTXHS000000001",
-      "knowledge_package_id": "kp_01JSCOUTNEXTXHS000000001",
+      "execution_blueprint_id": "eb_a9e6daac-9e90-5c0c-8569-437a118e3174",
+      "business_judgement_id": "bj_c142bc1b-fa1c-5146-9b16-2a131cec78ce",
+      "knowledge_package_id": "kp_71eef098-92e0-5ae8-9b7c-504f5cadfa89",
       "parent_id": null,
       "created_at": "2026-07-27T20:30:00+08:00",
       "updated_at": null,
@@ -2261,9 +2261,9 @@
       "subject": {
         "subject_type": "skill_output",
         "subject_ids": [
-          "so_01JSCOUTXHSOUTPUT000000001"
+          "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c"
         ],
-        "primary_subject_id": "so_01JSCOUTXHSOUTPUT000000001",
+        "primary_subject_id": "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c",
         "subject_schema_refs": [
           "./skill_output.schema.json"
         ],
@@ -2295,7 +2295,7 @@
           "standard_type": "product_standard",
           "version": "current",
           "source_ref": "Knowledge Package",
-          "authority_level": "authoritative",
+          "authority_level": "approved_internal",
           "applicability": "required",
           "application_status": "applied",
           "requirements": [
@@ -2317,7 +2317,7 @@
           "standard_type": "brand_standard",
           "version": "current",
           "source_ref": "Knowledge Package",
-          "authority_level": "authoritative",
+          "authority_level": "approved_internal",
           "applicability": "required",
           "application_status": "applied",
           "requirements": [
@@ -2339,7 +2339,7 @@
           "standard_type": "content_standard",
           "version": "current",
           "source_ref": "Knowledge Package",
-          "authority_level": "authoritative",
+          "authority_level": "approved_internal",
           "applicability": "required",
           "application_status": "applied",
           "requirements": [
@@ -2636,19 +2636,19 @@
         "logs_ref": "Runtime/logs/exec_01JSCOUTNEXTXHS000000001/quality"
       },
       "approval": {
-        "status": "not_required",
         "required": false,
-        "approved_by": null,
-        "approved_at": null,
+        "status": "not_required",
         "notes": "Quality evaluation does not publish the content."
       },
-      "confidence": 0.98,
+      "confidence": {
+        "level": "very_high",
+        "score": 0.98,
+        "basis": "Supported by the referenced Runtime evidence and validation results.",
+        "limitations": []
+      },
       "quality_state": {
         "status": "passed",
-        "score": 1,
-        "blocking_issues": 0,
-        "warnings": 0,
-        "notes": "All required checks passed."
+        "summary": "All required checks passed."
       },
       "source_refs": [],
       "evidence_refs": [],
@@ -2659,13 +2659,14 @@
         "change_summary": "Initial quality evaluation."
       },
       "validation": {
-        "is_valid": true,
+        "status": "valid",
         "validated_at": "2026-07-27T20:30:00+08:00",
         "validator": {
           "actor_type": "system",
           "actor_id": "schema_validator",
           "display_name": "Schema Validator"
         },
+        "schema_version_validated": "1.0.0",
         "errors": [],
         "warnings": []
       },

@@ -51,6 +51,8 @@ A registry change requires:
 
 Planned or conflicting entries MUST NOT be treated as approved production contracts.
 
+Approval Decision and Approval Record are separate approved entries. Approval Record references exactly one Approval Decision; Engine Result and State Transition evidence reference Approval Decision directly. Their deferred schema status records the absence of standalone schemas and does not create an identity conflict.
+
 ## Validation
 
 Validation includes:
@@ -65,4 +67,3 @@ Validation includes:
 - Markdown and local-reference checks.
 
 JSON Schema cannot enforce uniqueness of a property across different array entries; semantic validation MUST enforce unique `object_type` and `canonical_name`.
-

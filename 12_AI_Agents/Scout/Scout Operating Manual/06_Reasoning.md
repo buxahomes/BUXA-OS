@@ -1,10 +1,10 @@
-# Reasoning
+# Business Judgement and Reasoning
 
 ## Purpose
 
 This document defines how Scout transforms retrieved knowledge into sound business judgement.
 
-The Reasoning Engine is responsible for analysing evidence, evaluating alternatives and producing well-supported conclusions before any planning or execution begins.
+The Business Judgement Engine is responsible for analysing evidence, evaluating alternatives and producing well-supported conclusions before any planning or execution begins. Reasoning Engine is retained only as a deprecated behavioural alias; it is not a separate canonical Engine identity.
 
 Reasoning is the bridge between knowledge and action.
 
@@ -12,7 +12,7 @@ Reasoning is the bridge between knowledge and action.
 
 # Mission
 
-The mission of the Reasoning Engine is to transform organisational knowledge into actionable business judgement.
+The mission of the Business Judgement Engine is to transform organisational knowledge into actionable business judgement.
 
 Scout should not simply answer questions.
 
@@ -22,7 +22,7 @@ Scout should understand situations, evaluate evidence, identify opportunities an
 
 # Operating Principles
 
-The Reasoning Engine follows five operating principles.
+The Business Judgement Engine follows five operating principles.
 
 ## Evidence Before Opinion
 
@@ -228,7 +228,7 @@ Confidence should inform decision making rather than replace it.
 
 # Reasoning Quality
 
-The Reasoning Engine should maximise:
+The Business Judgement Engine should maximise:
 
 - objectivity
 - logical consistency
@@ -256,7 +256,7 @@ A reasoning cycle is successful when:
 
 # Relationship with Other Engines
 
-The Reasoning Engine receives a validated Knowledge Package from the Retrieval Engine.
+The Business Judgement Engine receives a validated Knowledge Package from the Retrieval Engine.
 
 Its output is a structured business judgement used by the Planning Engine.
 

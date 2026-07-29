@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://buxa.local/scout/runtime/schemas/skill_output.schema.json",
+  "$id": "https://buxa.ai/scout/runtime/schemas/skill_output.schema.json",
   "title": "Scout Runtime Skill Output",
   "description": "Defines the standardized runtime output produced by a Scout skill invocation. A Skill Output records what a skill generated, the inputs and contracts used, execution details, structured payloads, artifacts, citations, validation results, quality readiness, exceptions, and downstream consumption information. It does not represent the final execution result.",
   "type": "object",
@@ -228,7 +228,7 @@
       "$ref": "./common.schema.json#/$defs/evidence_references"
     },
     "relationships": {
-      "$ref": "./common.schema.json#/$defs/relationships"
+      "$ref": "./common.schema.json#/$defs/object_relationships"
     },
     "revision": {
       "$ref": "./common.schema.json#/$defs/revision"
@@ -1822,12 +1822,12 @@
           },
           "validation": {
             "properties": {
-              "is_valid": {
-                "const": true
+              "status": {
+                "const": "valid"
               }
             },
             "required": [
-              "is_valid"
+              "status"
             ]
           }
         }
@@ -2112,15 +2112,15 @@
   ],
   "examples": [
     {
-      "id": "so_01JSCOUTXHSOUTPUT000000001",
+      "id": "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c",
       "schema_name": "skill_output",
       "schema_version": "1.0.0",
-      "task_id": "task_01JSCOUTNEXTXHS000000001",
-      "execution_id": "exec_01JSCOUTNEXTXHS000000001",
+      "task_id": "task_a3f50608-133b-51c2-9746-c18a97d6463b",
+      "execution_id": "exec_96e9f3ba-e7ff-57e0-8eb1-58a45efac562",
       "workflow_id": "wf_xiaohongshu_content_package",
-      "execution_blueprint_id": "eb_01JSCOUTNEXTXHS00000000001",
-      "business_judgement_id": "bj_01JSCOUTNEXTXHS000000001",
-      "knowledge_package_id": "kp_01JSCOUTNEXTXHS000000001",
+      "execution_blueprint_id": "eb_a9e6daac-9e90-5c0c-8569-437a118e3174",
+      "business_judgement_id": "bj_c142bc1b-fa1c-5146-9b16-2a131cec78ce",
+      "knowledge_package_id": "kp_71eef098-92e0-5ae8-9b7c-504f5cadfa89",
       "step_id": "step_generate_package",
       "action_id": "action_generate_content",
       "parent_id": null,
@@ -2162,38 +2162,38 @@
         "content": {
           "topic": "High-end delivery is a system, not a final inspection",
           "selection_rationale": "The topic extends the approved delivery-management strategy without repeating a previously covered title.",
-          "title": "真正的高端交付，不是最后验一次",
+          "title": "\u771f\u6b63\u7684\u9ad8\u7aef\u4ea4\u4ed8\uff0c\u4e0d\u662f\u6700\u540e\u9a8c\u4e00\u6b21",
           "page_count": 6,
           "image_plan": [
             {
               "page": 1,
               "purpose": "Cover",
-              "headline": "真正的高端交付，不是最后验一次"
+              "headline": "\u771f\u6b63\u7684\u9ad8\u7aef\u4ea4\u4ed8\uff0c\u4e0d\u662f\u6700\u540e\u9a8c\u4e00\u6b21"
             },
             {
               "page": 2,
               "purpose": "Problem framing",
-              "headline": "很多问题，在完工时已经来不及解决"
+              "headline": "\u5f88\u591a\u95ee\u9898\uff0c\u5728\u5b8c\u5de5\u65f6\u5df2\u7ecf\u6765\u4e0d\u53ca\u89e3\u51b3"
             },
             {
               "page": 3,
               "purpose": "Method",
-              "headline": "交付质量必须被拆进每一个过程节点"
+              "headline": "\u4ea4\u4ed8\u8d28\u91cf\u5fc5\u987b\u88ab\u62c6\u8fdb\u6bcf\u4e00\u4e2a\u8fc7\u7a0b\u8282\u70b9"
             },
             {
               "page": 4,
               "purpose": "System",
-              "headline": "图纸、材料、施工和验收必须形成闭环"
+              "headline": "\u56fe\u7eb8\u3001\u6750\u6599\u3001\u65bd\u5de5\u548c\u9a8c\u6536\u5fc5\u987b\u5f62\u6210\u95ed\u73af"
             },
             {
               "page": 5,
               "purpose": "Business value",
-              "headline": "系统管理减少的不是麻烦，而是失控"
+              "headline": "\u7cfb\u7edf\u7ba1\u7406\u51cf\u5c11\u7684\u4e0d\u662f\u9ebb\u70e6\uff0c\u800c\u662f\u5931\u63a7"
             },
             {
               "page": 6,
               "purpose": "Conclusion",
-              "headline": "高端住宅需要被管理出来"
+              "headline": "\u9ad8\u7aef\u4f4f\u5b85\u9700\u8981\u88ab\u7ba1\u7406\u51fa\u6765"
             }
           ],
           "image_prompts": [
@@ -2204,12 +2204,12 @@
             "1:1 refined residential delivery scene emphasizing controlled outcomes",
             "1:1 minimal brand conclusion visual for BUXA PDMS"
           ],
-          "copy": "高端住宅的交付质量，从来不是靠最后一次验收决定的……",
+          "copy": "\u9ad8\u7aef\u4f4f\u5b85\u7684\u4ea4\u4ed8\u8d28\u91cf\uff0c\u4ece\u6765\u4e0d\u662f\u9760\u6700\u540e\u4e00\u6b21\u9a8c\u6536\u51b3\u5b9a\u7684\u2026\u2026",
           "hashtags": [
-            "#高端住宅",
-            "#项目交付",
-            "#施工管理",
-            "#室内设计",
+            "#\u9ad8\u7aef\u4f4f\u5b85",
+            "#\u9879\u76ee\u4ea4\u4ed8",
+            "#\u65bd\u5de5\u7ba1\u7406",
+            "#\u5ba4\u5185\u8bbe\u8ba1",
             "#BUXAPDMS"
           ]
         },
@@ -2244,7 +2244,12 @@
           "status": "recommended",
           "rationale": "It extends the content strategy and avoids direct repetition.",
           "selected_option_id": "topic_delivery_system",
-          "confidence": 0.94,
+          "confidence": {
+            "level": "very_high",
+            "score": 0.94,
+            "basis": "Supported by the referenced Runtime evidence and validation results.",
+            "limitations": []
+          },
           "evidence_refs": []
         }
       ],
@@ -2256,7 +2261,7 @@
           "location": "$.knowledge_items",
           "supports": "Product and process claims used in the package.",
           "quote": null,
-          "authority_level": "authoritative"
+          "authority_level": "approved_internal"
         }
       ],
       "contract": {
@@ -2331,7 +2336,7 @@
           {
             "input_id": "knowledge_package",
             "source_type": "knowledge_package",
-            "source_id": "kp_01JSCOUTNEXTXHS000000001",
+            "source_id": "kp_71eef098-92e0-5ae8-9b7c-504f5cadfa89",
             "source_path": "$",
             "required": true,
             "availability_status": "available",
@@ -2430,19 +2435,19 @@
         ]
       },
       "approval": {
-        "status": "not_required",
         "required": false,
-        "approved_by": null,
-        "approved_at": null,
+        "status": "not_required",
         "notes": "This output is a draft package and is not published."
       },
-      "confidence": 0.94,
+      "confidence": {
+        "level": "very_high",
+        "score": 0.94,
+        "basis": "Supported by the referenced Runtime evidence and validation results.",
+        "limitations": []
+      },
       "quality_state": {
-        "status": "not_evaluated",
-        "score": null,
-        "blocking_issues": 0,
-        "warnings": 0,
-        "notes": "Quality Report has not yet been produced."
+        "status": "not_reviewed",
+        "summary": "Quality Report has not yet been produced."
       },
       "source_refs": [],
       "evidence_refs": [],
@@ -2453,13 +2458,14 @@
         "change_summary": "Initial skill output."
       },
       "validation": {
-        "is_valid": true,
+        "status": "valid",
         "validated_at": "2026-07-27T20:20:00+08:00",
         "validator": {
           "actor_type": "system",
           "actor_id": "schema_validator",
           "display_name": "Schema Validator"
         },
+        "schema_version_validated": "1.0.0",
         "errors": [],
         "warnings": []
       },

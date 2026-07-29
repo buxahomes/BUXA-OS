@@ -1,11 +1,11 @@
 # Engine Contract
 
-**Document ID:** `SCOUT-RUNTIME-ENGINE-CONTRACT`  
-**Version:** `1.0.0`  
-**Status:** `Approved`  
-**Owner:** `Scout Runtime`  
-**Applies To:** All Runtime Engines  
-**Contract Type:** Mandatory Runtime Standard  
+**Document ID:** `SCOUT-RUNTIME-ENGINE-CONTRACT`
+**Version:** `1.0.0`
+**Status:** `Approved`
+**Owner:** `Scout Runtime`
+**Applies To:** All Runtime Engines
+**Contract Type:** Mandatory Runtime Standard
 **Runtime State Dependency:** `state_model.md` version `1.0.0`
 **Engine Context Dependency:** `engine_context.md` version `1.0.0`
 **Engine Result Schema:** `../../schemas/engine_result.schema.json` version `1.0.0`
@@ -44,6 +44,7 @@ No Engine may introduce incompatible execution semantics, hidden state, undocume
 
 This contract applies to all components classified as Runtime Engines, including:
 
+- Input Engine;
 - Retrieval Engine;
 - Business Judgement Engine;
 - Planning Engine;
@@ -60,6 +61,26 @@ This contract applies to all components classified as Runtime Engines, including
 This contract does not define the internal business logic of any specific Engine.
 
 It defines how every Engine behaves from the Runtime's perspective.
+
+### 2.1 Canonical Engine Taxonomy Authority
+
+`engine_contract.md` is the sole normative authority for canonical Runtime Engine identities. The canonical Engine set is:
+
+- Input Engine;
+- Retrieval Engine;
+- Business Judgement Engine;
+- Planning Engine;
+- Execution Engine;
+- Quality Engine;
+- Learning Engine;
+- Memory Engine;
+- Exception Engine;
+- Approval Engine;
+- Policy Engine.
+
+`Reasoning Engine` is a deprecated behavioural alias for Business Judgement Engine. `Feedback Engine` is a deprecated behavioural alias for Learning Engine. Existing prose may use reasoning and feedback as behavioural concepts, but new machine contracts, registry authorities, events, actor identifiers, producer lists, and consumer lists MUST use the canonical Engine identity. Deprecated aliases MUST be rejected as producing or consuming authority identifiers.
+
+Other Runtime and Operating Manual documents MUST reference this taxonomy and MUST NOT create a competing Engine set.
 
 ---
 
@@ -343,7 +364,7 @@ Engine Context acceptance, validation, use, and any proposed changes MUST follow
 
 Every Engine returns one Engine Result.
 
-An Engine Result is the universal structured response envelope for one Engine invocation, not a raw response or a Runtime State.
+An Engine Result is the canonical Runtime Execution Evidence envelope for one Engine invocation, not a raw response or a Runtime State. It records the invocation outcome and the evidence needed to correlate the invocation with authoritative Decisions, proposed Runtime State transitions, Runtime Events, collected evidence, and validation results.
 
 This contract is the normative owner of Engine Result semantics. `../../schemas/engine_result.schema.json` version `1.0.0` is the machine-readable authority for the Engine Result payload.
 
@@ -383,6 +404,19 @@ The Engine Result MUST include:
 `primary_output` is the sole canonical field for the main Engine Result payload. The fields `output` and `primary output` MUST NOT be used as alternate machine-readable property names.
 
 `confidence` is represented exactly once in an Engine Result as a top-level structured Confidence Assessment conforming to `../../schemas/common.schema.json#/$defs/confidence`, or `null` when no material confidence assessment applies. A referenced Decision MUST NOT be redefined inside Engine Result; `decision_ref` identifies the authoritative Decision and carries only its identity, version, and reviewable summary.
+
+For backward compatibility, an Alpha Engine Result MAY omit `evidence_profile` and `runtime_execution_evidence`; all existing required fields and validation rules remain in force. New implementations SHOULD return `evidence_profile: runtime_execution_evidence_v1` and the corresponding `runtime_execution_evidence` object. A result that proposes a governed dynamic target MUST use that profile.
+
+The canonical evidence profile contains six sections:
+
+- `invocation_identity`;
+- `decision_evidence`, which references the authoritative Decision and MUST NOT duplicate Decision semantics;
+- `runtime_state_transition_evidence`;
+- `runtime_events`;
+- `evidence_collection`;
+- `validation_results`.
+
+Where the profile repeats a compatibility field, both representations MUST identify the same invocation, Decision, transition proposal, or Runtime Events. The Runtime Orchestrator MUST validate that correlation. `runtime_execution_evidence` records evidence only; it does not commit Runtime State.
 
 ### 8.2 Canonical Engine Result Example
 
@@ -469,7 +503,17 @@ The Engine Result MUST include:
     "reason_code": "knowledge_package_ready",
     "validation_outcome": "passed",
     "approval_required": false,
-    "rollback_state": null
+    "rollback_state": null,
+    "transition_mechanism": "static",
+    "dynamic_target": null,
+    "decision_id": "decision_550e8400-e29b-41d4-a716-446655440004",
+    "approval_reference": null,
+    "policy_reference": null,
+    "checkpoint_reference": null,
+    "retry_reference": null,
+    "recovery_reference": null,
+    "rollback_reference": null,
+    "origin_context": null
   },
   "side_effects": [],
   "approval": {
@@ -492,7 +536,177 @@ The Engine Result MUST include:
     "errors": [],
     "warnings": []
   },
-  "extensions": {}
+  "extensions": {},
+  "evidence_profile": "runtime_execution_evidence_v1",
+  "runtime_execution_evidence": {
+    "invocation_identity": {
+      "engine_id": "retrieval_engine",
+      "engine_version": "1.0.0",
+      "contract_version": "1.0.0",
+      "task_id": "task_550e8400-e29b-41d4-a716-446655440001",
+      "execution_id": "exec_550e8400-e29b-41d4-a716-446655440002",
+      "invocation_id": "invocation_retrieval_001"
+    },
+    "decision_evidence": {
+      "authority": "../engines/shared/decision_model.md",
+      "decision_ref": {
+        "decision_id": "decision_550e8400-e29b-41d4-a716-446655440004",
+        "decision_version": 1,
+        "summary": "The retrieved package satisfies the required knowledge scope."
+      },
+      "evidence_refs": [
+        {
+          "reference_id": "knowledge_package_550e8400-e29b-41d4-a716-446655440003",
+          "object_type": "knowledge_package",
+          "version": 1
+        }
+      ]
+    },
+    "runtime_state_transition_evidence": {
+      "authority": "../engines/shared/state_model.md",
+      "proposal": {
+        "transition_id": "transition_retrieval_ready_001",
+        "from_state": "retrieval_running",
+        "to_state": "knowledge_ready",
+        "triggering_engine_id": "retrieval_engine",
+        "triggering_result_id": "engine_result_550e8400-e29b-41d4-a716-446655440000",
+        "proposed_by": {
+          "actor_type": "engine",
+          "actor_id": "retrieval_engine",
+          "display_name": "Retrieval Engine",
+          "role": "retrieval",
+          "version": "1.0.0"
+        },
+        "proposed_at": "2026-07-28T10:00:01Z",
+        "reason_code": "knowledge_package_ready",
+        "validation_outcome": "passed",
+        "approval_required": false,
+        "rollback_state": null,
+        "transition_mechanism": "static",
+        "dynamic_target": null,
+        "decision_id": "decision_550e8400-e29b-41d4-a716-446655440004",
+        "approval_reference": null,
+        "policy_reference": null,
+        "checkpoint_reference": null,
+        "retry_reference": null,
+        "recovery_reference": null,
+        "rollback_reference": null,
+        "origin_context": null
+      },
+      "orchestrator_validation": {
+        "status": "valid",
+        "validated_at": "2026-07-28T10:00:01Z",
+        "validator": {
+          "actor_type": "runtime",
+          "actor_id": "runtime_orchestrator",
+          "display_name": "Runtime Orchestrator",
+          "role": "orchestration",
+          "version": "1.0.0"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+      "commit_status": "pending"
+    },
+    "runtime_events": {
+      "event_refs": [
+        {
+          "event_id": "event_engine_completed_001",
+          "event_type": "engine_completed",
+          "timestamp": "2026-07-28T10:00:01Z"
+        },
+        {
+          "event_id": "event_state_transition_proposed_001",
+          "event_type": "engine_state_transition_proposed",
+          "timestamp": "2026-07-28T10:00:01Z"
+        }
+      ],
+      "correlation_complete": true
+    },
+    "evidence_collection": {
+      "evidence_refs": [
+        {
+          "reference_id": "knowledge_package_550e8400-e29b-41d4-a716-446655440003",
+          "object_type": "knowledge_package",
+          "version": 1
+        }
+      ],
+      "collection_complete": true
+    },
+    "validation_results": {
+      "schema_validation": {
+        "status": "valid",
+        "validated_at": "2026-07-28T10:00:01Z",
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "retrieval_engine",
+          "display_name": "Retrieval Engine",
+          "role": "retrieval",
+          "version": "1.0.0"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+      "decision_validation": {
+        "status": "valid",
+        "validated_at": "2026-07-28T10:00:01Z",
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "retrieval_engine",
+          "display_name": "Retrieval Engine",
+          "role": "retrieval",
+          "version": "1.0.0"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+      "state_transition_validation": {
+        "status": "valid",
+        "validated_at": "2026-07-28T10:00:01Z",
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "retrieval_engine",
+          "display_name": "Retrieval Engine",
+          "role": "retrieval",
+          "version": "1.0.0"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+      "event_validation": {
+        "status": "valid",
+        "validated_at": "2026-07-28T10:00:01Z",
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "retrieval_engine",
+          "display_name": "Retrieval Engine",
+          "role": "retrieval",
+          "version": "1.0.0"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      },
+      "evidence_validation": {
+        "status": "valid",
+        "validated_at": "2026-07-28T10:00:01Z",
+        "validator": {
+          "actor_type": "engine",
+          "actor_id": "retrieval_engine",
+          "display_name": "Retrieval Engine",
+          "role": "retrieval",
+          "version": "1.0.0"
+        },
+        "schema_version_validated": "1.0.0",
+        "errors": [],
+        "warnings": []
+      }
+    }
+  }
 }
 ```
 
@@ -837,6 +1051,12 @@ Every proposed transition MUST include:
 - approval requirement;
 - rollback state where applicable.
 
+A canonical evidence proposal MUST additionally include `transition_mechanism`, `dynamic_target`, `decision_id`, `approval_reference`, `policy_reference`, `checkpoint_reference`, `retry_reference`, `recovery_reference`, `rollback_reference`, and `origin_context`. Inapplicable references MUST be `null`; they MUST NOT be omitted. A static transition MUST use `transition_mechanism: static` and `dynamic_target: null`.
+
+A governed dynamic-target proposal MUST use the mechanism registered by the State Model and MUST provide a non-null `dynamic_target`, authorising `decision_id`, and `origin_context`. Approval, policy, checkpoint resume, retry, recovery, and rollback mechanisms MUST also provide their corresponding non-null governance reference. Rollback additionally requires `checkpoint_reference`. These fields reference State Model and Decision Model evidence and MUST NOT redefine either model.
+
+For `approval_resume_target`, `approval_reference` MUST identify the canonical Approval Decision owned by `decision_model.md`, with `object_type: approval_decision`. It MUST NOT identify an Approval Record. Approval Records are immutable process and audit records carried or referenced by Engine Context under `engine_context.md`.
+
 The canonical machine structure is defined by `../../schemas/engine_result.schema.json#/$defs/state_transition_proposal`. Every `from_state`, `to_state`, and non-null `rollback_state` MUST exist in the State Model registry.
 
 The interaction protocol is:
@@ -882,85 +1102,38 @@ No Engine other than the Orchestrator may independently declare the global Runti
 
 ## 15. Decision Contract
 
-Every Engine decision MUST be represented as structured data.
+`decision_model.md` version `1.0.0` is the sole normative authority for Decision identity, required fields, types, confidence, evidence, approval requirements, lifecycle, validity, supersession, and retry, recovery, rollback, revision, approval, and policy Decision semantics.
 
-### 15.1 Minimum Decision Fields
+This Engine Contract MUST NOT create, duplicate, or redefine universal Decision structure or lifecycle.
 
-A decision MUST include:
+### 15.1 Engine Decision Obligations
 
-- decision ID;
-- decision type;
-- selected outcome;
-- alternatives considered where applicable;
-- evidence references;
-- policy references;
-- assumptions;
-- confidence;
-- risk;
-- reason summary;
-- review requirement.
+An Engine MUST form, validate, retain, and reference Decisions exactly as required by `decision_model.md`.
 
-### 15.2 Decision Transparency
+An Engine MUST obtain an authorised Decision before it:
 
-The decision summary MUST be sufficient for an authorised reviewer to understand:
+- performs a material execution action;
+- selects a governed dynamic target;
+- requests or acts on approval or policy outcomes;
+- retries, recovers, rolls back, or revises operational work;
+- creates a material side effect;
+- proposes a terminal or supersession outcome.
 
-- what was decided;
-- why;
-- on what basis;
-- under which constraints;
-- with what confidence;
-- what could invalidate the decision.
+Where a material Decision exists, Engine Result MUST reference the canonical Decision through `decision_ref`. Transition evidence MUST carry the authorising `decision_id` and the mechanism-specific references required by the State Model and Engine Result schema.
 
-The summary need not expose private internal chain-of-thought.
+An Engine MUST NOT act without a required authorised Decision, invent Decision authority, substitute an Approval Record for an Approval Decision, use hidden reasoning as the Decision record, bypass Decision validation, or treat an Engine Result status as a Decision.
 
-It MUST expose the decision basis, evidence, assumptions, and conclusion.
+Reviewable summaries MUST follow the transparency and protected-reasoning boundaries owned by `decision_model.md`.
 
 ---
 
 ## 16. Confidence Contract
 
-Every Engine MUST assign confidence to material decisions.
+Decision confidence is governed exclusively by `decision_model.md`. This Engine Contract does not define its scale, fields, thresholds, lifecycle, or validity.
 
-### 16.1 Confidence Range
+Where Engine Result requires a top-level `confidence` assessment, the Engine MUST return the structure defined by `../../schemas/engine_result.schema.json` and `../../schemas/common.schema.json#/$defs/confidence`. Engine Result confidence describes the invocation output assessment and MUST NOT replace, weaken, or redefine the referenced Decision's confidence.
 
-Confidence MUST use a normalised range:
-
-```text
-0.00–1.00
-```
-
-### 16.2 Suggested Interpretation
-
-```text
-0.00–0.39  low
-0.40–0.69  moderate
-0.70–0.89  high
-0.90–1.00  very high
-```
-
-Thresholds MAY be overridden by domain configuration.
-
-### 16.3 Confidence Rules
-
-Confidence MUST reflect:
-
-- evidence quality;
-- evidence completeness;
-- source authority;
-- ambiguity;
-- conflicts;
-- model uncertainty;
-- policy uncertainty;
-- freshness;
-- applicability.
-
-High confidence MUST NOT compensate for:
-
-- missing mandatory approval;
-- failed schema validation;
-- critical policy violation;
-- insufficient authority;
-- unresolved critical conflict.
+An Engine MUST NOT use either Decision or Engine Result confidence to bypass evidence, approval, policy, security, privacy, quality, authority, or validation requirements.
 
 ---
 
@@ -1465,12 +1638,12 @@ A deprecated Engine MUST define:
 
 The capability matrix defines the default authority of each Engine.
 
-`R` = Read  
-`C` = Create  
-`U` = Update within owned authority  
-`P` = Propose  
-`A` = Approve  
-`X` = Prohibited by default  
+`R` = Read
+`C` = Create
+`U` = Update within owned authority
+`P` = Propose
+`A` = Approve
+`X` = Prohibited by default
 
 | Engine | Primary Object | Read Runtime Objects | Create Primary Object | Update Primary Object | Approve | Commit Global State |
 |---|---|---:|---:|---:|---:|---:|

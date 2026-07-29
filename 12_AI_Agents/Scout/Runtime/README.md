@@ -263,12 +263,15 @@ Expected engines include:
 engines/
 ├── input/
 ├── retrieval/
-├── reasoning/
+├── business_judgement/
 ├── planning/
 ├── execution/
 ├── quality/
-├── feedback/
-└── memory/
+├── learning/
+├── memory/
+├── exception/
+├── approval/
+└── policy/
 ```
 
 Each Engine should have one primary responsibility.
@@ -277,12 +280,17 @@ Each Engine should have one primary responsibility.
 |---|---|---|
 | Input | Raw request or trigger | Structured Task |
 | Retrieval | Structured Task | Knowledge Package |
-| Reasoning | Knowledge Package | Business Judgement |
+| Business Judgement | Knowledge Package | Business Judgement |
 | Planning | Business Judgement | Execution Blueprint |
 | Execution | Execution Blueprint | Execution Results |
 | Quality | Engine or Skill Output | Quality Report |
-| Feedback | Execution Results | Learning Candidates |
+| Learning | Execution Results and feedback evidence | Learning Candidates |
 | Memory | Validated Learning | Memory Record |
+| Exception | Runtime failures and deviations | Exception Record and governed recovery routing |
+| Approval | Approval request and evidence | Approval Decision and Approval Record |
+| Policy | Applicable policy context | Policy Decision |
+
+The canonical Engine taxonomy is owned by `engines/shared/engine_contract.md`. Reasoning Engine is a deprecated behavioural alias for Business Judgement Engine; Feedback Engine is a deprecated behavioural alias for Learning Engine. These aliases describe behaviours only and are invalid as new machine authority identifiers.
 
 Engines determine how work progresses through the Runtime.
 
@@ -684,6 +692,10 @@ This enables end-to-end traceability.
 
 # Governance and Approval
 
+Approval Decision and Approval Record are distinct Runtime Objects. Approval Decision is the specialised Decision that authorises or rejects governed action and is referenced by State Transition evidence. Approval Record is the immutable persisted request and process record; it references exactly one Approval Decision and may be supplied through Engine Context for audit and replay. Approval Record does not authorise a transition and MUST NOT duplicate Decision semantics.
+
+All Decision identity, structure, lifecycle, confidence, evidence, validity, supersession, and specialised Decision semantics are owned exclusively by `engines/shared/decision_model.md`. The Engine Contract defines only when Engines must obtain and reference those Decisions.
+
 Scout Runtime operates under delegated human authority.
 
 The Runtime may autonomously perform approved activities such as:
@@ -890,12 +902,12 @@ The Runtime implements the behaviour defined by the Operating Manual.
 | Execution Lifecycle | Workflow orchestration |
 | Runtime Architecture | Core architecture |
 | Retrieval | Retrieval Engine |
-| Reasoning | Reasoning Engine |
+| Reasoning | Business Judgement Engine (`Reasoning Engine` is a deprecated behavioural alias) |
 | Planning | Planning Engine |
 | Skills | Skill Registry and Execution Engine |
 | Quality | Quality Gates and Validators |
 | Memory | Memory Engine and Memory Stores |
-| Feedback | Feedback and Learning Pipeline |
+| Feedback | Learning Engine and Learning Pipeline (`Feedback Engine` is a deprecated behavioural alias) |
 | Human Governance | Permissions and Approval Gates |
 | Exception Handling | Runtime Exception Framework |
 

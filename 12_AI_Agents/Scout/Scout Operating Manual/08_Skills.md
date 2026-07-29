@@ -96,7 +96,7 @@ Collect Outputs
 
 Return Execution Results
 
-```text
+```
 
 ---
 

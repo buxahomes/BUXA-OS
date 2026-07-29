@@ -1,10 +1,10 @@
-# Feedback
+# Learning and Feedback
 
 ## Purpose
 
 This document defines how Scout transforms execution outcomes into organisational learning opportunities.
 
-The Feedback Engine captures, analyses and structures operational feedback so that valuable experience can be evaluated, validated and eventually incorporated into organisational memory.
+The Learning Engine captures, analyses and structures operational feedback so that valuable experience can be evaluated, validated and eventually incorporated into organisational memory. Feedback Engine is retained only as a deprecated behavioural alias; it is not a separate canonical Engine identity.
 
 Feedback is the bridge between execution and learning.
 
@@ -12,7 +12,7 @@ Feedback is the bridge between execution and learning.
 
 # Mission
 
-The mission of the Feedback Engine is to identify opportunities for organisational improvement.
+The mission of the Learning Engine is to identify opportunities for organisational improvement.
 
 Feedback should explain not only **what happened**, but also:
 
@@ -27,7 +27,7 @@ The objective is continuous organisational learning rather than performance repo
 
 # Operating Principles
 
-The Feedback Engine follows five operating principles.
+The Learning Engine follows five operating principles.
 
 ## Improvement Before Evaluation
 
@@ -196,7 +196,7 @@ Validated learning candidates.
 
 # Feedback Sources
 
-The Feedback Engine may analyse information from multiple sources.
+The Learning Engine may analyse information from multiple sources.
 
 Examples include:
 
@@ -255,7 +255,7 @@ Feedback that cannot improve future execution has limited organisational value.
 
 # Success Criteria
 
-The Feedback Engine is successful when:
+The Learning Engine is successful when:
 
 - meaningful experiences are captured
 - recurring patterns are identified
@@ -269,7 +269,7 @@ Feedback is measured by its contribution to learning rather than the volume of o
 
 # Relationship with Other Engines
 
-The Feedback Engine receives execution outcomes from the Execution Engine.
+The Learning Engine receives execution outcomes from the Execution Engine.
 
 Its outputs are delivered to the Learning Validation process before entering the Memory Engine.
 

@@ -58,7 +58,7 @@ Capture Feedback
 
 Update Memory
 
-```text
+```
 
 Each stage has a distinct responsibility and contributes to continuous organisational improvement.
 

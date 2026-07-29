@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://buxa.local/scout/runtime/schemas/runtime_object_registry.schema.json",
+  "$id": "https://buxa.ai/scout/runtime/schemas/runtime_object_registry.schema.json",
   "title": "Scout Runtime Object Registry",
   "description": "Validates the authoritative machine-readable registry of recognised Scout Runtime Objects.",
   "type": "object",

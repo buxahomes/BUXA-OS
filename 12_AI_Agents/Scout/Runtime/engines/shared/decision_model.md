@@ -1,12 +1,12 @@
 # Decision Model
 
-**Document ID:** `SCOUT-RUNTIME-DECISION-MODEL`  
-**Version:** `1.0.0`  
-**Status:** `Approved`  
-**Owner:** `Scout Runtime`  
-**Applies To:** Runtime Orchestrator and all Runtime Engines  
+**Document ID:** `SCOUT-RUNTIME-DECISION-MODEL`
+**Version:** `1.0.0`
+**Status:** `Approved`
+**Owner:** `Scout Runtime`
+**Applies To:** Runtime Orchestrator and all Runtime Engines
 **Dependencies:** `engine_contract.md`, `engine_context.md` version `1.0.0`, `state_model.md`, Runtime schemas
-**Specification Type:** Mandatory Shared Foundation Standard  
+**Specification Type:** Mandatory Shared Foundation Standard
 
 ---
 
@@ -14,9 +14,11 @@
 
 This document defines the authoritative Decision Model for Scout Runtime.
 
+`decision_model.md` is the sole normative authority for Decision identity, required fields, types, confidence, evidence, approval requirements, lifecycle, validity, supersession, and retry, recovery, rollback, revision, approval, and policy Decision semantics. Other Runtime specifications MUST reference this model and MUST NOT create or redefine universal Decision structure or lifecycle.
+
 The Decision Model standardises how the Runtime Orchestrator and all Runtime Engines identify, form, evaluate, record, validate, replay, audit, and govern decisions.
 
-It extends the Decision Contract in `engine_contract.md` and aligns with:
+It supplies the sole normative Decision contract used by `engine_contract.md` and aligns with:
 
 - the immutable Engine Context defined in `engine_context.md`;
 - the lifecycle and transition controls defined in `state_model.md`;
@@ -810,6 +812,10 @@ Major and critical Decisions MUST include approval analysis and human-review det
 ## 24. Approval Decisions
 
 Approval Decisions are owned by the Approval Engine or authorised human authority.
+
+An Approval Decision is a specialised Decision. Its canonical identity is `decision_id` plus `decision_version`. It expresses the approval outcome, authority, scope, conditions, validity, and governing rationale. It is the only approval object that a governed State Transition Proposal or Engine Result `approval_reference` may identify.
+
+An Approval Decision is distinct from the immutable Approval Record governed by `engine_context.md`. An Approval Record references exactly one Approval Decision for audit and replay; it MUST NOT duplicate this model's Decision fields. Decision supersession follows this model and preserves earlier versions for audit.
 
 An Approval Decision MUST record:
 
@@ -1609,7 +1615,7 @@ This specialised payload is contained in the `alternative_evaluation` field of a
 
 ### 47.3 Approval Decision
 
-This is a complete Approval Decision owned by authorised human authority. It is distinct from, and does not resolve the identity or persistence semantics of, an Approval Record.
+This is a complete Approval Decision owned by authorised human authority. It is distinct from the immutable Approval Record that may reference it for audit and replay. `origin_state` and `resume_target.state` preserve the state that entered `approval_pending`; they do not propose a direct transition from `approval_pending` to `planning_running`. The Orchestrator first commits the registered static transition `approval_pending → approval_granted`, then validates `approval_resume_target` from `approval_granted` under the State Model.
 
 ```json
 {
@@ -1637,6 +1643,8 @@ This is a complete Approval Decision owned by authorised human authority. It is 
     "blueprint_550e8400-e29b-41d4-a716-446655440022"
   ],
   "current_state": "approval_pending",
+  "dynamic_target_mechanism": "approval_resume_target",
+  "origin_state": "planning_running",
   "decision_basis": "The authorised request permits the scoped specification change subject to the recorded conditions.",
   "selected_outcome": "approve",
   "alternatives_considered": [
@@ -1719,7 +1727,7 @@ This is a complete Approval Decision owned by authorised human authority. It is 
 
 ### 47.4 Complete Retry Decision with Recovery Instruction
 
-This is a complete Retry Decision. Its `recovery` field contains the specialised recovery instruction governed by Section 29; the recovery instruction is not a second standalone Decision.
+This is a complete Retry Decision. Its `recovery` field contains the specialised recovery instruction governed by Section 29; the recovery instruction is not a second standalone Decision. The Decision is evaluated after the registered `exception_detected → exception_classifying` transition and selects the immediate static target `retry_pending`. The Orchestrator may then commit `retry_pending → retrying`; only from `retrying` may it validate the registered `retry_target` authorised by this Decision. This example does not represent a direct transition from `exception_detected` to `retrying`.
 
 ```json
 {
@@ -1744,7 +1752,7 @@ This is a complete Retry Decision. Its `recovery` field contains the specialised
   "related_object_ids": [
     "exception_550e8400-e29b-41d4-a716-446655440031"
   ],
-  "current_state": "exception_detected",
+  "current_state": "exception_classifying",
   "decision_basis": "The validation failure is recoverable, bounded retry capacity remains, and the operation is protected by an idempotency key.",
   "selected_outcome": "retry_with_modified_context",
   "alternatives_considered": [
@@ -1763,6 +1771,9 @@ This is a complete Retry Decision. Its `recovery` field contains the specialised
   },
   "exception_id": "exception_550e8400-e29b-41d4-a716-446655440031",
   "failure_category": "validation",
+  "dynamic_target_mechanism": "retry_target",
+  "origin_state": "business_judgement_running",
+  "retry_target": "business_judgement_running",
   "current_attempt": 1,
   "maximum_attempts": 3,
   "retry_eligible": true,
@@ -1829,7 +1840,7 @@ This is a complete Retry Decision. Its `recovery` field contains the specialised
     "privacy_impact": "none",
     "data_integrity_impact": "output_requires_revalidation",
     "recovery_result": "pending_retry",
-    "next_state": "retrying"
+    "next_state": "retry_pending"
   }
 }
 ```
@@ -1880,7 +1891,7 @@ This is a complete State Transition Decision owned and committed by the Runtime 
   },
   "expected_state_version": 8,
   "from_state": "business_judgement_ready",
-  "to_state": "planning_running",
+  "to_state": "planning_pending",
   "proposed_by": {
     "actor_type": "engine",
     "actor_id": "business_judgement_engine",

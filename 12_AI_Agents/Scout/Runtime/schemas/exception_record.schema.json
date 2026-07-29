@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://buxa.local/scout/runtime/schemas/exception_record.schema.json",
+  "$id": "https://buxa.ai/scout/runtime/schemas/exception_record.schema.json",
   "title": "Scout Runtime Exception Record",
   "description": "Defines a structured runtime incident record for any event that causes Scout execution to deviate from the expected path. Exception Records capture detection, classification, trigger context, root cause, impact, evidence, containment, recovery, resolution, recurrence risk, learning value, timeline, ownership, approvals, and cross-object relationships.",
   "type": "object",
@@ -257,7 +257,7 @@
       "$ref": "./common.schema.json#/$defs/evidence_references"
     },
     "relationships": {
-      "$ref": "./common.schema.json#/$defs/relationships"
+      "$ref": "./common.schema.json#/$defs/object_relationships"
     },
     "revision": {
       "$ref": "./common.schema.json#/$defs/revision"
@@ -3438,17 +3438,17 @@
   ],
   "examples": [
     {
-      "id": "ex_01JSCOUTQUALITYFAIL00000001",
+      "id": "ex_b92456d9-da04-5ad5-a24f-319775422aac",
       "schema_name": "exception_record",
       "schema_version": "1.0.0",
-      "task_id": "task_01JSCOUTNEXTXHS000000001",
-      "execution_id": "exec_01JSCOUTNEXTXHS000000001",
+      "task_id": "task_a3f50608-133b-51c2-9746-c18a97d6463b",
+      "execution_id": "exec_96e9f3ba-e7ff-57e0-8eb1-58a45efac562",
       "workflow_id": "wf_xiaohongshu_content_package",
-      "execution_blueprint_id": "eb_01JSCOUTNEXTXHS00000000001",
-      "business_judgement_id": "bj_01JSCOUTNEXTXHS000000001",
-      "knowledge_package_id": "kp_01JSCOUTNEXTXHS000000001",
-      "skill_output_id": "so_01JSCOUTXHSOUTPUT000000001",
-      "quality_report_id": "qr_01JSCOUTXHSQUALITY00000001",
+      "execution_blueprint_id": "eb_a9e6daac-9e90-5c0c-8569-437a118e3174",
+      "business_judgement_id": "bj_c142bc1b-fa1c-5146-9b16-2a131cec78ce",
+      "knowledge_package_id": "kp_71eef098-92e0-5ae8-9b7c-504f5cadfa89",
+      "skill_output_id": "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c",
+      "quality_report_id": "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65",
       "execution_result_id": null,
       "parent_exception_id": null,
       "created_at": "2026-07-27T20:25:00+08:00",
@@ -3495,16 +3495,16 @@
         "trigger_summary": "A product claim was not supported by the approved Product Passport.",
         "raw_error_code": "UNSUPPORTED_CLAIM",
         "raw_error_message": "Claim could not be matched to authoritative product knowledge.",
-        "correlation_id": "corr_01JSCOUTNEXTXHS000001",
-        "trace_id": "trace_01JSCOUTNEXTXHS000000001",
+        "correlation_id": "corr_b7c7c57d-6f22-56da-b9ee-55b18f901e59",
+        "trace_id": "trace_5dfb4579-c322-53ed-940b-cb42168cc359",
         "span_id": "span_quality_product_claims"
       },
       "context": {
         "execution_phase": "quality_assurance",
         "runtime_state": "blocked",
         "affected_object_ids": [
-          "so_01JSCOUTXHSOUTPUT000000001",
-          "qr_01JSCOUTXHSQUALITY00000001"
+          "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c",
+          "qr_d0b25d28-3d2c-54b8-ae9a-73e069443d65"
         ],
         "affected_step_ids": [
           "step_quality_check"
@@ -3748,7 +3748,7 @@
             "status": "planned",
             "due_at": null,
             "related_object_ids": [
-              "so_01JSCOUTXHSOUTPUT000000001"
+              "so_b1b40250-86fb-5bc4-b958-8fd36c9ce59c"
             ]
           }
         ],
@@ -3960,19 +3960,19 @@
         "notes": null
       },
       "approval": {
-        "status": "not_required",
         "required": false,
-        "approved_by": null,
-        "approved_at": null,
+        "status": "not_required",
         "notes": "Automated correction remained within execution authority."
       },
-      "confidence": 0.97,
+      "confidence": {
+        "level": "very_high",
+        "score": 0.97,
+        "basis": "Supported by the referenced Runtime evidence and validation results.",
+        "limitations": []
+      },
       "quality_state": {
         "status": "passed",
-        "score": 1,
-        "blocking_issues": 0,
-        "warnings": 0,
-        "notes": "The exception record is complete and the incident was verified as resolved."
+        "summary": "The exception record is complete and the incident was verified as resolved."
       },
       "source_refs": [],
       "evidence_refs": [],
@@ -3983,13 +3983,14 @@
         "change_summary": "Initial exception record."
       },
       "validation": {
-        "is_valid": true,
+        "status": "valid",
         "validated_at": "2026-07-27T20:31:00+08:00",
         "validator": {
           "actor_type": "system",
           "actor_id": "schema_validator",
           "display_name": "Schema Validator"
         },
+        "schema_version_validated": "1.0.0",
         "errors": [],
         "warnings": []
       },

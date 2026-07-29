@@ -37,7 +37,7 @@ Retrieval Engine
 Knowledge Package
     │
     ▼
-Reasoning Engine
+Business Judgement Engine
     │
     ▼
 Business Judgement
@@ -155,6 +155,16 @@ execution_record.schema.json
 
 New schemas should only be introduced when a stable operational need has been demonstrated.
 
+## Canonical Schema Resource and Offline Resolution Policy
+
+Every Runtime schema MUST declare its canonical resource identifier under:
+
+`https://buxa.ai/scout/runtime/schemas/`
+
+Relative `$ref` values resolve against that canonical namespace. Runtime validators operating without network access MUST load the local `Runtime/schemas/` files into a Draft 2020-12 resource registry keyed by each schema's declared `$id`. An offline catalog or bundle MAY map those canonical identifiers to repository files, but it MUST NOT create alternate identifiers, fallback namespaces, or diagnostic aliases. Validation MUST succeed using only the declared canonical `$id` resources.
+
+Schema identifiers under `https://buxa.local/` are invalid and MUST NOT be introduced or retained.
+
 ---
 
 # Runtime Object Registry Schema
@@ -175,9 +185,13 @@ This architectural validation schema is not a Runtime Object schema and is there
 
 # Core Runtime Objects
 
+## Decision Authority Boundary
+
+`../engines/shared/decision_model.md` is the sole normative authority for Decision identity, fields, types, confidence, evidence, approval requirements, lifecycle, validity, supersession, and specialised Decision semantics. Schemas may embed or reference Decision evidence where their owning contract requires it, but MUST NOT create a competing universal Decision model.
+
 ## Engine Result
 
-Represents the universal response envelope returned by every Runtime Engine invocation.
+Represents the canonical Runtime Execution Evidence envelope returned by every Runtime Engine invocation.
 
 An Engine Result contains:
 
@@ -191,6 +205,8 @@ An Engine Result contains:
 - State Transition proposal or reference
 - side effects, approval, recovery and failure information
 - validation and extensions
+
+The backward-compatible Alpha envelope remains valid when `evidence_profile` and `runtime_execution_evidence` are omitted. New implementations SHOULD select `runtime_execution_evidence_v1`. That profile adds structured `invocation_identity`, `decision_evidence`, `runtime_state_transition_evidence`, `runtime_events`, `evidence_collection`, and `validation_results` sections while preserving every existing Alpha field. Decision evidence references `../engines/shared/decision_model.md` and does not duplicate Decision semantics.
 
 `engine_result.schema.json` is the machine-readable authority for this envelope. Engine invocation status is not Runtime State.
 
@@ -210,7 +226,9 @@ All seven values are final for the returned `invocation_id`. Workflow resumabili
 
 `ready` and `running` are lifecycle phases, not Engine Result statuses. `success` is an invalid alias for `succeeded`, and Runtime State `timed_out` MUST NOT be used as Engine Result status.
 
-`state_transition` accepts a strict State Transition proposal, a transition reference, or `null`. A proposal records source and target states, triggering Engine and Engine Result, proposer, time, reason, validation outcome, approval requirement, and rollback state. The proposal does not commit Runtime State; only the Runtime Orchestrator may validate and commit it under `../engines/shared/state_model.md`.
+`state_transition` accepts a strict State Transition proposal, a transition reference, or `null`. A legacy proposal records source and target states, triggering Engine and Engine Result, proposer, time, reason, validation outcome, approval requirement, and rollback state. A canonical evidence proposal additionally records the registered transition mechanism, typed dynamic target, authorising Decision, applicable approval, policy, checkpoint, retry, recovery, and rollback references, and preserved origin context. Dynamic-target proposals require `runtime_execution_evidence_v1`. The proposal does not commit Runtime State; only the Runtime Orchestrator may validate and commit it under `../engines/shared/state_model.md`.
+
+For an approval resume, `approval_reference` identifies the canonical `approval_decision` specialised Decision. It MUST NOT identify `approval_record`; Approval Record is the immutable process and audit object carried or referenced through Engine Context.
 
 Engine Result and Execution Result are distinct. An Engine Result may reference an Execution Result through `primary_output.object_ref` or carry a schema-valid Execution Result through an embedded `primary_output.value`; an Execution Result does not replace the Engine Result envelope.
 
@@ -256,7 +274,7 @@ A Knowledge Package is not an unfiltered collection of documents.
 
 ## Business Judgement
 
-Represents the structured conclusion formed by the Reasoning Engine.
+Represents the structured conclusion formed by the Business Judgement Engine. Reasoning Engine is a deprecated behavioural alias and is invalid as a new machine authority identifier.
 
 A Business Judgement contains:
 

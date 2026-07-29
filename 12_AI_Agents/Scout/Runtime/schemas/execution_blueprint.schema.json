@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://buxa.local/scout/runtime/schemas/execution_blueprint.schema.json",
+  "$id": "https://buxa.ai/scout/runtime/schemas/execution_blueprint.schema.json",
   "title": "Scout Runtime Execution Blueprint",
   "description": "Defines the executable plan produced from an approved Business Judgement. The blueprint specifies how work should be performed, sequenced, routed, validated, approved, recovered, and completed without containing the final execution output.",
   "type": "object",
@@ -250,7 +250,7 @@
       "$ref": "./common.schema.json#/$defs/evidence_references"
     },
     "relationships": {
-      "$ref": "./common.schema.json#/$defs/relationships"
+      "$ref": "./common.schema.json#/$defs/object_relationships"
     },
     "revision": {
       "$ref": "./common.schema.json#/$defs/revision"
@@ -2636,12 +2636,12 @@
           },
           "validation": {
             "properties": {
-              "is_valid": {
-                "const": true
+              "status": {
+                "const": "valid"
               }
             },
             "required": [
-              "is_valid"
+              "status"
             ]
           }
         }
@@ -2926,19 +2926,19 @@
   ],
   "examples": [
     {
-      "id": "eb_01JSCOUTNEXTXHS00000000001",
+      "id": "eb_a9e6daac-9e90-5c0c-8569-437a118e3174",
       "schema_name": "execution_blueprint",
       "schema_version": "1.0.0",
-      "task_id": "task_01JSCOUTNEXTXHS000000001",
-      "execution_id": "exec_01JSCOUTNEXTXHS000000001",
+      "task_id": "task_a3f50608-133b-51c2-9746-c18a97d6463b",
+      "execution_id": "exec_96e9f3ba-e7ff-57e0-8eb1-58a45efac562",
       "workflow_id": "wf_xiaohongshu_content_package",
-      "business_judgement_id": "bj_01JSCOUTNEXTXHS000000001",
-      "knowledge_package_id": "kp_01JSCOUTNEXTXHS000000001",
+      "business_judgement_id": "bj_c142bc1b-fa1c-5146-9b16-2a131cec78ce",
+      "knowledge_package_id": "kp_71eef098-92e0-5ae8-9b7c-504f5cadfa89",
       "parent_id": null,
       "created_at": "2026-07-27T20:00:00+08:00",
       "updated_at": null,
       "created_by": {
-        "actor_type": "agent",
+        "actor_type": "engine",
         "actor_id": "scout",
         "display_name": "Scout"
       },
@@ -3007,7 +3007,7 @@
               "input_id": "historical_themes",
               "name": "Historical themes",
               "source_type": "knowledge_package",
-              "source_id": "kp_01JSCOUTNEXTXHS000000001",
+              "source_id": "kp_71eef098-92e0-5ae8-9b7c-504f5cadfa89",
               "source_path": "$.knowledge_items",
               "required": true,
               "validation_schema_ref": null
@@ -3261,7 +3261,7 @@
             {
               "criterion_id": "qa_passed",
               "description": "All blocking checks pass.",
-              "evaluation_method": "quality_gate_passed",
+              "evaluation_method": "custom",
               "required": true,
               "threshold": null,
               "evidence_required": true
@@ -3502,24 +3502,28 @@
       "estimated_effort": {
         "estimated_duration_seconds": 1200,
         "complexity": "high",
-        "confidence": 0.86,
+        "confidence": {
+          "level": "high",
+          "score": 0.86,
+          "basis": "Based on the bounded execution blueprint scope.",
+          "limitations": []
+        },
         "human_effort_minutes": 10,
         "notes": "Human effort is limited to reviewing the final package."
       },
-      "confidence": 0.94,
+      "confidence": {
+        "level": "very_high",
+        "score": 0.94,
+        "basis": "Supported by the referenced Runtime evidence and validation results.",
+        "limitations": []
+      },
       "approval": {
-        "status": "not_required",
         "required": false,
-        "approved_by": null,
-        "approved_at": null,
+        "status": "not_required",
         "notes": "No publishing action is included."
       },
       "quality_state": {
-        "status": "not_evaluated",
-        "score": null,
-        "blocking_issues": 0,
-        "warnings": 0,
-        "notes": null
+        "status": "not_reviewed"
       },
       "source_refs": [],
       "evidence_refs": [],
@@ -3530,13 +3534,14 @@
         "change_summary": "Initial execution blueprint."
       },
       "validation": {
-        "is_valid": true,
+        "status": "valid",
         "validated_at": "2026-07-27T20:00:00+08:00",
         "validator": {
           "actor_type": "system",
           "actor_id": "schema_validator",
           "display_name": "Schema Validator"
         },
+        "schema_version_validated": "1.0.0",
         "errors": [],
         "warnings": []
       },
